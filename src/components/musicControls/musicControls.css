@@ -1,0 +1,6 @@
+.melofi__musicControls {
+    background-color: var(--color-primary);
+    border-radius: 10px;
+    width: 255px;
+    height: 32px;
+}

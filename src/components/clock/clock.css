@@ -1,0 +1,14 @@
+.melofi__clock-container {
+    display: flex;
+    background-color: var(--color-primary);
+    width: 108px;
+    height: 32px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.melofi__clock-container p {
+    color: white;
+    font-family: var(--font-family);
+}

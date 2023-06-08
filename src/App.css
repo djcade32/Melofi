@@ -1,14 +1,13 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
-}
-
 .App {
   position: relative;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
+}
+.App nav {
+  display: flex;
+  padding: 0 28px 0;
+  flex-direction: row;
+
+  align-items: center;
+
 }
 
 .background-video {
@@ -17,9 +16,23 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: "cover";
+  object-fit: cover;
   z-index: -1;
 }
+
+.melofi__logo img {
+  width: 122px;
+  height: 122px;
+}
+
+.melofi__rightSide {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: auto;
+}
+
+
 
 /* @keyframes logo-spin {
   from {
