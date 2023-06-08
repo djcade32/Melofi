@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
+
+:root {
+  --font-family: "Poppins", Inter;
+  
+  --color-primary: rgb(35,35,35,88%);
+  --color-secondary: #7B777A;
+  --color-secondary-opacity: rgb(123,119,122,30%);
+  --color-effect : #FEA539;
+}
+
+
