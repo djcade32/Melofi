@@ -12,10 +12,13 @@ import "./musicControls.css";
 import song1 from "../../assets/Allem_Iversom_The_Ridge_(getmp3.pro).mp3";
 import CustomSlider from "../customSlider/CustomSlider";
 
+const DEFAULT_VALUE = 35;
 const MusicControls = () => {
   const audioRef = useRef(null); // Ref for accessing the audio element
   const [isPlaying, setIsPlaying] = useState(false); // State for tracking playback state
+  const [isMuted, setIsMuted] = useState(false);
   const [volumePressed, setVolumePressed] = useState(false);
+  const [volumeLevel, setVolumeLevel] = useState(DEFAULT_VALUE);
 
   // Event handler for toggling play/pause
   const handleTogglePlay = () => {
@@ -35,14 +38,10 @@ const MusicControls = () => {
     // Logic for skipping backward
   };
 
-  const handleToggleMute = () => {
-    this.setState({ isMuted: !this.state.isMuted });
+  const handleVolumeChange = (e) => {
+    setVolumeLevel(e.target.value);
+    audioRef.current.volume = e.target.value / 100;
   };
-
-  // const handleVolumeChange = (event) => {
-
-  //   audioRef.current.
-  // };
 
   return (
     <div
@@ -51,7 +50,7 @@ const MusicControls = () => {
         volumePressed ? { animation: "unround-corners 200ms forwards" } : { borderRadius: "10px" }
       }
     >
-      <audio ref={audioRef} src={song1} />
+      <audio ref={audioRef} src={song1} muted={isMuted} />
       <div className="melofi__musicControls-buttons">
         <BsFillSkipBackwardFill
           size={20}
@@ -86,13 +85,22 @@ const MusicControls = () => {
           onClick={() => setVolumePressed((prev) => !prev)}
           style={{ cursor: "pointer" }}
         />
-        <IoVolumeMute size={20} color="white" onClick={() => {}} style={{ cursor: "pointer" }} />
+        <IoVolumeMute
+          size={20}
+          color={isMuted ? "var(--color-effect " : "white"}
+          onClick={() => setIsMuted((prev) => !prev)}
+          style={{ cursor: "pointer" }}
+        />
       </div>
 
       {volumePressed && (
         <div className="melofi__musicControls_volume-slider">
           <div style={{ width: "75%" }}>
-            <CustomSlider style={{ cursor: "pointer" }} />
+            <CustomSlider
+              style={{ cursor: "pointer" }}
+              onChange={handleVolumeChange}
+              value={volumeLevel}
+            />
           </div>
         </div>
       )}
