@@ -1,16 +1,18 @@
 .App {
   position: relative;
+  /* border: 1px red solid; */
+  /* height: 100vh; */
 }
 .App nav {
   display: flex;
   padding: 0 28px 0;
   flex-direction: row;
 
-  align-items: center;
+  /* align-items: center; */
 
 }
 
-.background-video {
+.melofi__background-video {
   position: fixed;
   top: 0;
   left: 0;
@@ -23,6 +25,7 @@
 .melofi__logo img {
   width: 122px;
   height: 122px;
+  animation: logo-spin 5s linear infinite;
 }
 
 .melofi__rightSide {
@@ -30,11 +33,12 @@
   flex-direction: row;
   align-items: center;
   margin-left: auto;
+  column-gap: 28px;
 }
 
 
 
-/* @keyframes logo-spin {
+@keyframes logo-spin {
   from {
     transform: rotate(0deg);
   }
@@ -43,10 +47,5 @@
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-} */
 
 
