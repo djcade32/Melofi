@@ -1,0 +1,36 @@
+.melofi__mixer-button {
+    display: flex;
+    width: 33px;
+    height: 33px;
+    background-color: var(--color-primary);
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.melofi__mixer-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: var(--color-primary);
+    width: 378px;
+    height: 432px;
+    padding: 20px 24px;
+    border-radius: 10px;
+}
+
+.melofi__mixer-title {
+    color: var(--color-secondary-white);
+    font-family: var(--font-family);
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.melofi__mixer_volume-title {
+    color: var(--color-secondary-white);
+    font-family: var(--font-family);
+    font-size: 21px;
+}

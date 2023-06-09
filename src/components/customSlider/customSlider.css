@@ -1,0 +1,12 @@
+.melofi__customSlider-container { 
+    display: flex;
+    flex-direction: row;
+    align-items: center ;
+}
+
+.melofi__customSlider-container p {
+    color: var(--color-secondary);
+    font-family: var(--font-family);
+    font-size: 21;
+    
+}

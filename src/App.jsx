@@ -7,6 +7,7 @@ import MusicControls from "./components/musicControls/MusicControls";
 import Clock from "./components/clock/Clock";
 import logo from "./assets/logo.png";
 import CustomSlider from "./components/customSlider/CustomSlider";
+import Mixer from "./components/mixer/Mixer";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <img src={logo} alt="melofi logo" />
         </div>
         <div className="melofi__rightSide">
+          <Mixer />
           <MusicControls />
           <Clock />
         </div>

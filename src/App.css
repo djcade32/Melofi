@@ -1,14 +1,12 @@
 .App {
   position: relative;
-  /* border: 1px red solid; */
-  /* height: 100vh; */
+  height:100vh;
 }
+
 .App nav {
   display: flex;
   padding: 0 28px 0;
   flex-direction: row;
-
-  /* align-items: center; */
 
 }
 

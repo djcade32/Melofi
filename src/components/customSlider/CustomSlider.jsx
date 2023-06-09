@@ -1,6 +1,7 @@
 import React from "react";
 import Slider from "@mui/material/Slider";
 import { styled } from "@mui/material/styles";
+import "./customSlider.css";
 
 const StyledSlider = styled(Slider)({
   color: "var(--color-effect)",
@@ -22,7 +23,12 @@ const StyledSlider = styled(Slider)({
 });
 
 const CustomSlider = (props) => {
-  return <StyledSlider defaultValue={35} aria-label="Volume" {...props} />;
+  return (
+    <div className="melofi__customSlider-container">
+      <p>{props.label}</p>
+      <StyledSlider defaultValue={35} aria-label="Volume" {...props} />
+    </div>
+  );
 };
 
 export default CustomSlider;
