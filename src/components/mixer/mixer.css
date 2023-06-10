@@ -12,20 +12,19 @@
 }
 
 .melofi__mixer-modal {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-
-    background-color: var(--color-primary);
-    width: 378px;
-    height: 390px;
-    padding: 20px 24px;
-    border-radius: 10px;
-    z-index: 100;
-    backdrop-filter: blur(10px);    
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  background-color: var(--color-primary);
+  width: 378px;
+  height: 390px;
+  padding: 20px 24px;
+  border-radius: 10px;
+  z-index: 100;
+  backdrop-filter: blur(10px);    
 }
 
 .melofi__mixer-modal-handle { 

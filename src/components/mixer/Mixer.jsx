@@ -21,6 +21,7 @@ import {
 
 const Mixer = () => {
   const { musicVolume, setMusicVolume } = useAppContext();
+
   const [showMixer, setShowMixer] = useState(false);
   const [rainLevel, setRainLevel] = useState(0);
   const [chatterLevel, setChatterLevel] = useState(0);
@@ -91,12 +92,10 @@ const Mixer = () => {
 
       <Draggable bounds={"div"} handle="#handle">
         <div
-          className={
-            showMixer
-              ? "melofi__mixer-modal scale-up-center"
-              : "melofi__mixer-modal scale-down-center"
-          }
-          style={{ display: showMixer ? "block" : "none" }}
+          className={showMixer ? "melofi__mixer-modal " : "melofi__mixer-modal "}
+          style={{
+            display: showMixer ? "block" : "none",
+          }}
         >
           <div id="handle" className="melofi__mixer-modal-handle" />
 
