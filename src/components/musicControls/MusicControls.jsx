@@ -14,17 +14,10 @@ import VolumeSlider from "../volumeSlider/VolumeSlider";
 import { useAppContext } from "../../context/AppContext";
 import Tooltip from "../tooltip/Tooltip";
 
-const Button = React.forwardRef(function Button(props, ref) {
-  //  Spread the props to the underlying DOM element.
-  return (
-    <div {...props} ref={ref}>
-      {props.children}
-    </div>
-  );
-});
-
 const MusicControls = () => {
   const audioRef = useRef(null);
+  const volumeContainerRef = useRef();
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [volumePressed, setVolumePressed] = useState(false);
@@ -33,6 +26,17 @@ const MusicControls = () => {
   useEffect(() => {
     audioRef.current.volume = musicVolume / 100;
   }, [musicVolume]);
+
+  useEffect(() => {
+    window.onclick = (event) => {
+      if (
+        event.target.contains(volumeContainerRef.current) &&
+        event.target !== volumeContainerRef.current
+      ) {
+        setVolumePressed(false);
+      }
+    };
+  }, []);
 
   // Event handler for toggling play/pause
   const handleTogglePlay = () => {
@@ -117,7 +121,7 @@ const MusicControls = () => {
       </div>
 
       {volumePressed && (
-        <div className="melofi__musicControls_volume-slider">
+        <div ref={volumeContainerRef} className="melofi__musicControls_volume-slider">
           <div style={{ width: "75%" }}>
             <VolumeSlider
               style={{ cursor: "pointer" }}

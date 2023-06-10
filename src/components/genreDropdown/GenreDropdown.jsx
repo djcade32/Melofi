@@ -1,15 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./genredropdown.css";
 import { IoMusicalNotesSharp } from "react-icons/io5";
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
 import genres from "../../data/genres";
+import { capitalizeFirstLetter } from "../../helpers/strings";
 
 const GenreDropdown = () => {
+  const dropdownRef = useRef();
+
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedGenre, setSelectedGenre] = useState(genres[0]);
 
+  useEffect(() => {
+    window.onclick = (event) => {
+      if (event.target.contains(dropdownRef.current) && event.target !== dropdownRef.current) {
+        setShowDropdown(false);
+      }
+    };
+  }, []);
+
   return (
     <div
+      ref={dropdownRef}
       className={"melofi__genreDropdown-container "}
       style={
         showDropdown ? { animation: "unround-corners 200ms forwards" } : { borderRadius: "10px" }
@@ -17,7 +29,7 @@ const GenreDropdown = () => {
     >
       <div className="melofi__genreDropdown-content">
         <IoMusicalNotesSharp size={20} color="white" />
-        <p>{selectedGenre.toUpperCase()}</p>
+        <p>{capitalizeFirstLetter(selectedGenre)}</p>
         {showDropdown ? (
           <RxCaretUp
             size={20}
@@ -45,7 +57,7 @@ const GenreDropdown = () => {
                 key={genre}
                 style={isSelected ? { backgroundColor: "rgba(254, 165, 57, 0.88)" } : {}}
               >
-                <p onClick={() => setSelectedGenre(genre)}>{genre.toUpperCase()}</p>
+                <p onClick={() => setSelectedGenre(genre)}>{capitalizeFirstLetter(genre)}</p>
               </div>
             );
           })}
