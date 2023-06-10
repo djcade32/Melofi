@@ -1,27 +1,22 @@
 import React, { useState, useRef } from "react";
 import "./mixer.css";
-import { RiSoundModuleFill } from "react-icons/ri";
-import { IoVolumeOff, IoVolumeMedium } from "react-icons/io5";
-import Tooltip from "@mui/material/Tooltip";
-import { Zoom } from "@mui/material";
 import VolumeSlider from "../volumeSlider/VolumeSlider";
 import MixerSlider from "../mixerSlider/MixerSlider";
-import { BsCloudRain, BsTree } from "react-icons/bs";
-import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
-import { IoCloseOutline } from "react-icons/io5";
-import rainEffect from "../../assets/Rain.mp3";
-import chatterEffect from "../../assets/Chatter.mp3";
-import natureEffect from "../../assets/Nature.mp3";
 import { useAppContext } from "../../context/AppContext";
+import Tooltip from "../tooltip/Tooltip";
 
-const Button = React.forwardRef(function Button(props, ref) {
-  //  Spread the props to the underlying DOM element.
-  return (
-    <div {...props} ref={ref}>
-      <RiSoundModuleFill size={20} color="white" />
-    </div>
-  );
-});
+import {
+  RiSoundModuleFill,
+  IoVolumeOff,
+  IoVolumeMedium,
+  BsCloudRain,
+  BsTree,
+  HiOutlineChatBubbleLeftRight,
+  IoCloseOutline,
+  rainEffect,
+  chatterEffect,
+  natureEffect,
+} from "./imports";
 
 const Mixer = () => {
   const { musicVolume, setMusicVolume } = useAppContext();
@@ -88,19 +83,8 @@ const Mixer = () => {
       <audio ref={natureAudioEffect} src={natureEffect} loop />
 
       <div className="melofi__mixer-button" onClick={() => setShowMixer((prev) => !prev)}>
-        <Tooltip
-          title="Mixer"
-          TransitionComponent={Zoom}
-          componentsProps={{
-            tooltip: {
-              sx: {
-                bgcolor: "var(--color-primary)",
-                fontFamily: "var(--font-family)",
-              },
-            },
-          }}
-        >
-          <Button />
+        <Tooltip text="Mixer">
+          <RiSoundModuleFill size={20} color="white" style={{ cursor: "pointer" }} />
         </Tooltip>
       </div>
       <div

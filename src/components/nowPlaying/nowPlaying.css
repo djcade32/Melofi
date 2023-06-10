@@ -1,0 +1,11 @@
+.melofi__nowPlaying-container {
+    position: absolute;
+    bottom: 28px;
+    left: 28px;
+}
+
+.melofi__nowPlaying-container p {
+    color: white;
+    font-size: 18px;
+    font-family: var(--font-family);
+}

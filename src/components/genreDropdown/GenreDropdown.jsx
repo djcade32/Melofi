@@ -4,14 +4,6 @@ import { IoMusicalNotesSharp } from "react-icons/io5";
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
 import genres from "../../data/genres";
 
-function generate(element) {
-  return genres.map((genre) =>
-    React.cloneElement(element, {
-      key: genre,
-    })
-  );
-}
-
 const GenreDropdown = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedGenre, setSelectedGenre] = useState(genres[0]);
@@ -51,7 +43,7 @@ const GenreDropdown = () => {
               <div
                 className="melofi__genreDropdown-list-item"
                 key={genre}
-                style={isSelected ? { backgroundColor: "var(--color-secondary-opacity)" } : {}}
+                style={isSelected ? { backgroundColor: "rgba(254, 165, 57, 0.88)" } : {}}
               >
                 <p onClick={() => setSelectedGenre(genre)}>{genre.toUpperCase()}</p>
               </div>

@@ -1,4 +1,6 @@
 .App {
+  display: flex;
+  flex-direction: column;
   position: relative;
   height:100vh;
 }
@@ -32,6 +34,10 @@
   align-items: center;
   margin-left: auto;
   column-gap: 28px;
+}
+
+.melofi__body {
+  
 }
 
 

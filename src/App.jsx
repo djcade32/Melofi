@@ -8,6 +8,7 @@ import logo from "./assets/logo.png";
 import Mixer from "./components/mixer/Mixer";
 import AppContextProvider from "./context/AppContext";
 import GenreDropdown from "./components/genreDropdown/GenreDropdown";
+import NowPlaying from "./components/nowPlaying/NowPlaying";
 
 function App() {
   return (
@@ -29,6 +30,10 @@ function App() {
             <Clock />
           </div>
         </nav>
+
+        <div className="melofi__body">
+          <NowPlaying />
+        </div>
       </div>
     </AppContextProvider>
   );

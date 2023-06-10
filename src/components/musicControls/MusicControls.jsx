@@ -12,6 +12,16 @@ import "./musicControls.css";
 import song1 from "../../assets/Allem_Iversom_The_Ridge_(getmp3.pro).mp3";
 import VolumeSlider from "../volumeSlider/VolumeSlider";
 import { useAppContext } from "../../context/AppContext";
+import Tooltip from "../tooltip/Tooltip";
+
+const Button = React.forwardRef(function Button(props, ref) {
+  //  Spread the props to the underlying DOM element.
+  return (
+    <div {...props} ref={ref}>
+      {props.children}
+    </div>
+  );
+});
 
 const MusicControls = () => {
   const audioRef = useRef(null);
@@ -96,12 +106,14 @@ const MusicControls = () => {
           onClick={() => setVolumePressed((prev) => !prev)}
           style={{ cursor: "pointer" }}
         />
-        <IoVolumeMute
-          size={20}
-          color={isMuted ? "var(--color-effect " : "white"}
-          onClick={handleMuteAll}
-          style={{ cursor: "pointer" }}
-        />
+        <Tooltip text="Mute all">
+          <IoVolumeMute
+            size={20}
+            color="white"
+            onClick={handleMuteAll}
+            style={{ cursor: "pointer" }}
+          />
+        </Tooltip>
       </div>
 
       {volumePressed && (
