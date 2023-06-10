@@ -1,0 +1,18 @@
+.melofi__mixerSlider-container { 
+    display: flex;
+    flex-direction: row;
+    align-items: center ;
+    justify-content: space-between;
+}
+
+.melofi__mixerSlider-container p {
+    color: var(--color-secondary);
+    font-family: var(--font-family);
+    font-size: 21px;
+    
+}
+
+.melofi__mixerSlider_slider-container {
+    display: flex;
+    width: 65%;
+}

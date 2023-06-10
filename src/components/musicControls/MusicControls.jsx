@@ -10,7 +10,7 @@ import {
 import "./musicControls.css";
 
 import song1 from "../../assets/Allem_Iversom_The_Ridge_(getmp3.pro).mp3";
-import CustomSlider from "../customSlider/CustomSlider";
+import VolumeSlider from "../volumeSlider/VolumeSlider";
 
 const DEFAULT_VALUE = 35;
 const MusicControls = () => {
@@ -96,7 +96,7 @@ const MusicControls = () => {
       {volumePressed && (
         <div className="melofi__musicControls_volume-slider">
           <div style={{ width: "75%" }}>
-            <CustomSlider
+            <VolumeSlider
               style={{ cursor: "pointer" }}
               onChange={handleVolumeChange}
               value={volumeLevel}

@@ -17,10 +17,15 @@
 
     background-color: var(--color-primary);
     width: 378px;
-    height: 432px;
+    height: 390px;
     padding: 20px 24px;
     border-radius: 10px;
 }
+
+.melofi__mixer_header {
+    display: flex;
+    justify-content: space-between;
+ }
 
 .melofi__mixer-title {
     color: var(--color-secondary-white);
@@ -34,3 +39,13 @@
     font-family: var(--font-family);
     font-size: 21px;
 }
+
+.melofi__mixer_reset-button {
+    color: var(--color-secondary);
+    font-family: var(--font-family);
+    font-size: 21px;
+    text-align: center;
+    margin-top: 35px;
+    cursor: pointer;
+}
+
