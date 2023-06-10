@@ -43,6 +43,14 @@ const MusicControls = () => {
     audioRef.current.volume = e.target.value / 100;
   };
 
+  const handleMuteAll = () => {
+    const audioElements = document.querySelectorAll("audio");
+    audioElements.forEach((audio) => {
+      audio.muted = !isMuted;
+    });
+    setIsMuted(!isMuted);
+  };
+
   return (
     <div
       className="melofi__musicControls-container"
@@ -50,7 +58,7 @@ const MusicControls = () => {
         volumePressed ? { animation: "unround-corners 200ms forwards" } : { borderRadius: "10px" }
       }
     >
-      <audio ref={audioRef} src={song1} muted={isMuted} />
+      <audio ref={audioRef} src={song1} />
       <div className="melofi__musicControls-buttons">
         <BsFillSkipBackwardFill
           size={20}
@@ -88,7 +96,7 @@ const MusicControls = () => {
         <IoVolumeMute
           size={20}
           color={isMuted ? "var(--color-effect " : "white"}
-          onClick={() => setIsMuted((prev) => !prev)}
+          onClick={handleMuteAll}
           style={{ cursor: "pointer" }}
         />
       </div>
