@@ -6,22 +6,34 @@ import genres from "../../data/genres";
 import { capitalizeFirstLetter } from "../../helpers/strings";
 
 const GenreDropdown = () => {
-  const dropdownRef = useRef();
+  const dropdownRef = useRef(null);
 
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedGenre, setSelectedGenre] = useState(genres[0]);
 
+  // useEffect(() => {
+  //   window.onclick = (event) => {
+  //     if (event.target.contains(dropdownRef.current) && event.target !== dropdownRef.current) {
+  //       console.log("clicking");
+  //       setShowDropdown(false);
+  //     }
+  //   };
+  // }, []);
+
   useEffect(() => {
-    window.onclick = (event) => {
-      if (event.target.contains(dropdownRef.current) && event.target !== dropdownRef.current) {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowDropdown(false);
       }
+    };
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
     };
   }, []);
 
   return (
     <div
-      ref={dropdownRef}
       className={"melofi__genreDropdown-container "}
       style={
         showDropdown ? { animation: "unround-corners 200ms forwards" } : { borderRadius: "10px" }
@@ -48,7 +60,7 @@ const GenreDropdown = () => {
       </div>
 
       {showDropdown && (
-        <div className="melofi__genreDropdown-list">
+        <div ref={dropdownRef} className="melofi__genreDropdown-list">
           {genres.map((genre) => {
             const isSelected = selectedGenre === genre;
             return (

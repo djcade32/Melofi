@@ -16,7 +16,7 @@ import Tooltip from "../tooltip/Tooltip";
 
 const MusicControls = () => {
   const audioRef = useRef(null);
-  const volumeContainerRef = useRef();
+  const volumeContainerRef = useRef(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -27,14 +27,26 @@ const MusicControls = () => {
     audioRef.current.volume = musicVolume / 100;
   }, [musicVolume]);
 
+  // useEffect(() => {
+  //   window.onclick = (event) => {
+  //     if (
+  //       event.target.contains(volumeContainerRef.current) &&
+  //       event.target !== volumeContainerRef.current
+  //     ) {
+  //       setVolumePressed(false);
+  //     }
+  //   };
+  // }, []);
+
   useEffect(() => {
-    window.onclick = (event) => {
-      if (
-        event.target.contains(volumeContainerRef.current) &&
-        event.target !== volumeContainerRef.current
-      ) {
+    const handleClickOutside = (event) => {
+      if (volumeContainerRef.current && !volumeContainerRef.current.contains(event.target)) {
         setVolumePressed(false);
       }
+    };
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
     };
   }, []);
 
@@ -70,6 +82,7 @@ const MusicControls = () => {
 
   return (
     <div
+      ref={volumeContainerRef}
       className="melofi__musicControls-container"
       style={
         volumePressed ? { animation: "unround-corners 200ms forwards" } : { borderRadius: "10px" }
@@ -121,7 +134,7 @@ const MusicControls = () => {
       </div>
 
       {volumePressed && (
-        <div ref={volumeContainerRef} className="melofi__musicControls_volume-slider">
+        <div className="melofi__musicControls_volume-slider">
           <div style={{ width: "75%" }}>
             <VolumeSlider
               style={{ cursor: "pointer" }}
