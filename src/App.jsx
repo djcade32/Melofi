@@ -32,7 +32,7 @@ function App() {
         </nav>
 
         <div className="melofi__body">
-          <NowPlaying />
+          <NowPlaying text="All About You by Devita" />
         </div>
       </div>
     </AppContextProvider>

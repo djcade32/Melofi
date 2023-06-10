@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import "./mixer.css";
+import Draggable from "react-draggable";
 import VolumeSlider from "../volumeSlider/VolumeSlider";
 import MixerSlider from "../mixerSlider/MixerSlider";
 import { useAppContext } from "../../context/AppContext";
@@ -87,64 +88,69 @@ const Mixer = () => {
           <RiSoundModuleFill size={20} color="white" style={{ cursor: "pointer" }} />
         </Tooltip>
       </div>
-      <div
-        className={
-          showMixer
-            ? "melofi__mixer-modal scale-up-center"
-            : "melofi__mixer-modal scale-down-center"
-        }
-        style={{ display: showMixer ? "block" : "none" }}
-      >
-        <div className="melofi__mixer_header">
-          <p className="melofi__mixer-title">SOUNDS</p>
-          <IoCloseOutline
-            size={33}
-            color="var(--color-secondary)"
-            onClick={() => setShowMixer((prev) => !prev)}
-            style={{ cursor: "pointer" }}
-          />
-        </div>
 
-        <p className="melofi__mixer_volume-title">MUSIC VOLUME</p>
-        <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
-          <IoVolumeOff size={33} color="var(--color-secondary)" />
-          <div style={{ width: "75%" }}>
-            <VolumeSlider
+      <Draggable bounds={"div"} handle="#handle">
+        <div
+          className={
+            showMixer
+              ? "melofi__mixer-modal scale-up-center"
+              : "melofi__mixer-modal scale-down-center"
+          }
+          style={{ display: showMixer ? "block" : "none" }}
+        >
+          <div id="handle" className="melofi__mixer-modal-handle" />
+
+          <div className="melofi__mixer_header">
+            <p className="melofi__mixer-title">SOUNDS</p>
+            <IoCloseOutline
+              size={33}
+              color="var(--color-secondary)"
+              onClick={() => setShowMixer((prev) => !prev)}
               style={{ cursor: "pointer" }}
-              value={musicVolume}
-              onChange={handleVolumeChange}
             />
           </div>
-          <IoVolumeMedium size={33} color="var(--color-secondary)" />
-        </div>
 
-        <div style={{ marginTop: 25 }}>
-          <MixerSlider
-            style={{ cursor: "pointer" }}
-            label="Rain"
-            icon={<BsCloudRain size={30} color="#232323" />}
-            onChange={handleRainSlider}
-            value={rainLevel}
-          />
-          <MixerSlider
-            style={{ cursor: "pointer" }}
-            label="Chatter"
-            icon={<HiOutlineChatBubbleLeftRight size={30} color="#232323" />}
-            onChange={handleChatterSlider}
-            value={chatterLevel}
-          />
-          <MixerSlider
-            style={{ cursor: "pointer" }}
-            label="Nature"
-            icon={<BsTree size={30} color="#232323" />}
-            onChange={handleNatureSlider}
-            value={natureLevel}
-          />
+          <p className="melofi__mixer_volume-title">MUSIC VOLUME</p>
+          <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
+            <IoVolumeOff size={33} color="var(--color-secondary)" />
+            <div style={{ width: "75%" }}>
+              <VolumeSlider
+                style={{ cursor: "pointer" }}
+                value={musicVolume}
+                onChange={handleVolumeChange}
+              />
+            </div>
+            <IoVolumeMedium size={33} color="var(--color-secondary)" />
+          </div>
+
+          <div style={{ marginTop: 25 }}>
+            <MixerSlider
+              style={{ cursor: "pointer" }}
+              label="Rain"
+              icon={<BsCloudRain size={30} color="#232323" />}
+              onChange={handleRainSlider}
+              value={rainLevel}
+            />
+            <MixerSlider
+              style={{ cursor: "pointer" }}
+              label="Chatter"
+              icon={<HiOutlineChatBubbleLeftRight size={30} color="#232323" />}
+              onChange={handleChatterSlider}
+              value={chatterLevel}
+            />
+            <MixerSlider
+              style={{ cursor: "pointer" }}
+              label="Nature"
+              icon={<BsTree size={30} color="#232323" />}
+              onChange={handleNatureSlider}
+              value={natureLevel}
+            />
+          </div>
+          <p className="melofi__mixer_reset-button" onClick={handleResetPressed}>
+            Reset
+          </p>
         </div>
-        <p className="melofi__mixer_reset-button" onClick={handleResetPressed}>
-          Reset
-        </p>
-      </div>
+      </Draggable>
     </>
   );
 };

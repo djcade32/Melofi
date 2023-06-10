@@ -24,6 +24,19 @@
     height: 390px;
     padding: 20px 24px;
     border-radius: 10px;
+    z-index: 100;
+    backdrop-filter: blur(10px);    
+}
+
+.melofi__mixer-modal-handle { 
+  width: 100%; 
+  height: 20px; 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  border-top-left-radius: 10px; 
+  border-top-right-radius: 10px; 
+  cursor: all-scroll;
 }
 
 .melofi__mixer_header {
