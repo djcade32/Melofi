@@ -23,7 +23,7 @@ const StyledSlider = styled(Slider)({
   },
   "& .MuiSlider-rail": {
     opacity: 0.25,
-    backgroundColor: "var(--color-secondary-opacity)",
+    backgroundColor: "rgb(112,108,111)",
   },
 });
 

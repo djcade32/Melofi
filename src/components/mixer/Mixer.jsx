@@ -25,7 +25,7 @@ const Button = React.forwardRef(function Button(props, ref) {
 
 const Mixer = () => {
   const { musicVolume, setMusicVolume } = useAppContext();
-  const [showMixer, setShowMixer] = useState(true);
+  const [showMixer, setShowMixer] = useState(false);
   const [rainLevel, setRainLevel] = useState(0);
   const [chatterLevel, setChatterLevel] = useState(0);
   const [natureLevel, setNatureLevel] = useState(0);
