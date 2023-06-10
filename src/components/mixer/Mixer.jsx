@@ -12,6 +12,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import rainEffect from "../../assets/Rain.mp3";
 import chatterEffect from "../../assets/Chatter.mp3";
 import natureEffect from "../../assets/Nature.mp3";
+import { useAppContext } from "../../context/AppContext";
 
 const Button = React.forwardRef(function Button(props, ref) {
   //  Spread the props to the underlying DOM element.
@@ -23,13 +24,18 @@ const Button = React.forwardRef(function Button(props, ref) {
 });
 
 const Mixer = () => {
-  const [volumeLevel, setVolumeLevel] = useState(35);
+  const { musicVolume, setMusicVolume } = useAppContext();
+  const [showMixer, setShowMixer] = useState(true);
   const [rainLevel, setRainLevel] = useState(0);
   const [chatterLevel, setChatterLevel] = useState(0);
   const [natureLevel, setNatureLevel] = useState(0);
   const rainAudioEffect = useRef(null);
   const chatterAudioEffect = useRef(null);
   const natureAudioEffect = useRef(null);
+
+  const handleVolumeChange = (e) => {
+    setMusicVolume(e.target.value);
+  };
 
   const handleRainSlider = (e) => {
     if (e.target.value > 0) {
@@ -81,18 +87,36 @@ const Mixer = () => {
       <audio ref={chatterAudioEffect} src={chatterEffect} loop />
       <audio ref={natureAudioEffect} src={natureEffect} loop />
 
-      <div className="melofi__mixer-button" onClick={() => {}}>
-        <Tooltip title="Mixer" TransitionComponent={Zoom}>
+      <div className="melofi__mixer-button" onClick={() => setShowMixer((prev) => !prev)}>
+        <Tooltip
+          title="Mixer"
+          TransitionComponent={Zoom}
+          componentsProps={{
+            tooltip: {
+              sx: {
+                bgcolor: "var(--color-primary)",
+                fontFamily: "var(--font-family)",
+              },
+            },
+          }}
+        >
           <Button />
         </Tooltip>
       </div>
-      <div className="melofi__mixer-modal">
+      <div
+        className={
+          showMixer
+            ? "melofi__mixer-modal scale-up-center"
+            : "melofi__mixer-modal scale-down-center"
+        }
+        style={{ display: showMixer ? "block" : "none" }}
+      >
         <div className="melofi__mixer_header">
           <p className="melofi__mixer-title">SOUNDS</p>
           <IoCloseOutline
             size={33}
             color="var(--color-secondary)"
-            onClick={() => {}}
+            onClick={() => setShowMixer((prev) => !prev)}
             style={{ cursor: "pointer" }}
           />
         </div>
@@ -101,7 +125,11 @@ const Mixer = () => {
         <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
           <IoVolumeOff size={33} color="var(--color-secondary)" />
           <div style={{ width: "75%" }}>
-            <VolumeSlider style={{ cursor: "pointer" }} />
+            <VolumeSlider
+              style={{ cursor: "pointer" }}
+              value={musicVolume}
+              onChange={handleVolumeChange}
+            />
           </div>
           <IoVolumeMedium size={33} color="var(--color-secondary)" />
         </div>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   BsFillSkipBackwardFill,
   FaPause,
@@ -11,14 +11,18 @@ import "./musicControls.css";
 
 import song1 from "../../assets/Allem_Iversom_The_Ridge_(getmp3.pro).mp3";
 import VolumeSlider from "../volumeSlider/VolumeSlider";
+import { useAppContext } from "../../context/AppContext";
 
-const DEFAULT_VALUE = 35;
 const MusicControls = () => {
-  const audioRef = useRef(null); // Ref for accessing the audio element
-  const [isPlaying, setIsPlaying] = useState(false); // State for tracking playback state
+  const audioRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [volumePressed, setVolumePressed] = useState(false);
-  const [volumeLevel, setVolumeLevel] = useState(DEFAULT_VALUE);
+  const { musicVolume, setMusicVolume } = useAppContext();
+
+  useEffect(() => {
+    audioRef.current.volume = musicVolume / 100;
+  }, [musicVolume]);
 
   // Event handler for toggling play/pause
   const handleTogglePlay = () => {
@@ -39,8 +43,7 @@ const MusicControls = () => {
   };
 
   const handleVolumeChange = (e) => {
-    setVolumeLevel(e.target.value);
-    audioRef.current.volume = e.target.value / 100;
+    setMusicVolume(e.target.value);
   };
 
   const handleMuteAll = () => {
@@ -107,7 +110,7 @@ const MusicControls = () => {
             <VolumeSlider
               style={{ cursor: "pointer" }}
               onChange={handleVolumeChange}
-              value={volumeLevel}
+              value={musicVolume}
             />
           </div>
         </div>

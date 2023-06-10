@@ -11,9 +11,11 @@
 
 .melofi__mixer-modal {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
 
     background-color: var(--color-primary);
     width: 378px;
@@ -48,4 +50,32 @@
     margin-top: 35px;
     cursor: pointer;
 }
+
+
+.scale-up-center {
+    animation: scale-up-center 0.4s;
+}
+.scale-down-center {
+    animation: scale-down-center 0.4s;
+}
+
+
+@keyframes scale-up-center {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes scale-down-center {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
 

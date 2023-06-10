@@ -7,25 +7,28 @@ import MusicControls from "./components/musicControls/MusicControls";
 import Clock from "./components/clock/Clock";
 import logo from "./assets/logo.png";
 import Mixer from "./components/mixer/Mixer";
+import AppContextProvider from "./context/AppContext";
 
 function App() {
   return (
-    <div className="App">
-      <video className="melofi__background-video" autoPlay loop muted playsInline>
-        <source src={videoBg} type="video/mp4" />
-      </video>
+    <AppContextProvider>
+      <div className="App">
+        <video className="melofi__background-video" autoPlay loop muted playsInline>
+          <source src={videoBg} type="video/mp4" />
+        </video>
 
-      <nav>
-        <div className="melofi__logo">
-          <img src={logo} alt="melofi logo" />
-        </div>
-        <div className="melofi__rightSide">
-          <Mixer />
-          <MusicControls />
-          <Clock />
-        </div>
-      </nav>
-    </div>
+        <nav>
+          <div className="melofi__logo">
+            <img src={logo} alt="melofi logo" />
+          </div>
+          <div className="melofi__rightSide">
+            <Mixer />
+            <MusicControls />
+            <Clock />
+          </div>
+        </nav>
+      </div>
+    </AppContextProvider>
   );
 }
 
