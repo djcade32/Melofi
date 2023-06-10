@@ -27,17 +27,6 @@ const MusicControls = () => {
     audioRef.current.volume = musicVolume / 100;
   }, [musicVolume]);
 
-  // useEffect(() => {
-  //   window.onclick = (event) => {
-  //     if (
-  //       event.target.contains(volumeContainerRef.current) &&
-  //       event.target !== volumeContainerRef.current
-  //     ) {
-  //       setVolumePressed(false);
-  //     }
-  //   };
-  // }, []);
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (volumeContainerRef.current && !volumeContainerRef.current.contains(event.target)) {
@@ -85,7 +74,12 @@ const MusicControls = () => {
       ref={volumeContainerRef}
       className="melofi__musicControls-container"
       style={
-        volumePressed ? { animation: "unround-corners 200ms forwards" } : { borderRadius: "10px" }
+        volumePressed
+          ? {
+              animation: "unround-corners 200ms forwards",
+              boxShadow: "0px 0px 0px rgba(0, 0, 0, 0.25)",
+            }
+          : { borderRadius: "10px" }
       }
     >
       <audio ref={audioRef} src={song1} />

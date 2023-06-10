@@ -11,15 +11,6 @@ const GenreDropdown = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedGenre, setSelectedGenre] = useState(genres[0]);
 
-  // useEffect(() => {
-  //   window.onclick = (event) => {
-  //     if (event.target.contains(dropdownRef.current) && event.target !== dropdownRef.current) {
-  //       console.log("clicking");
-  //       setShowDropdown(false);
-  //     }
-  //   };
-  // }, []);
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -36,7 +27,12 @@ const GenreDropdown = () => {
     <div
       className={"melofi__genreDropdown-container "}
       style={
-        showDropdown ? { animation: "unround-corners 200ms forwards" } : { borderRadius: "10px" }
+        showDropdown
+          ? {
+              animation: "unround-corners 200ms forwards",
+              boxShadow: "4px 0px 0px rgba(0, 0, 0, 0.25)",
+            }
+          : { borderRadius: "10px" }
       }
     >
       <div className="melofi__genreDropdown-content">
