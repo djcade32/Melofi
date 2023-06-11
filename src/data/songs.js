@@ -1,6 +1,6 @@
 export const items = [
   {
-    id: 1,
+    id: 0,
     url: "https://example.com/item1",
     mp3Path: "src/assets/songs/the-ridge_allem-iversom.mp3",
     artist: "Allem Iversom",
@@ -9,7 +9,7 @@ export const items = [
     providerUrl: "https://www.youtube.com/@LofiRecords",
   },
   {
-    id: 2,
+    id: 1,
     url: "https://example.com/item2",
     mp3Path: "src/assets/songs/message-in-a-dream_mondo-loops.mp3",
     artist: "Mondo Loops",
@@ -18,7 +18,7 @@ export const items = [
     providerUrl: "https://www.youtube.com/channel/UCgNIbmuzWllNcq4EdbDgJ9Q/featured",
   },
   {
-    id: 3,
+    id: 2,
     url: "https://example.com/item3",
     mp3Path: "src/assets/songs/redbone_lav8.mp3",
     artist: "LAV8",
@@ -27,7 +27,7 @@ export const items = [
     providerUrl: "https://www.youtube.com/channel/UCkH34Q9Gn9VvSWyLH7PiV9w",
   },
   {
-    id: 4,
+    id: 3,
     url: "https://example.com/item3",
     mp3Path: "src/assets/songs/laube_mondo-loops_x_kanisan.mp3",
     artist: "Mondo Loops x Kanisan",

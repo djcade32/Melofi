@@ -11,7 +11,7 @@ const Tooltip = (props) => {
         tooltip: {
           sx: {
             bgcolor: "var(--color-primary)",
-            fontFamily: "var(--font-family)",
+            fontFamily: "var(--font-poppins)",
             fontWeight: 400,
             fontSize: 16,
           },

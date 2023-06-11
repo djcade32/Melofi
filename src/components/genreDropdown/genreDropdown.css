@@ -19,7 +19,7 @@
 
 .melofi__genreDropdown-container p {
     color: white;
-    font-family: var(--font-family);
+    font-family: var(--font-poppins);
     font-size: 18px;
     flex: 1;
     margin: 10px;

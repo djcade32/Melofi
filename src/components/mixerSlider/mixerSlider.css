@@ -7,7 +7,7 @@
 
 .melofi__mixerSlider-container p {
     color: var(--color-secondary);
-    font-family: var(--font-family);
+    font-family: var(--font-poppins);
     font-size: 21px;
     
 }
