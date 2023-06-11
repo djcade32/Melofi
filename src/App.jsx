@@ -24,7 +24,8 @@ function App() {
           </div>
 
           <div className="melofi__rightSide">
-            <GenreDropdown />
+            {/* GenreDropdown will be a future update */}
+            {/* <GenreDropdown /> */}
             <Mixer />
             <MusicControls />
             <Clock />
@@ -32,7 +33,7 @@ function App() {
         </nav>
 
         <div className="melofi__body">
-          <NowPlaying text="All About You by Devita" />
+          <NowPlaying song="All About You by Devita" provider="Lofi Girl" />
         </div>
       </div>
     </AppContextProvider>

@@ -1,0 +1,38 @@
+export const items = [
+  {
+    id: 1,
+    url: "https://example.com/item1",
+    mp3Path: "src/assets/songs/the-ridge_allem-iversom.mp3",
+    artist: "Allem Iversom",
+    title: "The Ridge",
+    provider: "Lofi Records",
+    providerUrl: "https://www.youtube.com/@LofiRecords",
+  },
+  {
+    id: 2,
+    url: "https://example.com/item2",
+    mp3Path: "src/assets/songs/message-in-a-dream_mondo-loops.mp3",
+    artist: "Mondo Loops",
+    title: "Message in a Dream",
+    provider: "Various Artists - Topic",
+    providerUrl: "https://www.youtube.com/channel/UCgNIbmuzWllNcq4EdbDgJ9Q/featured",
+  },
+  {
+    id: 3,
+    url: "https://example.com/item3",
+    mp3Path: "src/assets/songs/redbone_lav8.mp3",
+    artist: "LAV8",
+    title: "Redbone",
+    provider: "LAV8 - Topic",
+    providerUrl: "https://www.youtube.com/channel/UCkH34Q9Gn9VvSWyLH7PiV9w",
+  },
+  {
+    id: 4,
+    url: "https://example.com/item3",
+    mp3Path: "src/assets/songs/laube_mondo-loops_x_kanisan.mp3",
+    artist: "Mondo Loops x Kanisan",
+    title: "À l'aube",
+    provider: "Lofi Records",
+    providerUrl: "https://www.youtube.com/@LofiRecords",
+  },
+];

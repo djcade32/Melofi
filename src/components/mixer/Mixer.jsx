@@ -20,6 +20,7 @@ import {
 } from "./imports";
 
 const Mixer = () => {
+  const nodeRef = React.useRef(null);
   const { musicVolume, setMusicVolume } = useAppContext();
 
   const [showMixer, setShowMixer] = useState(false);
@@ -90,8 +91,9 @@ const Mixer = () => {
         </Tooltip>
       </div>
 
-      <Draggable bounds={"div"} handle="#handle">
+      <Draggable nodeRef={nodeRef} bounds={"div"} handle="#handle">
         <div
+          ref={nodeRef}
           className={showMixer ? "melofi__mixer-modal " : "melofi__mixer-modal "}
           style={{
             display: showMixer ? "block" : "none",

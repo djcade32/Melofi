@@ -1,11 +1,29 @@
 .melofi__nowPlaying-container {
     position: absolute;
-    bottom: 28px;
-    left: 28px;
+    bottom: 35px;
+    left: 35px;
 }
 
-.melofi__nowPlaying-container p {
+.melofi__nowPlaying-header {
     color: white;
-    font-size: 18px;
+    font-size: 21px;
     font-family: var(--font-family);
+}
+
+.melofi__nowPlaying-song {
+    color: white;
+    font-size: 16px;
+    font-family: var(--font-family);
+}
+
+.melofi__nowPlaying-provider { 
+    color: white;
+    font-family: var(--font-family);
+    font-size: 16px; 
+    opacity: 50%;
+}
+
+.melofi__nowPlaying-provider:hover { 
+    opacity: 100%;
+    cursor: pointer;
 }

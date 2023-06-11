@@ -9,19 +9,78 @@ import {
 } from "./imports";
 import "./musicControls.css";
 
-import song1 from "../../assets/Allem_Iversom_The_Ridge_(getmp3.pro).mp3";
 import VolumeSlider from "../volumeSlider/VolumeSlider";
 import { useAppContext } from "../../context/AppContext";
 import Tooltip from "../tooltip/Tooltip";
+import { items as songs } from "../../data/songs";
+import axios from "axios";
 
 const MusicControls = () => {
   const audioRef = useRef(null);
   const volumeContainerRef = useRef(null);
+  const { musicVolume, setMusicVolume, setCurrentSongInfo } = useAppContext();
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [volumePressed, setVolumePressed] = useState(false);
-  const { musicVolume, setMusicVolume } = useAppContext();
+  const [currentMusicIndex, setCurrentMusicIndex] = useState(
+    Math.floor(Math.random() * songs.length)
+  );
+  // Math.floor(Math.random() * songs.length)
+  // useEffect(() => {
+  //   async function fetchMusic() {
+  //     let item = null;
+  //     let songInfo = null;
+
+  //     try {
+  //       // const response = await axios.get("https://www.googleapis.com/youtube/v3/search", {
+  //       //   params: {
+  //       //     part: "snippet",
+  //       //     q: songs[currentMusicIndex].artist + " " + songs[currentMusicIndex].title,
+  //       //     // q: "allem iversom the ridge",
+  //       //     type: "video",
+  //       //     maxResults: 5,
+  //       //     key: "AIzaSyD_G5VYrBQoSz6lvx-tHJ4-Yt_fYbPJ35U",
+  //       //   },
+  //       // });
+  //       const response = await fetch("https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=allem&type=video&key=AIzaSyD_G5VYrBQoSz6lvx-tHJ4-Yt_fYbPJ35U");
+  //       const jsonData = await response.json();
+  //       setData(jsonData);
+
+  //       item = response.data.items[0];
+  //       songInfo = {
+  //         title: songs[currentMusicIndex].title,
+  //         artist: songs[currentMusicIndex].artist,
+  //         provider: item.snippet.channelTitle,
+  //         providerUrl: `https://www.youtube.com/channel/${item.snippet.channelId}`,
+  //       };
+  //     } catch (error) {
+  //       console.error("Error retrieving music:", error);
+  //       songInfo = {
+  //         title: songs[currentMusicIndex].title,
+  //         artist: songs[currentMusicIndex].artist,
+  //         provider: "",
+  //         providerUrl: "",
+  //       };
+  //     } finally {
+  //       setCurrentSongInfo(songInfo);
+  //     }
+  //   }
+  //   fetchMusic();
+  // }, [currentMusicIndex]);
+
+  useEffect(() => {
+    const songInfo = {
+      title: songs[currentMusicIndex].title,
+      artist: songs[currentMusicIndex].artist,
+      provider: songs[currentMusicIndex].provider,
+      providerUrl: songs[currentMusicIndex].providerUrl,
+    };
+    setCurrentSongInfo(songInfo);
+    if (songInfo !== null && isPlaying) {
+      audioRef.current.play();
+    }
+  }, [currentMusicIndex]);
 
   useEffect(() => {
     audioRef.current.volume = musicVolume / 100;
@@ -46,15 +105,24 @@ const MusicControls = () => {
     } else {
       audioRef.current.play();
     }
-    setIsPlaying(!isPlaying);
+    setIsPlaying((prev) => !prev);
   };
 
   const handleSkipForward = () => {
-    // Logic for skipping forward
+    if (currentMusicIndex === songs.length - 1) {
+      setCurrentMusicIndex(0);
+      return;
+    } else {
+      setCurrentMusicIndex((prevIndex) => prevIndex + 1);
+    }
   };
 
   const handleSkipBackward = () => {
-    // Logic for skipping backward
+    if (currentMusicIndex === 0) {
+      setCurrentMusicIndex(songs.length - 1);
+    } else {
+      setCurrentMusicIndex((prevIndex) => prevIndex - 1);
+    }
   };
 
   const handleVolumeChange = (e) => {
@@ -82,12 +150,12 @@ const MusicControls = () => {
           : { borderRadius: "10px" }
       }
     >
-      <audio ref={audioRef} src={song1} />
+      <audio ref={audioRef} src={songs[currentMusicIndex].mp3Path} onEnded={handleSkipForward} />
       <div className="melofi__musicControls-buttons">
         <BsFillSkipBackwardFill
           size={20}
           color="white"
-          onClick={() => {}}
+          onClick={handleSkipBackward}
           style={{ cursor: "pointer" }}
         />
         {isPlaying ? (
@@ -108,7 +176,7 @@ const MusicControls = () => {
         <BsSkipForwardFill
           size={20}
           color="white"
-          onClick={() => {}}
+          onClick={handleSkipForward}
           style={{ cursor: "pointer" }}
         />
         <IoVolumeMedium
@@ -120,7 +188,7 @@ const MusicControls = () => {
         <Tooltip text="Mute all">
           <IoVolumeMute
             size={20}
-            color="white"
+            color={isMuted ? "var(--color-effect)" : "white"}
             onClick={handleMuteAll}
             style={{ cursor: "pointer" }}
           />

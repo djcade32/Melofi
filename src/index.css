@@ -18,10 +18,14 @@ body {
 
 p {
   margin: 0px;
-  cursor: default;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none;
+}
+
+a {
+  color: inherit; 
+  text-decoration: inherit; 
 }
 
 img {
