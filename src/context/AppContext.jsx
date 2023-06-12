@@ -7,6 +7,7 @@ const AppContextProvider = (props) => {
   const [musicVolume, setMusicVolume] = useState(35);
   const [currentSongInfo, setCurrentSongInfo] = useState(null);
   const [currentSceneIndex, setCurrentSceneIndex] = useState(0);
+  const [showSceneModal, setShowSceneModal] = useState(false);
 
   function getCurrentScene() {
     return scenes[currentSceneIndex].video;
@@ -22,6 +23,8 @@ const AppContextProvider = (props) => {
         currentSceneIndex,
         setCurrentSceneIndex,
         getCurrentScene,
+        showSceneModal,
+        setShowSceneModal,
       }}
     >
       {props.children}

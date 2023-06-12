@@ -16,21 +16,18 @@ const Scene = () => {
   const [showModal, setShowModal] = useState(false);
   const { setCurrentSceneIndex } = useAppContext();
 
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     console.log(event);
-  //     if (
-  //       (modalRef.current && !modalRef.current.contains(event.target)) ||
-  //       sceneButtonRef.current.contains(event.target)
-  //     ) {
-  //       setShowModal((prev) => !prev);
-  //     }
-  //   };
-  //   document.addEventListener("click", handleClickOutside, true);
-  //   return () => {
-  //     document.removeEventListener("click", handleClickOutside, true);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      console.log(event);
+      if (event.target.id === "app") {
+        setShowModal(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, []);
 
   const getSoundIcon = (sound) => {
     const props = {
@@ -61,7 +58,12 @@ const Scene = () => {
   };
   return (
     <div>
-      <div className="melofi__scene-button" onClick={() => setShowModal((prev) => !prev)}>
+      <div
+        className="melofi__scene-button"
+        onClick={() => {
+          setShowModal((prev) => !prev);
+        }}
+      >
         <Tooltip text="Scenes">
           <MdLandscape size={20} color="white" style={{ cursor: "pointer" }} />
         </Tooltip>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 import MusicControls from "./components/musicControls/MusicControls";
@@ -12,6 +12,7 @@ import Scene from "./components/scene/Scene";
 import SceneBg from "./components/sceneBg/SceneBg";
 
 function App() {
+  const [showScene, setShowScene] = useState(false);
   return (
     <AppContextProvider>
       <div className="App" id="app">
@@ -25,7 +26,7 @@ function App() {
           <div className="melofi__rightSide">
             {/* GenreDropdown will be a future update */}
             {/* <GenreDropdown /> */}
-            <Scene />
+            <Scene showScene={showScene} setShowScene={setShowScene} />
             <Mixer />
             <MusicControls />
             <Clock />
