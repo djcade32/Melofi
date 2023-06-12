@@ -10,9 +10,11 @@ import {
   SlSocialTwitter,
   HiOutlineBuildingOffice2,
 } from "./imports";
+import { useAppContext } from "../../context/AppContext";
 
 const Scene = () => {
   const [showModal, setShowModal] = useState(false);
+  const { setCurrentSceneIndex } = useAppContext();
 
   // useEffect(() => {
   //   const handleClickOutside = (event) => {
@@ -71,13 +73,13 @@ const Scene = () => {
             <p className="melofi__scene-modal-title">SCENES</p>
           </div>
           <div className="melofi__scene-modal-thumbnail-container">
-            {scenes.map((scene) => {
+            {scenes.map((scene, index) => {
               return (
                 <div
                   key={scene.name}
                   className="melofi__scene-modal-thumbnail"
                   style={{ backgroundImage: `url(${scene.image})` }}
-                  onClick={() => console.log("click")}
+                  onClick={() => setCurrentSceneIndex(index)}
                 >
                   <p
                     className="melofi__scene-modal-thumbnail-title"

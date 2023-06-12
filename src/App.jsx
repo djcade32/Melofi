@@ -1,5 +1,4 @@
 import React from "react";
-import videoBg from "./assets/scenes/girl-in-cafe_vid.mp4";
 import "./App.css";
 
 import MusicControls from "./components/musicControls/MusicControls";
@@ -10,14 +9,13 @@ import AppContextProvider from "./context/AppContext";
 // import GenreDropdown from "./components/genreDropdown/GenreDropdown";
 import NowPlaying from "./components/nowPlaying/NowPlaying";
 import Scene from "./components/scene/Scene";
+import SceneBg from "./components/sceneBg/SceneBg";
 
 function App() {
   return (
     <AppContextProvider>
       <div className="App" id="app">
-        <video id="videoBg" className="melofi__background-video" autoPlay loop muted playsInline>
-          <source src={videoBg} type="video/mp4" />
-        </video>
+        <SceneBg />
 
         <nav id="nav">
           <div className="melofi__logo">

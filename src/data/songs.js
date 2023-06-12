@@ -10,7 +10,6 @@ export const items = [
   },
   {
     id: 1,
-    url: "https://example.com/item2",
     mp3Path: "src/assets/songs/message-in-a-dream_mondo-loops.mp3",
     artist: "Mondo Loops",
     title: "Message in a Dream",
@@ -19,7 +18,6 @@ export const items = [
   },
   {
     id: 2,
-    url: "https://example.com/item3",
     mp3Path: "src/assets/songs/redbone_lav8.mp3",
     artist: "LAV8",
     title: "Redbone",
@@ -28,10 +26,25 @@ export const items = [
   },
   {
     id: 3,
-    url: "https://example.com/item3",
     mp3Path: "src/assets/songs/laube_mondo-loops_x_kanisan.mp3",
     artist: "Mondo Loops x Kanisan",
     title: "À l'aube",
+    provider: "Lofi Records",
+    providerUrl: "https://www.youtube.com/@LofiRecords",
+  },
+  {
+    id: 4,
+    mp3Path: "src/assets/songs/morning-moon_kanisan_x_wishes-and-dreams.mp3",
+    artist: "Kanisan x Wishes and Dreams",
+    title: "Morning Moon",
+    provider: "Lofi Records",
+    providerUrl: "https://www.youtube.com/@LofiRecords",
+  },
+  {
+    id: 5,
+    mp3Path: "src/assets/songs/sinking-fatigue_raimu.mp3",
+    artist: "Raimu",
+    title: "Sinking Fatigue",
     provider: "Lofi Records",
     providerUrl: "https://www.youtube.com/@LofiRecords",
   },

@@ -1,19 +1,21 @@
+import girlInCafe from "../assets/scenes/girl-in-cafe_vid.mp4";
+
 export const scenes = [
   {
     id: 0,
     name: "Girl in Cafe",
     image: "src/assets/scenes/girl-in-cafe_pic.png",
-    video: "src/assets/scenes/girl-in-cafe_pic.mp4",
+    video: girlInCafe,
     sounds: ["nature", "chatter", "rain"],
-    fontFamily: "Poppins",
+    fontFamily: "Lobster Two",
   },
   {
     id: 1,
     name: "Neighborhood Cafe",
     image: "src/assets/scenes/neighborhood-cafe_pic.png",
-    video: "src/assets/scenes/neighborhood-cafe_pic.mp4",
+    video: "src/assets/scenes/neighborhood-cafe_vid.mp4",
     sounds: ["nature", "chatter", "rain"],
-    fontFamily: "Lobster Two",
+    fontFamily: "Signika",
   },
   {
     id: 2,
