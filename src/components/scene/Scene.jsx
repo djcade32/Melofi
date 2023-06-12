@@ -9,7 +9,7 @@ import {
   HiOutlineChatBubbleLeftRight,
   SlSocialTwitter,
   HiOutlineBuildingOffice2,
-} from "./imports";
+} from "../../imports/icons";
 import { useAppContext } from "../../context/AppContext";
 
 const Scene = () => {
@@ -18,7 +18,6 @@ const Scene = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      console.log(event);
       if (event.target.id === "app") {
         setShowModal(false);
       }

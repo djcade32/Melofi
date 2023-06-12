@@ -1,11 +1,6 @@
 import React, { useState, useRef } from "react";
 import "./mixer.css";
-import Draggable from "react-draggable";
-import VolumeSlider from "../volumeSlider/VolumeSlider";
-import MixerSlider from "../mixerSlider/MixerSlider";
-import { useAppContext } from "../../context/AppContext";
-import Tooltip from "../tooltip/Tooltip";
-
+import { rainEffect, chatterEffect, natureEffect } from "../../imports/effects";
 import {
   RiSoundModuleFill,
   IoVolumeOff,
@@ -14,10 +9,18 @@ import {
   BsTree,
   HiOutlineChatBubbleLeftRight,
   IoCloseOutline,
-  rainEffect,
-  chatterEffect,
-  natureEffect,
-} from "./imports";
+} from "../../imports/icons";
+
+import Draggable from "react-draggable";
+import VolumeSlider from "../volumeSlider/VolumeSlider";
+import MixerSlider from "../mixerSlider/MixerSlider";
+import { useAppContext } from "../../context/AppContext";
+import Tooltip from "../tooltip/Tooltip";
+
+const mixerSliderIconProps = {
+  size: 30,
+  color: "#232323",
+};
 
 const Mixer = () => {
   const nodeRef = React.useRef(null);
@@ -128,21 +131,21 @@ const Mixer = () => {
             <MixerSlider
               style={{ cursor: "pointer" }}
               label="Rain"
-              icon={<BsCloudRain size={30} color="#232323" />}
+              icon={<BsCloudRain {...mixerSliderIconProps} />}
               onChange={handleRainSlider}
               value={rainLevel}
             />
             <MixerSlider
               style={{ cursor: "pointer" }}
               label="Chatter"
-              icon={<HiOutlineChatBubbleLeftRight size={30} color="#232323" />}
+              icon={<HiOutlineChatBubbleLeftRight {...mixerSliderIconProps} />}
               onChange={handleChatterSlider}
               value={chatterLevel}
             />
             <MixerSlider
               style={{ cursor: "pointer" }}
               label="Nature"
-              icon={<BsTree size={30} color="#232323" />}
+              icon={<BsTree {...mixerSliderIconProps} />}
               onChange={handleNatureSlider}
               value={natureLevel}
             />

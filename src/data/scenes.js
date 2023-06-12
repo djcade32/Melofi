@@ -1,11 +1,9 @@
-import girlInCafe from "../assets/scenes/girl-in-cafe_vid.mp4";
-
 export const scenes = [
   {
     id: 0,
     name: "Girl in Cafe",
     image: "src/assets/scenes/girl-in-cafe_pic.png",
-    video: girlInCafe,
+    video: "src/assets/scenes/girl-in-cafe_vid.mp4",
     sounds: ["nature", "chatter", "rain"],
     fontFamily: "Lobster Two",
   },
