@@ -41,6 +41,7 @@ const Scene = () => {
         onClick={() => {
           setShowModal((prev) => !prev);
         }}
+        style={showModal ? { outline: "1px solid rgba(254, 165, 57, 0.88)" } : {}}
       >
         <Tooltip text="Scenes">
           <MdLandscape size={20} color="white" style={{ cursor: "pointer" }} />

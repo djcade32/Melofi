@@ -31,7 +31,11 @@ const Mixer = () => {
 
   return (
     <>
-      <div className="melofi__mixer-button" onClick={() => setShowMixer((prev) => !prev)}>
+      <div
+        className="melofi__mixer-button"
+        onClick={() => setShowMixer((prev) => !prev)}
+        style={showMixer ? { outline: "1px solid rgba(254, 165, 57, 0.88)" } : {}}
+      >
         <Tooltip text="Mixer">
           <RiSoundModuleFill size={20} color="white" style={{ cursor: "pointer" }} />
         </Tooltip>
