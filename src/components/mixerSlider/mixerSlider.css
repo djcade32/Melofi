@@ -7,13 +7,14 @@
 }
 
 .melofi__mixerSlider-container-label {
-    width: 40%;
+    width: 45%;
 }
 
 .melofi__mixerSlider-container-label p {
     color: var(--color-secondary);
     font-family: var(--font-poppins);
-    font-size: 21px;
+    font-size: 18px;
+    width: 10ch;
 }
 
 .melofi__mixerSlider_slider-container {

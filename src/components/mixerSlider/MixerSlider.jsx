@@ -38,9 +38,7 @@ const MixerSlider = ({ sound, soundpath, reset, setReset }) => {
   const [volume, setVolume] = useState(0);
 
   useEffect(() => {
-    console.log("mixer Slider useEffect");
     if (reset) {
-      console.log("resetting Volume");
       setVolume(0);
       audioRef.current.pause();
       audioRef.current.currentTime = 0;

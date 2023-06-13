@@ -26,11 +26,7 @@ const Mixer = () => {
   };
 
   const handleResetPressed = () => {
-    console.log("resetting");
-    setResetVolume((prev) => {
-      console.log("handleReset: ", !prev);
-      return true;
-    });
+    setResetVolume(true);
   };
 
   return (
