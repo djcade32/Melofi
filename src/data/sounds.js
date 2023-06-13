@@ -5,6 +5,11 @@ import {
   natureEffect,
   birdsChirppingEffect,
   cityTrafficEffect,
+  stormyNightEffect,
+  fanEffect,
+  whiteNoiseEffect,
+  thunderEffect,
+  ambienceEffect,
 } from "../imports/effects";
 
 export const sounds = [
@@ -25,7 +30,27 @@ export const sounds = [
     soundPath: birdsChirppingEffect,
   },
   {
+    sound: effects.stormyNight,
+    soundPath: stormyNightEffect,
+  },
+  {
     sound: effects.cityTraffic,
     soundPath: cityTrafficEffect,
+  },
+  {
+    sound: effects.fan,
+    soundPath: fanEffect,
+  },
+  {
+    sound: effects.whiteNoise,
+    soundPath: whiteNoiseEffect,
+  },
+  {
+    sound: effects.thunder,
+    soundPath: thunderEffect,
+  },
+  {
+    sound: effects.ambience,
+    soundPath: ambienceEffect,
   },
 ];
