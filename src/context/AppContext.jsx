@@ -10,7 +10,7 @@ const AppContextProvider = (props) => {
   const [showSceneModal, setShowSceneModal] = useState(false);
 
   function getCurrentScene() {
-    return scenes[currentSceneIndex].video;
+    return scenes[currentSceneIndex];
   }
 
   return (

@@ -8,7 +8,8 @@ const SceneBg = () => {
   const [videoPath, setVideoPath] = useState(null);
 
   useEffect(() => {
-    setVideoPath(getCurrentScene());
+    const currentScene = getCurrentScene();
+    setVideoPath(currentScene.video);
   }, [currentSceneIndex]);
 
   return (

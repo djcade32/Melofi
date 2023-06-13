@@ -3,16 +3,20 @@
     flex-direction: row;
     align-items: center ;
     justify-content: space-between;
+    margin-top: 5px;
 }
 
-.melofi__mixerSlider-container p {
+.melofi__mixerSlider-container-label {
+    width: 40%;
+}
+
+.melofi__mixerSlider-container-label p {
     color: var(--color-secondary);
     font-family: var(--font-poppins);
     font-size: 21px;
-    
 }
 
 .melofi__mixerSlider_slider-container {
     display: flex;
-    width: 65%;
+    flex: 1;
 }

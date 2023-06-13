@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Slider, { SliderThumb } from "@mui/material/Slider";
 import { styled } from "@mui/material/styles";
 import "./mixerSlider.css";
+import { getIcon } from "../../helpers/icons";
 
 const StyledSlider = styled(Slider)({
   color: "var(--color-effect)",
@@ -27,29 +28,62 @@ const StyledSlider = styled(Slider)({
   },
 });
 
-const MixerSlider = (props) => {
+const mixerSliderIconProps = {
+  size: 30,
+  color: "#232323",
+};
+
+const MixerSlider = ({ sound, soundpath, reset, setReset }) => {
+  const audioRef = useRef(null);
+  const [volume, setVolume] = useState(0);
+
+  useEffect(() => {
+    console.log("mixer Slider useEffect");
+    if (reset) {
+      console.log("resetting Volume");
+      setVolume(0);
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      setReset(false);
+    }
+  }, [reset]);
+
   function IconThumb(iconThumbProps) {
     const { children, ...other } = iconThumbProps;
     return (
       <SliderThumb {...other}>
         {children}
-        {props.icon}
+        {getIcon(sound, mixerSliderIconProps)}
       </SliderThumb>
     );
   }
 
+  const handleLevelChange = (e) => {
+    if (e.target.value > 0) {
+      audioRef.current.play();
+    } else if (e.target.value <= 0) {
+      audioRef.current.pause();
+    }
+    audioRef.current.volume = e.target.value / 100;
+    setVolume(e.target.value);
+  };
+
   return (
     <div className="melofi__mixerSlider-container">
-      <p>{props.label}</p>
+      <audio ref={audioRef} src={soundpath} loop />
+
+      <div className="melofi__mixerSlider-container-label ">
+        <p>{sound}</p>
+      </div>
       <div className="melofi__mixerSlider_slider-container">
         <StyledSlider
           slots={{
             thumb: IconThumb,
           }}
           defaultValue={0}
-          aria-label={props.label}
-          {...props}
           max={75}
+          onChange={handleLevelChange}
+          value={volume}
         />
       </div>
     </div>

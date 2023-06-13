@@ -11,6 +11,12 @@ import {
   HiOutlineBuildingOffice2,
 } from "../../imports/icons";
 import { useAppContext } from "../../context/AppContext";
+import { getIcon } from "../../helpers/icons";
+
+const iconProps = {
+  size: 30,
+  color: "var(--color-secondary-white)",
+};
 
 const Scene = () => {
   const [showModal, setShowModal] = useState(false);
@@ -28,33 +34,6 @@ const Scene = () => {
     };
   }, []);
 
-  const getSoundIcon = (sound) => {
-    const props = {
-      size: 30,
-      color: "var(--color-secondary-white)",
-      key: sound,
-    };
-
-    switch (sound) {
-      case "rain":
-        return <BsCloudRain {...props} />;
-
-      case "chatter":
-        return <HiOutlineChatBubbleLeftRight {...props} />;
-
-      case "nature":
-        return <BsTree {...props} />;
-
-      case "birds-chirpping":
-        return <SlSocialTwitter {...props} />;
-
-      case "city":
-        return <HiOutlineBuildingOffice2 {...props} />;
-
-      default:
-        break;
-    }
-  };
   return (
     <div>
       <div
@@ -89,8 +68,8 @@ const Scene = () => {
                     {scene.name}
                   </p>
                   <div className="melofi__scene-modal-thumbnail-sounds-container">
-                    {scene.sounds.map((sound) => {
-                      return getSoundIcon(sound);
+                    {scene.sounds.map(({ sound }) => {
+                      return getIcon(sound, iconProps);
                     })}
                   </div>
                 </div>
