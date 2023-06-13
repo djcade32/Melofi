@@ -28,9 +28,6 @@
     animation: scale-up 0.4s;
 }
 
-.melofi__scene-modal-header {
-}
-
 .melofi__scene-modal-title {
     color: var(--color-secondary-white);
     font-family: var(--font-poppins);

@@ -1,15 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./scene.css";
 import { MdLandscape } from "react-icons/md";
 import Tooltip from "../tooltip/Tooltip";
 import { scenes } from "../../data/scenes";
-import {
-  BsCloudRain,
-  BsTree,
-  HiOutlineChatBubbleLeftRight,
-  SlSocialTwitter,
-  HiOutlineBuildingOffice2,
-} from "../../imports/icons";
+
 import { useAppContext } from "../../context/AppContext";
 import { getIcon } from "../../helpers/icons";
 

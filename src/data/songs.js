@@ -13,8 +13,8 @@ export const items = [
     mp3Path: "src/assets/songs/message-in-a-dream_mondo-loops.mp3",
     artist: "Mondo Loops",
     title: "Message In A Dream",
-    provider: "Various Artists - Topic",
-    providerUrl: "https://www.youtube.com/channel/UCgNIbmuzWllNcq4EdbDgJ9Q/featured",
+    provider: "Mondo Loops",
+    providerUrl: "https://www.youtube.com/channel/UCPThglQ5_yomyrArmqlwYFg",
   },
   {
     id: 2,

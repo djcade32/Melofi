@@ -13,6 +13,7 @@ import VolumeSlider from "../volumeSlider/VolumeSlider";
 import MixerSlider from "../mixerSlider/MixerSlider";
 import { useAppContext } from "../../context/AppContext";
 import Tooltip from "../tooltip/Tooltip";
+import { sounds } from "../../data/sounds";
 
 const Mixer = () => {
   const nodeRef = React.useRef(null);
@@ -27,6 +28,32 @@ const Mixer = () => {
 
   const handleResetPressed = () => {
     setResetVolume(true);
+  };
+
+  const getOtherSounds = () => {
+    const currSceneSounds = getCurrentScene().sounds;
+    const allSounds = sounds;
+    let allSoundsList = [];
+
+    for (let i = 0; i < allSounds.length; i++) {
+      const currAllSounds = allSounds[i];
+      let found = false;
+      let j = 0;
+      while (j < currSceneSounds.length) {
+        const currSound = currSceneSounds[j].sound;
+        if (currSound !== currAllSounds.sound) {
+          j++;
+        } else {
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        allSoundsList.push(currAllSounds);
+      }
+    }
+
+    return allSoundsList;
   };
 
   return (
@@ -73,8 +100,29 @@ const Mixer = () => {
             <IoVolumeMedium size={33} color="var(--color-secondary)" />
           </div>
 
-          <div style={{ marginTop: 20 }}>
+          <p className="melofi__mixer_volume-title" style={{ marginTop: 20 }}>
+            SCENE SOUNDS
+          </p>
+          <div>
             {getCurrentScene().sounds.map(({ sound, soundPath }) => {
+              return (
+                <MixerSlider
+                  key={sound}
+                  style={{ cursor: "pointer" }}
+                  soundpath={soundPath}
+                  sound={sound}
+                  reset={resetVolume}
+                  setReset={setResetVolume}
+                />
+              );
+            })}
+          </div>
+          <p className="melofi__mixer_volume-title" style={{ marginTop: 20 }}>
+            ALL SOUNDS
+          </p>
+          <div>
+            {getOtherSounds().map(({ sound, soundPath }) => {
+              console.log();
               return (
                 <MixerSlider
                   key={sound}

@@ -13,7 +13,7 @@ const NowPlaying = ({ song, provider }) => {
             <p className="melofi__nowPlaying-header">Now Playing</p>
           </div>
           <div style={{ marginBottom: 3 }}>
-            <p className="melofi__nowPlaying-song">{`${currentSongInfo.artist} by ${currentSongInfo.title}`}</p>
+            <p className="melofi__nowPlaying-song">{`${currentSongInfo.title} by ${currentSongInfo.artist}`}</p>
           </div>
           <div>
             <p className="melofi__nowPlaying-provider">
