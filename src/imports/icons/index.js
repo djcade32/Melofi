@@ -1,7 +1,7 @@
 import { FaPlay, FaPause } from "react-icons/fa";
 import { BsFillSkipBackwardFill, BsSkipForwardFill, BsCloudRain, BsTree } from "react-icons/bs";
 import { IoVolumeMedium, IoVolumeMute, IoVolumeOff, IoCloseOutline } from "react-icons/io5";
-import { RiSoundModuleFill } from "react-icons/ri";
+import { RiSoundModuleFill, RiFullscreenFill, RiFullscreenExitLine } from "react-icons/ri";
 import { HiOutlineChatBubbleLeftRight, HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { SlSocialTwitter } from "react-icons/sl";
 
@@ -20,4 +20,6 @@ export {
   HiOutlineChatBubbleLeftRight,
   HiOutlineBuildingOffice2,
   SlSocialTwitter,
+  RiFullscreenFill,
+  RiFullscreenExitLine,
 };

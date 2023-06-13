@@ -10,33 +10,72 @@ import AppContextProvider from "./context/AppContext";
 import NowPlaying from "./components/nowPlaying/NowPlaying";
 import Scene from "./components/scene/Scene";
 import SceneBg from "./components/sceneBg/SceneBg";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import { RiFullscreenFill, RiFullscreenExitLine } from "./imports/icons";
+import Tooltip from "./components/tooltip/Tooltip";
 
 function App() {
   const [showScene, setShowScene] = useState(false);
+  const handle = useFullScreenHandle();
+
+  const handleFullscreen = () => {
+    if (handle.active) {
+      handle.exit();
+    } else {
+      handle.enter();
+    }
+  };
   return (
     <AppContextProvider>
-      <div className="App" id="app">
-        <SceneBg />
+      <FullScreen handle={handle}>
+        <div className="App" id="app">
+          <SceneBg />
 
-        <nav id="nav">
-          <div className="melofi__logo">
-            <img src={logo} alt="melofi logo" />
+          <nav id="nav">
+            <div className="melofi__logo">
+              <img src={logo} alt="melofi logo" />
+            </div>
+
+            <div className="melofi__rightSide">
+              {/* GenreDropdown will be a future feature */}
+              {/* <GenreDropdown /> */}
+              {/* <button
+                onClick={() => {
+                  if (handle.active) {
+                    handle.exit();
+                  } else {
+                    handle.enter();
+                  }
+                }}
+              >
+                Enter fullscreen
+              </button> */}
+
+              <Scene showScene={showScene} setShowScene={setShowScene} />
+              <Mixer />
+              <MusicControls />
+              <Tooltip text={handle.active ? "Exit fullscreen" : "Enter fullscreen"}>
+                <div
+                  className="melofi__fullscreen-button"
+                  onClick={handleFullscreen}
+                  style={handle.active ? { outline: "1px solid rgba(254, 165, 57, 0.88)" } : {}}
+                >
+                  {handle.active ? (
+                    <RiFullscreenExitLine size={20} color="white" />
+                  ) : (
+                    <RiFullscreenFill size={20} color="white" />
+                  )}
+                </div>
+              </Tooltip>
+              <Clock />
+            </div>
+          </nav>
+
+          <div>
+            <NowPlaying />
           </div>
-
-          <div className="melofi__rightSide">
-            {/* GenreDropdown will be a future update */}
-            {/* <GenreDropdown /> */}
-            <Scene showScene={showScene} setShowScene={setShowScene} />
-            <Mixer />
-            <MusicControls />
-            <Clock />
-          </div>
-        </nav>
-
-        <div className="melofi__body">
-          <NowPlaying />
         </div>
-      </div>
+      </FullScreen>
     </AppContextProvider>
   );
 }
