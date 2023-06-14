@@ -65,7 +65,7 @@ function App() {
               <Mixer />
               <MusicControls />
               <Scene showScene={showScene} setShowScene={setShowScene} />
-              <Tooltip text={handle.active ? "Exit fullscreen" : "Enter fullscreen"}>
+              <Tooltip text={handle.active ? "Exit full screen" : "Enter full screen"}>
                 <div
                   className="melofi__fullscreen-button"
                   onClick={handleFullscreen}
