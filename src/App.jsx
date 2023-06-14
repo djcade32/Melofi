@@ -11,7 +11,7 @@ import NowPlaying from "./components/nowPlaying/NowPlaying";
 import Scene from "./components/scene/Scene";
 import SceneBg from "./components/sceneBg/SceneBg";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import { RiFullscreenFill, RiFullscreenExitLine } from "./imports/icons";
+import { RiFullscreenFill, RiFullscreenExitLine, GiTacos } from "./imports/icons";
 import Tooltip from "./components/tooltip/Tooltip";
 
 function App() {
@@ -83,6 +83,14 @@ function App() {
           </nav>
 
           <NowPlaying />
+          <div className="melofi__buyMeATacoLink">
+            <div>
+              <GiTacos size={30} color="var(--color-secondary-white)" />
+              <a href="https://bmc.link/normancade" target="_blank">
+                Buy me a taco
+              </a>
+            </div>
+          </div>
         </div>
       </FullScreen>
     </AppContextProvider>

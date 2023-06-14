@@ -13,6 +13,7 @@ import { SlSocialTwitter } from "react-icons/sl";
 import { WiNightAltStormShowers } from "react-icons/wi";
 import { LuFan, LuWaves } from "react-icons/lu";
 import { CgEditNoise } from "react-icons/cg";
+import { GiTacos } from "react-icons/gi";
 
 export {
   FaPause,
@@ -36,4 +37,5 @@ export {
   CgEditNoise,
   IoThunderstormOutline,
   LuWaves,
+  GiTacos,
 };

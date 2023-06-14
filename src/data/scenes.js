@@ -6,13 +6,14 @@ import {
   birdsChirppingEffect,
   cityTrafficEffect,
 } from "../imports/effects";
+import { cozyBedroom, girlInCafe, neighborhoodCafe } from "../imports/scenes";
 
 export const scenes = [
   {
     id: 0,
     name: "Girl in Cafe",
-    image: "src/assets/scenes/girl-in-cafe_pic.png",
-    video: "src/assets/scenes/girl-in-cafe_vid.mp4",
+    image: girlInCafe.pic,
+    video: girlInCafe.vid,
     sounds: [
       { sound: effects.rain, soundPath: rainEffect },
       { sound: effects.chatter, soundPath: chatterEffect },
@@ -23,8 +24,8 @@ export const scenes = [
   {
     id: 1,
     name: "Neighborhood Cafe",
-    image: "src/assets/scenes/neighborhood-cafe_pic.png",
-    video: "src/assets/scenes/neighborhood-cafe_vid.mp4",
+    image: neighborhoodCafe.pic,
+    video: neighborhoodCafe.vid,
     sounds: [
       { sound: effects.rain, soundPath: rainEffect },
       { sound: effects.chatter, soundPath: chatterEffect },
@@ -35,8 +36,8 @@ export const scenes = [
   {
     id: 2,
     name: "Cozy Bedroom",
-    image: "src/assets/scenes/cozy-bedroom_pic.png",
-    video: "src/assets/scenes/cozy-bedroom_vid.mp4",
+    image: cozyBedroom.pic,
+    video: cozyBedroom.vid,
     sounds: [
       { sound: effects.birdsChirpping, soundPath: birdsChirppingEffect },
       { sound: effects.cityTraffic, soundPath: cityTrafficEffect },

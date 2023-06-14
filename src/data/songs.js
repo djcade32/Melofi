@@ -1,8 +1,21 @@
+import {
+  illMeetYouAtTheStation_glimlip_louk,
+  laube_mondoLoops_kanisan,
+  messageInADream_mondoLoops,
+  morningMoon_kanisan_wishesAndDreams,
+  nocturnal_steezyPrime,
+  redbone_lav8,
+  renderYourHeart_bluntone,
+  shouGaNai_raimu,
+  sinkingFatigue_raimu,
+  takeoff_streamError,
+  theRidge_allemIverson,
+} from "../imports/songs";
+
 export const items = [
   {
     id: 0,
-    url: "https://example.com/item1",
-    mp3Path: "src/assets/songs/the-ridge_allem-iversom.mp3",
+    mp3Path: theRidge_allemIverson,
     artist: "Allem Iversom",
     title: "The Ridge",
     provider: "Lofi Records",
@@ -10,7 +23,7 @@ export const items = [
   },
   {
     id: 1,
-    mp3Path: "src/assets/songs/message-in-a-dream_mondo-loops.mp3",
+    mp3Path: messageInADream_mondoLoops,
     artist: "Mondo Loops",
     title: "Message In A Dream",
     provider: "Mondo Loops",
@@ -18,7 +31,7 @@ export const items = [
   },
   {
     id: 2,
-    mp3Path: "src/assets/songs/redbone_lav8.mp3",
+    mp3Path: redbone_lav8,
     artist: "LAV8",
     title: "Redbone",
     provider: "LAV8 - Topic",
@@ -26,7 +39,7 @@ export const items = [
   },
   {
     id: 3,
-    mp3Path: "src/assets/songs/laube_mondo-loops_x_kanisan.mp3",
+    mp3Path: laube_mondoLoops_kanisan,
     artist: "Mondo Loops x Kanisan",
     title: "À l'aube",
     provider: "Lofi Records",
@@ -34,7 +47,7 @@ export const items = [
   },
   {
     id: 4,
-    mp3Path: "src/assets/songs/morning-moon_kanisan_x_wishes-and-dreams.mp3",
+    mp3Path: morningMoon_kanisan_wishesAndDreams,
     artist: "Kanisan x Wishes and Dreams",
     title: "Morning Moon",
     provider: "Lofi Records",
@@ -42,7 +55,7 @@ export const items = [
   },
   {
     id: 5,
-    mp3Path: "src/assets/songs/sinking-fatigue_raimu.mp3",
+    mp3Path: sinkingFatigue_raimu,
     artist: "Raimu",
     title: "Sinking Fatigue",
     provider: "Lofi Records",
@@ -50,7 +63,7 @@ export const items = [
   },
   {
     id: 6,
-    mp3Path: "src/assets/songs/ill-meet-you-at-the-station_glimlip_x_louk.mp3",
+    mp3Path: illMeetYouAtTheStation_glimlip_louk,
     artist: "Glimlip x Louk",
     title: "I'll Meet You At The Station",
     provider: "Glimlip",
@@ -58,7 +71,7 @@ export const items = [
   },
   {
     id: 7,
-    mp3Path: "src/assets/songs/nocturnal_steezy-prime.mp3",
+    mp3Path: nocturnal_steezyPrime,
     artist: "Steezy Prime",
     title: "Nocturnal",
     provider: "Lofi Records",
@@ -66,7 +79,7 @@ export const items = [
   },
   {
     id: 8,
-    mp3Path: "src/assets/songs/render-your-heart_bluntone.mp3",
+    mp3Path: renderYourHeart_bluntone,
     artist: "BluntOne",
     title: "Render Your Heart",
     provider: "BluntOne",
@@ -74,7 +87,7 @@ export const items = [
   },
   {
     id: 9,
-    mp3Path: "src/assets/songs/shou-ga-nai_raimu.mp3",
+    mp3Path: shouGaNai_raimu,
     artist: "Raimu",
     title: "Shou Ga Nai",
     provider: "Raimu",
@@ -82,7 +95,7 @@ export const items = [
   },
   {
     id: 10,
-    mp3Path: "src/assets/songs/takeoff_stream-error.mp3",
+    mp3Path: takeoff_streamError,
     artist: "stream_error",
     title: "Takeoff",
     provider: "stream_error",
