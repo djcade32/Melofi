@@ -67,7 +67,7 @@ const Mixer = () => {
           <RiSoundModuleFill size={20} color="white" style={{ cursor: "pointer" }} />
         </Tooltip>
       </div>
-      <Draggable nodeRef={nodeRef} bounds={"div"} handle="#handle">
+      <Draggable nodeRef={nodeRef} bounds={".fullscreen"} handle="#handle">
         <div
           ref={nodeRef}
           className={showMixer ? "melofi__mixer-modal " : "melofi__mixer-modal "}

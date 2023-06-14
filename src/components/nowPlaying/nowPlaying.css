@@ -8,12 +8,14 @@
     color: white;
     font-size: 21px;
     font-family: var(--font-poppins);
+    font-weight: 300;
 }
 
 .melofi__nowPlaying-song {
     color: white;
     font-size: 16px;
     font-family: var(--font-poppins);
+    font-weight: 300;
 }
 
 .melofi__nowPlaying-provider { 
@@ -21,6 +23,8 @@
     font-family: var(--font-poppins);
     font-size: 16px; 
     opacity: 50%;
+    font-weight: 300;
+
 }
 
 .melofi__nowPlaying-provider:hover { 

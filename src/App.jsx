@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 import MusicControls from "./components/musicControls/MusicControls";
@@ -25,13 +25,36 @@ function App() {
       handle.enter();
     }
   };
+
+  // Use this when you are ready to redirect away from mobile devices
+  // const [screenSize, setScreenSize] = useState(getCurrentDimension());
+
+  // function getCurrentDimension() {
+  //   console.log("width: ", window.innerWidth);
+  //   console.log("height: ", window.innerHeight);
+  //   return {
+  //     width: window.innerWidth,
+  //     height: window.innerHeight,
+  //   };
+  // }
+
+  // useEffect(() => {
+  //   const updateDimension = () => {
+  //     setScreenSize(getCurrentDimension());
+  //   };
+  //   window.addEventListener("resize", updateDimension);
+
+  //   return () => {
+  //     window.removeEventListener("resize", updateDimension);
+  //   };
+  // }, [screenSize]);
   return (
     <AppContextProvider>
       <FullScreen handle={handle}>
         <div className="App" id="app">
           <SceneBg />
 
-          <nav id="nav">
+          <nav id="nav" className="melofi__nav">
             <div className="melofi__logo">
               <img src={logo} alt="melofi logo" />
             </div>
@@ -39,21 +62,9 @@ function App() {
             <div className="melofi__rightSide">
               {/* GenreDropdown will be a future feature */}
               {/* <GenreDropdown /> */}
-              {/* <button
-                onClick={() => {
-                  if (handle.active) {
-                    handle.exit();
-                  } else {
-                    handle.enter();
-                  }
-                }}
-              >
-                Enter fullscreen
-              </button> */}
-
-              <Scene showScene={showScene} setShowScene={setShowScene} />
               <Mixer />
               <MusicControls />
+              <Scene showScene={showScene} setShowScene={setShowScene} />
               <Tooltip text={handle.active ? "Exit fullscreen" : "Enter fullscreen"}>
                 <div
                   className="melofi__fullscreen-button"
@@ -71,9 +82,7 @@ function App() {
             </div>
           </nav>
 
-          <div>
-            <NowPlaying />
-          </div>
+          <NowPlaying />
         </div>
       </FullScreen>
     </AppContextProvider>

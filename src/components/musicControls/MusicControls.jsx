@@ -119,7 +119,7 @@ const MusicControls = () => {
         {isPlaying ? (
           <FaPause {...iconProps} onClick={handleTogglePlay} />
         ) : (
-          <FaPlay size={20} color="white" onClick={handleTogglePlay} />
+          <FaPlay size={20} color="white" onClick={handleTogglePlay} {...iconProps} />
         )}
         <BsSkipForwardFill {...iconProps} onClick={handleSkipForward} />
         <IoVolumeMedium {...iconProps} onClick={() => setVolumePressed((prev) => !prev)} />

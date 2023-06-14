@@ -7,9 +7,8 @@
 
 .App nav {
   display: flex;
-  padding: 0 28px 0;
+  padding: 0 28px;
   flex-direction: row;
-
 }
 
 .melofi__logo img {
@@ -44,6 +43,24 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0%);
   }
 }
 

@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { scenes } from "../data/scenes";
 
 const AppContext = createContext({});

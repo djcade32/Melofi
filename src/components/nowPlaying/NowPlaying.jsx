@@ -2,7 +2,7 @@ import React from "react";
 import "./nowPlaying.css";
 import { useAppContext } from "../../context/AppContext";
 
-const NowPlaying = ({ song, provider }) => {
+const NowPlaying = () => {
   const { currentSongInfo } = useAppContext();
 
   return (
