@@ -76,7 +76,7 @@ function App() {
     <AppContextProvider>
       <FullScreen handle={handle}>
         {!onMobileDevice ? (
-          <div className="App" id="app">
+           <div className="App" id="app" style={isSleep ? { cursor: "none" } : {}}>
             <SceneBg />
 
             {/* Header */}
