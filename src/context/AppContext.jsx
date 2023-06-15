@@ -8,6 +8,7 @@ const AppContextProvider = (props) => {
   const [currentSongInfo, setCurrentSongInfo] = useState(null);
   const [currentSceneIndex, setCurrentSceneIndex] = useState(0);
   const [showSceneModal, setShowSceneModal] = useState(false);
+  const [showMixerModal, setShowMixerModal] = useState(false);
 
   function getCurrentScene() {
     return scenes[currentSceneIndex];
@@ -25,6 +26,8 @@ const AppContextProvider = (props) => {
         getCurrentScene,
         showSceneModal,
         setShowSceneModal,
+        showMixerModal,
+        setShowMixerModal,
       }}
     >
       {props.children}

@@ -14,12 +14,13 @@ const iconProps = {
 
 const Scene = () => {
   const [showModal, setShowModal] = useState(false);
-  const { setCurrentSceneIndex } = useAppContext();
+  const { setCurrentSceneIndex, showSceneModal, setShowSceneModal } = useAppContext();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (event.target.id === "app") {
         setShowModal(false);
+        setShowSceneModal(false);
       }
     };
     document.addEventListener("click", handleClickOutside, true);
@@ -34,6 +35,7 @@ const Scene = () => {
         className="melofi__scene-button"
         onClick={() => {
           setShowModal((prev) => !prev);
+          setShowSceneModal((prev) => !prev);
         }}
         style={showModal ? { outline: "1px solid rgba(254, 165, 57, 0.88)" } : {}}
       >

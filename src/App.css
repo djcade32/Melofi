@@ -5,6 +5,11 @@
   height:100vh;
 }
 
+.melofi__header {
+  position: absolute;
+  width: 100%;
+}
+
 .App nav {
   display: flex;
   padding: 0 28px;
@@ -63,6 +68,12 @@
   opacity: 100%;
 }
 
+.melofi__footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -74,19 +85,37 @@
 
 @keyframes slide-up {
   from {
-    transform: translateY(0%);
+    transform: translateY(0px);
   }
   to {
-    transform: translateY(-100%);
+    transform: translateY(-150px);
   }
 }
 
 @keyframes slide-down {
   from {
-    transform: translateY(-100%);
+    transform: translateY(-150px);
   }
   to {
-    transform: translateY(0%);
+    transform: translateY(0px);
+  }
+}
+
+@keyframes slide-footer-down {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(150px);
+  }
+}
+
+@keyframes slide-footer-up {
+  from {
+    transform: translateY(150px);
+  }
+  to {
+    transform: translateY(0px);
   }
 }
 
