@@ -14,6 +14,7 @@ import { WiNightAltStormShowers } from "react-icons/wi";
 import { LuFan, LuWaves } from "react-icons/lu";
 import { CgEditNoise } from "react-icons/cg";
 import { GiTacos } from "react-icons/gi";
+import { MdLandscape } from "react-icons/md";
 
 export {
   FaPause,
@@ -38,4 +39,5 @@ export {
   IoThunderstormOutline,
   LuWaves,
   GiTacos,
+  MdLandscape,
 };

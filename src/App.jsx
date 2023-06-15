@@ -14,9 +14,9 @@ import SceneBg from "./components/sceneBg/SceneBg";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { RiFullscreenFill, RiFullscreenExitLine, GiTacos } from "./imports/icons";
 import Tooltip from "./components/tooltip/Tooltip";
+import SceneModal from "./components/scene/SceneModal";
 
 function App() {
-  const [showMixerModal, setShowMixerModal] = useState(false);
   const [isSleep, setIsSleep] = useState(false);
 
   const handle = useFullScreenHandle();
@@ -28,10 +28,6 @@ function App() {
       handle.enter();
     }
   };
-
-  useEffect(() => {
-    console.log("From App: button pressed");
-  }, [showMixerModal]);
 
   let timeout;
   useEffect(() => {
@@ -89,17 +85,13 @@ function App() {
           >
             <nav id="nav" className="melofi__nav">
               <div className="melofi__logo">
-                <img
-                  src={logo}
-                  alt="melofi logo"
-                  onClick={() => setShowMixerModal((prev) => !prev)}
-                />
+                <img src={logo} alt="melofi logo" />
               </div>
 
               <div className="melofi__rightSide">
                 {/* GenreDropdown will be a future feature */}
                 {/* <GenreDropdown /> */}
-                <Mixer setShowMixerModal={setShowMixerModal} showMixerModal={showMixerModal} />
+                <Mixer />
                 <MusicControls />
                 <Scene />
                 <Tooltip text={handle.active ? "Exit full screen" : "Enter full screen"}>
@@ -120,6 +112,9 @@ function App() {
             </nav>
           </div>
 
+          <MixerModal />
+          <SceneModal />
+
           {/* Footer */}
           <div
             className="melofi__footer"
@@ -139,8 +134,6 @@ function App() {
               </div>
             </div>
           </div>
-
-          <MixerModal showModal={showMixerModal} setShowModal={setShowMixerModal} />
         </div>
       </FullScreen>
     </AppContextProvider>
