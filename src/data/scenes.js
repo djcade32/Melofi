@@ -5,8 +5,10 @@ import {
   natureEffect,
   birdsChirppingEffect,
   cityTrafficEffect,
+  thunderEffect,
+  stormyNightEffect,
 } from "../imports/effects";
-import { cozyBedroom, girlInCafe, neighborhoodCafe } from "../imports/scenes";
+import { cityStudio, cozyBedroom, girlInCafe, neighborhoodCafe } from "../imports/scenes";
 
 export const scenes = [
   {
@@ -44,5 +46,17 @@ export const scenes = [
       { sound: effects.rain, soundPath: rainEffect },
     ],
     fontFamily: "Patrick Hand",
+  },
+  {
+    id: 3,
+    name: "City Studio",
+    image: cityStudio.pic,
+    video: cityStudio.vid,
+    sounds: [
+      { sound: effects.thunder, soundPath: thunderEffect },
+      { sound: effects.cityTraffic, soundPath: cityTrafficEffect },
+      { sound: effects.stormyNight, soundPath: stormyNightEffect },
+    ],
+    fontFamily: "Cardo",
   },
 ];
