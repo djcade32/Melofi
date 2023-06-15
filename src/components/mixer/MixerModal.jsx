@@ -104,7 +104,6 @@ const MixerModal = () => {
         </p>
         <div>
           {getOtherSounds().map(({ sound, soundPath }) => {
-            console.log();
             return (
               <MixerSlider
                 key={sound}

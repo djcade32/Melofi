@@ -3,6 +3,7 @@ import Slider, { SliderThumb } from "@mui/material/Slider";
 import { styled } from "@mui/material/styles";
 import "./mixerSlider.css";
 import { getIcon } from "../../helpers/icons";
+import { useAppContext } from "../../context/AppContext";
 
 const StyledSlider = styled(Slider)({
   color: "var(--color-effect)",
@@ -34,17 +35,19 @@ const mixerSliderIconProps = {
 };
 
 const MixerSlider = ({ sound, soundpath, reset, setReset }) => {
+  const { currentSceneIndex } = useAppContext();
   const audioRef = useRef(null);
   const [volume, setVolume] = useState(0);
 
   useEffect(() => {
     if (reset) {
-      setVolume(0);
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-      setReset(false);
+      resetSlider();
     }
   }, [reset]);
+
+  useEffect(() => {
+    resetSlider();
+  }, [currentSceneIndex]);
 
   function IconThumb(iconThumbProps) {
     const { children, ...other } = iconThumbProps;
@@ -54,6 +57,13 @@ const MixerSlider = ({ sound, soundpath, reset, setReset }) => {
         {getIcon(sound, mixerSliderIconProps)}
       </SliderThumb>
     );
+  }
+
+  function resetSlider() {
+    setVolume(0);
+    audioRef.current.pause();
+    audioRef.current.currentTime = 0;
+    setReset(false);
   }
 
   const handleLevelChange = (e) => {
