@@ -1,5 +1,11 @@
 import { FaPlay, FaPause } from "react-icons/fa";
-import { BsFillSkipBackwardFill, BsSkipForwardFill, BsCloudRain, BsTree } from "react-icons/bs";
+import {
+  BsFillSkipBackwardFill,
+  BsSkipForwardFill,
+  BsCloudRain,
+  BsTree,
+  BsPhoneFill,
+} from "react-icons/bs";
 import {
   IoVolumeMedium,
   IoVolumeMute,
@@ -40,4 +46,5 @@ export {
   LuWaves,
   GiTacos,
   MdLandscape,
+  BsPhoneFill,
 };
