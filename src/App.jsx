@@ -12,12 +12,13 @@ import NowPlaying from "./components/nowPlaying/NowPlaying";
 import SceneButton from "./components/scene/SceneButton";
 import SceneBg from "./components/sceneBg/SceneBg";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import { RiFullscreenFill, RiFullscreenExitLine, GiTacos } from "./imports/icons";
+import { RiFullscreenFill, RiFullscreenExitLine, GiTacos, BsPhoneFill } from "./imports/icons";
 import Tooltip from "./components/tooltip/Tooltip";
 import SceneModal from "./components/scene/SceneModal";
 
 function App() {
   const [isSleep, setIsSleep] = useState(false);
+  const [onMobileDevice, setOnMobileDevice] = useState(window.innerWidth < 750 ? true : false);
 
   const handle = useFullScreenHandle();
 
@@ -47,94 +48,130 @@ function App() {
   }, []);
 
   // Use this when you are ready to redirect away from mobile devices
-  // const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
   // function getCurrentDimension() {
-  //   console.log("width: ", window.innerWidth);
-  //   console.log("height: ", window.innerHeight);
+
   //   return {
   //     width: window.innerWidth,
   //     height: window.innerHeight,
   //   };
   // }
 
-  // useEffect(() => {
-  //   const updateDimension = () => {
-  //     setScreenSize(getCurrentDimension());
-  //   };
-  //   window.addEventListener("resize", updateDimension);
+  useEffect(() => {
+    const updateDimension = () => {
+      if (window.innerWidth < 750) {
+        setOnMobileDevice(true);
+      } else if (window.innerWidth > 750) {
+        setOnMobileDevice(false);
+      }
+    };
+    window.addEventListener("resize", updateDimension);
 
-  //   return () => {
-  //     window.removeEventListener("resize", updateDimension);
-  //   };
-  // }, [screenSize]);
+    return () => {
+      window.removeEventListener("resize", updateDimension);
+    };
+  }, []);
+
   return (
     <AppContextProvider>
       <FullScreen handle={handle}>
-        <div className="App" id="app" style={isSleep ? { cursor: "none" } : {}}>
-          <SceneBg />
+        {!onMobileDevice ? (
+           <div className="App" id="app" style={isSleep ? { cursor: "none" } : {}}>
+            <SceneBg />
 
-          {/* Header */}
-          <div
-            className="melofi__header"
-            style={
-              isSleep
-                ? { animation: "slide-up 0.4s forwards" }
-                : { animation: "slide-down 0.4s forwards" }
-            }
-          >
-            <nav id="nav" className="melofi__nav">
-              <div className="melofi__logo">
-                <img src={logo} alt="melofi logo" />
-              </div>
+            {/* Header */}
+            <div
+              className="melofi__header"
+              style={
+                isSleep
+                  ? { animation: "slide-up 0.4s forwards" }
+                  : { animation: "slide-down 0.4s forwards" }
+              }
+            >
+              <nav id="nav" className="melofi__nav">
+                <div className="melofi__logo">
+                  <img src={logo} alt="melofi logo" />
+                </div>
 
-              <div className="melofi__rightSide">
-                {/* GenreDropdown will be a future feature */}
-                {/* <GenreDropdown /> */}
-                <MixerButton />
-                <MusicControls />
-                <SceneButton />
-                <Tooltip text={handle.active ? "Exit full screen" : "Enter full screen"}>
-                  <div
-                    className="melofi__fullscreen-button"
-                    onClick={handleFullscreen}
-                    style={handle.active ? { outline: "1px solid rgba(254, 165, 57, 0.88)" } : {}}
-                  >
-                    {handle.active ? (
-                      <RiFullscreenExitLine size={20} color="white" />
-                    ) : (
-                      <RiFullscreenFill size={20} color="white" />
-                    )}
-                  </div>
-                </Tooltip>
-                <Clock />
-              </div>
-            </nav>
-          </div>
+                <div className="melofi__rightSide">
+                  {/* GenreDropdown will be a future feature */}
+                  {/* <GenreDropdown /> */}
+                  <MixerButton />
+                  <MusicControls />
+                  <SceneButton />
+                  <Tooltip text={handle.active ? "Exit full screen" : "Enter full screen"}>
+                    <div
+                      className="melofi__fullscreen-button"
+                      onClick={handleFullscreen}
+                      style={handle.active ? { outline: "1px solid rgba(254, 165, 57, 0.88)" } : {}}
+                    >
+                      {handle.active ? (
+                        <RiFullscreenExitLine size={20} color="white" />
+                      ) : (
+                        <RiFullscreenFill size={20} color="white" />
+                      )}
+                    </div>
+                  </Tooltip>
+                  <Clock />
+                </div>
+              </nav>
+            </div>
 
-          <MixerModal />
-          <SceneModal />
+            <MixerModal />
+            <SceneModal />
 
-          {/* Footer */}
-          <div
-            className="melofi__footer"
-            style={
-              isSleep
-                ? { animation: "slide-footer-down 0.4s forwards" }
-                : { animation: "slide-footer-up 0.4s forwards" }
-            }
-          >
-            <NowPlaying />
-            <div className="melofi__buyMeATacoLink">
-              <div>
-                <GiTacos size={30} color="var(--color-secondary-white)" />
-                <a href="https://bmc.link/normancade" target="_blank">
-                  Buy me a taco
-                </a>
+            {/* Footer */}
+            <div
+              className="melofi__footer"
+              style={
+                isSleep
+                  ? { animation: "slide-footer-down 0.4s forwards" }
+                  : { animation: "slide-footer-up 0.4s forwards" }
+              }
+            >
+              <NowPlaying />
+              <div className="melofi__buyMeATacoLink">
+                <div>
+                  <GiTacos size={30} color="var(--color-secondary-white)" />
+                  <a href="https://bmc.link/normancade" target="_blank">
+                    Buy me a taco
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="App" style={{ backgroundColor: "var(--color-primary)" }}>
+            <SceneBg />
+            <img src={logo} alt="melofi logo" style={{ width: 122, height: 122 }} />
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                rowGap: 15,
+                justifyContent: "center",
+                alignItems: "center",
+                flex: 1,
+                width: "50%",
+                marginRight: "auto",
+                marginLeft: "auto",
+              }}
+            >
+              <BsPhoneFill size={70} color="var(--color-effect)" />
+              <p
+                style={{
+                  fontFamily: "var(--font-poppins)",
+                  fontSize: 21,
+                  color: "white",
+                  textAlign: "center",
+                }}
+              >
+                Melofi is not available on mobile devices
+              </p>
+            </div>
+          </div>
+        )}
       </FullScreen>
     </AppContextProvider>
   );
