@@ -4,12 +4,12 @@ import "./App.css";
 import MusicControls from "./components/musicControls/MusicControls";
 import Clock from "./components/clock/Clock";
 import logo from "./assets/logo.png";
-import Mixer from "./components/mixer/Mixer";
+import MixerButton from "./components/mixer/MixerButton";
 import MixerModal from "./components/mixer/MixerModal";
 import AppContextProvider from "./context/AppContext";
 // import GenreDropdown from "./components/genreDropdown/GenreDropdown";
 import NowPlaying from "./components/nowPlaying/NowPlaying";
-import Scene from "./components/scene/Scene";
+import SceneButton from "./components/scene/SceneButton";
 import SceneBg from "./components/sceneBg/SceneBg";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { RiFullscreenFill, RiFullscreenExitLine, GiTacos } from "./imports/icons";
@@ -91,9 +91,9 @@ function App() {
               <div className="melofi__rightSide">
                 {/* GenreDropdown will be a future feature */}
                 {/* <GenreDropdown /> */}
-                <Mixer />
+                <MixerButton />
                 <MusicControls />
-                <Scene />
+                <SceneButton />
                 <Tooltip text={handle.active ? "Exit full screen" : "Enter full screen"}>
                   <div
                     className="melofi__fullscreen-button"

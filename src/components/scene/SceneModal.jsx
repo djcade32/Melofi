@@ -16,26 +16,26 @@ const SceneModal = () => {
   return (
     <>
       {showSceneModal && (
-        <div className="melofi__scene-modal">
-          <div className="melofi__scene-modal-header">
-            <p className="melofi__scene-modal-title">SCENES</p>
+        <div className="melofi__sceneModal">
+          <div className="melofi__sceneModal-header">
+            <p className="melofi__sceneModal-title">SCENES</p>
           </div>
-          <div className="melofi__scene-modal-thumbnail-container">
+          <div className="melofi__sceneModal-thumbnail-container">
             {scenes.map((scene, index) => {
               return (
                 <div
                   key={scene.name}
-                  className="melofi__scene-modal-thumbnail"
+                  className="melofi__sceneModal-thumbnail"
                   style={{ backgroundImage: `url(${scene.image})` }}
                   onClick={() => setCurrentSceneIndex(index)}
                 >
                   <p
-                    className="melofi__scene-modal-thumbnail-title"
+                    className="melofi__sceneModal-thumbnail-title"
                     style={{ fontFamily: scene.fontFamily }}
                   >
                     {scene.name}
                   </p>
-                  <div className="melofi__scene-modal-thumbnail-sounds-container">
+                  <div className="melofi__sceneModal-thumbnail-sounds-container">
                     {scene.sounds.map(({ sound }) => {
                       return getIcon(sound, iconProps);
                     })}

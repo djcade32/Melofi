@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "./scene.css";
+import "./sceneButton.css";
 import Tooltip from "../tooltip/Tooltip";
 import { useAppContext } from "../../context/AppContext";
 import { MdLandscape } from "../../imports/icons";
 
-const Scene = () => {
+const SceneButton = () => {
   const [showModal, setShowModal] = useState(false);
-  const { setCurrentSceneIndex, showSceneModal, setShowSceneModal } = useAppContext();
+  const { setShowSceneModal } = useAppContext();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -24,7 +24,7 @@ const Scene = () => {
   return (
     <div>
       <div
-        className="melofi__scene-button"
+        className="melofi__sceneButton"
         onClick={() => {
           setShowModal((prev) => !prev);
           setShowSceneModal((prev) => !prev);
@@ -39,4 +39,4 @@ const Scene = () => {
   );
 };
 
-export default Scene;
+export default SceneButton;

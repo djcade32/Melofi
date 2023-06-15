@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
-import "./mixer.css";
+import React from "react";
+import "./mixerButton.css";
 
 import { RiSoundModuleFill } from "../../imports/icons";
 
 import { useAppContext } from "../../context/AppContext";
 import Tooltip from "../tooltip/Tooltip";
 
-const Mixer = () => {
+const MixerButton = () => {
   const { setShowMixerModal, showMixerModal } = useAppContext();
 
   return (
     <div
-      className="melofi__mixer-button"
+      className="melofi__mixerButton"
       onClick={() => setShowMixerModal((prev) => !prev)}
       style={showMixerModal ? { outline: "1px solid rgba(254, 165, 57, 0.88)" } : {}}
     >
@@ -22,4 +22,4 @@ const Mixer = () => {
   );
 };
 
-export default Mixer;
+export default MixerButton;
