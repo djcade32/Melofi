@@ -71,7 +71,7 @@ function App() {
   return (
     <AppContextProvider>
       <FullScreen handle={handle}>
-        <div className="App" id="app">
+        <div className="App" id="app" style={isSleep ? { cursor: "none" } : {}}>
           <SceneBg />
 
           {/* Header */}
