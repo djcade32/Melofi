@@ -1,0 +1,43 @@
+.melofi__toolsMenu {
+    display: flex;
+    width: 33px;
+    height: 33px;
+    background-color: var(--color-primary);
+    backdrop-filter: blur(10px);
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+}
+
+.melofi__toolsMenu-container {
+    position: absolute;
+    background-color: var(--color-primary);
+    top: 50px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 190px;
+    border-radius: 10px;
+    overflow: hidden;
+
+}
+
+.melofi__toolsMenu-container-items{
+    display: flex;
+    column-gap: 10px;
+    padding: 5px 10px;
+    align-items: center;
+}
+
+.melofi__toolsMenu-container-items:hover{
+    background-color: var(--color-effect);
+
+}
+
+.melofi__toolsMenu-container-items p{
+    font-family: var(--font-poppins);
+    color: white;
+    font-size: 16px;
+    font-weight: 300;
+}
