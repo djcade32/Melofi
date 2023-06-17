@@ -14,22 +14,11 @@ function Calendar() {
   const date = new Date();
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   let timeout = null;
-
   let options = { weekday: "long", month: "long", day: "numeric", timeZone: timezone };
+
   const { setShowCalendar, showCalendar } = useAppContext();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
   const [events, setEvents] = useState([]);
-  const [mouseOver, setMouseOver] = useState(false);
-
-  const login = useGoogleLogin({
-    onSuccess: (codeResponse) => {
-      console.log(codeResponse);
-      setUser(codeResponse);
-      localStorage.setItem("user", JSON.stringify(codeResponse));
-    },
-    onError: (error) => console.log("Login Failed:", error),
-    scope: "https://www.googleapis.com/auth/calendar",
-  });
 
   useEffect(() => {
     if (user) {
@@ -37,20 +26,6 @@ function Calendar() {
       // fetchEvents();
     }
   }, [user]);
-
-  // log out function to log the user out of google and set the profile array to null
-  const logOut = () => {
-    googleLogout();
-    setUser(null);
-    localStorage.removeItem("user");
-    clearTimeout(timeout);
-  };
-
-  const setTokenExpiration = (expires_in) => {
-    timeout = setTimeout(() => {
-      logOut();
-    }, expires_in * 1000);
-  };
 
   const fetchEvents = async () => {
     const timeMin = date.toISOString();
@@ -77,10 +52,40 @@ function Calendar() {
     }
   };
 
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      console.log(codeResponse);
+      setUser(codeResponse);
+      localStorage.setItem("user", JSON.stringify(codeResponse));
+    },
+    onError: (error) => console.log("Login Failed:", error),
+    scope: "https://www.googleapis.com/auth/calendar",
+  });
+
+  const logOut = () => {
+    googleLogout();
+    setUser(null);
+    localStorage.removeItem("user");
+    clearTimeout(timeout);
+  };
+
+  const setTokenExpiration = (expires_in) => {
+    timeout = setTimeout(() => {
+      logOut();
+    }, expires_in * 1000);
+  };
+
   const convertISOTimestamp = (timestamp) => {
     const isoDate = new Date(timestamp);
     const convertedDate = isoDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     return convertedDate[0] === "0" ? convertedDate.slice(1) : convertedDate;
+  };
+
+  const dateInPast = (endTime) => {
+    const currentTime = new Date().getTime();
+    const newEndTime = new Date(endTime).getTime();
+
+    return currentTime > newEndTime;
   };
 
   const determineCalendarHeight = (event) => {
@@ -124,8 +129,9 @@ function Calendar() {
                     event.summary && (
                       <CalendarItem
                         title={event.summary}
-                        startTime={convertISOTimestamp(event.start?.dateTime)}
-                        endTime={convertISOTimestamp(event.end?.dateTime)}
+                        startTime={convertISOTimestamp(event?.start.dateTime)}
+                        endTime={convertISOTimestamp(event?.end.dateTime)}
+                        dateInPast={dateInPast(event?.end.dateTime)}
                       />
                     )
                 )}
