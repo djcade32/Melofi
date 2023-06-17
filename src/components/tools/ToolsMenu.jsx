@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./toolsMenu.css";
 import {
   AiFillTool,
-  AiOutlineGoogle,
   BsFillCalendarDateFill,
   HiClipboardDocumentList,
   FaStickyNote,
 } from "../../imports/icons";
 import Tooltip from "../tooltip/Tooltip";
+import { useAppContext } from "../../context/AppContext";
 
 const iconProps = {
   size: 15,
@@ -15,13 +15,13 @@ const iconProps = {
   cursor: "pointer",
 };
 
-const ToolsMenu = () => {
-  const [showMenu, setShowMenu] = useState(false);
+const ToolsMenu = ({ isSleep }) => {
+  const { setShowToolsMenu, showToolsMenu, setShowCalendar } = useAppContext();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (event.target.id === "app") {
-        setShowMenu(false);
+        setShowToolsMenu(false);
       }
     };
     document.addEventListener("click", handleClickOutside, true);
@@ -29,17 +29,23 @@ const ToolsMenu = () => {
       document.removeEventListener("click", handleClickOutside, true);
     };
   }, []);
+
+  useEffect(() => {
+    if (showToolsMenu) {
+      setShowToolsMenu(false);
+    }
+  }, [isSleep]);
   return (
     <div
       className="melofi__toolsMenu"
-      style={showMenu ? { outline: "1px solid rgba(254, 165, 57, 0.88)" } : {}}
-      onClick={() => setShowMenu((prev) => !prev)}
+      style={showToolsMenu ? { outline: "1px solid rgba(254, 165, 57, 0.88)" } : {}}
+      onClick={() => setShowToolsMenu((prev) => !prev)}
     >
       <Tooltip text="Tools">
         <AiFillTool {...iconProps} />
       </Tooltip>
 
-      {showMenu && (
+      {showToolsMenu && (
         <div className="melofi__toolsMenu-container">
           <div className="melofi__toolsMenu-container-items">
             <FaStickyNote {...iconProps} />
@@ -49,7 +55,10 @@ const ToolsMenu = () => {
             <HiClipboardDocumentList {...iconProps} />
             <p>To-do list</p>
           </div>
-          <div className="melofi__toolsMenu-container-items">
+          <div
+            className="melofi__toolsMenu-container-items"
+            onClick={() => setShowCalendar((prev) => !prev)}
+          >
             <BsFillCalendarDateFill {...iconProps} />
             <p>Calendar</p>
           </div>

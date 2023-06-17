@@ -6,6 +6,7 @@ import {
   BsTree,
   BsPhoneFill,
   BsFillCalendarDateFill,
+  BsInfoCircle,
 } from "react-icons/bs";
 import {
   IoVolumeMedium,
@@ -58,4 +59,5 @@ export {
   BsFillCalendarDateFill,
   FaStickyNote,
   HiClipboardDocumentList,
+  BsInfoCircle,
 };

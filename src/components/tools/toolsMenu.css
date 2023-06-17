@@ -30,8 +30,12 @@
     align-items: center;
 }
 
+.melofi__toolsMenu-container-items p{
+    width: 100%;
+}
+
 .melofi__toolsMenu-container-items:hover{
-    background-color: var(--color-effect);
+    background-color: rgba(254, 165, 57, 0.88);
 
 }
 

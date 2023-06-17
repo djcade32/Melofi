@@ -16,6 +16,7 @@ import { RiFullscreenFill, RiFullscreenExitLine, GiTacos, BsPhoneFill } from "./
 import Tooltip from "./components/tooltip/Tooltip";
 import SceneModal from "./components/scene/SceneModal";
 import ToolsMenu from "./components/tools/ToolsMenu";
+import Calendar from "./components/calendar/Calendar";
 
 function App() {
   const [isSleep, setIsSleep] = useState(false);
@@ -90,7 +91,7 @@ function App() {
                   <MixerButton />
                   <MusicControls />
                   <SceneButton />
-                  <ToolsMenu />
+                  <ToolsMenu isSleep={isSleep} />
                   <Tooltip text={handle.active ? "Exit full screen" : "Enter full screen"}>
                     <div
                       className="melofi__fullscreen-button"
@@ -111,6 +112,7 @@ function App() {
 
             <MixerModal />
             <SceneModal />
+            <Calendar />
 
             {/* Footer */}
             <div

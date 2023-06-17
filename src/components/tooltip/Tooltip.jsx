@@ -16,6 +16,7 @@ const Tooltip = (props) => {
             fontWeight: 400,
             fontSize: 16,
             userSelect: "none",
+            textAlign: "center",
           },
         },
       }}
