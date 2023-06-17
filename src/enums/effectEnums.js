@@ -9,6 +9,7 @@ const effects = {
   whiteNoise: "White noise",
   thunder: "Thunder",
   ambience: "Ambience",
+  ocean: "Ocean",
 };
 
 export { effects };
