@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
-import { Calendar as ReactCalendar } from "./imports";
 import { AiOutlineGoogle, BsInfoCircle, IoCloseOutline } from "../../imports/icons";
 
 import "./calendar.css";
@@ -11,58 +10,46 @@ import { useAppContext } from "../../context/AppContext";
 import CalendarItem from "./CalendarItem";
 
 function Calendar() {
+  const nodeRef = useRef(null);
   const date = new Date();
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  let timeout = null;
 
   let options = { weekday: "long", month: "long", day: "numeric", timeZone: timezone };
   const { setShowCalendar, showCalendar } = useAppContext();
-  const nodeRef = useRef(null);
-  const [user, setUser] = useState(null);
-  const [profile, setProfile] = useState(null);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
   const [events, setEvents] = useState([]);
+  const [mouseOver, setMouseOver] = useState(false);
 
   const login = useGoogleLogin({
-    onSuccess: (codeResponse) => setUser(codeResponse),
+    onSuccess: (codeResponse) => {
+      console.log(codeResponse);
+      setUser(codeResponse);
+      localStorage.setItem("user", JSON.stringify(codeResponse));
+    },
     onError: (error) => console.log("Login Failed:", error),
     scope: "https://www.googleapis.com/auth/calendar",
   });
 
   useEffect(() => {
     if (user) {
+      setTokenExpiration(user.expires_in);
       // fetchEvents();
     }
   }, [user]);
 
-  // console.log("min time: ", date.toISOString());
-  // console.log(
-  //   "max time: ",
-  //   new Date(date.getFullYear(), date.getMonth(), date.getDate(), 11, 59).toISOString()
-  // );
-  // console.log("min time: ", new Date().toLocaleString("en-US", { timeZone: timezone }));
-
-  // console.log("min time: ", new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString());
-  //   useEffect(() => {
-  //     if (user) {
-  //       console.log("user: ", user);
-  //       axios
-  //         .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-  //           headers: {
-  //             Authorization: `Bearer ${user.access_token}`,
-  //             Accept: "application/json",
-  //           },
-  //         })
-  //         .then((res) => {
-  //           console.log("profile: ", res.data);
-  //           setProfile(res.data);
-  //         })
-  //         .catch((err) => console.log(err));
-  //     }
-  //   }, [user]);
-
   // log out function to log the user out of google and set the profile array to null
   const logOut = () => {
     googleLogout();
-    setProfile(null);
+    setUser(null);
+    localStorage.removeItem("user");
+    clearTimeout(timeout);
+  };
+
+  const setTokenExpiration = (expires_in) => {
+    timeout = setTimeout(() => {
+      logOut();
+    }, expires_in * 1000);
   };
 
   const fetchEvents = async () => {
@@ -90,38 +77,67 @@ function Calendar() {
     }
   };
 
+  const convertISOTimestamp = (timestamp) => {
+    const isoDate = new Date(timestamp);
+    const convertedDate = isoDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    return convertedDate[0] === "0" ? convertedDate.slice(1) : convertedDate;
+  };
+
+  const determineCalendarHeight = (event) => {
+    switch (event.length) {
+      case 0:
+        return 200;
+      case 1:
+        return 200;
+      case 2:
+        return 250;
+
+      default:
+        return 370;
+    }
+  };
+
   return (
     <Draggable nodeRef={nodeRef} bounds={".fullscreen"}>
       <div
         className="melofi__calendar"
         ref={nodeRef}
-        style={{ display: showCalendar ? "flex" : "none" }}
+        style={{ display: showCalendar ? "flex" : "none", height: determineCalendarHeight(events) }}
       >
         <div className="melofi__calendar_header">
           <p className="melofi__calendar-date">{date.toLocaleDateString("en-US", options)}</p>
-          <IoCloseOutline
-            size={33}
-            color="var(--color-secondary)"
-            onClick={() => setShowCalendar((prev) => !prev)}
-            style={{ cursor: "pointer" }}
-          />
+          <div className="melofi__calendar-exit-button">
+            <IoCloseOutline
+              size={33}
+              color="var(--color-secondary)"
+              onClick={() => setShowCalendar((prev) => !prev)}
+              style={{ cursor: "pointer" }}
+            />
+          </div>
         </div>
         {user ? (
           <div className="melofi__calendar-login-view">
-            {/* <ReactCalendar onClickDay={(date) => fetchEvents(date)} /> */}
-            {/* <ul>
-            {events.map((event) => (
-              <li key={event.id}>{event.summary}</li>
-            ))}
-          </ul> */}
-            <div className="melofi__calendar-items">
-              {events.map((event) => (
-                <CalendarItem title={event.summary} startTime={""} endTime={""} />
-              ))}
-            </div>
+            {events.length > 0 ? (
+              <div className="melofi__calendar-items">
+                {events.map(
+                  (event) =>
+                    event.summary && (
+                      <CalendarItem
+                        title={event.summary}
+                        startTime={convertISOTimestamp(event.start?.dateTime)}
+                        endTime={convertISOTimestamp(event.end?.dateTime)}
+                      />
+                    )
+                )}
+              </div>
+            ) : (
+              <div className="melofi__calendar-no-events">
+                <p>No more events</p>
+                <p>Your day is clear</p>
+              </div>
+            )}
           </div>
         ) : (
-          /* <div className="meofi__calendar-google-button-contianer"> */
           <div className="melofi__calendar-signin-view">
             <div
               style={{
@@ -140,6 +156,11 @@ function Calendar() {
               <p>Continue with Google</p>
             </div>
           </div>
+        )}
+        {user && (
+          <p className="melofi__calendar-disconnect-button" onClick={() => logOut()}>
+            Disconnect account
+          </p>
         )}
       </div>
     </Draggable>
