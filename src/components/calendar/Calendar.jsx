@@ -23,7 +23,7 @@ function Calendar() {
   useEffect(() => {
     if (user) {
       setTokenExpiration(user.expires_in);
-      // fetchEvents();
+      fetchEvents();
     }
   }, [user]);
 
@@ -48,7 +48,11 @@ function Calendar() {
       );
       setEvents(response.data.items);
     } catch (error) {
-      console.error("Error fetching events:", error);
+      if (error.response.status === 401) {
+        logOut();
+      } else {
+        console.error("Error fetching events:", error);
+      }
     }
   };
 
@@ -81,11 +85,21 @@ function Calendar() {
     return convertedDate[0] === "0" ? convertedDate.slice(1) : convertedDate;
   };
 
-  const dateInPast = (endTime) => {
-    const currentTime = new Date().getTime();
-    const newEndTime = new Date(endTime).getTime();
+  const dateInPast = (time) => {
+    const currentDate = new Date();
+    const endTime = new Date(time);
 
-    return currentTime > newEndTime;
+    // Rebuilding date for possibility of getting a date in the past
+    // because it is a recurring event
+    const newEndTime = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      currentDate.getDate(),
+      endTime.getHours(),
+      endTime.getMinutes()
+    );
+
+    return currentDate > newEndTime;
   };
 
   const determineCalendarHeight = (event) => {
@@ -102,13 +116,17 @@ function Calendar() {
     }
   };
 
+  const calendarBackgroundStyles = {
+    display: showCalendar ? "flex" : "none",
+    height: determineCalendarHeight(events),
+    backgroundColor: !user && "var(--color-primary)",
+    boxShadow: !user && "0px 4px 4px rgba(0, 0, 0, 0.25)",
+    backdropFilter: !user && "blur(10px)",
+  };
+
   return (
     <Draggable nodeRef={nodeRef} bounds={".fullscreen"}>
-      <div
-        className="melofi__calendar"
-        ref={nodeRef}
-        style={{ display: showCalendar ? "flex" : "none", height: determineCalendarHeight(events) }}
-      >
+      <div className="melofi__calendar" ref={nodeRef} style={calendarBackgroundStyles}>
         <div className="melofi__calendar_header">
           <p className="melofi__calendar-date">{date.toLocaleDateString("en-US", options)}</p>
           <div className="melofi__calendar-exit-button">
@@ -128,6 +146,7 @@ function Calendar() {
                   (event) =>
                     event.summary && (
                       <CalendarItem
+                        key={event.summary + event?.start.dateTime + event?.end.dateTime}
                         title={event.summary}
                         startTime={convertISOTimestamp(event?.start.dateTime)}
                         endTime={convertISOTimestamp(event?.end.dateTime)}

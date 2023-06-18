@@ -4,7 +4,6 @@ import "./calendarItem.css";
 const CalendarItem = ({ title, startTime, endTime, dateInPast }) => {
   return (
     <div
-      key={title + startTime + endTime}
       className="melofi__calendarItem-container"
       style={{ opacity: dateInPast ? "50%" : "100%" }}
     >
