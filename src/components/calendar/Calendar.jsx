@@ -28,11 +28,17 @@ function Calendar() {
   }, [user]);
 
   const fetchEvents = async () => {
-    let timeMin = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0);
-    timeMin = convertISOToISOLocal(timeMin);
+    let timeMin = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0).toISOString();
+    // timeMin = convertISOToISOLocal(timeMin);
 
-    let timeMax = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59);
-    timeMax = convertISOToISOLocal(timeMax);
+    let timeMax = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      23,
+      59
+    ).toISOString();
+    // timeMax = convertISOToISOLocal(timeMax);
 
     try {
       const response = await axios.get(
@@ -96,15 +102,7 @@ function Calendar() {
 
     // Rebuilding date for possibility of getting a date in the past
     // because it is a recurring event
-    const newEndTime = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      currentDate.getDate(),
-      endTime.getHours(),
-      endTime.getMinutes()
-    );
-
-    return currentDate > newEndTime;
+    return convertISOToISOLocal(currentDate) > convertISOToISOLocal(endTime);
   };
 
   const determineCalendarHeight = (event) => {
