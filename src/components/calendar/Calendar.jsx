@@ -28,18 +28,15 @@ function Calendar() {
   }, [user]);
 
   const fetchEvents = async () => {
-    const timeMin = date.toISOString();
-    const timeMax = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate(),
-      11,
-      59
-    ).toISOString();
+    let timeMin = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0);
+    timeMin = convertISOToISOLocal(timeMin);
+
+    let timeMax = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59);
+    timeMax = convertISOToISOLocal(timeMax);
 
     try {
       const response = await axios.get(
-        `https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${timeMin}&timeMax=${timeMax}`,
+        `https://www.googleapis.com/calendar/v3/calendars/primary/events?orderBy=startTime&singleEvents=true&timeMin=${timeMin}&timeMax=${timeMax}`,
         {
           headers: {
             Authorization: `Bearer ${user.access_token}`,
@@ -58,7 +55,6 @@ function Calendar() {
 
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
-      console.log(codeResponse);
       setUser(codeResponse);
       localStorage.setItem("user", JSON.stringify(codeResponse));
     },
@@ -85,6 +81,15 @@ function Calendar() {
     return convertedDate[0] === "0" ? convertedDate.slice(1) : convertedDate;
   };
 
+  const convertISOToISOLocal = (t) => {
+    let z = t.getTimezoneOffset() * 60 * 1000;
+    let tlocal = t - z;
+    tlocal = new Date(tlocal);
+    let iso = tlocal.toISOString();
+    iso = iso.split(".")[0];
+
+    return iso + "Z";
+  };
   const dateInPast = (time) => {
     const currentDate = new Date();
     const endTime = new Date(time);
