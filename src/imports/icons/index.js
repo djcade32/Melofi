@@ -25,7 +25,7 @@ import { SlSocialTwitter } from "react-icons/sl";
 import { WiNightAltStormShowers } from "react-icons/wi";
 import { LuFan, LuWaves } from "react-icons/lu";
 import { CgEditNoise } from "react-icons/cg";
-import { GiTacos } from "react-icons/gi";
+import { GiTacos, GiBigWave } from "react-icons/gi";
 import { MdLandscape } from "react-icons/md";
 import { AiFillTool, AiOutlineGoogle } from "react-icons/ai";
 
@@ -60,4 +60,5 @@ export {
   FaStickyNote,
   HiClipboardDocumentList,
   BsInfoCircle,
+  GiBigWave,
 };

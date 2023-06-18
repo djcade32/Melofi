@@ -10,6 +10,7 @@ import {
   CgEditNoise,
   IoThunderstormOutline,
   LuWaves,
+  GiBigWave,
 } from "../imports/icons";
 
 const getIcon = (iconName, props) => {
@@ -43,6 +44,9 @@ const getIcon = (iconName, props) => {
 
     case effects.ambience:
       return <CgEditNoise key={iconName} {...props} />;
+
+    case effects.ocean:
+      return <GiBigWave key={iconName} {...props} />;
 
     default:
       break;

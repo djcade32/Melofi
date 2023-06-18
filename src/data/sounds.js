@@ -10,6 +10,7 @@ import {
   whiteNoiseEffect,
   thunderEffect,
   ambienceEffect,
+  oceanEffect,
 } from "../imports/effects";
 
 export const sounds = [
@@ -52,5 +53,9 @@ export const sounds = [
   {
     sound: effects.ambience,
     soundPath: ambienceEffect,
+  },
+  {
+    sound: effects.ocean,
+    soundPath: oceanEffect,
   },
 ];
