@@ -1,11 +1,11 @@
-import girlInCafeVid from "../../assets/scenes/girl-in-cafe_vid.mp4";
-import girlInCafePic from "../../assets/scenes/girl-in-cafe_pic.jpg";
-import neighborhoodCafeVid from "../../assets/scenes/neighborhood-cafe_vid.mp4";
-import neighborhoodCafePic from "../../assets/scenes/neighborhood-cafe_pic.jpg";
-import cozyBedroomVid from "../../assets/scenes/cozy-bedroom_vid.mp4";
-import cozyBedroomPic from "../../assets/scenes/cozy-bedroom_pic.jpg";
-import cityStudioPic from "../../assets/scenes/city-studio_pic.jpg";
-import cityStudioVid from "../../assets/scenes/city-studio_vid.mp4";
+import girlInCafeVid from "../../assets/scenes/girl-in-cafe_vid.webm";
+import girlInCafePic from "../../assets/scenes/girl-in-cafe_pic.webp";
+import neighborhoodCafeVid from "../../assets/scenes/neighborhood-cafe_vid.webm";
+import neighborhoodCafePic from "../../assets/scenes/neighborhood-cafe_pic.webp";
+import cozyBedroomVid from "../../assets/scenes/cozy-bedroom_vid.webm";
+import cozyBedroomPic from "../../assets/scenes/cozy-bedroom_pic.webp";
+import cityStudioPic from "../../assets/scenes/city-studio_pic.webp";
+import cityStudioVid from "../../assets/scenes/city-studio_vid.webm";
 
 const girlInCafe = {
   vid: girlInCafeVid,
