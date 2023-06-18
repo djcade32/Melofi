@@ -71,6 +71,7 @@ function Calendar() {
   const logOut = () => {
     googleLogout();
     setUser(null);
+    setEvents([]);
     localStorage.removeItem("user");
     clearTimeout(timeout);
   };
