@@ -16,7 +16,6 @@ import { RiFullscreenFill, RiFullscreenExitLine, GiTacos, BsPhoneFill } from "./
 import Tooltip from "./components/tooltip/Tooltip";
 import SceneModal from "./components/scene/SceneModal";
 import ToolsMenu from "./components/tools/ToolsMenu";
-import Calendar from "./components/calendar/Calendar";
 import ToDoListWidget from "./components/toDoListWidget/ToDoListWidget";
 
 function App() {
@@ -113,7 +112,6 @@ function App() {
 
             <MixerModal />
             <SceneModal />
-            <Calendar />
             <ToDoListWidget />
 
             {/* Footer */}

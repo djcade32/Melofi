@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useState, useContext } from "react";
 import { scenes } from "../data/scenes";
 
 const AppContext = createContext({});
@@ -10,7 +10,6 @@ const AppContextProvider = (props) => {
   const [showSceneModal, setShowSceneModal] = useState(false);
   const [showMixerModal, setShowMixerModal] = useState(false);
   const [showToolsMenu, setShowToolsMenu] = useState(false);
-  const [showCalendar, setShowCalendar] = useState(false);
   const [showToDoList, setShowToDoList] = useState(false);
 
   function getCurrentScene() {
@@ -33,8 +32,6 @@ const AppContextProvider = (props) => {
         setShowMixerModal,
         showToolsMenu,
         setShowToolsMenu,
-        showCalendar,
-        setShowCalendar,
         showToDoList,
         setShowToDoList,
       }}
