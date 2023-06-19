@@ -69,56 +69,65 @@ const MixerModal = () => {
           />
         </div>
 
-        <p className="melofi__mixer_volume-title">MUSIC VOLUME</p>
-        <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
-          <IoVolumeOff size={33} color="var(--color-secondary)" />
-          <div style={{ width: "75%" }}>
-            <VolumeSlider
-              style={{ cursor: "pointer" }}
-              value={musicVolume}
-              onChange={handleVolumeChange}
-            />
+        <div
+          style={{
+            overflow: "scroll",
+            display: "flex",
+            flexDirection: "column",
+            height: "82%",
+            marginTop: 10,
+          }}
+        >
+          <p className="melofi__mixer_volume-title">MUSIC VOLUME</p>
+          <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
+            <IoVolumeOff size={33} color="var(--color-secondary)" />
+            <div style={{ width: "75%" }}>
+              <VolumeSlider
+                style={{ cursor: "pointer" }}
+                value={musicVolume}
+                onChange={handleVolumeChange}
+              />
+            </div>
+            <IoVolumeMedium size={33} color="var(--color-secondary)" />
           </div>
-          <IoVolumeMedium size={33} color="var(--color-secondary)" />
+          <p className="melofi__mixer_volume-title" style={{ marginTop: 20 }}>
+            SCENE SOUNDS
+          </p>
+          <div>
+            {getCurrentScene().sounds.map(({ sound, soundPath }) => {
+              return (
+                <MixerSlider
+                  key={sound}
+                  style={{ cursor: "pointer" }}
+                  soundpath={soundPath}
+                  sound={sound}
+                  reset={resetVolume}
+                  setReset={setResetVolume}
+                />
+              );
+            })}
+          </div>
+          <p className="melofi__mixer_volume-title" style={{ marginTop: 20 }}>
+            ALL SOUNDS
+          </p>
+          <div>
+            {getOtherSounds().map(({ sound, soundPath }) => {
+              return (
+                <MixerSlider
+                  key={sound}
+                  style={{ cursor: "pointer" }}
+                  soundpath={soundPath}
+                  sound={sound}
+                  reset={resetVolume}
+                  setReset={setResetVolume}
+                />
+              );
+            })}
+          </div>
+          <p className="melofi__mixer_reset-button" onClick={handleResetPressed}>
+            Reset
+          </p>
         </div>
-
-        <p className="melofi__mixer_volume-title" style={{ marginTop: 20 }}>
-          SCENE SOUNDS
-        </p>
-        <div>
-          {getCurrentScene().sounds.map(({ sound, soundPath }) => {
-            return (
-              <MixerSlider
-                key={sound}
-                style={{ cursor: "pointer" }}
-                soundpath={soundPath}
-                sound={sound}
-                reset={resetVolume}
-                setReset={setResetVolume}
-              />
-            );
-          })}
-        </div>
-        <p className="melofi__mixer_volume-title" style={{ marginTop: 20 }}>
-          ALL SOUNDS
-        </p>
-        <div>
-          {getOtherSounds().map(({ sound, soundPath }) => {
-            return (
-              <MixerSlider
-                key={sound}
-                style={{ cursor: "pointer" }}
-                soundpath={soundPath}
-                sound={sound}
-                reset={resetVolume}
-                setReset={setResetVolume}
-              />
-            );
-          })}
-        </div>
-        <p className="melofi__mixer_reset-button" onClick={handleResetPressed}>
-          Reset
-        </p>
       </div>
     </Draggable>
   );
