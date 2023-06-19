@@ -16,6 +16,8 @@ import { RiFullscreenFill, RiFullscreenExitLine, GiTacos, BsPhoneFill } from "./
 import Tooltip from "./components/tooltip/Tooltip";
 import SceneModal from "./components/scene/SceneModal";
 import ToolsMenu from "./components/tools/ToolsMenu";
+import ToDoListWidget from "./components/toDoListWidget/ToDoListWidget";
+
 
 function App() {
   const [isSleep, setIsSleep] = useState(false);
@@ -111,6 +113,8 @@ function App() {
 
             <MixerModal />
             <SceneModal />
+            <ToDoListWidget />
+
 
             {/* Footer */}
             <div

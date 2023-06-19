@@ -16,7 +16,9 @@ const iconProps = {
 };
 
 const ToolsMenu = ({ isSleep }) => {
-  const { setShowToolsMenu, showToolsMenu } = useAppContext();
+
+  const { setShowToolsMenu, showToolsMenu, setShowToDoList } = useAppContext();
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
