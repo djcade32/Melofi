@@ -12,6 +12,7 @@ const AppContextProvider = (props) => {
   const [showToolsMenu, setShowToolsMenu] = useState(false);
   const [showToDoList, setShowToDoList] = useState(false);
 
+
   function getCurrentScene() {
     return scenes[currentSceneIndex];
   }
@@ -34,6 +35,7 @@ const AppContextProvider = (props) => {
         setShowToolsMenu,
         showToDoList,
         setShowToDoList,
+
       }}
     >
       {props.children}

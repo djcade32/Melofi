@@ -16,7 +16,9 @@ const iconProps = {
 };
 
 const ToolsMenu = ({ isSleep }) => {
+
   const { setShowToolsMenu, showToolsMenu, setShowToDoList } = useAppContext();
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -61,12 +63,19 @@ const ToolsMenu = ({ isSleep }) => {
               </p>
             </div>
           </div>
-          <div
-            className="melofi__toolsMenu-container-items"
-            onClick={() => setShowToDoList((prev) => !prev)}
-          >
+          <div className="melofi__toolsMenu-container-items" onClick={() => {}}>
             <HiClipboardDocumentList {...iconProps} />
-            <p>To-do list</p>
+            <div>
+              <p>To-Do list</p>
+              <p
+                style={{
+                  fontStyle: "italic",
+                  fontSize: 10,
+                }}
+              >
+                {"(Coming soon)"}
+              </p>
+            </div>
           </div>
           <div className="melofi__toolsMenu-container-items" onClick={() => {}}>
             <BsFillCalendarDateFill {...iconProps} />
