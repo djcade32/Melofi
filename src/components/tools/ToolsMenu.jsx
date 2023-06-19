@@ -16,7 +16,7 @@ const iconProps = {
 };
 
 const ToolsMenu = ({ isSleep }) => {
-  const { setShowToolsMenu, showToolsMenu, setShowCalendar, setShowToDoList } = useAppContext();
+  const { setShowToolsMenu, showToolsMenu } = useAppContext();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -49,21 +49,45 @@ const ToolsMenu = ({ isSleep }) => {
         <div className="melofi__toolsMenu-container">
           <div className="melofi__toolsMenu-container-items">
             <FaStickyNote {...iconProps} />
-            <p>Take notes</p>
+            <div>
+              <p>Sticky</p>
+              <p
+                style={{
+                  fontStyle: "italic",
+                  fontSize: 10,
+                }}
+              >
+                {"(Coming soon)"}
+              </p>
+            </div>
           </div>
-          <div
-            className="melofi__toolsMenu-container-items"
-            onClick={() => setShowToDoList((prev) => !prev)}
-          >
+          <div className="melofi__toolsMenu-container-items" onClick={() => {}}>
             <HiClipboardDocumentList {...iconProps} />
-            <p>To-do list</p>
+            <div>
+              <p>To-Do list</p>
+              <p
+                style={{
+                  fontStyle: "italic",
+                  fontSize: 10,
+                }}
+              >
+                {"(Coming soon)"}
+              </p>
+            </div>
           </div>
-          <div
-            className="melofi__toolsMenu-container-items"
-            onClick={() => setShowCalendar((prev) => !prev)}
-          >
+          <div className="melofi__toolsMenu-container-items" onClick={() => {}}>
             <BsFillCalendarDateFill {...iconProps} />
-            <p>Calendar</p>
+            <div>
+              <p>Calendar</p>
+              <p
+                style={{
+                  fontStyle: "italic",
+                  fontSize: 10,
+                }}
+              >
+                {"(Coming soon)"}
+              </p>
+            </div>
           </div>
         </div>
       )}
