@@ -15,6 +15,7 @@ import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { RiFullscreenFill, RiFullscreenExitLine, GiTacos, BsPhoneFill } from "./imports/icons";
 import Tooltip from "./components/tooltip/Tooltip";
 import SceneModal from "./components/scene/SceneModal";
+import ToolsMenu from "./components/tools/ToolsMenu";
 
 function App() {
   const [isSleep, setIsSleep] = useState(false);
@@ -47,16 +48,6 @@ function App() {
     };
   }, []);
 
-  // Use this when you are ready to redirect away from mobile devices
-
-  // function getCurrentDimension() {
-
-  //   return {
-  //     width: window.innerWidth,
-  //     height: window.innerHeight,
-  //   };
-  // }
-
   useEffect(() => {
     const updateDimension = () => {
       if (window.innerWidth < 750) {
@@ -76,7 +67,7 @@ function App() {
     <AppContextProvider>
       <FullScreen handle={handle}>
         {!onMobileDevice ? (
-           <div className="App" id="app" style={isSleep ? { cursor: "none" } : {}}>
+          <div className="App" id="app" style={isSleep ? { cursor: "none" } : {}}>
             <SceneBg />
 
             {/* Header */}
@@ -99,6 +90,7 @@ function App() {
                   <MixerButton />
                   <MusicControls />
                   <SceneButton />
+                  <ToolsMenu isSleep={isSleep} />
                   <Tooltip text={handle.active ? "Exit full screen" : "Enter full screen"}>
                     <div
                       className="melofi__fullscreen-button"
