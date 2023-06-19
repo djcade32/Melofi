@@ -8,14 +8,15 @@
 .melofi__header {
   position: absolute;
   width: 100%;
-  z-index: 3;
+  z-index: 5;
+
 }
 
 .App nav {
   display: flex;
   padding: 0 28px;
   flex-direction: row;
-  z-index: 2;
+  /* z-index: 2; */
 }
 
 .melofi__logo img {

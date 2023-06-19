@@ -28,6 +28,7 @@ import { CgEditNoise } from "react-icons/cg";
 import { GiTacos, GiBigWave } from "react-icons/gi";
 import { MdLandscape } from "react-icons/md";
 import { AiFillTool, AiOutlineGoogle } from "react-icons/ai";
+import { FiPlus } from "react-icons/fi";
 
 export {
   FaPause,
@@ -61,4 +62,5 @@ export {
   HiClipboardDocumentList,
   BsInfoCircle,
   GiBigWave,
+  FiPlus,
 };

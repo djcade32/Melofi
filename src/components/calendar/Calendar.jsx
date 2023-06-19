@@ -133,7 +133,7 @@ function Calendar() {
       <div className="melofi__calendar" ref={nodeRef} style={calendarBackgroundStyles}>
         <div className="melofi__calendar_header">
           <p className="melofi__calendar-date">{date.toLocaleDateString("en-US", options)}</p>
-          <div className="melofi__calendar-exit-button">
+          <div className="melofi__calendar-exit-button" style={!user ? { opacity: "100%" } : {}}>
             <IoCloseOutline
               size={33}
               color="var(--color-secondary)"

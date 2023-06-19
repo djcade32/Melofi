@@ -1,0 +1,115 @@
+.melofi__todolist {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 370px;
+    height: 370px;
+    padding: 20px 24px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    z-index: 9;
+}
+
+.melofi__todolist:hover {
+    background-color: var(--color-primary);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+}
+
+.melofi__todolist_handle { 
+    width: 100%; 
+    height: 20px; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    border-top-left-radius: 10px; 
+    border-top-right-radius: 10px; 
+    cursor: all-scroll;
+  }
+
+.melofi__todlist_header {
+    display: flex;
+    justify-content: space-between;
+ }
+
+ .melofi__todlist_header:hover {
+    cursor: all-scroll;
+ }
+
+.melofi__todolist_header_title {
+    font-size: 32px;
+    font-family: var(--font-poppins);
+    color: white;
+    text-align: center;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.melofi__todolist_input {
+    display: flex;
+    column-gap: 5px;
+    align-items: center;
+    margin-top: 14px;
+    padding: 5px 10px;
+    margin-bottom: 15px;
+    
+}
+
+.melofi__todolist_input input {
+    background-color: transparent;
+    border: none;
+    font-family: var(--font-poppins);
+    width: 100%;
+    border-bottom: 1px solid white;
+    caret-color: white;
+    color: white;
+    font-size: 18px;
+    user-select: text;
+}
+
+.melofi__todolist:hover .melofi__todolist_input input
+{
+    border-bottom: 1px solid var(--color-secondary);
+}
+
+
+.melofi__todolist_input input::placeholder {
+    font-family: var(--font-poppins);
+    font-size: 18px;
+    color: white
+}
+
+.melofi__todolist:hover .melofi__todolist_input input::placeholder
+{
+    color: var(--color-secondary)
+}
+
+.melofi__todolist_input input:focus {
+    outline: none;
+}
+
+
+.melofi__todolist_content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 22px;
+    overflow: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+.melofi__todolist:hover .melofi__todolistItem_delete,
+.melofi__todolist:hover .melofi__todolist_exit
+{
+   opacity: 100%;
+}
+
+.melofi__todolist_exit{
+    opacity: 0;
+}

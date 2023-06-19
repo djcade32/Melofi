@@ -11,6 +11,7 @@ const AppContextProvider = (props) => {
   const [showMixerModal, setShowMixerModal] = useState(false);
   const [showToolsMenu, setShowToolsMenu] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
+  const [showToDoList, setShowToDoList] = useState(false);
 
   function getCurrentScene() {
     return scenes[currentSceneIndex];
@@ -34,6 +35,8 @@ const AppContextProvider = (props) => {
         setShowToolsMenu,
         showCalendar,
         setShowCalendar,
+        showToDoList,
+        setShowToDoList,
       }}
     >
       {props.children}
