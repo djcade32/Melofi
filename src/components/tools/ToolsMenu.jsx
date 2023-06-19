@@ -16,9 +16,7 @@ const iconProps = {
 };
 
 const ToolsMenu = ({ isSleep }) => {
-
   const { setShowToolsMenu, showToolsMenu, setShowToDoList } = useAppContext();
-
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -63,18 +61,13 @@ const ToolsMenu = ({ isSleep }) => {
               </p>
             </div>
           </div>
-          <div className="melofi__toolsMenu-container-items" onClick={() => {}}>
+          <div
+            className="melofi__toolsMenu-container-items"
+            onClick={() => setShowToDoList((prev) => !prev)}
+          >
             <HiClipboardDocumentList {...iconProps} />
             <div>
               <p>To-Do list</p>
-              <p
-                style={{
-                  fontStyle: "italic",
-                  fontSize: 10,
-                }}
-              >
-                {"(Coming soon)"}
-              </p>
             </div>
           </div>
           <div className="melofi__toolsMenu-container-items" onClick={() => {}}>
