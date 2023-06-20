@@ -17,6 +17,7 @@ import Tooltip from "./components/tooltip/Tooltip";
 import SceneModal from "./components/scene/SceneModal";
 import ToolsMenu from "./components/tools/ToolsMenu";
 import ToDoListWidget from "./components/toDoListWidget/ToDoListWidget";
+import StickyNoteWidget from "./components/stickyNoteWidget/StickyNoteWidget";
 
 function App() {
   const [isSleep, setIsSleep] = useState(false);
@@ -113,6 +114,7 @@ function App() {
             <MixerModal />
             <SceneModal />
             <ToDoListWidget />
+            <StickyNoteWidget />
 
             {/* Footer */}
             <div

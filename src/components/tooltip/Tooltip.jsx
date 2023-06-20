@@ -11,7 +11,7 @@ const Tooltip = (props) => {
         tooltip: {
           sx: {
             cursor: "default",
-            bgcolor: "var(--color-primary)",
+            bgcolor: props.bgColor || "var(--color-primary)",
             fontFamily: "var(--font-poppins)",
             fontWeight: 400,
             fontSize: 16,

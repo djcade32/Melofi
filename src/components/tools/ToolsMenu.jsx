@@ -50,7 +50,7 @@ const ToolsMenu = ({ isSleep }) => {
           <div className="melofi__toolsMenu-container-items">
             <FaStickyNote {...iconProps} />
             <div>
-              <p>Sticky</p>
+              <p>Sticky note</p>
               <p
                 style={{
                   fontStyle: "italic",

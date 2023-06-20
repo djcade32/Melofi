@@ -7,6 +7,8 @@ import {
   BsPhoneFill,
   BsFillCalendarDateFill,
   BsInfoCircle,
+  BsUnlock,
+  BsFillLockFill,
 } from "react-icons/bs";
 import {
   IoVolumeMedium,
@@ -26,7 +28,7 @@ import { WiNightAltStormShowers } from "react-icons/wi";
 import { LuFan, LuWaves } from "react-icons/lu";
 import { CgEditNoise } from "react-icons/cg";
 import { GiTacos, GiBigWave } from "react-icons/gi";
-import { MdLandscape } from "react-icons/md";
+import { MdLandscape, MdDelete, MdModeEdit, MdOutlineDone } from "react-icons/md";
 import { AiFillTool, AiOutlineGoogle } from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
 
@@ -63,4 +65,9 @@ export {
   BsInfoCircle,
   GiBigWave,
   FiPlus,
+  MdDelete,
+  BsUnlock,
+  MdModeEdit,
+  MdOutlineDone,
+  BsFillLockFill,
 };
