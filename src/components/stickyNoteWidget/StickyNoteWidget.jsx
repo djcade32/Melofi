@@ -39,22 +39,27 @@ const StickyNoteWidget = () => {
         style={{ cursor: !editMode ? "all-scroll" : "", backgroundColor: noteBgColor }}
       >
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Tooltip text={editMode ? "Save" : "Edit"} bgColor={"var(--color-secondary)"}>
-            {editMode ? (
-              <MdOutlineDone
-                size={25}
-                color="var(--color-secondary)"
-                onClick={() => setEditMode(false)}
-                style={{ cursor: "pointer" }}
-              />
-            ) : (
-              <MdModeEdit
-                size={25}
-                color="var(--color-secondary)"
-                onClick={() => setEditMode(true)}
-                style={{ cursor: "pointer" }}
-              />
-            )}
+          <Tooltip text={editMode ? "Done" : "Edit"} bgColor={"var(--color-secondary)"}>
+            <div
+              className="melofi__stickyNote_doneEdit_button"
+              style={editMode ? { opacity: "100%" } : {}}
+            >
+              {editMode ? (
+                <MdOutlineDone
+                  size={25}
+                  color="white"
+                  onClick={() => setEditMode(false)}
+                  style={{ cursor: "pointer" }}
+                />
+              ) : (
+                <MdModeEdit
+                  size={25}
+                  color="white"
+                  onClick={() => setEditMode(true)}
+                  style={{ cursor: "pointer" }}
+                />
+              )}
+            </div>
           </Tooltip>
           <div
             style={{
@@ -71,7 +76,7 @@ const StickyNoteWidget = () => {
             </Tooltip>
           </div>
         </div>
-        <div style={{ marginTop: 10 }}>
+        <div>
           <div className="melofi__stickyNote_header_title_input">
             <input
               id="stickyNoteInput"

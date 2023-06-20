@@ -17,6 +17,14 @@
     /* backdrop-filter: blur(10px); */
 }
 
+.melofi__stickyNote_doneEdit_button {
+    opacity: 0%
+}
+
+.melofi__stickyNote:hover .melofi__stickyNote_doneEdit_button {
+    opacity:100%
+}
+
 .melofi__stickyNote_header_title_input {
     display: flex;
 }
@@ -31,14 +39,10 @@
     font-size: 32px;
     user-select: text;
     border-radius: 10px;
-    padding:5px;
+    padding:0px 5px;
     text-overflow:ellipsis;
     white-space:nowrap;
 }
-/* 
-.melofi__stickyNote_header_title_input input::placeholder {
-    color: var(--c, white);
-} */
 
 ::placeholder {
     color: var(--c, white);
