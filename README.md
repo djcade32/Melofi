@@ -42,4 +42,4 @@ Discover a vast handpicked collection of lofi tracks that offer the perfect blen
 
 ## Demo
 
-Can use Melofi live at https://melofi.tech/
+Can use Melofi live at [https://melofi.app/](https://melofi.app/)
