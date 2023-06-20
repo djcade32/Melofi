@@ -4,6 +4,7 @@ import { FiPlus, IoCloseOutline } from "../../imports/icons";
 import { useAppContext } from "../../context/AppContext";
 import Draggable from "react-draggable";
 import ToDoListItem from "./ToDoListItem";
+import { isSafariBrowser } from "../../helpers/browser";
 
 const ToDoListWidget = () => {
   const nodeRef = useRef(null);
@@ -50,7 +51,7 @@ const ToDoListWidget = () => {
   };
 
   return (
-    <Draggable nodeRef={nodeRef} bounds={".fullscreen"} handle="#handle">
+    <Draggable nodeRef={nodeRef} bounds={isSafariBrowser() ? "" : ".fullscreen"} handle="#handle">
       <div
         className="melofi__todolist"
         ref={nodeRef}

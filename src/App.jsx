@@ -18,7 +18,6 @@ import SceneModal from "./components/scene/SceneModal";
 import ToolsMenu from "./components/tools/ToolsMenu";
 import ToDoListWidget from "./components/toDoListWidget/ToDoListWidget";
 
-
 function App() {
   const [isSleep, setIsSleep] = useState(false);
   const [onMobileDevice, setOnMobileDevice] = useState(window.innerWidth < 750 ? true : false);
@@ -114,7 +113,6 @@ function App() {
             <MixerModal />
             <SceneModal />
             <ToDoListWidget />
-
 
             {/* Footer */}
             <div

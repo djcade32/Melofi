@@ -7,6 +7,7 @@ import MixerSlider from "../mixerSlider/MixerSlider";
 import { sounds } from "../../data/sounds";
 
 import { IoVolumeOff, IoVolumeMedium, IoCloseOutline } from "../../imports/icons";
+import { isSafariBrowser } from "../../helpers/browser";
 
 const MixerModal = () => {
   const nodeRef = useRef(null);
@@ -48,8 +49,9 @@ const MixerModal = () => {
 
     return allSoundsList;
   };
+
   return (
-    <Draggable nodeRef={nodeRef} bounds={".fullscreen"} handle="#handle">
+    <Draggable nodeRef={nodeRef} bounds={isSafariBrowser() ? "" : ".fullscreen"} handle="#handle">
       <div
         ref={nodeRef}
         className="melofi__mixerModal"
