@@ -61,7 +61,7 @@ const MixerModal = () => {
       >
         <div id="handle" className="melofi__mixer-modal-handle" />
 
-        <div className="melofi__mixer_header">
+        <div id="handle" className="melofi__mixer_header">
           <p className="melofi__mixer-title">SOUNDS</p>
           <IoCloseOutline
             size={33}

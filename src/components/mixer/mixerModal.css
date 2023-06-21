@@ -36,6 +36,7 @@
 .melofi__mixer_header {
     display: flex;
     justify-content: space-between;
+    cursor: all-scroll;
  }
 
 .melofi__mixer-title {

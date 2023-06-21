@@ -14,6 +14,11 @@ import overTheMoon_teamAstro from "../../assets/songs/over-the-moon_team-astro.m
 import cityOnAHill_lOutlander from "../../assets/songs/city-on-a-hill_lOutlander.mp3";
 import overgrown_tenno from "../../assets/songs/overgrown_tenno.mp3";
 import finalMoments_nadavCohen_kokoro from "../../assets/songs/final-moments_nadav-cohen_x_kokoro.mp3";
+import theBadParty_wys from "../../assets/songs/the-bad-party_wys.mp3";
+import ancestral_casiio from "../../assets/songs/ancestral_casiio.mp3";
+import edda_kanisan_darioLessing_claudia from "../../assets/songs/edda_kanisan_x_dario-lessing_x_claudia.mp3";
+import willowHill_spencerHunt from "../../assets/songs/willow-hill_spencer-hunt.mp3";
+import wellBeAlright_softy_lucidGreen from "../../assets/songs/well-be-alright_softy_x_lucid-green.mp3";
 
 export {
   theRidge_allemIverson,
@@ -32,4 +37,9 @@ export {
   cityOnAHill_lOutlander,
   overgrown_tenno,
   finalMoments_nadavCohen_kokoro,
+  theBadParty_wys,
+  ancestral_casiio,
+  edda_kanisan_darioLessing_claudia,
+  willowHill_spencerHunt,
+  wellBeAlright_softy_lucidGreen,
 };
