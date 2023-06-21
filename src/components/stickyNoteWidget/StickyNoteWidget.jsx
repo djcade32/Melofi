@@ -11,28 +11,83 @@ import Tooltip from "../tooltip/Tooltip";
 import { isSafariBrowser } from "../../helpers/browser";
 import Draggable from "react-draggable";
 import { useAppContext } from "../../context/AppContext";
+import { DEFAULT, RED, YELLOW, GREEN, BLUE, PURPLE, BLACK } from "../../enums/colors";
 
-const RED = "rgba(237, 60, 60, 0.88)";
-const GREEN = "rgba(23, 170, 7, 0.88)";
-const YELLOW = "rgba(241, 241, 57, 0.88)";
-const PURPLE = "rgba(192, 91, 225, 0.88)";
-const BLUE = "rgba(41, 89, 235, 0.88)";
-const DEFAULT = "var(--color-primary)";
-const BLACK = "#232323";
-
-const StickyNoteWidget = ({ title, bodyText, id }) => {
+const StickyNoteWidget = ({ title, bodyText, id, isNew, defaultPosition, color, isCollapsed }) => {
   const nodeRef = useRef(null);
   const { allStickyNotes, setAllStickyNotes } = useAppContext();
   const [titleInput, setTitleInput] = useState(title);
   const [bodyTextInput, setBodyTextInput] = useState(bodyText);
-  const [editMode, setEditMode] = useState(true);
-  const [noteBgColor, setNoteBgColor] = useState("var(--color-primary)");
-  const [textColor, setTextColor] = useState("white");
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [editMode, setEditMode] = useState(isNew);
+  const [noteBgColor, setNoteBgColor] = useState(color.bg);
+  const [textColor, setTextColor] = useState(color.text);
+  const [isCollapsedInput, setIsCollapsedInput] = useState(isCollapsed);
+  const [position, setPosition] = useState(defaultPosition);
 
   useEffect(() => {
     document.getElementById(`stickyNoteInput-${id}`).focus();
+    updateInputPlaceholderColor(textColor);
   }, []);
+
+  useEffect(() => {
+    if (!editMode) {
+      const newList = [];
+      allStickyNotes.map((note) => {
+        if (note.id === id) {
+          const updatedNote = {
+            ...note,
+            title: titleInput,
+            bodyText: bodyTextInput,
+            color: { text: textColor, bg: noteBgColor },
+            isNew: false,
+          };
+          newList.push(updatedNote);
+        } else {
+          newList.push(note);
+        }
+        setAllStickyNotes(newList);
+      });
+      localStorage.setItem("stickyNoteList", JSON.stringify(newList));
+    }
+  }, [editMode]);
+
+  useEffect(() => {
+    if (!isNew && position !== defaultPosition) {
+      const newList = [];
+      allStickyNotes.map((note) => {
+        if (note.id === id) {
+          const updatedNote = {
+            ...note,
+            defaultPosition: position,
+          };
+          newList.push(updatedNote);
+        } else {
+          newList.push(note);
+        }
+        setAllStickyNotes(newList);
+      });
+      localStorage.setItem("stickyNoteList", JSON.stringify(newList));
+    }
+  }, [position]);
+
+  useEffect(() => {
+    if (!isNew) {
+      const newList = [];
+      allStickyNotes.map((note) => {
+        if (note.id === id) {
+          const updatedNote = {
+            ...note,
+            isCollapsed: isCollapsedInput,
+          };
+          newList.push(updatedNote);
+        } else {
+          newList.push(note);
+        }
+        setAllStickyNotes(newList);
+      });
+      localStorage.setItem("stickyNoteList", JSON.stringify(newList));
+    }
+  }, [isCollapsedInput]);
 
   function updateInputPlaceholderColor(color) {
     document.getElementById(`stickyNoteInput-${id}`).style.setProperty("--c", color);
@@ -41,17 +96,22 @@ const StickyNoteWidget = ({ title, bodyText, id }) => {
 
   const handleDelete = () => {
     const newList = allStickyNotes.filter((note) => note.id !== id);
+    localStorage.setItem("stickyNoteList", JSON.stringify(newList));
     setAllStickyNotes(newList);
   };
 
+  const trackPos = (data) => {
+    setPosition({ x: data.x, y: data.y });
+  };
+
   const getCorrectCollapseIcon = () => {
-    if (isCollapsed) {
+    if (isCollapsedInput) {
       return (
         <Tooltip text={"Expand"} bgColor={"var(--color-secondary)"}>
           <BsCaretUpFill
             size={25}
             color="white"
-            onClick={() => setIsCollapsed((prev) => !prev)}
+            onClick={() => setIsCollapsedInput((prev) => !prev)}
             style={{ cursor: "pointer" }}
           />
         </Tooltip>
@@ -62,7 +122,7 @@ const StickyNoteWidget = ({ title, bodyText, id }) => {
           <BsCaretDownFill
             size={25}
             color="white"
-            onClick={() => setIsCollapsed((prev) => !prev)}
+            onClick={() => setIsCollapsedInput((prev) => !prev)}
             style={{ cursor: "pointer" }}
           />
         </Tooltip>
@@ -75,6 +135,8 @@ const StickyNoteWidget = ({ title, bodyText, id }) => {
       nodeRef={nodeRef}
       bounds={isSafariBrowser() ? "" : ".fullscreen"}
       disabled={editMode}
+      defaultPosition={position}
+      onStop={(e, data) => trackPos(data)}
     >
       <div
         className="melofi__stickyNote"
@@ -82,7 +144,7 @@ const StickyNoteWidget = ({ title, bodyText, id }) => {
         style={{
           cursor: !editMode ? "all-scroll" : "",
           backgroundColor: noteBgColor,
-          animation: isCollapsed ? "collapse 0.4s forwards" : "expand 0.4s forwards",
+          animation: isCollapsedInput ? "collapse 0.4s forwards" : "expand 0.4s forwards",
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -153,7 +215,8 @@ const StickyNoteWidget = ({ title, bodyText, id }) => {
             style={{
               cursor: !editMode ? "all-scroll" : "",
               color: textColor,
-              height: isCollapsed ? 0 : 260,
+              height: isCollapsedInput ? 0 : "",
+              animation: isCollapsedInput ? "" : "expoand-textarea 0.4s forwards",
             }}
           />
         </div>

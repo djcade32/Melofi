@@ -8,6 +8,7 @@ import {
 } from "../../imports/icons";
 import Tooltip from "../tooltip/Tooltip";
 import { useAppContext } from "../../context/AppContext";
+import { DEFAULT } from "../../enums/colors";
 
 const iconProps = {
   size: 15,
@@ -50,12 +51,18 @@ const ToolsMenu = ({ isSleep }) => {
         <div className="melofi__toolsMenu-container">
           <div
             className="melofi__toolsMenu-container-items"
-            onClick={() =>
-              setAllStickyNotes((prev) => [
-                ...prev,
-                { id: allStickyNotes.length + 1, title: "", bodyText: "" },
-              ])
-            }
+            onClick={() => {
+              const newNote = {
+                id: allStickyNotes.length + 1,
+                title: "",
+                bodyText: "",
+                color: { text: "white", bg: DEFAULT },
+                isNew: true,
+                defaultPosition: { x: 0, y: 0 },
+                isCollapsed: false,
+              };
+              setAllStickyNotes((prev) => [...prev, newNote]);
+            }}
           >
             <FaStickyNote {...iconProps} />
             <div>

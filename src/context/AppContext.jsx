@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { scenes } from "../data/scenes";
 
 const AppContext = createContext({});
@@ -12,6 +12,10 @@ const AppContextProvider = (props) => {
   const [showToolsMenu, setShowToolsMenu] = useState(false);
   const [showToDoList, setShowToDoList] = useState(false);
   const [allStickyNotes, setAllStickyNotes] = useState([]);
+
+  useEffect(() => {
+    setAllStickyNotes(JSON.parse(localStorage.getItem("stickyNoteList")) || []);
+  }, []);
 
   function getCurrentScene() {
     return scenes[currentSceneIndex];

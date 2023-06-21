@@ -120,6 +120,10 @@ function App() {
               id={note.id}
               title={note.title}
               bodyText={note.bodyText}
+              isNew={note.isNew}
+              defaultPosition={note.defaultPosition}
+              color={note.color}
+              isCollapsed={note.isCollapsed}
             />
           ))}
 
