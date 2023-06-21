@@ -193,3 +193,21 @@
         opacity: 100%;
     }
 }
+
+@keyframes collapse {
+    0% {
+        height: 370px;
+    }
+    100% {
+        height: 100px;
+    }
+}
+
+@keyframes expand {
+    0% {
+        height: 100px;
+    }
+    100% {
+        height: 370px;
+    }
+}

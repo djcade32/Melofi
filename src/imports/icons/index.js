@@ -7,8 +7,8 @@ import {
   BsPhoneFill,
   BsFillCalendarDateFill,
   BsInfoCircle,
-  BsUnlock,
-  BsFillLockFill,
+  BsCaretUpFill,
+  BsCaretDownFill,
 } from "react-icons/bs";
 import {
   IoVolumeMedium,
@@ -66,8 +66,8 @@ export {
   GiBigWave,
   FiPlus,
   MdDelete,
-  BsUnlock,
   MdModeEdit,
   MdOutlineDone,
-  BsFillLockFill,
+  BsCaretUpFill,
+  BsCaretDownFill,
 };

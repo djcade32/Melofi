@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./stickyNoteWidget.css";
-import { MdDelete, MdModeEdit, MdOutlineDone } from "../../imports/icons";
+import {
+  MdDelete,
+  MdModeEdit,
+  MdOutlineDone,
+  BsCaretUpFill,
+  BsCaretDownFill,
+} from "../../imports/icons";
 import Tooltip from "../tooltip/Tooltip";
 import { isSafariBrowser } from "../../helpers/browser";
 import Draggable from "react-draggable";
@@ -22,6 +28,7 @@ const StickyNoteWidget = ({ title, bodyText, id }) => {
   const [editMode, setEditMode] = useState(true);
   const [noteBgColor, setNoteBgColor] = useState("var(--color-primary)");
   const [textColor, setTextColor] = useState("white");
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   useEffect(() => {
     document.getElementById(`stickyNoteInput-${id}`).focus();
@@ -37,6 +44,32 @@ const StickyNoteWidget = ({ title, bodyText, id }) => {
     setAllStickyNotes(newList);
   };
 
+  const getCorrectCollapseIcon = () => {
+    if (isCollapsed) {
+      return (
+        <Tooltip text={"Expand"} bgColor={"var(--color-secondary)"}>
+          <BsCaretUpFill
+            size={25}
+            color="white"
+            onClick={() => setIsCollapsed((prev) => !prev)}
+            style={{ cursor: "pointer" }}
+          />
+        </Tooltip>
+      );
+    } else {
+      return (
+        <Tooltip text={"Collapse"} bgColor={"var(--color-secondary)"}>
+          <BsCaretDownFill
+            size={25}
+            color="white"
+            onClick={() => setIsCollapsed((prev) => !prev)}
+            style={{ cursor: "pointer" }}
+          />
+        </Tooltip>
+      );
+    }
+  };
+
   return (
     <Draggable
       nodeRef={nodeRef}
@@ -46,7 +79,11 @@ const StickyNoteWidget = ({ title, bodyText, id }) => {
       <div
         className="melofi__stickyNote"
         ref={nodeRef}
-        style={{ cursor: !editMode ? "all-scroll" : "", backgroundColor: noteBgColor }}
+        style={{
+          cursor: !editMode ? "all-scroll" : "",
+          backgroundColor: noteBgColor,
+          animation: isCollapsed ? "collapse 0.4s forwards" : "expand 0.4s forwards",
+        }}
       >
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <Tooltip text={editMode ? "Done" : "Edit"} bgColor={"var(--color-secondary)"}>
@@ -71,12 +108,8 @@ const StickyNoteWidget = ({ title, bodyText, id }) => {
               )}
             </div>
           </Tooltip>
-          <div
-            style={{
-              display: editMode ? "flex" : "none",
-            }}
-          >
-            <Tooltip text="Delete" bgColor={"var(--color-secondary)"}>
+          {editMode ? (
+            <Tooltip text={"Delete"} bgColor={"var(--color-secondary)"}>
               <MdDelete
                 size={25}
                 color="var(--color-effect-opacity)"
@@ -84,7 +117,9 @@ const StickyNoteWidget = ({ title, bodyText, id }) => {
                 style={{ cursor: "pointer" }}
               />
             </Tooltip>
-          </div>
+          ) : (
+            getCorrectCollapseIcon()
+          )}
         </div>
         <div>
           <div className="melofi__stickyNote_header_title_input">
@@ -115,55 +150,63 @@ const StickyNoteWidget = ({ title, bodyText, id }) => {
             placeholder="Write yourself a note."
             value={bodyTextInput}
             onChange={(e) => setBodyTextInput(e.target.value)}
-            style={{ cursor: !editMode ? "all-scroll" : "", color: textColor }}
+            style={{
+              cursor: !editMode ? "all-scroll" : "",
+              color: textColor,
+              height: isCollapsed ? 0 : 260,
+            }}
           />
         </div>
 
-        <div
-          className="melofi__stickyNote_noteBgEditPanel"
-          style={{
-            animation: editMode
-              ? "slide-to-right-fade-in 0.4s forwards"
-              : "slide-to-left-fade-out 0.4s forwards",
-            backgroundColor: noteBgColor,
-          }}
-        >
-          <div className="melofi__stickyNote_noteBgEditPanel_noteBgColors">
-            <div style={{ backgroundColor: RED }} onClick={() => setNoteBgColor(RED)} />
-            <div style={{ backgroundColor: GREEN }} onClick={() => setNoteBgColor(GREEN)} />
-            <div style={{ backgroundColor: PURPLE }} onClick={() => setNoteBgColor(PURPLE)} />
-            <div style={{ backgroundColor: DEFAULT }} onClick={() => setNoteBgColor(DEFAULT)} />
-            <div style={{ backgroundColor: BLUE }} onClick={() => setNoteBgColor(BLUE)} />
-            <div style={{ backgroundColor: YELLOW }} onClick={() => setNoteBgColor(YELLOW)} />
-          </div>
-        </div>
+        {editMode && (
+          <>
+            <div
+              className="melofi__stickyNote_noteBgEditPanel"
+              style={{
+                animation: editMode
+                  ? "slide-to-right-fade-in 0.4s forwards"
+                  : "slide-to-left-fade-out 0.4s forwards",
+                backgroundColor: noteBgColor,
+              }}
+            >
+              <div className="melofi__stickyNote_noteBgEditPanel_noteBgColors">
+                <div style={{ backgroundColor: RED }} onClick={() => setNoteBgColor(RED)} />
+                <div style={{ backgroundColor: GREEN }} onClick={() => setNoteBgColor(GREEN)} />
+                <div style={{ backgroundColor: PURPLE }} onClick={() => setNoteBgColor(PURPLE)} />
+                <div style={{ backgroundColor: DEFAULT }} onClick={() => setNoteBgColor(DEFAULT)} />
+                <div style={{ backgroundColor: BLUE }} onClick={() => setNoteBgColor(BLUE)} />
+                <div style={{ backgroundColor: YELLOW }} onClick={() => setNoteBgColor(YELLOW)} />
+              </div>
+            </div>
 
-        <div
-          className="melofi__stickyNote_noteTextEditPanel"
-          style={{
-            animation: editMode
-              ? "slide-to-left-fade-in 0.4s forwards"
-              : "slide-to-right-fade-out 0.4s forwards",
-            backgroundColor: noteBgColor,
-          }}
-        >
-          <div className="melofi__stickyNote_noteTextEditPanel_noteTextColors">
             <div
-              style={{ backgroundColor: BLACK }}
-              onClick={() => {
-                updateInputPlaceholderColor(BLACK);
-                setTextColor(BLACK);
+              className="melofi__stickyNote_noteTextEditPanel"
+              style={{
+                animation: editMode
+                  ? "slide-to-left-fade-in 0.4s forwards"
+                  : "slide-to-right-fade-out 0.4s forwards",
+                backgroundColor: noteBgColor,
               }}
-            />
-            <div
-              style={{ backgroundColor: "white" }}
-              onClick={() => {
-                updateInputPlaceholderColor("white");
-                setTextColor("white");
-              }}
-            />
-          </div>
-        </div>
+            >
+              <div className="melofi__stickyNote_noteTextEditPanel_noteTextColors">
+                <div
+                  style={{ backgroundColor: BLACK }}
+                  onClick={() => {
+                    updateInputPlaceholderColor(BLACK);
+                    setTextColor(BLACK);
+                  }}
+                />
+                <div
+                  style={{ backgroundColor: "white" }}
+                  onClick={() => {
+                    updateInputPlaceholderColor("white");
+                    setTextColor("white");
+                  }}
+                />
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </Draggable>
   );
