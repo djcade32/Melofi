@@ -15,10 +15,6 @@ const AppContextProvider = (props) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(currentSceneIndex);
-  }, []);
-
-  useEffect(() => {
     if (loading) {
       setCurrentSceneIndex(JSON.parse(localStorage.getItem("currentSceneIndex")) || 0);
       setAllStickyNotes(JSON.parse(localStorage.getItem("stickyNoteList")) || []);
