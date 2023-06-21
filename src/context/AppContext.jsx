@@ -6,15 +6,24 @@ const AppContext = createContext({});
 const AppContextProvider = (props) => {
   const [musicVolume, setMusicVolume] = useState(35);
   const [currentSongInfo, setCurrentSongInfo] = useState(null);
-  const [currentSceneIndex, setCurrentSceneIndex] = useState(0);
+  const [currentSceneIndex, setCurrentSceneIndex] = useState(null);
   const [showSceneModal, setShowSceneModal] = useState(false);
   const [showMixerModal, setShowMixerModal] = useState(false);
   const [showToolsMenu, setShowToolsMenu] = useState(false);
   const [showToDoList, setShowToDoList] = useState(false);
   const [allStickyNotes, setAllStickyNotes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setAllStickyNotes(JSON.parse(localStorage.getItem("stickyNoteList")) || []);
+    console.log(currentSceneIndex);
+  }, []);
+
+  useEffect(() => {
+    if (loading) {
+      setCurrentSceneIndex(JSON.parse(localStorage.getItem("currentSceneIndex")) || 0);
+      setAllStickyNotes(JSON.parse(localStorage.getItem("stickyNoteList")) || []);
+      setLoading(false);
+    }
   }, []);
 
   function getCurrentScene() {
@@ -43,7 +52,7 @@ const AppContextProvider = (props) => {
         setAllStickyNotes,
       }}
     >
-      {props.children}
+      {loading ? <></> : <>{props.children}</>}
     </AppContext.Provider>
   );
 };
