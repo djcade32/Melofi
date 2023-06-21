@@ -16,7 +16,8 @@ const iconProps = {
 };
 
 const ToolsMenu = ({ isSleep }) => {
-  const { setShowToolsMenu, showToolsMenu, setShowToDoList } = useAppContext();
+  const { setShowToolsMenu, showToolsMenu, setShowToDoList, setAllStickyNotes, allStickyNotes } =
+    useAppContext();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -47,18 +48,18 @@ const ToolsMenu = ({ isSleep }) => {
 
       {showToolsMenu && (
         <div className="melofi__toolsMenu-container">
-          <div className="melofi__toolsMenu-container-items">
+          <div
+            className="melofi__toolsMenu-container-items"
+            onClick={() =>
+              setAllStickyNotes((prev) => [
+                ...prev,
+                { id: allStickyNotes.length + 1, title: "", bodyText: "" },
+              ])
+            }
+          >
             <FaStickyNote {...iconProps} />
             <div>
               <p>Sticky note</p>
-              <p
-                style={{
-                  fontStyle: "italic",
-                  fontSize: 10,
-                }}
-              >
-                {"(Coming soon)"}
-              </p>
             </div>
           </div>
           <div

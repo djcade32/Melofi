@@ -11,7 +11,7 @@ const AppContextProvider = (props) => {
   const [showMixerModal, setShowMixerModal] = useState(false);
   const [showToolsMenu, setShowToolsMenu] = useState(false);
   const [showToDoList, setShowToDoList] = useState(false);
-
+  const [allStickyNotes, setAllStickyNotes] = useState([]);
 
   function getCurrentScene() {
     return scenes[currentSceneIndex];
@@ -35,7 +35,8 @@ const AppContextProvider = (props) => {
         setShowToolsMenu,
         showToDoList,
         setShowToDoList,
-
+        allStickyNotes,
+        setAllStickyNotes,
       }}
     >
       {props.children}

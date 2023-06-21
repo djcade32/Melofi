@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./stickyNoteWidget.css";
 import { MdDelete, MdModeEdit, MdOutlineDone } from "../../imports/icons";
 import Tooltip from "../tooltip/Tooltip";
 import { isSafariBrowser } from "../../helpers/browser";
 import Draggable from "react-draggable";
+import { useAppContext } from "../../context/AppContext";
 
 const RED = "rgba(237, 60, 60, 0.88)";
 const GREEN = "rgba(23, 170, 7, 0.88)";
@@ -13,19 +14,28 @@ const BLUE = "rgba(41, 89, 235, 0.88)";
 const DEFAULT = "var(--color-primary)";
 const BLACK = "#232323";
 
-const StickyNoteWidget = () => {
+const StickyNoteWidget = ({ title, bodyText, id }) => {
   const nodeRef = useRef(null);
-  const [title, setTitle] = useState("");
-  const [bodyText, setBodyText] = useState("");
-  const [isLocked, setIsLocked] = useState(false);
+  const { allStickyNotes, setAllStickyNotes } = useAppContext();
+  const [titleInput, setTitleInput] = useState(title);
+  const [bodyTextInput, setBodyTextInput] = useState(bodyText);
   const [editMode, setEditMode] = useState(true);
   const [noteBgColor, setNoteBgColor] = useState("var(--color-primary)");
   const [textColor, setTextColor] = useState("white");
 
+  useEffect(() => {
+    document.getElementById(`stickyNoteInput-${id}`).focus();
+  }, []);
+
   function updateInputPlaceholderColor(color) {
-    document.getElementById("stickyNoteInput").style.setProperty("--c", color);
-    document.getElementById("stickyNoteTextarea").style.setProperty("--c", color);
+    document.getElementById(`stickyNoteInput-${id}`).style.setProperty("--c", color);
+    document.getElementById(`stickyNoteTextarea-${id}`).style.setProperty("--c", color);
   }
+
+  const handleDelete = () => {
+    const newList = allStickyNotes.filter((note) => note.id !== id);
+    setAllStickyNotes(newList);
+  };
 
   return (
     <Draggable
@@ -70,7 +80,7 @@ const StickyNoteWidget = () => {
               <MdDelete
                 size={25}
                 color="var(--color-effect-opacity)"
-                onClick={() => {}}
+                onClick={handleDelete}
                 style={{ cursor: "pointer" }}
               />
             </Tooltip>
@@ -79,12 +89,12 @@ const StickyNoteWidget = () => {
         <div>
           <div className="melofi__stickyNote_header_title_input">
             <input
-              id="stickyNoteInput"
+              id={`stickyNoteInput-${id}`}
               disabled={!editMode}
               type="text"
-              value={title}
-              placeholder="New Note - 1"
-              onChange={(e) => setTitle(e.target.value)}
+              value={titleInput}
+              placeholder={`New Note - ${id}`}
+              onChange={(e) => setTitleInput(e.target.value)}
               style={{ cursor: !editMode ? "all-scroll" : "", color: textColor }}
             />
           </div>
@@ -100,11 +110,11 @@ const StickyNoteWidget = () => {
         />
         <div className="melofi__stickyNote_body">
           <textarea
-            id="stickyNoteTextarea"
+            id={`stickyNoteTextarea-${id}`}
             disabled={!editMode}
             placeholder="Write yourself a note."
-            value={bodyText}
-            onChange={(e) => setBodyText(e.target.value)}
+            value={bodyTextInput}
+            onChange={(e) => setBodyTextInput(e.target.value)}
             style={{ cursor: !editMode ? "all-scroll" : "", color: textColor }}
           />
         </div>
