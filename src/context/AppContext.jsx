@@ -1,5 +1,7 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { scenes } from "../data/scenes";
+import { DEFAULT } from "../enums/colors";
+import logo from "../assets/logo.png";
 
 const AppContext = createContext({});
 
@@ -13,10 +15,6 @@ const AppContextProvider = (props) => {
   const [showToDoList, setShowToDoList] = useState(false);
   const [allStickyNotes, setAllStickyNotes] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    console.log(currentSceneIndex);
-  }, []);
 
   useEffect(() => {
     if (loading) {
@@ -52,7 +50,44 @@ const AppContextProvider = (props) => {
         setAllStickyNotes,
       }}
     >
-      {loading ? <></> : <>{props.children}</>}
+      {loading ? (
+        <div
+          style={{
+            backgroundColor: DEFAULT,
+            width: "100%",
+            height: "100vh",
+            display: "flex",
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <p
+              style={{
+                textAlign: "center",
+                color: "white",
+                fontFamily: "var(--font-poppins)",
+                fontSize: 21,
+                letterSpacing: 5,
+              }}
+            >
+              LOADING
+            </p>
+            <img
+              src={logo}
+              alt="melofi logo"
+              style={{
+                width: 200,
+                height: 200,
+                animation: "logo-spin 5s linear infinite",
+              }}
+            />
+          </div>
+        </div>
+      ) : (
+        <>{props.children}</>
+      )}
     </AppContext.Provider>
   );
 };
