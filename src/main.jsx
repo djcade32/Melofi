@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import AppContextProvider from "./context/AppContext";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -29,7 +30,9 @@ const app = initializeApp(firebaseConfig);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <GoogleOAuthProvider clientId="404248652005-nff5p1j0scvmp8p7q028l91f4m3gkjtv.apps.googleusercontent.com">
     <React.StrictMode>
-      <App />
+      <AppContextProvider>
+        <App />
+      </AppContextProvider>
     </React.StrictMode>
   </GoogleOAuthProvider>
 );

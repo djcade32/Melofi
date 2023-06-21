@@ -1,0 +1,222 @@
+.melofi__stickyNote {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 370px;
+    height: 370px;
+    padding: 20px 24px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    z-index: 9;
+    background-color: var(--color-primary);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    /* backdrop-filter: blur(10px); */
+}
+
+.melofi__stickyNote_doneEdit_button {
+    opacity: 0%
+}
+
+.melofi__stickyNote:hover .melofi__stickyNote_doneEdit_button {
+    opacity:100%
+}
+
+.melofi__stickyNote_header_title_input {
+    display: flex;
+}
+
+.melofi__stickyNote_header_title_input input {
+    background-color: transparent;
+    border: none;
+    font-family: var(--font-poppins);
+    width: 100%;
+    caret-color: white;
+    color: white;
+    font-size: 32px;
+    user-select: text;
+    border-radius: 10px;
+    padding:0px 5px;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+::placeholder {
+    color: var(--c, white);
+  }
+
+.melofi__stickyNote_header_title_input input:focus,
+.melofi__stickyNote_body textarea:focus {
+    outline: none;
+    background-color: var(--color-secondary-opacity);
+}
+
+.melofi__stickyNote_body {
+    margin-top: 10px;
+    display: flex;
+    flex: 1
+}
+
+.melofi__stickyNote_body textarea{
+    background-color: transparent;
+    border: none;
+    font-family: var(--font-poppins);
+    width: 100%;
+    caret-color: white;
+    color: white;
+    font-size: 18px;
+    user-select: text;
+    border-radius: 10px;
+    padding:5px;
+    resize: none;
+}
+
+.melofi__stickyNote_noteBgEditPanel {
+    position: absolute;
+    border-radius: 10px;
+    background-color: var(--color-primary);
+    width: 50px;
+    height: 300px;
+    top: 0;
+    right: -65px;
+    bottom: 0;
+    margin: auto;
+    display: flex;
+   
+}
+
+.melofi__stickyNote_noteBgEditPanel_noteBgColors {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.melofi__stickyNote_noteBgEditPanel_noteBgColors div {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    outline: 1px solid var(--color-secondary);
+    opacity: 50%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.50);
+    cursor: pointer;
+}
+
+.melofi__stickyNote_noteTextEditPanel {
+    position: absolute;
+    border-radius: 10px;
+    background-color: var(--color-primary);
+    width: 50px;
+    height: 100px;
+    top: 0;
+    left: -65px;
+    bottom: 0;
+    margin: auto;
+    display: flex;
+    
+}
+
+.melofi__stickyNote_noteTextEditPanel_noteTextColors {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.melofi__stickyNote_noteTextEditPanel_noteTextColors div {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    outline: 1px solid var(--color-secondary);
+    opacity: 50%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.50);
+    cursor: pointer;
+}
+
+
+
+@keyframes slide-to-right-fade-in {
+    0% {
+      -webkit-transform: translateX(-150%);
+              transform: translateX(-150%);
+              opacity: 0%;
+    }
+    100% {
+      -webkit-transform: translateX(0%);
+              transform: translateX(0%);
+              opacity: 100%;
+
+    }
+}
+
+@keyframes slide-to-left-fade-out {
+    0% {
+        -webkit-transform: translateX(0%);
+        transform: translateX(0%);
+        opacity: 100%;
+    }
+    100% {
+        -webkit-transform: translateX(-150%);
+        transform: translateX(-150%);
+        opacity: 0%;
+    }
+}
+
+@keyframes slide-to-right-fade-out {
+    0% {
+      -webkit-transform: translateX(0%);
+              transform: translateX(0%);
+              opacity: 100%;
+    }
+    100% {
+      -webkit-transform: translateX(150%);
+              transform: translateX(150%);
+              opacity: 0%;
+
+    }
+}
+
+@keyframes slide-to-left-fade-in {
+    0% {
+        -webkit-transform: translateX(150%);
+        transform: translateX(150%);
+        opacity: 0%;
+    }
+    100% {
+        -webkit-transform: translateX(0%);
+        transform: translateX(0%);
+        opacity: 100%;
+    }
+}
+
+@keyframes collapse {
+    0% {
+        height: 370px;
+    }
+    100% {
+        height: 75px;
+    }
+}
+
+@keyframes expand {
+    0% {
+        height: 75px;
+    }
+    100% {
+        height: 370px;
+    }
+}
+
+@keyframes expand-textarea {
+    0% {
+        height: 0px;
+    }
+    100% {
+        height: 260px;
+    }
+}

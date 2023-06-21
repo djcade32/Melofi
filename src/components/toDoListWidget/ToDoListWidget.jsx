@@ -12,6 +12,9 @@ const ToDoListWidget = () => {
   const { setShowToDoList, showToDoList } = useAppContext();
   const [list, setList] = useState(JSON.parse(localStorage.getItem("toDoList")) || []);
   const [input, setInput] = useState("");
+  const [position, setPosition] = useState(
+    JSON.parse(localStorage.getItem("toDoListPosition")) || { x: 0, y: 0 }
+  );
 
   useEffect(() => {
     localStorage.setItem("toDoList", JSON.stringify(list));
@@ -50,8 +53,20 @@ const ToDoListWidget = () => {
     return 370;
   };
 
+  const trackPos = (data) => {
+    const coords = { x: data.x, y: data.y };
+    setPosition(coords);
+    localStorage.setItem("toDoListPosition", JSON.stringify(coords));
+  };
+
   return (
-    <Draggable nodeRef={nodeRef} bounds={isSafariBrowser() ? "" : ".fullscreen"} handle="#handle">
+    <Draggable
+      nodeRef={nodeRef}
+      bounds={isSafariBrowser() ? "" : ".fullscreen"}
+      handle="#handle"
+      defaultPosition={position}
+      onStop={(e, data) => trackPos(data)}
+    >
       <div
         className="melofi__todolist"
         ref={nodeRef}

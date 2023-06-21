@@ -13,6 +13,11 @@ const iconProps = {
 const SceneModal = () => {
   const { setCurrentSceneIndex, showSceneModal } = useAppContext();
 
+  const handleSceneChange = (index) => {
+    setCurrentSceneIndex(index);
+    localStorage.setItem("currentSceneIndex", JSON.stringify(index));
+  };
+
   return (
     <>
       {showSceneModal && (
@@ -27,7 +32,7 @@ const SceneModal = () => {
                   key={scene.name}
                   className="melofi__sceneModal-thumbnail"
                   style={{ backgroundImage: `url(${scene.image})` }}
-                  onClick={() => setCurrentSceneIndex(index)}
+                  onClick={() => handleSceneChange(index)}
                 >
                   <p
                     className="melofi__sceneModal-thumbnail-title"
