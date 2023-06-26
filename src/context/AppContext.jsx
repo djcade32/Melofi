@@ -25,6 +25,7 @@ const AppContextProvider = (props) => {
       hideInterface: true,
     }
   );
+  const [showAboutMelofi, setShowAboutMelofi] = useState(false);
 
   const [loading, setLoading] = useState(true);
 
@@ -66,6 +67,8 @@ const AppContextProvider = (props) => {
         setShowSettings,
         setSettingsConfig,
         settingsConfig,
+        setShowAboutMelofi,
+        showAboutMelofi,
       }}
     >
       {loading ? (

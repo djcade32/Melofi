@@ -17,7 +17,7 @@ const iconProps = {
 
 const Menu = ({ isSleep }) => {
   const menuRef = useRef(null);
-  const { showMenu, setShowMenu, setShowSettings } = useAppContext();
+  const { showMenu, setShowMenu, setShowSettings, setShowAboutMelofi } = useAppContext();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -52,9 +52,12 @@ const Menu = ({ isSleep }) => {
             <FaCommentDots {...iconProps} />
             <p>Leave feedback</p>
           </div>
-          <div className="melofi__menu_modal_items">
+          <div
+            className="melofi__menu_modal_items"
+            onClick={() => setShowAboutMelofi((prev) => !prev)}
+          >
             <BsFillInfoCircleFill {...iconProps} />
-            <p>About us</p>
+            <p>About Melofi</p>
           </div>
         </div>
       )}

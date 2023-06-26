@@ -20,6 +20,7 @@ import StickyNoteWidget from "./components/stickyNoteWidget/StickyNoteWidget";
 import { useAppContext } from "./context/AppContext";
 import Menu from "./components/menu/Menu";
 import Settings from "./components/settings/Settings";
+import AboutMelofi from "./components/aboutMelofi/AboutMelofi";
 
 function App() {
   const { settingsConfig } = useAppContext();
@@ -134,6 +135,7 @@ function App() {
             <StickyNoteWidget key={note.id} note={note} />
           ))}
           <Settings />
+          <AboutMelofi />
 
           {/* Footer */}
           <div
