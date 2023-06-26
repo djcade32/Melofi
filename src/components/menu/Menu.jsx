@@ -50,7 +50,9 @@ const Menu = ({ isSleep }) => {
           </div>
           <div className="melofi__menu_modal_items">
             <FaCommentDots {...iconProps} />
-            <p>Leave feedback</p>
+            <a href="https://forms.gle/53SKQW27bXiwdcNW8" target="_blank">
+              Leave feedback
+            </a>
           </div>
           <div
             className="melofi__menu_modal_items"
