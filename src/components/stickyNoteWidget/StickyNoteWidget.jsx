@@ -13,7 +13,8 @@ import Draggable from "react-draggable";
 import { useAppContext } from "../../context/AppContext";
 import { DEFAULT, RED, YELLOW, GREEN, BLUE, PURPLE, BLACK } from "../../enums/colors";
 
-const StickyNoteWidget = ({ title, bodyText, id, isNew, defaultPosition, color, isCollapsed }) => {
+const StickyNoteWidget = ({ note }) => {
+  const { title, bodyText, id, isNew, defaultPosition, color, isCollapsed } = note;
   const nodeRef = useRef(null);
   const { allStickyNotes, setAllStickyNotes } = useAppContext();
   const [titleInput, setTitleInput] = useState(title);

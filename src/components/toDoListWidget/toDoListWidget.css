@@ -48,7 +48,7 @@
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.melofi__todolist_input {
+.melofi__todolist_input, .melofi__todolist_input_noFade{
     display: flex;
     column-gap: 5px;
     align-items: center;
@@ -56,6 +56,18 @@
     padding: 5px 10px;
     margin-bottom: 15px;
     
+}
+
+.melofi__todolist_input_noFade input {
+    background-color: transparent;
+    border: none;
+    font-family: var(--font-poppins);
+    width: 100%;
+    border-bottom: 1px solid var(--color-secondary);
+    caret-color: white;
+    color: var(--color-secondary);
+    font-size: 18px;
+    user-select: text;
 }
 
 .melofi__todolist_input input {
@@ -80,6 +92,12 @@
     font-family: var(--font-poppins);
     font-size: 18px;
     color: white
+}
+
+.melofi__todolist_input_noFade input::placeholder {
+    font-family: var(--font-poppins);
+    font-size: 18px;
+    color: var(--color-secondary)
 }
 
 .melofi__todolist:hover .melofi__todolist_input input::placeholder

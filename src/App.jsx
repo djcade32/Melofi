@@ -18,8 +18,11 @@ import ToolsMenu from "./components/tools/ToolsMenu";
 import ToDoListWidget from "./components/toDoListWidget/ToDoListWidget";
 import StickyNoteWidget from "./components/stickyNoteWidget/StickyNoteWidget";
 import { useAppContext } from "./context/AppContext";
+import Menu from "./components/menu/Menu";
+import Settings from "./components/settings/Settings";
 
 function App() {
+  const { settingsConfig } = useAppContext();
   const { allStickyNotes } = useAppContext();
   const [isSleep, setIsSleep] = useState(false);
   const [onMobileDevice, setOnMobileDevice] = useState(window.innerWidth < 750 ? true : false);
@@ -41,7 +44,11 @@ function App() {
       clearTimeout(timeout);
 
       timeout = setTimeout(() => {
-        setIsSleep(true);
+        if (JSON.parse(localStorage.getItem("settingsConfig")).hideInterface) {
+          setIsSleep(true);
+          return;
+        }
+        clearTimeout(timeout);
       }, 15000);
     };
     document.addEventListener("mousemove", onMouseMove);
@@ -65,6 +72,14 @@ function App() {
       window.removeEventListener("resize", updateDimension);
     };
   }, []);
+
+  const handleSleep = () => {
+    console.log("config: ", settingsConfig.hideInterface);
+    if (settingsConfig.hideInterface === false) {
+      return;
+    }
+    setIsSleep(true);
+  };
 
   return (
     <FullScreen handle={handle}>
@@ -107,6 +122,7 @@ function App() {
                   </div>
                 </Tooltip>
                 <Clock />
+                <Menu isSleep={isSleep} />
               </div>
             </nav>
           </div>
@@ -115,17 +131,9 @@ function App() {
           <SceneModal />
           <ToDoListWidget />
           {allStickyNotes.map((note) => (
-            <StickyNoteWidget
-              key={note.id}
-              id={note.id}
-              title={note.title}
-              bodyText={note.bodyText}
-              isNew={note.isNew}
-              defaultPosition={note.defaultPosition}
-              color={note.color}
-              isCollapsed={note.isCollapsed}
-            />
+            <StickyNoteWidget key={note.id} note={note} />
           ))}
+          <Settings />
 
           {/* Footer */}
           <div

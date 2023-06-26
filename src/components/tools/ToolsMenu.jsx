@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "./toolsMenu.css";
 import {
   AiFillTool,
@@ -17,12 +17,13 @@ const iconProps = {
 };
 
 const ToolsMenu = ({ isSleep }) => {
+  const toolsMenuRef = useRef(null);
   const { setShowToolsMenu, showToolsMenu, setShowToDoList, setAllStickyNotes, allStickyNotes } =
     useAppContext();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (event.target.id === "app") {
+      if (toolsMenuRef.current && !toolsMenuRef.current.contains(event.target)) {
         setShowToolsMenu(false);
       }
     };
@@ -31,6 +32,18 @@ const ToolsMenu = ({ isSleep }) => {
       document.removeEventListener("click", handleClickOutside, true);
     };
   }, []);
+  // This keeps the menu open on all clicks except for clicking the background
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (event.target.id === "app") {
+  //       setShowToolsMenu(false);
+  //     }
+  //   };
+  //   document.addEventListener("click", handleClickOutside, true);
+  //   return () => {
+  //     document.removeEventListener("click", handleClickOutside, true);
+  //   };
+  // }, []);
 
   useEffect(() => {
     if (showToolsMenu) {
@@ -39,12 +52,13 @@ const ToolsMenu = ({ isSleep }) => {
   }, [isSleep]);
   return (
     <div
+      ref={toolsMenuRef}
       className="melofi__toolsMenu"
       style={showToolsMenu ? { outline: "1px solid rgba(254, 165, 57, 0.88)" } : {}}
       onClick={() => setShowToolsMenu((prev) => !prev)}
     >
       <Tooltip text="Tools">
-        <AiFillTool {...iconProps} />
+        <AiFillTool {...iconProps} size={20} />
       </Tooltip>
 
       {showToolsMenu && (

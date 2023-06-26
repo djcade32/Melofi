@@ -9,6 +9,7 @@ import {
   BsInfoCircle,
   BsCaretUpFill,
   BsCaretDownFill,
+  BsFillInfoCircleFill,
 } from "react-icons/bs";
 import {
   IoVolumeMedium,
@@ -28,9 +29,17 @@ import { WiNightAltStormShowers } from "react-icons/wi";
 import { LuFan, LuWaves } from "react-icons/lu";
 import { CgEditNoise } from "react-icons/cg";
 import { GiTacos, GiBigWave } from "react-icons/gi";
-import { MdLandscape, MdDelete, MdModeEdit, MdOutlineDone } from "react-icons/md";
+import {
+  MdLandscape,
+  MdDelete,
+  MdModeEdit,
+  MdOutlineDone,
+  MdOutlineMenu,
+  MdSettings,
+} from "react-icons/md";
 import { AiFillTool, AiOutlineGoogle } from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
+import { FaCommentDots } from "react-icons/fa";
 
 export {
   FaPause,
@@ -70,4 +79,8 @@ export {
   MdOutlineDone,
   BsCaretUpFill,
   BsCaretDownFill,
+  MdOutlineMenu,
+  MdSettings,
+  FaCommentDots,
+  BsFillInfoCircleFill,
 };
