@@ -14,6 +14,19 @@ const AppContextProvider = (props) => {
   const [showToolsMenu, setShowToolsMenu] = useState(false);
   const [showToDoList, setShowToDoList] = useState(false);
   const [allStickyNotes, setAllStickyNotes] = useState([]);
+  const [showMenu, setShowMenu] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [settingsConfig, setSettingsConfig] = useState(
+    JSON.parse(localStorage.getItem("settingsConfig")) || {
+      fadeAway: {
+        todoList: true,
+        calendar: true,
+      },
+      hideInterface: true,
+    }
+  );
+  const [showAboutMelofi, setShowAboutMelofi] = useState(false);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -48,6 +61,14 @@ const AppContextProvider = (props) => {
         setShowToDoList,
         allStickyNotes,
         setAllStickyNotes,
+        showMenu,
+        setShowMenu,
+        showSettings,
+        setShowSettings,
+        setSettingsConfig,
+        settingsConfig,
+        setShowAboutMelofi,
+        showAboutMelofi,
       }}
     >
       {loading ? (

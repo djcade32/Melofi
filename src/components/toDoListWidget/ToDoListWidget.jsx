@@ -9,7 +9,7 @@ import { isSafariBrowser } from "../../helpers/browser";
 const ToDoListWidget = () => {
   const nodeRef = useRef(null);
   const plusRef = useRef(null);
-  const { setShowToDoList, showToDoList } = useAppContext();
+  const { setShowToDoList, showToDoList, settingsConfig } = useAppContext();
   const [list, setList] = useState(JSON.parse(localStorage.getItem("toDoList")) || []);
   const [input, setInput] = useState("");
   const [position, setPosition] = useState(
@@ -59,6 +59,20 @@ const ToDoListWidget = () => {
     localStorage.setItem("toDoListPosition", JSON.stringify(coords));
   };
 
+  const getFadeStyle = () => {
+    return settingsConfig.fadeAway.todoList
+      ? { display: showToDoList ? "flex" : "none", height: determineHeight(list) }
+      : noFadeStyle;
+  };
+
+  const noFadeStyle = {
+    backgroundColor: "var(--color-primary)",
+    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+    backdropFilter: "blur(10px)",
+    display: showToDoList ? "flex" : "none",
+    height: determineHeight(list),
+  };
+
   return (
     <Draggable
       nodeRef={nodeRef}
@@ -67,11 +81,7 @@ const ToDoListWidget = () => {
       defaultPosition={position}
       onStop={(e, data) => trackPos(data)}
     >
-      <div
-        className="melofi__todolist"
-        ref={nodeRef}
-        style={{ display: showToDoList ? "flex" : "none", height: determineHeight(list) }}
-      >
+      <div className="melofi__todolist" ref={nodeRef} style={getFadeStyle()}>
         <div id="handle" className="melofi__todolist_handle" />
         <div className="melofi__todlist_header" id="handle">
           <p className="melofi__todolist_header_title">TO-DO LIST</p>
@@ -81,11 +91,18 @@ const ToDoListWidget = () => {
               size={33}
               color="var(--color-secondary)"
               onClick={() => setShowToDoList(false)}
-              style={{ cursor: "pointer" }}
+              cursor={"pointer"}
+              style={settingsConfig.fadeAway.todoList ? {} : { opacity: "100%" }}
             />
           </div>
         </div>
-        <div className="melofi__todolist_input">
+        <div
+          className={
+            settingsConfig.fadeAway.todoList
+              ? "melofi__todolist_input"
+              : "melofi__todolist_input_noFade"
+          }
+        >
           <input
             id="input"
             type="text"
