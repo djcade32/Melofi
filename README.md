@@ -7,7 +7,7 @@ Discover a vast handpicked collection of lofi tracks that offer the perfect blen
 
 ## Tech Stack
 
-**Client:** React, CSS, Material UI
+**Client:** React, CSS, Material UI, HTML, Javascript
 
 
 
