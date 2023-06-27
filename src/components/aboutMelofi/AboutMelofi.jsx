@@ -25,8 +25,8 @@ const AboutMelofi = () => {
           lofi music, as Melofi is designed to enhance your experience and elevate your productivity
           to new heights.
         </p>
-        {/* <a
-          href="https://bmc.link/normancade"
+        <a
+          href="https://www.privacypolicies.com/live/b03a199b-bfaf-4667-9422-2daa813bf6a3"
           target="_blank"
           style={{
             color: "var(--color-secondary)",
@@ -36,7 +36,7 @@ const AboutMelofi = () => {
           }}
         >
           Privacy policy
-        </a> */}
+        </a>
       </div>
     </div>
   );
