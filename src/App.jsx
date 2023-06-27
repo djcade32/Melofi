@@ -51,12 +51,14 @@ function App() {
           return;
         }
         clearTimeout(timeout);
-      }, 15000);
+      }, 3000);
     };
     document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mousedown", onMouseMove);
 
     return () => {
       document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mousedown", onMouseMove);
     };
   }, []);
 

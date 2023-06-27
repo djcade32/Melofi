@@ -19,6 +19,11 @@ import ancestral_casiio from "../../assets/songs/ancestral_casiio.mp3";
 import edda_kanisan_darioLessing_claudia from "../../assets/songs/edda_kanisan_x_dario-lessing_x_claudia.mp3";
 import willowHill_spencerHunt from "../../assets/songs/willow-hill_spencer-hunt.mp3";
 import wellBeAlright_softy_lucidGreen from "../../assets/songs/well-be-alright_softy_x_lucid-green.mp3";
+import dontYouKnow_sebastianKamae_Aylior from "../../assets/songs/dontYouKnow_sebastianKamae_x_Aylior.mp3";
+import daylight_teamAstro from "../../assets/songs/daylight_teamAstro.mp3";
+import starryNight_eugenioIzzi_mondoLoops from "../../assets/songs/starryNight_eugenioIzzi_x_mondoLoops.mp3";
+import votaliya_chauSara from "../../assets/songs/votaliya_chauSara.mp3";
+import towardsTheMountains_plantGuy from "../../assets/songs/towardsTheMountains_plantGuy.mp3";
 
 export {
   theRidge_allemIverson,
@@ -42,4 +47,9 @@ export {
   edda_kanisan_darioLessing_claudia,
   willowHill_spencerHunt,
   wellBeAlright_softy_lucidGreen,
+  dontYouKnow_sebastianKamae_Aylior,
+  daylight_teamAstro,
+  starryNight_eugenioIzzi_mondoLoops,
+  votaliya_chauSara,
+  towardsTheMountains_plantGuy,
 };
