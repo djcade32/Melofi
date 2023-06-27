@@ -51,7 +51,7 @@ function App() {
           return;
         }
         clearTimeout(timeout);
-      }, 3000);
+      }, 1500);
     };
     document.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mousedown", onMouseMove);
