@@ -51,7 +51,7 @@ function App() {
           return;
         }
         clearTimeout(timeout);
-      }, 1500);
+      }, 15000);
     };
     document.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mousedown", onMouseMove);
@@ -76,14 +76,6 @@ function App() {
       window.removeEventListener("resize", updateDimension);
     };
   }, []);
-
-  const handleSleep = () => {
-    console.log("config: ", settingsConfig.hideInterface);
-    if (settingsConfig.hideInterface === false) {
-      return;
-    }
-    setIsSleep(true);
-  };
 
   return (
     <FullScreen handle={handle}>
