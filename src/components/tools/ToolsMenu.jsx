@@ -18,8 +18,14 @@ const iconProps = {
 
 const ToolsMenu = ({ isSleep }) => {
   const toolsMenuRef = useRef(null);
-  const { setShowToolsMenu, showToolsMenu, setShowToDoList, setAllStickyNotes, allStickyNotes } =
-    useAppContext();
+  const {
+    setShowToolsMenu,
+    showToolsMenu,
+    setShowToDoList,
+    setAllStickyNotes,
+    allStickyNotes,
+    setShowCalendar,
+  } = useAppContext();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -92,7 +98,10 @@ const ToolsMenu = ({ isSleep }) => {
               <p>To-Do list</p>
             </div>
           </div>
-          <div className="melofi__toolsMenu-container-items" onClick={() => {}}>
+          <div
+            className="melofi__toolsMenu-container-items"
+            onClick={() => setShowCalendar((prev) => !prev)}
+          >
             <BsFillCalendarDateFill {...iconProps} />
             <div>
               <p>Calendar</p>
