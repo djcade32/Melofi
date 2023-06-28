@@ -38,6 +38,21 @@ const AppContextProvider = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (!JSON.parse(localStorage.getItem("settingsConfig"))) {
+      localStorage.setItem(
+        "settingsConfig",
+        JSON.stringify({
+          fadeAway: {
+            todoList: true,
+            calendar: true,
+          },
+          hideInterface: true,
+        })
+      );
+    }
+  }, []);
+
   function getCurrentScene() {
     return scenes[currentSceneIndex];
   }
