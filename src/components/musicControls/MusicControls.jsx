@@ -123,7 +123,7 @@ const MusicControls = () => {
         )}
         <BsSkipForwardFill {...iconProps} onClick={handleSkipForward} />
         <IoVolumeMedium {...iconProps} onClick={() => setVolumePressed((prev) => !prev)} />
-        <Tooltip text="Mute all">
+        <Tooltip text={isMuted ? "Unmute all" : "Mute all"}>
           <IoVolumeMute
             size={iconProps.size}
             color={isMuted ? "var(--color-effect)" : "white"}
