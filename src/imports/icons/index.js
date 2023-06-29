@@ -36,10 +36,12 @@ import {
   MdOutlineDone,
   MdOutlineMenu,
   MdSettings,
+  MdTimer,
 } from "react-icons/md";
 import { AiFillTool, AiOutlineGoogle } from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
 import { FaCommentDots } from "react-icons/fa";
+import { RxCaretLeft, RxCaretRight, RxReset } from "react-icons/rx";
 
 export {
   FaPause,
@@ -83,4 +85,8 @@ export {
   MdSettings,
   FaCommentDots,
   BsFillInfoCircleFill,
+  MdTimer,
+  RxCaretLeft,
+  RxCaretRight,
+  RxReset,
 };

@@ -27,6 +27,7 @@ const AppContextProvider = (props) => {
   );
   const [showAboutMelofi, setShowAboutMelofi] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
+  const [showTimer, setShowTimer] = useState(false);
 
   const [loading, setLoading] = useState(true);
 
@@ -87,6 +88,8 @@ const AppContextProvider = (props) => {
         showAboutMelofi,
         setShowCalendar,
         showCalendar,
+        setShowTimer,
+        showTimer,
       }}
     >
       {loading ? (
