@@ -32,10 +32,21 @@ const AppContextProvider = (props) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (loading) {
-      setCurrentSceneIndex(JSON.parse(localStorage.getItem("currentSceneIndex")) || 0);
-      setAllStickyNotes(JSON.parse(localStorage.getItem("stickyNoteList")) || []);
+    // if (loading) {
+    setCurrentSceneIndex(JSON.parse(localStorage.getItem("currentSceneIndex")) || 0);
+    setAllStickyNotes(JSON.parse(localStorage.getItem("stickyNoteList")) || []);
+    //   setLoading(false);
+    // }
+  }, []);
+
+  useEffect(() => {
+    // Check if the page has already loaded
+    if (document.readyState === "complete") {
       setLoading(false);
+    } else {
+      window.addEventListener("load", setLoading(false));
+      // Remove the event listener when component unmounts
+      return () => window.removeEventListener("load", setLoading(false));
     }
   }, []);
 

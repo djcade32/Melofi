@@ -10,7 +10,7 @@ const iconProps = {
   color: "var(--color-secondary-white)",
 };
 
-const SceneModal = () => {
+function SceneModal() {
   const { setCurrentSceneIndex, showSceneModal } = useAppContext();
 
   const handleSceneChange = (index) => {
@@ -53,6 +53,6 @@ const SceneModal = () => {
       )}
     </>
   );
-};
+}
 
 export default SceneModal;

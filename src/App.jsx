@@ -25,7 +25,6 @@ import Calendar from "./components/calendar/Calendar";
 import TimerWidget from "./components/timerWidget/TimerWidget";
 
 function App() {
-  const { settingsConfig } = useAppContext();
   const { allStickyNotes } = useAppContext();
   const [isSleep, setIsSleep] = useState(false);
   const [onMobileDevice, setOnMobileDevice] = useState(window.innerWidth < 750 ? true : false);
