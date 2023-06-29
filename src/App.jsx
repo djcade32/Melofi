@@ -149,7 +149,7 @@ function App() {
               <div>
                 <GiTacos size={30} color="var(--color-secondary-white)" />
                 <a href="https://bmc.link/normancade" target="_blank">
-                  Buy me a taco
+                  Support the creator
                 </a>
               </div>
             </div>

@@ -40,7 +40,7 @@ import {
 } from "react-icons/md";
 import { AiFillTool, AiOutlineGoogle } from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
-import { FaCommentDots } from "react-icons/fa";
+import { FaCommentDots, FaHandsHelping } from "react-icons/fa";
 import { RxCaretLeft, RxCaretRight, RxReset } from "react-icons/rx";
 
 export {
@@ -89,4 +89,5 @@ export {
   RxCaretLeft,
   RxCaretRight,
   RxReset,
+  FaHandsHelping,
 };

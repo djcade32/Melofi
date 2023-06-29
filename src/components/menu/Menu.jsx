@@ -6,6 +6,8 @@ import {
   MdSettings,
   BsFillInfoCircleFill,
   FaCommentDots,
+  GiTacos,
+  FaHandsHelping,
 } from "../../imports/icons";
 import { useAppContext } from "../../context/AppContext";
 
@@ -48,12 +50,34 @@ const Menu = ({ isSleep }) => {
             <MdSettings {...iconProps} />
             <p>General settings</p>
           </div>
-          <div className="melofi__menu_modal_items">
+          <a
+            href="https://forms.gle/53SKQW27bXiwdcNW8"
+            target="_blank"
+            className="melofi__menu_modal_items"
+            style={{
+              fontFamily: "var(--font-poppins)",
+              color: "white",
+              fontSize: 16,
+              fontWeight: 300,
+            }}
+          >
             <FaCommentDots {...iconProps} />
-            <a href="https://forms.gle/53SKQW27bXiwdcNW8" target="_blank">
-              Leave feedback
-            </a>
-          </div>
+            Leave feedback
+          </a>
+          <a
+            href="https://bmc.link/normancade"
+            target="_blank"
+            className="melofi__menu_modal_items"
+            style={{
+              fontFamily: "var(--font-poppins)",
+              color: "white",
+              fontSize: 16,
+              fontWeight: 300,
+            }}
+          >
+            <FaHandsHelping {...iconProps} />
+            Support
+          </a>
           <div
             className="melofi__menu_modal_items"
             onClick={() => setShowAboutMelofi((prev) => !prev)}
