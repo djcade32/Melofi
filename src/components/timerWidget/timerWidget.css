@@ -1,0 +1,46 @@
+.melofi__timer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 290px;
+    height: 298px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    z-index: 9;
+    background-color: var(--color-primary);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+
+.melofi__timer_handle { 
+    width: 100%; 
+    height: 40px; 
+    border-top-left-radius: 10px; 
+    border-top-right-radius: 10px; 
+    cursor: all-scroll;
+    display: flex;
+    justify-content: space-between;
+}
+
+.melofi__timer_time {
+    display: flex; 
+    align-items: center;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.melofi__timer_time p {
+    font-size: 48px;
+    font-family: var(--font-poppins);
+    color: white;
+    width: 55%;
+    text-align: center;
+}

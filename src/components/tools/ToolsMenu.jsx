@@ -5,6 +5,7 @@ import {
   BsFillCalendarDateFill,
   HiClipboardDocumentList,
   FaStickyNote,
+  MdTimer,
 } from "../../imports/icons";
 import Tooltip from "../tooltip/Tooltip";
 import { useAppContext } from "../../context/AppContext";
@@ -25,6 +26,7 @@ const ToolsMenu = ({ isSleep }) => {
     setAllStickyNotes,
     allStickyNotes,
     setShowCalendar,
+    setShowTimer,
   } = useAppContext();
 
   useEffect(() => {
@@ -113,6 +115,15 @@ const ToolsMenu = ({ isSleep }) => {
               >
                 {"(Coming soon)"}
               </p>
+            </div>
+          </div>
+          <div
+            className="melofi__toolsMenu-container-items"
+            onClick={() => setShowTimer((prev) => !prev)}
+          >
+            <MdTimer {...iconProps} />
+            <div>
+              <p>Timer</p>
             </div>
           </div>
         </div>

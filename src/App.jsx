@@ -22,6 +22,7 @@ import Menu from "./components/menu/Menu";
 import Settings from "./components/settings/Settings";
 import AboutMelofi from "./components/aboutMelofi/AboutMelofi";
 import Calendar from "./components/calendar/Calendar";
+import TimerWidget from "./components/timerWidget/TimerWidget";
 
 function App() {
   const { settingsConfig } = useAppContext();
@@ -130,6 +131,7 @@ function App() {
             <StickyNoteWidget key={note.id} note={note} />
           ))}
           <Calendar />
+          <TimerWidget />
           <Settings />
           <AboutMelofi />
 
