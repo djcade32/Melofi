@@ -1,12 +1,37 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./aboutMelofi.css";
 import { IoCloseOutline } from "../../imports/icons";
 import { useAppContext } from "../../context/AppContext";
 
 const AboutMelofi = () => {
+  const aboutRef = useRef(null);
+  const contentRef = useRef(null);
   const { setShowAboutMelofi, showAboutMelofi } = useAppContext();
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (aboutRef.current && !aboutRef.current.contains(event.target)) {
+        setShowAboutMelofi(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, []);
+
+  useEffect(() => {
+    contentRef.current.scroll({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [showAboutMelofi]);
   return (
-    <div className="melofi__aboutMelofi" style={{ display: showAboutMelofi ? "flex" : "none" }}>
+    <div
+      ref={aboutRef}
+      className="melofi__aboutMelofi"
+      style={{ display: showAboutMelofi ? "flex" : "none" }}
+    >
       <div className="melofi__aboutMelofi_header">
         <p className="melofi__aboutMelofi_title">ABOUT MELOFI</p>
         <IoCloseOutline
@@ -16,7 +41,7 @@ const AboutMelofi = () => {
           style={{ cursor: "pointer" }}
         />
       </div>
-      <div className="melofi__aboutMelofi_content">
+      <div ref={contentRef} className="melofi__aboutMelofi_content">
         <p>
           Melofi was created with students, professionals, and creative individuals in mind. It
           understands the need for a focused and tranquil setting during study, work, or creative
