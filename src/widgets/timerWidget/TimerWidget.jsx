@@ -63,7 +63,7 @@ const TimerWidget = () => {
         clearInterval(timer);
       };
     }
-  }, [timerActive]);
+  }, [timerActive, seconds]);
 
   const handleTimeIncrement = (value) => {
     setProgress(0);

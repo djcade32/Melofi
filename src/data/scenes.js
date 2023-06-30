@@ -21,7 +21,7 @@ export const scenes = [
       { sound: effects.chatter, soundPath: chatterEffect },
       { sound: effects.nature, soundPath: natureEffect },
     ],
-    fontFamily: "Lobster Two",
+    fontFamily: "var(--font-lobster-two)",
   },
   {
     id: 1,
@@ -33,7 +33,7 @@ export const scenes = [
       { sound: effects.chatter, soundPath: chatterEffect },
       { sound: effects.nature, soundPath: natureEffect },
     ],
-    fontFamily: "Signika",
+    fontFamily: "var(--font-signika)",
   },
   {
     id: 2,
@@ -45,7 +45,7 @@ export const scenes = [
       { sound: effects.cityTraffic, soundPath: cityTrafficEffect },
       { sound: effects.rain, soundPath: rainEffect },
     ],
-    fontFamily: "Patrick Hand",
+    fontFamily: "var(--font-patrick-hand)",
   },
   {
     id: 3,
@@ -57,6 +57,6 @@ export const scenes = [
       { sound: effects.cityTraffic, soundPath: cityTrafficEffect },
       { sound: effects.stormyNight, soundPath: stormyNightEffect },
     ],
-    fontFamily: "Cardo",
+    fontFamily: "var(--font-cardo)",
   },
 ];

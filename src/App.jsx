@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
-import MusicControls from "./components/musicControls/MusicControls";
-import Clock from "./components/clock/Clock";
 import logo from "./assets/logo.png";
 
-// import GenreDropdown from "./components/genreDropdown/GenreDropdown";
+import { useAppContext } from "./context/AppContext";
+import { RiFullscreenFill, RiFullscreenExitLine, GiTacos } from "./imports/icons";
+
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+
+import MusicControls from "./components/musicControls/MusicControls";
+import Clock from "./components/clock/Clock";
 import NowPlaying from "./components/nowPlaying/NowPlaying";
 import SceneBg from "./components/sceneBg/SceneBg";
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import { RiFullscreenFill, RiFullscreenExitLine, GiTacos, BsPhoneFill } from "./imports/icons";
 import Tooltip from "./components/tooltip/Tooltip";
 import ToolsMenu from "./components/tools/ToolsMenu";
-import { useAppContext } from "./context/AppContext";
 import Menu from "./components/menu/Menu";
 import Settings from "./modals/settings/Settings";
+// import GenreDropdown from "./components/genreDropdown/GenreDropdown";
 
 // Import modals
 import AboutMelofi from "./modals/aboutMelofi/AboutMelofi";
@@ -28,6 +30,7 @@ import CalendarWidget from "./widgets/calendarWidget/CalendarWidget";
 import StickyNoteWidget from "./widgets/stickyNoteWidget/StickyNoteWidget";
 import TimerWidget from "./widgets/timerWidget/TimerWidget";
 import ToDoListWidget from "./widgets/toDoListWidget/ToDoListWidget";
+import MobileView from "./MobileView";
 
 function App() {
   const { allStickyNotes } = useAppContext();
@@ -44,6 +47,7 @@ function App() {
     }
   };
 
+  // Determine when UI should go to sleep
   let timeout;
   useEffect(() => {
     const onMouseMove = () => {
@@ -67,6 +71,7 @@ function App() {
     };
   }, []);
 
+  // Determines when show 'Melofi is not availble on Mobile'
   useEffect(() => {
     const updateDimension = () => {
       if (window.innerWidth < 750) {
@@ -160,36 +165,7 @@ function App() {
           </div>
         </div>
       ) : (
-        <div className="App" style={{ backgroundColor: "var(--color-primary)" }}>
-          <SceneBg />
-          <img src={logo} alt="melofi logo" style={{ width: 122, height: 122 }} />
-
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              rowGap: 15,
-              justifyContent: "center",
-              alignItems: "center",
-              flex: 1,
-              width: "50%",
-              marginRight: "auto",
-              marginLeft: "auto",
-            }}
-          >
-            <BsPhoneFill size={70} color="var(--color-effect)" />
-            <p
-              style={{
-                fontFamily: "var(--font-primary)",
-                fontSize: 21,
-                color: "white",
-                textAlign: "center",
-              }}
-            >
-              Melofi is not available on mobile devices
-            </p>
-          </div>
-        </div>
+        <MobileView />
       )}
     </FullScreen>
   );

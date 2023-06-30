@@ -53,6 +53,7 @@ const ToolsMenu = ({ isSleep }) => {
   //   };
   // }, []);
 
+  // Closes tool menu if UI falls asleep
   useEffect(() => {
     if (showToolsMenu) {
       setShowToolsMenu(false);
