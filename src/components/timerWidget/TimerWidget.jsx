@@ -56,7 +56,7 @@ const TimerWidget = () => {
         const calculatedSeconds = minutes * 60 + seconds;
         const increment = 100 / calculatedSeconds;
         setProgress((prevProgress) =>
-          prevProgress >= 100 ? handleTimerExpired() : prevProgress + increment
+          prevProgress >= 98 ? handleTimerExpired() : prevProgress + increment
         );
       }, [1000]);
       return () => {
