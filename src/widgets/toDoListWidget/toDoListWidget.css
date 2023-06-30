@@ -42,7 +42,7 @@
 
 .melofi__todolist_header_title {
     font-size: 32px;
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     color: white;
     text-align: center;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -61,7 +61,7 @@
 .melofi__todolist_input_noFade input {
     background-color: transparent;
     border: none;
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     width: 100%;
     border-bottom: 1px solid var(--color-secondary);
     caret-color: white;
@@ -73,7 +73,7 @@
 .melofi__todolist_input input {
     background-color: transparent;
     border: none;
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     width: 100%;
     border-bottom: 1px solid white;
     caret-color: white;
@@ -89,13 +89,13 @@
 
 
 .melofi__todolist_input input::placeholder {
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     font-size: 18px;
     color: white
 }
 
 .melofi__todolist_input_noFade input::placeholder {
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     font-size: 18px;
     color: var(--color-secondary)
 }

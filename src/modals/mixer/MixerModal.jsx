@@ -2,8 +2,8 @@ import React, { useRef, useState } from "react";
 import "./mixerModal.css";
 import Draggable from "react-draggable";
 import { useAppContext } from "../../context/AppContext";
-import VolumeSlider from "../volumeSlider/VolumeSlider";
-import MixerSlider from "../mixerSlider/MixerSlider";
+import VolumeSlider from "../../components/volumeSlider/VolumeSlider";
+import MixerSlider from "../../components/mixerSlider/MixerSlider";
 import { sounds } from "../../data/sounds";
 
 import { IoVolumeOff, IoVolumeMedium, IoCloseOutline } from "../../imports/icons";

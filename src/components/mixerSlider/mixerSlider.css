@@ -12,7 +12,7 @@
 
 .melofi__mixerSlider-container-label p {
     color: var(--color-secondary);
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     font-size: 18px;
     width: 10ch;
 }

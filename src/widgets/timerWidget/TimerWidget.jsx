@@ -12,9 +12,9 @@ import {
   RxReset,
 } from "../../imports/icons";
 import CircularProgress, { circularProgressClasses } from "@mui/material/CircularProgress";
-import Tooltip from "../tooltip/Tooltip";
+import Tooltip from "../../components/tooltip/Tooltip";
 import alarmSoundPath from "../../assets/timer_alarm.mp3";
-import TransitionsModal from "../transitionsModal/TransitionsModal";
+import TransitionsModal from "../../components/transitionsModal/TransitionsModal";
 
 const iconProps = {
   size: 50,

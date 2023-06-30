@@ -4,7 +4,7 @@ import Draggable from "react-draggable";
 import { isSafariBrowser } from "../../helpers/browser";
 import { IoCloseOutline } from "../../imports/icons";
 import { useAppContext } from "../../context/AppContext";
-import Switch from "../switch/Switch";
+import Switch from "../../components/switch/Switch";
 
 const Settings = () => {
   const nodeRef = useRef(null);

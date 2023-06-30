@@ -4,25 +4,30 @@ import "./App.css";
 import MusicControls from "./components/musicControls/MusicControls";
 import Clock from "./components/clock/Clock";
 import logo from "./assets/logo.png";
-import MixerButton from "./components/mixer/MixerButton";
-import MixerModal from "./components/mixer/MixerModal";
+
 // import GenreDropdown from "./components/genreDropdown/GenreDropdown";
 import NowPlaying from "./components/nowPlaying/NowPlaying";
-import SceneButton from "./components/scene/SceneButton";
 import SceneBg from "./components/sceneBg/SceneBg";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { RiFullscreenFill, RiFullscreenExitLine, GiTacos, BsPhoneFill } from "./imports/icons";
 import Tooltip from "./components/tooltip/Tooltip";
-import SceneModal from "./components/scene/SceneModal";
 import ToolsMenu from "./components/tools/ToolsMenu";
-import ToDoListWidget from "./components/toDoListWidget/ToDoListWidget";
-import StickyNoteWidget from "./components/stickyNoteWidget/StickyNoteWidget";
 import { useAppContext } from "./context/AppContext";
 import Menu from "./components/menu/Menu";
-import Settings from "./components/settings/Settings";
-import AboutMelofi from "./components/aboutMelofi/AboutMelofi";
+import Settings from "./modals/settings/Settings";
+
+// Import modals
+import AboutMelofi from "./modals/aboutMelofi/AboutMelofi";
+import MixerButton from "./modals/mixer/MixerButton";
+import MixerModal from "./modals/mixer/MixerModal";
+import SceneButton from "./modals/scene/SceneButton";
+import SceneModal from "./modals/scene/SceneModal";
+
+// Import widgets
 import CalendarWidget from "./widgets/calendarWidget/CalendarWidget";
-import TimerWidget from "./components/timerWidget/TimerWidget";
+import StickyNoteWidget from "./widgets/stickyNoteWidget/StickyNoteWidget";
+import TimerWidget from "./widgets/timerWidget/TimerWidget";
+import ToDoListWidget from "./widgets/toDoListWidget/ToDoListWidget";
 
 function App() {
   const { allStickyNotes } = useAppContext();
@@ -175,7 +180,7 @@ function App() {
             <BsPhoneFill size={70} color="var(--color-effect)" />
             <p
               style={{
-                fontFamily: "var(--font-poppins)",
+                fontFamily: "var(--font-primary)",
                 fontSize: 21,
                 color: "white",
                 textAlign: "center",

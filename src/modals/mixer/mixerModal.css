@@ -41,20 +41,20 @@
 
 .melofi__mixer-title {
     color: var(--color-secondary-white);
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     font-size: 32px;
     margin-bottom: 10px;
 }
 
 .melofi__mixer_volume-title {
     color: var(--color-secondary-white);
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     font-size: 21px;
 }
 
 .melofi__mixer_reset-button {
     color: var(--color-secondary);
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     font-size: 21px;
     text-align: center;
     margin-top: 35px;

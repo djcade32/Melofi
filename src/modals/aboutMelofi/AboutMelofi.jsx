@@ -55,7 +55,7 @@ const AboutMelofi = () => {
           target="_blank"
           style={{
             color: "var(--color-secondary)",
-            fontFamily: "var(--font-poppins)",
+            fontFamily: "var(--font-primary)",
             alignSelf: "center",
             marginTop: 10,
           }}

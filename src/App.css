@@ -60,7 +60,7 @@
 }
 
 .melofi__buyMeATacoLink a{
-  font-family: var(--font-poppins);
+  font-family: var(--font-primary);
   color: var(--color-secondary-white);
   font-size: 21px;
   text-decoration: none;
