@@ -58,7 +58,7 @@ export default function TransitionsModal({ isOpen, onClose }) {
             <Typography
               id="transition-modal-description"
               sx={{
-                fontFamily: "var(--font-poppins)",
+                fontFamily: "var(--font-primary)",
                 textAlign: "center",
                 fontSize: 21,
                 color: "white",

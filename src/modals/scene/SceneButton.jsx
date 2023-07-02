@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./sceneButton.css";
-import Tooltip from "../tooltip/Tooltip";
+import Tooltip from "../../components/tooltip/Tooltip";
 import { useAppContext } from "../../context/AppContext";
 import { MdLandscape } from "../../imports/icons";
 

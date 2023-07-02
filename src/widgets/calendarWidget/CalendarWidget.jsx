@@ -3,13 +3,13 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { AiOutlineGoogle, BsInfoCircle, IoCloseOutline } from "../../imports/icons";
 
-import "./calendar.css";
+import "./calendarWidget.css";
 import Draggable from "react-draggable";
-import Tooltip from "../tooltip/Tooltip";
+import Tooltip from "../../components/tooltip/Tooltip";
 import { useAppContext } from "../../context/AppContext";
 import CalendarItem from "./CalendarItem";
 
-function Calendar() {
+function CalendarWidget() {
   const nodeRef = useRef(null);
   const date = new Date();
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -29,7 +29,6 @@ function Calendar() {
 
   const fetchEvents = async () => {
     let timeMin = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0).toISOString();
-    // timeMin = convertISOToISOLocal(timeMin);
 
     let timeMax = new Date(
       date.getFullYear(),
@@ -38,7 +37,6 @@ function Calendar() {
       23,
       59
     ).toISOString();
-    // timeMax = convertISOToISOLocal(timeMax);
 
     try {
       const response = await axios.get(
@@ -195,4 +193,4 @@ function Calendar() {
     </Draggable>
   );
 }
-export default Calendar;
+export default CalendarWidget;

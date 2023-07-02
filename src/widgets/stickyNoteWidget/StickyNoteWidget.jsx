@@ -7,7 +7,7 @@ import {
   BsCaretUpFill,
   BsCaretDownFill,
 } from "../../imports/icons";
-import Tooltip from "../tooltip/Tooltip";
+import Tooltip from "../../components/tooltip/Tooltip";
 import { isSafariBrowser } from "../../helpers/browser";
 import Draggable from "react-draggable";
 import { useAppContext } from "../../context/AppContext";

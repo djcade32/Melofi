@@ -27,7 +27,7 @@
 .melofi__aboutMelofi_title
 {
     color: var(--color-secondary-white);
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     font-size: 32px;
     margin-bottom: 10px;
 }
@@ -40,7 +40,7 @@
 
 .melofi__aboutMelofi_content p{
     color: white;
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     font-weight: 300;
     line-height: 1.75rem;
 }

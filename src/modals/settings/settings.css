@@ -43,7 +43,7 @@
 .melofi_settings_switch p
 {
     color: var(--color-secondary-white);
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     font-size: 32px;
     margin-bottom: 10px;
 }

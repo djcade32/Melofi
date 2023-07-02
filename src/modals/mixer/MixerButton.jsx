@@ -4,7 +4,7 @@ import "./mixerButton.css";
 import { RiSoundModuleFill } from "../../imports/icons";
 
 import { useAppContext } from "../../context/AppContext";
-import Tooltip from "../tooltip/Tooltip";
+import Tooltip from "../../components/tooltip/Tooltip";
 
 const MixerButton = () => {
   const { setShowMixerModal, showMixerModal } = useAppContext();

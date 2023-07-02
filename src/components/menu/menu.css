@@ -37,7 +37,7 @@
 }
 
 .melofi__menu_modal_items p, .melofi__menu_modal_items a{
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     color: white;
     font-size: 16px;
     font-weight: 300;

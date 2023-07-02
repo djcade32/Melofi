@@ -120,7 +120,7 @@ const AppContextProvider = (props) => {
               style={{
                 textAlign: "center",
                 color: "white",
-                fontFamily: "var(--font-poppins)",
+                fontFamily: "var(--font-primary)",
                 fontSize: 21,
                 letterSpacing: 5,
               }}

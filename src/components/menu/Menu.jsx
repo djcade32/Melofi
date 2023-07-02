@@ -55,7 +55,7 @@ const Menu = ({ isSleep }) => {
             target="_blank"
             className="melofi__menu_modal_items"
             style={{
-              fontFamily: "var(--font-poppins)",
+              fontFamily: "var(--font-primary)",
               color: "white",
               fontSize: 16,
               fontWeight: 300,
@@ -69,7 +69,7 @@ const Menu = ({ isSleep }) => {
             target="_blank"
             className="melofi__menu_modal_items"
             style={{
-              fontFamily: "var(--font-poppins)",
+              fontFamily: "var(--font-primary)",
               color: "white",
               fontSize: 16,
               fontWeight: 300,

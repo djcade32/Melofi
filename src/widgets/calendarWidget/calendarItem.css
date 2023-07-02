@@ -16,14 +16,14 @@
 }
 
 .melofi__calendarItem-title {
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     font-weight: 500;
     font-size: 21px;
     color: white;
 }
 
 .melofi__calendarItem-time-container {
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     font-size: 16px;
     color: white;
     text-align: right;

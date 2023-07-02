@@ -39,7 +39,7 @@
 
 .melofi__timer_time p {
     font-size: 48px;
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     color: white;
     width: 55%;
     text-align: center;

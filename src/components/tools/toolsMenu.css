@@ -40,7 +40,7 @@
 }
 
 .melofi__toolsMenu-container-items p{
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     color: white;
     font-size: 16px;
     font-weight: 300;

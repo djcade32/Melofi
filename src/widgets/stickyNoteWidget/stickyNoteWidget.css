@@ -32,7 +32,7 @@
 .melofi__stickyNote_header_title_input input {
     background-color: transparent;
     border: none;
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     width: 100%;
     caret-color: white;
     color: white;
@@ -63,7 +63,7 @@
 .melofi__stickyNote_body textarea{
     background-color: transparent;
     border: none;
-    font-family: var(--font-poppins);
+    font-family: var(--font-primary);
     width: 100%;
     caret-color: white;
     color: white;
