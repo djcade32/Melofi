@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { getTimerWorkerUrl, timerWorker } from "./worker-script";
 import "./timerWidget.css";
 import { useAppContext } from "../../context/AppContext";
 import Draggable from "react-draggable";
@@ -30,61 +31,66 @@ const iconProps = {
     zIndex: 1,
   },
 };
+const worker = new Worker(getTimerWorkerUrl());
 
-const TimerWidget = () => {
+export default function TimerWidget() {
   const nodeRef = useRef(null);
   const audioRef = useRef(null);
 
   const { setShowTimer, showTimer } = useAppContext();
-  const [minutes, setMinutes] = useState(60);
-  const [seconds, setSeconds] = useState(0);
+
+  const [webWorkerTime, setWebWorkerTime] = useState(0);
+  const [timeInput, setTimeInput] = useState(3600);
   const [progress, setProgress] = useState(0);
-  const [timerActive, setTimerActive] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
   const [modalOpened, setModalOpened] = useState(false);
 
-  let timer;
   useEffect(() => {
-    if (timerActive) {
-      timer = setInterval(() => {
-        setSeconds((prevSecs) => {
-          if (prevSecs <= 0) {
-            setMinutes((prevMins) => prevMins - 1);
-            return 59;
-          }
-          return prevSecs - 1;
-        });
-        const calculatedSeconds = minutes * 60 + seconds;
-        const increment = 100 / calculatedSeconds;
-        setProgress((prevProgress) =>
-          prevProgress >= 100 ? handleTimerExpired() : prevProgress + increment
-        );
-      }, [1000]);
-      return () => {
-        clearInterval(timer);
-      };
+    worker.onmessage = ({ data: { time } }) => {
+      setWebWorkerTime(time);
+    };
+  }, []);
+
+  useEffect(() => {
+    setWebWorkerTime(timeInput * 1000);
+  }, [timeInput]);
+
+  useEffect(() => {
+    if (isRunning) {
+      const millisecondsToSeconds = webWorkerTime / 1000;
+      const increment = (100 - progress) / millisecondsToSeconds;
+      setProgress((prev) => (prev >= 100 ? handleTimerExpired() : prev + increment));
     }
-  }, [timerActive, seconds]);
+  }, [webWorkerTime]);
+
+  const startWebWorkerTimer = () => {
+    setIsRunning(true);
+    worker.postMessage({ turn: "on", timeInput: webWorkerTime });
+  };
+
+  const pauseWorkerTimer = () => {
+    setIsRunning(false);
+    worker.postMessage({ turn: "off", timeInput: webWorkerTime });
+  };
+
+  const resetWebWorkerTimer = () => {
+    setProgress(0);
+    setIsRunning(false);
+    worker.postMessage({ turn: "off", timeInput: 3600 * 1000 });
+    setWebWorkerTime(3600 * 1000);
+  };
 
   const handleTimeIncrement = (value) => {
     setProgress(0);
-    clearInterval(timer);
-    let minutesNum = minutes + value;
-    if (minutesNum < 0 || minutesNum > 180) {
+    let calculatedTime = webWorkerTime / 1000 + value * 60;
+    if (calculatedTime < 0 || calculatedTime > 10800) {
       return;
     }
-    setMinutes(minutesNum);
-  };
-
-  const handleReset = () => {
-    setProgress(0);
-    setMinutes(60);
-    setSeconds(0);
-    clearInterval(timer);
-    setTimerActive(false);
+    setTimeInput(calculatedTime);
   };
 
   const handleTimerExpired = () => {
-    handleReset();
+    resetWebWorkerTimer();
     audioRef.current.play();
     setModalOpened(true);
   };
@@ -105,7 +111,7 @@ const TimerWidget = () => {
             <RxReset
               size={33}
               color="var(--color-secondary)"
-              onClick={handleReset}
+              onClick={resetWebWorkerTimer}
               cursor={"pointer"}
               style={{ marginLeft: 10, marginTop: 10 }}
             />
@@ -119,19 +125,21 @@ const TimerWidget = () => {
           />
         </div>
         <div style={{ position: "relative" }}>
-          {timerActive ? (
-            <FaPause {...iconProps} onClick={() => setTimerActive(false)} />
+          {isRunning ? (
+            <FaPause {...iconProps} onClick={() => pauseWorkerTimer()} />
           ) : (
             <FaPlay
               {...iconProps}
               onClick={() => {
-                if (minutes === 0 && seconds === 0) {
+                if (timeInput == 0) {
                   return;
                 }
-                setTimerActive(true);
+                startWebWorkerTimer();
+                setIsRunning(true);
               }}
             />
           )}
+
           <CircularProgress
             size={186}
             value={progress}
@@ -151,22 +159,23 @@ const TimerWidget = () => {
             color="var(--color-secondary)"
             cursor={"pointer"}
             onClick={() => handleTimeIncrement(-5)}
-            display={timerActive ? "none" : "flex"}
+            display={isRunning ? "none" : "flex"}
           />
           <p>
-            {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+            {Math.floor(webWorkerTime / 1000 / 60)}:
+            {Math.floor((webWorkerTime / 1000) % 60)
+              .toString()
+              .padStart(2, "0")}
           </p>
           <RxCaretRight
             size={45}
             color="var(--color-secondary)"
             cursor={"pointer"}
             onClick={() => handleTimeIncrement(5)}
-            display={timerActive ? "none" : "flex"}
+            display={isRunning ? "none" : "flex"}
           />
         </div>
       </div>
     </Draggable>
   );
-};
-
-export default TimerWidget;
+}

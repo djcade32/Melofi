@@ -3,7 +3,6 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 const style = {
@@ -18,9 +17,27 @@ const style = {
   outline: "none",
   borderRadius: 10,
   p: 4,
+  "&:hover": {
+    backgroundColor: "var(--color-effect)",
+    cursor: "pointer",
+  },
 };
 
 export default function TransitionsModal({ isOpen, onClose }) {
+  const modalRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const handleModalClick = (event) => {
+      if (modalRef.current && modalRef.current.contains(event.target)) {
+        onClose(false);
+      }
+    };
+    document.addEventListener("click", handleModalClick, true);
+    return () => {
+      document.removeEventListener("click", handleModalClick, true);
+    };
+  }, []);
+
   return (
     <div>
       <Modal
@@ -37,7 +54,7 @@ export default function TransitionsModal({ isOpen, onClose }) {
         }}
       >
         <Fade in={isOpen}>
-          <Box sx={style}>
+          <Box sx={style} ref={modalRef}>
             <Typography
               id="transition-modal-description"
               sx={{

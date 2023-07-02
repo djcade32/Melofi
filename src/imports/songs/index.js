@@ -24,6 +24,11 @@ import daylight_teamAstro from "../../assets/songs/daylight_teamAstro.mp3";
 import starryNight_eugenioIzzi_mondoLoops from "../../assets/songs/starryNight_eugenioIzzi_x_mondoLoops.mp3";
 import votaliya_chauSara from "../../assets/songs/votaliya_chauSara.mp3";
 import towardsTheMountains_plantGuy from "../../assets/songs/towardsTheMountains_plantGuy.mp3";
+import betterThanYesterday_squeeda_cxlt from "../../assets/songs/betterThanYesterday_squeeda_cxlt.mp3";
+import lunarSight_ticofaces_loafyBuilding from "../../assets/songs/lunarSight_ticofaces_loafyBuilding.mp3";
+import goldenClouds_rudyRaw_mello from "../../assets/songs/goldenClouds_rudyRaw_mello.mp3";
+import moonBeams_lofty_jaackson_whilst from "../../assets/songs/moonBeams_lofty_jaackson_whilst.mp3";
+import aLittleHelp_hmSurf from "../../assets/songs/aLittleHelp_hmSurf.mp3";
 
 export {
   theRidge_allemIverson,
@@ -52,4 +57,9 @@ export {
   starryNight_eugenioIzzi_mondoLoops,
   votaliya_chauSara,
   towardsTheMountains_plantGuy,
+  betterThanYesterday_squeeda_cxlt,
+  lunarSight_ticofaces_loafyBuilding,
+  goldenClouds_rudyRaw_mello,
+  moonBeams_lofty_jaackson_whilst,
+  aLittleHelp_hmSurf,
 };
