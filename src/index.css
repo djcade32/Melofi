@@ -1,11 +1,11 @@
-  @import url('https://fonts.googleapis.com/css2?family=Cardo&family=Lobster+Two:wght@400;700&family=Patrick+Hand&family=Poppins:wght@300;400;500;700&family=Signika:wght@300;400;500;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Cardo&family=Lobster+Two:wght@400;700&family=Patrick+Hand&family=Poppins:wght@300;400;500;700&family=Signika:wght@300;400;500;700&display=swap');
   :root {
   --font-poppins: "Poppins", Inter;
   --font-Signika: "Signika", Inter;
   --font-Signika: "Patrick Hand", Inter;
   --font-Signika: "Lobster Two", Inter;
   --font-Cardo: "Cardo", Inter;
+  --font-bruno-ace: "Bruno Ace", Inter;
   
   --color-primary: rgb(35,35,35,88%);
   --color-secondary: #7B777A;

@@ -7,8 +7,17 @@ import {
   cityTrafficEffect,
   thunderEffect,
   stormyNightEffect,
+  fanEffect,
+  ambienceEffect,
 } from "../imports/effects";
-import { cityStudio, cozyBedroom, girlInCafe, neighborhoodCafe } from "../imports/scenes";
+import {
+  cityStudio,
+  cozyBedroom,
+  girlInCafe,
+  neighborhoodCafe,
+  musicRoom,
+  neonCity,
+} from "../imports/scenes";
 
 export const scenes = [
   {
@@ -58,5 +67,29 @@ export const scenes = [
       { sound: effects.stormyNight, soundPath: stormyNightEffect },
     ],
     fontFamily: "Cardo",
+  },
+  {
+    id: 4,
+    name: "Music Room",
+    image: musicRoom.pic,
+    video: musicRoom.vid,
+    sounds: [
+      { sound: effects.birdsChirpping, soundPath: birdsChirppingEffect },
+      { sound: effects.nature, soundPath: natureEffect },
+      { sound: effects.fan, soundPath: fanEffect },
+    ],
+    fontFamily: "Lobster Two",
+  },
+  {
+    id: 5,
+    name: "Neon City",
+    image: neonCity.pic,
+    video: neonCity.vid,
+    sounds: [
+      { sound: effects.cityTraffic, soundPath: cityTrafficEffect },
+      { sound: effects.ambience, soundPath: ambienceEffect },
+      { sound: effects.stormyNight, soundPath: stormyNightEffect },
+    ],
+    fontFamily: "Bruno Ace",
   },
 ];

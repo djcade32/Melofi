@@ -6,6 +6,10 @@ import cozyBedroomVid from "../../assets/scenes/cozy-bedroom_vid.webm";
 import cozyBedroomPic from "../../assets/scenes/cozy-bedroom_pic.webp";
 import cityStudioPic from "../../assets/scenes/city-studio_pic.webp";
 import cityStudioVid from "../../assets/scenes/city-studio_vid.webm";
+import musicRoomPic from "../../assets/scenes/music-room_pic.webp";
+import musicRoomVid from "../../assets/scenes/music-room_vid.webm";
+import neonCityPic from "../../assets/scenes/neon-city_pic.webp";
+import neonCityVid from "../../assets/scenes/neon-city_vid.webm";
 
 const girlInCafe = {
   vid: girlInCafeVid,
@@ -23,5 +27,13 @@ const cityStudio = {
   vid: cityStudioVid,
   pic: cityStudioPic,
 };
+const musicRoom = {
+  vid: musicRoomVid,
+  pic: musicRoomPic,
+};
+const neonCity = {
+  vid: neonCityVid,
+  pic: neonCityPic,
+};
 
-export { girlInCafe, neighborhoodCafe, cozyBedroom, cityStudio };
+export { girlInCafe, neighborhoodCafe, cozyBedroom, cityStudio, musicRoom, neonCity };
