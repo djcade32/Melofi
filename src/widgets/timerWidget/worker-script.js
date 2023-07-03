@@ -11,7 +11,7 @@ const timerWorker = () => {
     }
     if (turn === "on") {
       timerInterval = setInterval(() => {
-        time -= 1000;
+        time -= 1;
         self.postMessage({ time });
       }, 1000);
     }
