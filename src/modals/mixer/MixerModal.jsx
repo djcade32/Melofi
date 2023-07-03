@@ -54,7 +54,7 @@ const MixerModal = () => {
     <Draggable nodeRef={nodeRef} bounds={isSafariBrowser() ? "" : ".fullscreen"} handle="#handle">
       <div
         ref={nodeRef}
-        className="melofi__mixerModal"
+        className="--widget-container melofi__mixerModal"
         style={{
           display: showMixerModal ? "block" : "none",
         }}

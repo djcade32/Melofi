@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./sceneButton.css";
 import Tooltip from "../../components/tooltip/Tooltip";
 import { useAppContext } from "../../context/AppContext";
 import { MdLandscape } from "../../imports/icons";
@@ -24,7 +23,7 @@ const SceneButton = () => {
   return (
     <div>
       <div
-        className="melofi__sceneButton"
+        className="--nav-button"
         onClick={() => {
           setShowModal((prev) => !prev);
           setShowSceneModal((prev) => !prev);

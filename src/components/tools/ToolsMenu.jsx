@@ -62,7 +62,7 @@ const ToolsMenu = ({ isSleep }) => {
   return (
     <div
       ref={toolsMenuRef}
-      className="melofi__toolsMenu"
+      className="--nav-button"
       style={showToolsMenu ? { outline: "1px solid rgba(254, 165, 57, 0.88)" } : {}}
       onClick={() => setShowToolsMenu((prev) => !prev)}
     >

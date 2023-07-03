@@ -39,7 +39,7 @@ const Menu = ({ isSleep }) => {
     }
   }, [isSleep]);
   return (
-    <div ref={menuRef} className="melofi__menu" onClick={() => setShowMenu((prev) => !prev)}>
+    <div ref={menuRef} className="--nav-button" onClick={() => setShowMenu((prev) => !prev)}>
       <MdOutlineMenu size={20} color="white" />
       {showMenu && (
         <div className="melofi__menu_modal">
