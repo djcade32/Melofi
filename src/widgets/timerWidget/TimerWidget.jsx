@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { getTimerWorkerUrl, timerWorker } from "./worker-script";
+import { getTimerWorkerUrl } from "./worker-script";
 import "./timerWidget.css";
 import { useAppContext } from "../../context/AppContext";
 import Draggable from "react-draggable";
@@ -33,6 +33,8 @@ const iconProps = {
 };
 const worker = new Worker(getTimerWorkerUrl());
 
+const numbersRegex = /^[0-9]+$/;
+
 export default function TimerWidget() {
   const nodeRef = useRef(null);
   const audioRef = useRef(null);
@@ -40,7 +42,8 @@ export default function TimerWidget() {
   const { setShowTimer, showTimer } = useAppContext();
 
   const [webWorkerTime, setWebWorkerTime] = useState(0);
-  const [timeInput, setTimeInput] = useState(3600);
+  const [minutes, setMinutes] = useState(60);
+  const [seconds, setSeconds] = useState(0);
   const [progress, setProgress] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [modalOpened, setModalOpened] = useState(false);
@@ -52,13 +55,15 @@ export default function TimerWidget() {
   }, []);
 
   useEffect(() => {
-    setWebWorkerTime(timeInput * 1000);
-  }, [timeInput]);
+    let calculatedSeconds = parseInt(minutes) * 60 + parseInt(seconds);
+    setWebWorkerTime(calculatedSeconds);
+  }, [minutes, seconds]);
 
   useEffect(() => {
     if (isRunning) {
-      const millisecondsToSeconds = webWorkerTime / 1000;
-      const increment = (100 - progress) / millisecondsToSeconds;
+      const increment = (100 - progress) / webWorkerTime;
+      setMinutes(webWorkerTime / 60);
+      setSeconds(webWorkerTime % 60);
       setProgress((prev) => (prev >= 100 ? handleTimerExpired() : prev + increment));
     }
   }, [webWorkerTime]);
@@ -76,17 +81,20 @@ export default function TimerWidget() {
   const resetWebWorkerTimer = () => {
     setProgress(0);
     setIsRunning(false);
-    worker.postMessage({ turn: "off", timeInput: 3600 * 1000 });
-    setWebWorkerTime(3600 * 1000);
+    let resetValue = 3600;
+    worker.postMessage({ turn: "off", timeInput: resetValue });
+    setMinutes(60);
+    setSeconds(0);
+    setWebWorkerTime(resetValue);
   };
 
   const handleTimeIncrement = (value) => {
     setProgress(0);
-    let calculatedTime = webWorkerTime / 1000 + value * 60;
-    if (calculatedTime < 0 || calculatedTime > 10800) {
+    let newValue = parseInt(minutes) + value;
+    if (newValue < 0 || newValue > 999) {
       return;
     }
-    setTimeInput(calculatedTime);
+    setMinutes(newValue);
   };
 
   const handleTimerExpired = () => {
@@ -99,6 +107,31 @@ export default function TimerWidget() {
     setModalOpened(false);
     audioRef.current.pause();
     audioRef.current.currentTime = 0;
+  };
+
+  const handleMinutesChanged = (e) => {
+    let value = e.target.value;
+
+    if (!value.match(numbersRegex)) {
+      return;
+    }
+    if (parseInt(value) === 0 && value.length === 3) {
+      return;
+    }
+    if (value.length >= 4) {
+      value = value.slice(1);
+    }
+    setMinutes(value);
+  };
+  const handleSecondsChanged = (e) => {
+    let value = e.target.value;
+    if (!value.match(numbersRegex)) {
+      return;
+    }
+    if (value.length >= 3) {
+      value = value.slice(1);
+    }
+    setSeconds(value);
   };
 
   return (
@@ -131,7 +164,7 @@ export default function TimerWidget() {
             <FaPlay
               {...iconProps}
               onClick={() => {
-                if (timeInput == 0) {
+                if (webWorkerTime === 0) {
                   return;
                 }
                 startWebWorkerTimer();
@@ -161,12 +194,33 @@ export default function TimerWidget() {
             onClick={() => handleTimeIncrement(-5)}
             display={isRunning ? "none" : "flex"}
           />
-          <p>
-            {Math.floor(webWorkerTime / 1000 / 60)}:
-            {Math.floor((webWorkerTime / 1000) % 60)
-              .toString()
-              .padStart(2, "0")}
-          </p>
+          <div className="melofi__timer_time_inputs">
+            <input
+              type="text"
+              value={
+                webWorkerTime / 60 > 999
+                  ? 999
+                  : Math.floor(webWorkerTime / 60)
+                      .toString()
+                      .padStart(2, "0")
+              }
+              onChange={handleMinutesChanged}
+              onBlur={(e) => {
+                const minutes = e.target.value;
+                if (parseInt(minutes) < 100 && minutes.length > 2) {
+                  setMinutes(minutes.slice(1));
+                }
+              }}
+            />
+            <p>:</p>
+            <input
+              type="text"
+              value={Math.floor(webWorkerTime % 60)
+                .toString()
+                .padStart(2, "0")}
+              onChange={handleSecondsChanged}
+            />
+          </div>
           <RxCaretRight
             size={45}
             color="var(--color-secondary)"

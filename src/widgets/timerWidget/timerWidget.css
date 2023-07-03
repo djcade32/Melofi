@@ -16,7 +16,7 @@
     backdrop-filter: blur(10px);
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
 }
 
 .melofi__timer_handle { 
@@ -31,7 +31,6 @@
 
 .melofi__timer_time {
     display: flex; 
-    align-items: center;
     width: 100%;
     align-items: center;
     justify-content: center;
@@ -41,6 +40,36 @@
     font-size: 48px;
     font-family: var(--font-primary);
     color: white;
-    width: 55%;
     text-align: center;
+    margin: 0px 5px;
+}
+
+.melofi__timer_time_inputs {
+    display: flex;
+    width: 75%;
+    justify-content: space-between;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none;
+}
+
+
+
+.melofi__timer_time_inputs input {
+    font-size: 48px;
+    font-family: var(--font-primary);
+    color: white;
+    width: 50%;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+}
+
+
+
+.melofi__timer_time_inputs input:focus
+ {
+    outline: none;
+    background-color: var(--color-secondary-opacity);
 }
