@@ -211,6 +211,7 @@ export default function TimerWidget() {
                   setMinutes(minutes.slice(1));
                 }
               }}
+              style={minutes.length === 3 && parseInt(minutes) > 100 ? { width: 90 } : {}}
             />
             <p>:</p>
             <input

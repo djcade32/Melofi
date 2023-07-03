@@ -41,32 +41,28 @@
     font-family: var(--font-primary);
     color: white;
     text-align: center;
-    margin: 0px 5px;
 }
 
 .melofi__timer_time_inputs {
     display: flex;
-    width: 75%;
-    justify-content: space-between;
+    width: 65%;
+    justify-content: center;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none;
 }
 
-
-
 .melofi__timer_time_inputs input {
     font-size: 48px;
     font-family: var(--font-primary);
     color: white;
-    width: 50%;
+    width: 70px;
+    max-width: 90px;
     text-align: center;
     background-color: transparent;
     border: none;
     border-radius: 10px;
 }
-
-
 
 .melofi__timer_time_inputs input:focus
  {
