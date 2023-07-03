@@ -63,7 +63,7 @@ const ToolsMenu = ({ isSleep }) => {
     <div
       ref={toolsMenuRef}
       className="--nav-button"
-      style={showToolsMenu ? { outline: "1px solid rgba(254, 165, 57, 0.88)" } : {}}
+      style={showToolsMenu ? { outline: "1px solid var(--color-effect-opacity)" } : {}}
       onClick={() => setShowToolsMenu((prev) => !prev)}
     >
       <Tooltip text="Tools">

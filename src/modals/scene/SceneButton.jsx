@@ -28,7 +28,7 @@ const SceneButton = () => {
           setShowModal((prev) => !prev);
           setShowSceneModal((prev) => !prev);
         }}
-        style={showModal ? { outline: "1px solid rgba(254, 165, 57, 0.88)" } : {}}
+        style={showModal ? { outline: "1px solid var(--color-effect-opacity)" } : {}}
       >
         <Tooltip text="Scenes">
           <MdLandscape size={20} color="white" style={{ cursor: "pointer" }} />

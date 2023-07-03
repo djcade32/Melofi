@@ -63,7 +63,7 @@ const GenreDropdown = () => {
               <div
                 className="melofi__genreDropdown-list-item"
                 key={genre}
-                style={isSelected ? { backgroundColor: "rgba(254, 165, 57, 0.88)" } : {}}
+                style={isSelected ? { backgroundColor: "var(--color-effect-opacity)" } : {}}
               >
                 <p onClick={() => setSelectedGenre(genre)}>{capitalizeFirstLetter(genre)}</p>
               </div>
