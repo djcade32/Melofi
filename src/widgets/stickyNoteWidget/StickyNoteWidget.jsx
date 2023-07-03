@@ -140,7 +140,7 @@ const StickyNoteWidget = ({ note }) => {
       onStop={(e, data) => trackPos(data)}
     >
       <div
-        className="melofi__stickyNote"
+        className="--widget-container melofi__stickyNote"
         ref={nodeRef}
         style={{
           cursor: !editMode ? "all-scroll" : "",

@@ -12,7 +12,8 @@
   --color-secondary-opacity: rgb(112,108,111, 30%);
   --color-effect : #FEA539;
   --color-effect-opacity : rgba(254, 165, 57, 0.88);
-  --color-secondary-white: rgb(255,255,255,89%)
+  --color-secondary-white: rgb(255,255,255,89%);
+ 
 }
 
 html,
@@ -40,6 +41,20 @@ img {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none;
+}
+
+.--widget-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  z-index: 9;
+  padding: 20px 24px;
 }
 
 
