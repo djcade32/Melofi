@@ -1,6 +1,4 @@
 import React from "react";
-import "./mixerButton.css";
-
 import { RiSoundModuleFill } from "../../imports/icons";
 
 import { useAppContext } from "../../context/AppContext";
@@ -11,9 +9,9 @@ const MixerButton = () => {
 
   return (
     <div
-      className="melofi__mixerButton"
+      className="--nav-button"
       onClick={() => setShowMixerModal((prev) => !prev)}
-      style={showMixerModal ? { outline: "1px solid rgba(254, 165, 57, 0.88)" } : {}}
+      style={showMixerModal ? { outline: "1px solid var(--color-effect-opacity)" } : {}}
     >
       <Tooltip text="Mixer">
         <RiSoundModuleFill size={20} color="white" style={{ cursor: "pointer" }} />

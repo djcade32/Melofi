@@ -128,7 +128,11 @@ function CalendarWidget() {
 
   return (
     <Draggable nodeRef={nodeRef} bounds={".fullscreen"}>
-      <div className="melofi__calendar" ref={nodeRef} style={calendarBackgroundStyles}>
+      <div
+        className="--widget-container melofi__calendar"
+        ref={nodeRef}
+        style={calendarBackgroundStyles}
+      >
         <div className="melofi__calendar_header">
           <p className="melofi__calendar-date">{date.toLocaleDateString("en-US", options)}</p>
           <div className="melofi__calendar-exit-button">

@@ -81,7 +81,7 @@ const ToDoListWidget = () => {
       defaultPosition={position}
       onStop={(e, data) => trackPos(data)}
     >
-      <div className="melofi__todolist" ref={nodeRef} style={getFadeStyle()}>
+      <div className="--widget-container melofi__todolist" ref={nodeRef} style={getFadeStyle()}>
         <div id="handle" className="melofi__todolist_handle" />
         <div className="melofi__todlist_header" id="handle">
           <p className="melofi__todolist_header_title">TO-DO LIST</p>

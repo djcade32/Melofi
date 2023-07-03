@@ -29,7 +29,7 @@ const AboutMelofi = () => {
   return (
     <div
       ref={aboutRef}
-      className="melofi__aboutMelofi"
+      className="--widget-container melofi__aboutMelofi"
       style={{ display: showAboutMelofi ? "flex" : "none" }}
     >
       <div className="melofi__aboutMelofi_header">

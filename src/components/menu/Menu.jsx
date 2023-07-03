@@ -6,7 +6,6 @@ import {
   MdSettings,
   BsFillInfoCircleFill,
   FaCommentDots,
-  GiTacos,
   FaHandsHelping,
 } from "../../imports/icons";
 import { useAppContext } from "../../context/AppContext";
@@ -15,6 +14,13 @@ const iconProps = {
   size: 15,
   color: "white",
   cursor: "pointer",
+};
+
+const linkStyle = {
+  fontFamily: "var(--font-primary)",
+  color: "white",
+  fontSize: 16,
+  fontWeight: 300,
 };
 
 const Menu = ({ isSleep }) => {
@@ -39,7 +45,7 @@ const Menu = ({ isSleep }) => {
     }
   }, [isSleep]);
   return (
-    <div ref={menuRef} className="melofi__menu" onClick={() => setShowMenu((prev) => !prev)}>
+    <div ref={menuRef} className="--nav-button" onClick={() => setShowMenu((prev) => !prev)}>
       <MdOutlineMenu size={20} color="white" />
       {showMenu && (
         <div className="melofi__menu_modal">
@@ -54,12 +60,7 @@ const Menu = ({ isSleep }) => {
             href="https://forms.gle/53SKQW27bXiwdcNW8"
             target="_blank"
             className="melofi__menu_modal_items"
-            style={{
-              fontFamily: "var(--font-primary)",
-              color: "white",
-              fontSize: 16,
-              fontWeight: 300,
-            }}
+            style={linkStyle}
           >
             <FaCommentDots {...iconProps} />
             Leave feedback
@@ -68,12 +69,7 @@ const Menu = ({ isSleep }) => {
             href="https://bmc.link/normancade"
             target="_blank"
             className="melofi__menu_modal_items"
-            style={{
-              fontFamily: "var(--font-primary)",
-              color: "white",
-              fontSize: 16,
-              fontWeight: 300,
-            }}
+            style={linkStyle}
           >
             <FaHandsHelping {...iconProps} />
             Support

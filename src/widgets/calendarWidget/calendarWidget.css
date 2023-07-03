@@ -1,17 +1,7 @@
 .melofi__calendar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
     width: 370px;
     height: 370px;
-    padding: 20px 24px;
-    border-radius: 10px;
     cursor: all-scroll;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
 }
 
@@ -99,7 +89,7 @@
 }
 
 .melofi__calendar-google-button:hover {
-    background-color: rgba(254, 165, 57, 0.88);
+    background-color: var(--color-effect-opacity);
 }
 
 .melofi__calendar-google-button p {

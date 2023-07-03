@@ -39,7 +39,7 @@ const ToDoListItem = ({ isDone, title, list, setList }) => {
       >
         <div
           className="melofi__todolistItem_circle"
-          style={{ backgroundColor: done ? "rgba(254, 165, 57, 0.88)" : "" }}
+          style={{ backgroundColor: done ? "var(--color-effect-opacity)" : "" }}
           onClick={handleTaskComplete}
         />
         <p

@@ -116,9 +116,11 @@ function App() {
                 <ToolsMenu isSleep={isSleep} />
                 <Tooltip text={handle.active ? "Exit full screen" : "Enter full screen"}>
                   <div
-                    className="melofi__fullscreen-button"
+                    className="--nav-button"
                     onClick={handleFullscreen}
-                    style={handle.active ? { outline: "1px solid rgba(254, 165, 57, 0.88)" } : {}}
+                    style={
+                      handle.active ? { outline: "1px solid var(--color-effect-opacity)" } : {}
+                    }
                   >
                     {handle.active ? (
                       <RiFullscreenExitLine size={20} color="white" />

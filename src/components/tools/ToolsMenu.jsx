@@ -59,11 +59,24 @@ const ToolsMenu = ({ isSleep }) => {
       setShowToolsMenu(false);
     }
   }, [isSleep]);
+
+  const createNewStickyNote = () => {
+    const newNote = {
+      id: allStickyNotes.length + 1,
+      title: "",
+      bodyText: "",
+      color: { text: "white", bg: DEFAULT },
+      isNew: true,
+      defaultPosition: { x: 0, y: 0 },
+      isCollapsed: false,
+    };
+    setAllStickyNotes((prev) => [...prev, newNote]);
+  };
   return (
     <div
       ref={toolsMenuRef}
-      className="melofi__toolsMenu"
-      style={showToolsMenu ? { outline: "1px solid rgba(254, 165, 57, 0.88)" } : {}}
+      className="--nav-button"
+      style={showToolsMenu ? { outline: "1px solid var(--color-effect-opacity)" } : {}}
       onClick={() => setShowToolsMenu((prev) => !prev)}
     >
       <Tooltip text="Tools">
@@ -72,21 +85,7 @@ const ToolsMenu = ({ isSleep }) => {
 
       {showToolsMenu && (
         <div className="melofi__toolsMenu-container">
-          <div
-            className="melofi__toolsMenu-container-items"
-            onClick={() => {
-              const newNote = {
-                id: allStickyNotes.length + 1,
-                title: "",
-                bodyText: "",
-                color: { text: "white", bg: DEFAULT },
-                isNew: true,
-                defaultPosition: { x: 0, y: 0 },
-                isCollapsed: false,
-              };
-              setAllStickyNotes((prev) => [...prev, newNote]);
-            }}
-          >
+          <div className="melofi__toolsMenu-container-items" onClick={createNewStickyNote}>
             <FaStickyNote {...iconProps} />
             <div>
               <p>Sticky note</p>

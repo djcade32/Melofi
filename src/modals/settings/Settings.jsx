@@ -29,7 +29,7 @@ const Settings = () => {
     <Draggable nodeRef={nodeRef} bounds={isSafariBrowser() ? "" : ".fullscreen"} handle="#handle">
       <div
         ref={nodeRef}
-        className="melofi__settings"
+        className="--widget-container melofi__settings"
         style={{ display: showSettings ? "flex" : "none" }}
       >
         <div id="handle" className="melofi__settings_handle" />

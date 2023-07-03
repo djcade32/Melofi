@@ -1,19 +1,10 @@
 .melofi__stickyNote {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
     width: 370px;
     height: 370px;
-    padding: 20px 24px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    z-index: 9;
-    background-color: var(--color-primary);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background-color: var(--color-primary);
+    /* display: flex;
+    flex-direction: column; */
     /* backdrop-filter: blur(10px); */
 }
 

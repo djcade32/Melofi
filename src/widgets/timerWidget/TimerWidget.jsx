@@ -136,7 +136,11 @@ export default function TimerWidget() {
 
   return (
     <Draggable nodeRef={nodeRef} bounds={isSafariBrowser() ? "" : ".fullscreen"} handle="#handle">
-      <div className="melofi__timer" ref={nodeRef} style={{ display: showTimer ? "flex" : "none" }}>
+      <div
+        className="--widget-container melofi__timer"
+        ref={nodeRef}
+        style={{ display: showTimer ? "flex" : "none" }}
+      >
         <audio ref={audioRef} src={alarmSoundPath} loop />
         <TransitionsModal onClose={onClose} isOpen={modalOpened} />
         <div id="handle" className="melofi__timer_handle">
