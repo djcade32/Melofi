@@ -10,6 +10,7 @@ import {
   BsCaretUpFill,
   BsCaretDownFill,
   BsFillInfoCircleFill,
+  BsSpotify,
 } from "react-icons/bs";
 import {
   IoVolumeMedium,
@@ -90,4 +91,5 @@ export {
   RxCaretRight,
   RxReset,
   FaHandsHelping,
+  BsSpotify,
 };

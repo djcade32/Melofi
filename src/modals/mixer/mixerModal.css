@@ -1,7 +1,7 @@
 .melofi__mixerModal {
     background-color: var(--color-primary);
     width: 378px;
-    height: 530px;
+    /* height: 530px; */
     z-index: 10;
     backdrop-filter: blur(10px);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -29,7 +29,7 @@
     display: flex;
     justify-content: space-between;
     cursor: all-scroll;
- }
+}
 
 .melofi__mixer-title {
     color: var(--color-secondary-white);
@@ -38,10 +38,65 @@
     margin-bottom: 10px;
 }
 
+.melofi__mixer_source_container {
+    display: flex;
+    justify-content: space-around;
+    column-gap: 15px;
+    padding: 5px;
+}
+
+.melofi__mixer_content {
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    height: 85%;
+    margin-top: 10px;
+}
+
+.melofi__mixer_source {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-secondary-opacity);
+    border-radius: 10px;
+    width: 50%;
+    cursor: pointer;
+    padding: 5px;
+    justify-content: center;
+}
+
+.melofi__mixer_source_text {
+    font-family: var(--font-primary);
+    color: white;
+    margin: 15px;
+    font-size: 18px;
+    font-weight: 300px;
+  }
+
+.melofi__mixer_source_spotify_info { 
+    position: absolute; 
+    top: 10px; 
+    right: 10px;
+    display: none; 
+}
+
+#spotify_source:hover .melofi__mixer_source_spotify_info {
+    display: flex;
+}
+
+.melofi__mixer_source_spotify_widget {
+    margin-top: 15px;
+    height: 152px;
+    width: 100%;
+    border: 0px;
+    border-radius: 10px;
+  }
+
 .melofi__mixer_volume-title {
     color: var(--color-secondary-white);
     font-family: var(--font-primary);
     font-size: 21px;
+    margin-top: 15px;
 }
 
 .melofi__mixer_reset-button {

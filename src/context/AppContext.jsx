@@ -28,15 +28,13 @@ const AppContextProvider = (props) => {
   const [showAboutMelofi, setShowAboutMelofi] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [showTimer, setShowTimer] = useState(false);
+  const [usingSpotify, setUsingSpotify] = useState(false);
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // if (loading) {
     setCurrentSceneIndex(JSON.parse(localStorage.getItem("currentSceneIndex")) || 0);
     setAllStickyNotes(JSON.parse(localStorage.getItem("stickyNoteList")) || []);
-    //   setLoading(false);
-    // }
   }, []);
 
   useEffect(() => {
@@ -101,6 +99,8 @@ const AppContextProvider = (props) => {
         showCalendar,
         setShowTimer,
         showTimer,
+        setUsingSpotify,
+        usingSpotify,
       }}
     >
       {loading ? (

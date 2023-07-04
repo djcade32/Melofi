@@ -33,9 +33,10 @@ import ToDoListWidget from "./widgets/toDoListWidget/ToDoListWidget";
 import MobileView from "./MobileView";
 
 function App() {
-  const { allStickyNotes } = useAppContext();
+  const { allStickyNotes, usingSpotify } = useAppContext();
   const [isSleep, setIsSleep] = useState(false);
   const [onMobileDevice, setOnMobileDevice] = useState(window.innerWidth < 750 ? true : false);
+  const [profile, setProfile] = useState(null);
 
   const handle = useFullScreenHandle();
 
@@ -111,7 +112,7 @@ function App() {
                 {/* GenreDropdown will be a future feature */}
                 {/* <GenreDropdown /> */}
                 <MixerButton />
-                <MusicControls />
+                {!usingSpotify && <MusicControls />}
                 <SceneButton />
                 <ToolsMenu isSleep={isSleep} />
                 <Tooltip text={handle.active ? "Exit full screen" : "Enter full screen"}>
@@ -155,7 +156,7 @@ function App() {
                 : { animation: "slide-footer-up 0.4s forwards" }
             }
           >
-            <NowPlaying />
+            {!usingSpotify && <NowPlaying />}
             <div className="melofi__buyMeATacoLink">
               <div>
                 <GiTacos size={30} color="var(--color-secondary-white)" />

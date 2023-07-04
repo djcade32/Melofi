@@ -6,13 +6,28 @@ import VolumeSlider from "../../components/volumeSlider/VolumeSlider";
 import MixerSlider from "../../components/mixerSlider/MixerSlider";
 import { sounds } from "../../data/sounds";
 
-import { IoVolumeOff, IoVolumeMedium, IoCloseOutline } from "../../imports/icons";
+import {
+  IoVolumeOff,
+  IoVolumeMedium,
+  IoCloseOutline,
+  BsSpotify,
+  BsInfoCircle,
+} from "../../imports/icons";
 import { isSafariBrowser } from "../../helpers/browser";
+import melofiLogo from "../../assets/logo-white.png";
+import Tooltip from "../../components/tooltip/Tooltip";
 
 const MixerModal = () => {
   const nodeRef = useRef(null);
-  const { musicVolume, setMusicVolume, getCurrentScene, setShowMixerModal, showMixerModal } =
-    useAppContext();
+  const {
+    musicVolume,
+    setMusicVolume,
+    getCurrentScene,
+    setShowMixerModal,
+    showMixerModal,
+    setUsingSpotify,
+    usingSpotify,
+  } = useAppContext();
 
   const [resetVolume, setResetVolume] = useState(false);
 
@@ -56,6 +71,7 @@ const MixerModal = () => {
         ref={nodeRef}
         className="--widget-container melofi__mixerModal"
         style={{
+          height: usingSpotify ? 585 : 515,
           display: showMixerModal ? "block" : "none",
         }}
       >
@@ -71,27 +87,61 @@ const MixerModal = () => {
           />
         </div>
 
-        <div
-          style={{
-            overflow: "scroll",
-            display: "flex",
-            flexDirection: "column",
-            height: "82%",
-            marginTop: 10,
-          }}
-        >
-          <p className="melofi__mixer_volume-title">MUSIC VOLUME</p>
-          <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
-            <IoVolumeOff size={33} color="var(--color-secondary)" />
-            <div style={{ width: "75%" }}>
-              <VolumeSlider
-                style={{ cursor: "pointer" }}
-                value={musicVolume}
-                onChange={handleVolumeChange}
-              />
+        <div className="melofi__mixer_content">
+          <div className="melofi__mixer_source_container">
+            <div
+              className="melofi__mixer_source"
+              style={!usingSpotify ? { outline: "1px solid var(--color-effect-opacity)" } : {}}
+              onClick={() => {
+                setUsingSpotify(false);
+              }}
+            >
+              <img src={melofiLogo} alt="melofi" width={50} />
+              <p className="melofi__mixer_source_text">Melofi</p>
             </div>
-            <IoVolumeMedium size={33} color="var(--color-secondary)" />
+            <div
+              id="spotify_source"
+              className="melofi__mixer_source"
+              style={usingSpotify ? { outline: "1px solid var(--color-effect-opacity)" } : {}}
+              onClick={() => {
+                setUsingSpotify(true);
+              }}
+            >
+              <BsSpotify color="white" size={35} />
+              <p className="melofi__mixer_source_text">Spotify</p>
+              <div className="melofi__mixer_source_spotify_info">
+                <Tooltip text="Log into Spotify from your browser to listen without limits">
+                  <BsInfoCircle size={10} color="white" />
+                </Tooltip>
+              </div>
+            </div>
           </div>
+          {usingSpotify ? (
+            <div>
+              <iframe
+                src="https://open.spotify.com/embed/playlist/6JMt2yxWecgTXAzkDW0TrZ?utm_source=generator"
+                allowfullscreen=""
+                allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture;"
+                className="melofi__mixer_source_spotify_widget"
+                loading="lazy"
+              ></iframe>
+            </div>
+          ) : (
+            <div>
+              <p className="melofi__mixer_volume-title">MUSIC VOLUME</p>
+              <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
+                <IoVolumeOff size={33} color="var(--color-secondary)" />
+                <div style={{ width: "75%" }}>
+                  <VolumeSlider
+                    style={{ cursor: "pointer" }}
+                    value={musicVolume}
+                    onChange={handleVolumeChange}
+                  />
+                </div>
+                <IoVolumeMedium size={33} color="var(--color-secondary)" />
+              </div>
+            </div>
+          )}
           <p className="melofi__mixer_volume-title" style={{ marginTop: 20 }}>
             SCENE SOUNDS
           </p>
