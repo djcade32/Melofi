@@ -1,6 +1,6 @@
 .melofi__calendar {
-    width: 370px;
-    height: 370px;
+    width: 310px;
+    height: 310px;
     cursor: all-scroll;
     justify-content: center;
 }
@@ -17,7 +17,7 @@
  }
 
 .melofi__calendar-date {
-    font-size: 32px;
+    font-size: 21px;
     font-family: var(--font-primary);
     color: white;
     text-align: center;
@@ -72,7 +72,7 @@
 }
 
 .melofi__calendar-signin-view p {
-    font-size: 21px;
+    font-size: 18px;
     font-family: var(--font-primary);
     color: white;
     text-align: center;
@@ -93,7 +93,7 @@
 }
 
 .melofi__calendar-google-button p {
-    font-size: 21px;
+    font-size: 18px;
     font-family: var(--font-primary);
     color: white;
 }

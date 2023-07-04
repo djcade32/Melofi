@@ -71,7 +71,6 @@ const MixerModal = () => {
         ref={nodeRef}
         className="--widget-container melofi__mixerModal"
         style={{
-          height: usingSpotify ? 585 : 515,
           display: showMixerModal ? "block" : "none",
         }}
       >
@@ -80,7 +79,7 @@ const MixerModal = () => {
         <div id="handle" className="melofi__mixer_header">
           <p className="melofi__mixer-title">SOUNDS</p>
           <IoCloseOutline
-            size={33}
+            size={25}
             color="var(--color-secondary)"
             onClick={() => setShowMixerModal((prev) => !prev)}
             style={{ cursor: "pointer" }}
@@ -96,7 +95,7 @@ const MixerModal = () => {
                 setUsingSpotify(false);
               }}
             >
-              <img src={melofiLogo} alt="melofi" width={50} />
+              <img src={melofiLogo} alt="melofi" width={40} />
               <p className="melofi__mixer_source_text">Melofi</p>
             </div>
             <div
@@ -107,7 +106,7 @@ const MixerModal = () => {
                 setUsingSpotify(true);
               }}
             >
-              <BsSpotify color="white" size={35} />
+              <BsSpotify color="white" size={25} />
               <p className="melofi__mixer_source_text">Spotify</p>
               <div className="melofi__mixer_source_spotify_info">
                 <Tooltip text="Log into Spotify from your browser to listen without limits">

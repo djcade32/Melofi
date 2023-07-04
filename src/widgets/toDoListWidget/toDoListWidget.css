@@ -1,6 +1,6 @@
 .melofi__todolist {
-    width: 370px;
-    height: 370px;
+    width: 310px;
+    height: 310px;
 }
 
 .melofi__todolist:hover {
@@ -30,7 +30,7 @@
  }
 
 .melofi__todolist_header_title {
-    font-size: 32px;
+    font-size: 21px;
     font-family: var(--font-primary);
     color: white;
     text-align: center;
@@ -42,8 +42,9 @@
     column-gap: 5px;
     align-items: center;
     margin-top: 14px;
-    padding: 5px 10px;
+    padding: 5px 0px;
     margin-bottom: 15px;
+    justify-content: space-between;
 }
 
 .melofi__todolist_input_noFade input, .melofi__todolist_input input  {
