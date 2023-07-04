@@ -178,7 +178,7 @@ function CalendarWidget() {
               }}
             >
               <p>No events to view</p>
-              <Tooltip text="Login into Google to view your Google Calendar task for today">
+              <Tooltip text="Log into Google to view your Google Calendar task for today">
                 <BsInfoCircle size={20} color="white" />
               </Tooltip>
             </div>

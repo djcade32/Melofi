@@ -14,7 +14,7 @@ import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: import.meta.env.REACT_APP_GOOGLE_API,
+  apiKey: import.meta.env.VITE_APP_GOOGLE_API,
   authDomain: "melofi-389415.firebaseapp.com",
   projectId: "melofi-389415",
   storageBucket: "melofi-389415.appspot.com",
