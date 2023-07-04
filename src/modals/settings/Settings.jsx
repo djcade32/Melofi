@@ -44,7 +44,7 @@ const Settings = () => {
         </div>
         <div className="melofi__settings_content">
           <div className="melofi__settings_section_title">
-            <p style={{ fontSize: 21 }}>Fade Away</p>
+            <p style={{ fontSize: 18 }}>Fade Away</p>
             <p style={{ fontSize: 12, color: "var(--color-secondary)", width: "95%" }}>
               You can choose if widgets fade into the background, when the mouse is not hovering
               over it.
@@ -52,14 +52,14 @@ const Settings = () => {
           </div>
           <div className="melofi__settings_switch_container">
             <div className="melofi_settings_switch">
-              <p style={{ fontSize: 18, marginBottom: 0 }}>To-do list</p>
+              <p style={{ fontSize: 16, marginBottom: 0 }}>To-do list</p>
               <Switch
                 checked={settingsConfig.fadeAway.todoList}
                 onChange={() => handleSwitchChange("todoList")}
               />
             </div>
             <div className="melofi_settings_switch">
-              <p style={{ fontSize: 18, marginBottom: 0 }}>Calendar</p>
+              <p style={{ fontSize: 16, marginBottom: 0 }}>Calendar</p>
               <Switch
                 checked={settingsConfig.fadeAway.calendar}
                 onChange={() => handleSwitchChange("calendar")}
@@ -77,7 +77,7 @@ const Settings = () => {
           />
           <div className="melofi__settings_section_title" style={{ marginTop: 25 }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <p className="melofi_settings_switch" style={{ fontSize: 18 }}>
+              <p className="melofi_settings_switch" style={{ fontSize: 16 }}>
                 Hide interface
               </p>
               <Switch

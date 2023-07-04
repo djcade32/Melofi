@@ -66,6 +66,31 @@
   bottom: 0px;
 }
 
+@media screen and (max-width: 1024px) {
+  .App nav {
+    padding: 0 25px;
+  }
+
+  .melofi__rightSide {
+    column-gap: 20px;
+  }
+
+  .melofi__logo img {
+    width: 100px;
+    height: 100px;
+    animation: logo-spin 5s linear infinite;
+  }
+
+  .melofi__buyMeATacoLink {
+    bottom: 25px;
+    right: 25px;
+  }
+
+  .melofi__buyMeATacoLink a{
+    font-size: 18px;
+  }
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
