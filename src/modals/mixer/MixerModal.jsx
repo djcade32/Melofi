@@ -120,7 +120,7 @@ const MixerModal = () => {
             <div>
               <iframe
                 src="https://open.spotify.com/embed/playlist/6JMt2yxWecgTXAzkDW0TrZ?utm_source=generator"
-                allowfullscreen=""
+                allowFullScreen=""
                 allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture;"
                 className="melofi__mixer_source_spotify_widget"
                 loading="lazy"
