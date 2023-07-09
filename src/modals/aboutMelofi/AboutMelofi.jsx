@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import "./aboutMelofi.css";
 import { IoCloseOutline } from "../../imports/icons";
 import { useAppContext } from "../../context/AppContext";
@@ -50,18 +51,19 @@ const AboutMelofi = () => {
           lofi music, as Melofi is designed to enhance your experience and elevate your productivity
           to new heights.
         </p>
-        <a
-          href="https://www.privacypolicies.com/live/b03a199b-bfaf-4667-9422-2daa813bf6a3"
-          target="_blank"
+
+        <Link
           style={{
             color: "var(--color-secondary)",
             fontFamily: "var(--font-primary)",
             alignSelf: "center",
             marginTop: 10,
           }}
+          to={"/privacyPolicy"}
+          target="_blank"
         >
           Privacy policy
-        </a>
+        </Link>
         <p
           style={{
             color: "var(--color-secondary)",
