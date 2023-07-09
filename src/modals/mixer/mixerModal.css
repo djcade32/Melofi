@@ -1,6 +1,6 @@
 .melofi__mixerModal {
     background-color: var(--color-primary);
-    width: 378px;
+    width: 420px;
     /* height: 530px; */
     z-index: 10;
     backdrop-filter: blur(10px);
@@ -51,6 +51,8 @@
     flex-direction: column;
     height: 85%;
     margin-top: 10px;
+    padding-right: 22px;
+    padding-left: 22px;
 }
 
 .melofi__mixer_source {
