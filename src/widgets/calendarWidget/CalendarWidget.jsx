@@ -63,7 +63,7 @@ function CalendarWidget() {
       localStorage.setItem("user", JSON.stringify(codeResponse));
     },
     onError: (error) => console.log("Login Failed:", error),
-    scope: "https://www.googleapis.com/auth/calendar",
+    scope: "https://www.googleapis.com/auth/calendar.app.created",
   });
 
   const logOut = () => {
