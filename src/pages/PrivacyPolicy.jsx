@@ -12,7 +12,7 @@ const PrivacyPolicy = () => {
       }}
     >
       <h1>Privacy Policy</h1>
-      <p>Last updated: June 27, 2023</p>
+      <p>Last updated: July 9, 2023</p>
       <p>
         This Privacy Policy describes Our policies and procedures on the collection, use and
         disclosure of Your information when You use the Service and tells You about Your privacy
@@ -20,12 +20,7 @@ const PrivacyPolicy = () => {
       </p>
       <p>
         We use Your Personal data to provide and improve the Service. By using the Service, You
-        agree to the collection and use of information in accordance with this Privacy Policy. This
-        Privacy Policy has been created with the help of the
-        <a href="https://www.privacypolicies.com/privacy-policy-generator/" target="_blank">
-          Privacy Policy Generator
-        </a>
-        .
+        agree to the collection and use of information in accordance with this Privacy Policy.
       </p>
       <h1>Interpretation and Definitions</h1>
       <h2>Interpretation</h2>
@@ -363,6 +358,49 @@ const PrivacyPolicy = () => {
         will take place to an organization or a country unless there are adequate controls in place
         including the security of Your data and other personal information.
       </p>
+      <h2>Google Calendar API</h2>
+      <ul>
+        <li>
+          <p>
+            Melofi uses the Google Calendar API solely for the purpose of displaying your Google
+            Calendar events and information. We do not collect, store, or transmit any personal
+            information or emails from your Google Calendar account.
+          </p>
+        </li>
+        <li>
+          <p>
+            To provide you with the requested functionality, Melofi integrates with the Google
+            Calendar API. This integration allows Melofi to securely access and display your Google
+            Calendar events and information within the Melofi application.
+          </p>
+        </li>
+        <li>
+          <p>
+            Melofi uses the Google Calendar API solely to display your Google Calendar events within
+            the Melofi application. We do not collect or store any of your personal information,
+            including event details, participant lists, or any other information associated with
+            your Google Calendar account.
+          </p>
+        </li>
+        <li>
+          <p>
+            At Melofi, we take the security of your personal information seriously. We have
+            implemented appropriate technical and organizational measures to protect your data from
+            unauthorized access, loss, misuse, or alteration. However, please note that no method of
+            transmission or storage over the internet is completely secure, and we cannot guarantee
+            the absolute security of your information.
+          </p>
+        </li>
+        <li>
+          <p>
+            At Melofi, we take the security of your personal information seriously. We have
+            implemented appropriate technical and organizational measures to protect your data from
+            unauthorized access, loss, misuse, or alteration. However, please note that no method of
+            transmission or storage over the internet is completely secure, and we cannot guarantee
+            the absolute security of your information.
+          </p>
+        </li>
+      </ul>
       <h2>Delete Your Personal Data</h2>
       <p>
         You have the right to delete or request that We assist in deleting the Personal Data that We
