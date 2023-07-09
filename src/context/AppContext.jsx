@@ -23,6 +23,7 @@ const AppContextProvider = (props) => {
         calendar: true,
       },
       hideInterface: true,
+      playTimerSound: true,
     }
   );
   const [showAboutMelofi, setShowAboutMelofi] = useState(false);

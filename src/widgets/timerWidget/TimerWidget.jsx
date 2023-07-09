@@ -39,7 +39,7 @@ export default function TimerWidget() {
   const nodeRef = useRef(null);
   const audioRef = useRef(null);
 
-  const { setShowTimer, showTimer } = useAppContext();
+  const { setShowTimer, showTimer, settingsConfig } = useAppContext();
 
   const [webWorkerTime, setWebWorkerTime] = useState(0);
   const [minutes, setMinutes] = useState(60);
@@ -99,7 +99,9 @@ export default function TimerWidget() {
 
   const handleTimerExpired = () => {
     resetWebWorkerTimer();
-    audioRef.current.play();
+    if (settingsConfig.playTimerSound) {
+      audioRef.current.play();
+    }
     setModalOpened(true);
   };
 
