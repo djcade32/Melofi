@@ -7,9 +7,9 @@
     backdrop-filter: blur(10px);
 }
 
-/* .melofi__settings_content {
+.melofi__settings_content {
     overflow: scroll;
-} */
+}
 
 .melofi__settings_handle { 
     width: 100%; 
@@ -30,7 +30,7 @@
 
 .melofi__settings_title, 
 .melofi__settings_section_title p,
-.melofi_settings_switch p
+.melofi__settings_switch p
 {
     color: var(--color-secondary-white);
     font-family: var(--font-primary);
@@ -45,8 +45,16 @@
 }
 
 
-.melofi_settings_switch {
+.melofi__settings_switch {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
+.melofi__settings_seperator {
+    margin-top: 20px;
+    width: 100%;
+    background-color: var(--color-secondary-opacity);
+    height: 2px;
+    align-self: center;
+  }

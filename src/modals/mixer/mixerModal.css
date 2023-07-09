@@ -1,7 +1,7 @@
 .melofi__mixerModal {
     background-color: var(--color-primary);
-    width: 310px;
-    height: 400px;
+    width: 420px;
+    /* height: 530px; */
     z-index: 10;
     backdrop-filter: blur(10px);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -49,8 +49,10 @@
     overflow: scroll;
     display: flex;
     flex-direction: column;
-    height: 95%;
-    /* margin-top: 10px; */
+    height: 85%;
+    margin-top: 10px;
+    padding-right: 22px;
+    padding-left: 22px;
 }
 
 .melofi__mixer_source {

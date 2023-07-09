@@ -62,6 +62,17 @@ const AboutMelofi = () => {
         >
           Privacy policy
         </a>
+        <p
+          style={{
+            color: "var(--color-secondary)",
+            fontFamily: "var(--font-primary)",
+            alignSelf: "center",
+            marginTop: 10,
+            userSelect: "text",
+          }}
+        >
+          Contact: welcome@melofi.app
+        </p>
       </div>
     </div>
   );

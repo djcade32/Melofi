@@ -22,6 +22,9 @@ const Settings = () => {
     if (setting === "hideInterface") {
       updatedSettingsConfig.hideInterface = !updatedSettingsConfig.hideInterface;
     }
+    if (setting === "playTimerSound") {
+      updatedSettingsConfig.playTimerSound = !updatedSettingsConfig.playTimerSound;
+    }
     setSettingsConfig(updatedSettingsConfig);
     localStorage.setItem("settingsConfig", JSON.stringify(updatedSettingsConfig));
   };
@@ -51,30 +54,22 @@ const Settings = () => {
             </p>
           </div>
           <div className="melofi__settings_switch_container">
-            <div className="melofi_settings_switch">
-              <p style={{ fontSize: 16, marginBottom: 0 }}>To-do list</p>
+            <div className="melofi__settings_switch">
+              <p style={{ fontSize: 18, marginBottom: 0 }}>To-do list</p>
               <Switch
                 checked={settingsConfig.fadeAway.todoList}
                 onChange={() => handleSwitchChange("todoList")}
               />
             </div>
-            <div className="melofi_settings_switch">
-              <p style={{ fontSize: 16, marginBottom: 0 }}>Calendar</p>
+            <div className="melofi__settings_switch">
+              <p style={{ fontSize: 18, marginBottom: 0 }}>Calendar</p>
               <Switch
                 checked={settingsConfig.fadeAway.calendar}
                 onChange={() => handleSwitchChange("calendar")}
               />
             </div>
           </div>
-          <div
-            style={{
-              marginTop: 20,
-              width: "100%",
-              backgroundColor: "var(--color-secondary-opacity)",
-              height: 2,
-              alignSelf: "center",
-            }}
-          />
+          <div className="melofi__settings_seperator" />
           <div className="melofi__settings_section_title" style={{ marginTop: 25 }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <p className="melofi_settings_switch" style={{ fontSize: 16 }}>
@@ -87,6 +82,22 @@ const Settings = () => {
             </div>
             <p style={{ fontSize: 12, color: "var(--color-secondary)", width: "95%" }}>
               You can choose to hide the interface after 15 seconds of inactivity.
+            </p>
+          </div>
+          <div className="melofi__settings_seperator" />
+
+          <div className="melofi__settings_section_title" style={{ marginTop: 25 }}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <p className="melofi_settings_switch" style={{ fontSize: 18 }}>
+                Timer sound
+              </p>
+              <Switch
+                checked={settingsConfig.playTimerSound}
+                onChange={() => handleSwitchChange("playTimerSound")}
+              />
+            </div>
+            <p style={{ fontSize: 12, color: "var(--color-secondary)", width: "95%" }}>
+              You can choose if the timer plays sound when it expires.
             </p>
           </div>
         </div>
