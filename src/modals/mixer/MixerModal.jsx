@@ -72,6 +72,7 @@ const MixerModal = () => {
         className="--widget-container melofi__mixerModal"
         style={{
           display: showMixerModal ? "block" : "none",
+          height: 530,
         }}
       >
         <div id="handle" className="melofi__mixer-modal-handle" />
