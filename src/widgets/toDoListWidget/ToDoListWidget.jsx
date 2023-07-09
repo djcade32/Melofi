@@ -44,13 +44,13 @@ const ToDoListWidget = () => {
   const determineHeight = (list) => {
     let offset = 0;
     if (list.length > 0) {
-      offset = 45 * list.length;
+      offset = 50 * list.length;
     }
-    const height = 150 + offset;
-    if (height < 370) {
+    const height = 100 + offset;
+    if (height < 310) {
       return height;
     }
-    return 370;
+    return 310;
   };
 
   const trackPos = (data) => {
@@ -88,7 +88,7 @@ const ToDoListWidget = () => {
           <div className="melofi__todolist_exit_button">
             <IoCloseOutline
               className="melofi__todolist_exit"
-              size={33}
+              size={25}
               color="var(--color-secondary)"
               onClick={() => setShowToDoList(false)}
               cursor={"pointer"}

@@ -114,7 +114,7 @@ function CalendarWidget() {
         return 250;
 
       default:
-        return 370;
+        return 310;
     }
   };
 
@@ -137,7 +137,7 @@ function CalendarWidget() {
           <p className="melofi__calendar-date">{date.toLocaleDateString("en-US", options)}</p>
           <div className="melofi__calendar-exit-button">
             <IoCloseOutline
-              size={33}
+              size={25}
               color="var(--color-secondary)"
               onClick={() => setShowCalendar((prev) => !prev)}
               style={{ cursor: "pointer" }}
@@ -179,11 +179,11 @@ function CalendarWidget() {
             >
               <p>No events to view</p>
               <Tooltip text="Log into Google to view your Google Calendar task for today">
-                <BsInfoCircle size={20} color="white" />
+                <BsInfoCircle size={15} color="white" />
               </Tooltip>
             </div>
             <div className="melofi__calendar-google-button" onClick={() => login()}>
-              <AiOutlineGoogle size={30} color="white" />
+              <AiOutlineGoogle size={25} color="white" />
               <p>Continue with Google</p>
             </div>
           </div>

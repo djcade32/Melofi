@@ -7,15 +7,15 @@ import { useAppContext } from "../../context/AppContext";
 
 const StyledSlider = styled(Slider)({
   color: "var(--color-effect)",
-  height: 30,
+  height: 20,
 
   "& .MuiSlider-track": {
     border: "none",
   },
   "& .MuiSlider-thumb": {
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-    height: 41,
-    width: 41,
+    height: 30,
+    width: 30,
     position: "absolute",
     left: 30,
     backgroundColor: "var(--color-secondary)",
@@ -30,7 +30,7 @@ const StyledSlider = styled(Slider)({
 });
 
 const mixerSliderIconProps = {
-  size: 30,
+  size: 20,
   color: "#232323",
 };
 

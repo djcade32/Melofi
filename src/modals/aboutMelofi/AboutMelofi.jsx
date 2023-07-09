@@ -35,7 +35,7 @@ const AboutMelofi = () => {
       <div className="melofi__aboutMelofi_header">
         <p className="melofi__aboutMelofi_title">ABOUT MELOFI</p>
         <IoCloseOutline
-          size={33}
+          size={25}
           color="var(--color-secondary)"
           onClick={() => setShowAboutMelofi((prev) => !prev)}
           style={{ cursor: "pointer" }}

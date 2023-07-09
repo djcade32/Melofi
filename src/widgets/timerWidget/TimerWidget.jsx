@@ -18,7 +18,7 @@ import alarmSoundPath from "../../assets/timer_alarm.mp3";
 import TransitionsModal from "../../components/transitionsModal/TransitionsModal";
 
 const iconProps = {
-  size: 50,
+  size: 33,
   color: "white",
   style: {
     cursor: "pointer",
@@ -152,7 +152,6 @@ export default function TimerWidget() {
               color="var(--color-secondary)"
               onClick={resetWebWorkerTimer}
               cursor={"pointer"}
-              style={{ marginLeft: 10, marginTop: 10 }}
             />
           </Tooltip>
           <IoCloseOutline
@@ -160,7 +159,6 @@ export default function TimerWidget() {
             color="var(--color-secondary)"
             onClick={() => setShowTimer(false)}
             cursor={"pointer"}
-            style={{ marginRight: 10, marginTop: 10 }}
           />
         </div>
         <div style={{ position: "relative" }}>
@@ -180,7 +178,7 @@ export default function TimerWidget() {
           )}
 
           <CircularProgress
-            size={186}
+            size={150}
             value={progress}
             thickness={3}
             variant="determinate"
@@ -203,6 +201,7 @@ export default function TimerWidget() {
           <div className="melofi__timer_time_inputs">
             <input
               type="text"
+              disabled={isRunning}
               value={
                 webWorkerTime / 60 > 999
                   ? 999
@@ -222,6 +221,7 @@ export default function TimerWidget() {
             <p>:</p>
             <input
               type="text"
+              disabled={isRunning}
               value={Math.floor(webWorkerTime % 60)
                 .toString()
                 .padStart(2, "0")}

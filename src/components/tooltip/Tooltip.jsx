@@ -14,9 +14,10 @@ const Tooltip = (props) => {
             bgcolor: props.bgColor || "var(--color-primary)",
             fontFamily: "var(--font-primary)",
             fontWeight: 400,
-            fontSize: 16,
+            fontSize: 12,
             userSelect: "none",
             textAlign: "center",
+            maxWidth: "25ch",
           },
         },
       }}

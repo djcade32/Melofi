@@ -31,3 +31,19 @@
     opacity: 100%;
     cursor: pointer;
 }
+
+@media screen and (max-width: 1024px) {
+    .melofi__nowPlaying-container {
+        bottom: 25px;
+        left: 25px;
+    }
+
+    .melofi__nowPlaying-header {
+        font-size: 18px;
+    }
+
+    .melofi__nowPlaying-song, .melofi__nowPlaying-provider {
+        font-size: 12px;
+    }
+  
+}
