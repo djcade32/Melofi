@@ -1,0 +1,141 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height:100vh;
+    overflow: hidden;
+  }
+  
+  .melofi__header {
+    position: absolute;
+    width: 100%;
+    z-index: 5;
+  
+  }
+  
+  .App nav {
+    display: flex;
+    padding: 0 28px;
+    flex-direction: row;
+    /* z-index: 2; */
+  }
+  
+  .melofi__logo img {
+    width: 122px;
+    height: 122px;
+    animation: logo-spin 5s linear infinite;
+  }
+  
+  .melofi__rightSide {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+    column-gap: 28px;
+  }
+  
+  .melofi__buyMeATacoLink {
+    position: absolute;
+    bottom: 28px;
+    right: 28px;
+    opacity: 50%;
+  }
+  
+  .melofi__buyMeATacoLink div {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+  }
+  
+  .melofi__buyMeATacoLink a{
+    font-family: var(--font-primary);
+    color: var(--color-secondary-white);
+    font-size: 21px;
+    text-decoration: none;
+    text-transform:uppercase;
+    font-weight: 300;
+  }
+  
+  .melofi__buyMeATacoLink:hover {
+    opacity: 100%;
+  }
+  
+  .melofi__footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+  }
+  
+  @media screen and (max-width: 1024px) {
+    .App nav {
+      padding: 0 25px;
+    }
+  
+    .melofi__rightSide {
+      column-gap: 20px;
+    }
+  
+    .melofi__logo img {
+      width: 100px;
+      height: 100px;
+      animation: logo-spin 5s linear infinite;
+    }
+  
+    .melofi__buyMeATacoLink {
+      bottom: 25px;
+      right: 25px;
+    }
+  
+    .melofi__buyMeATacoLink a{
+      font-size: 18px;
+    }
+  }
+  
+  @keyframes logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes slide-up {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(-150px);
+    }
+  }
+  
+  @keyframes slide-down {
+    from {
+      transform: translateY(-150px);
+    }
+    to {
+      transform: translateY(0px);
+    }
+  }
+  
+  @keyframes slide-footer-down {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(150px);
+    }
+  }
+  
+  @keyframes slide-footer-up {
+    from {
+      transform: translateY(150px);
+    }
+    to {
+      transform: translateY(0px);
+    }
+  }
+  
+  
+  
+  
