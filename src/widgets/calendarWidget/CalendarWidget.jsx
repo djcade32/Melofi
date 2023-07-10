@@ -135,8 +135,9 @@ function CalendarWidget() {
       <div
         className={`--widget-container melofi__calendar ${
           !settingsConfig.fadeAway.calendar && "melofi__calendar_noFadeAway"
-        } ${calendarBackgroundStyles}`}
+        }`}
         ref={nodeRef}
+        style={calendarBackgroundStyles}
       >
         <div className="melofi__calendar_header">
           <p className="melofi__calendar-date">{date.toLocaleDateString("en-US", options)}</p>
