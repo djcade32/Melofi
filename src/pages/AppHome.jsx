@@ -30,7 +30,7 @@ import CalendarWidget from "../widgets/calendarWidget/CalendarWidget";
 import StickyNoteWidget from "../widgets/stickyNoteWidget/StickyNoteWidget";
 import TimerWidget from "../widgets/timerWidget/TimerWidget";
 import ToDoListWidget from "../widgets/toDoListWidget/ToDoListWidget";
-import MobileView from "../MobileView";
+import MobileView from "./MobileView";
 
 function AppHome() {
   const { allStickyNotes, usingSpotify } = useAppContext();

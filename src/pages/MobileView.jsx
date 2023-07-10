@@ -1,8 +1,9 @@
 import React from "react";
-import "./App.css";
+import "./appHome.css";
 
-import logo from "./assets/logo.png";
-import { BsPhoneFill } from "./imports/icons";
+import logo from "../assets/logo.png";
+import { BsPhoneFill } from "../imports/icons";
+import SceneBg from "../components/sceneBg/SceneBg";
 
 const MobileView = () => {
   return (
