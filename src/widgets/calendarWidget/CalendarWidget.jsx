@@ -16,7 +16,7 @@ function CalendarWidget() {
   let timeout = null;
   let options = { weekday: "long", month: "long", day: "numeric", timeZone: timezone };
 
-  const { setShowCalendar, showCalendar } = useAppContext();
+  const { setShowCalendar, showCalendar, settingsConfig } = useAppContext();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
   const [events, setEvents] = useState([]);
 
@@ -118,20 +118,25 @@ function CalendarWidget() {
     }
   };
 
+  const determinBackgroundColor = () => {
+    if (!user || !settingsConfig.fadeAway.calendar) {
+      return "var(--color-primary)";
+    }
+  };
+
   const calendarBackgroundStyles = {
     display: showCalendar ? "flex" : "none",
     height: determineCalendarHeight(events),
-    backgroundColor: !user && "var(--color-primary)",
-    boxShadow: !user && "0px 4px 4px rgba(0, 0, 0, 0.25)",
-    backdropFilter: !user && "blur(10px)",
+    backgroundColor: determinBackgroundColor(),
   };
 
   return (
     <Draggable nodeRef={nodeRef} bounds={".fullscreen"}>
       <div
-        className="--widget-container melofi__calendar"
+        className={`--widget-container melofi__calendar ${
+          !settingsConfig.fadeAway.calendar && "melofi__calendar_noFadeAway"
+        } ${calendarBackgroundStyles}`}
         ref={nodeRef}
-        style={calendarBackgroundStyles}
       >
         <div className="melofi__calendar_header">
           <p className="melofi__calendar-date">{date.toLocaleDateString("en-US", options)}</p>
