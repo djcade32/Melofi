@@ -128,6 +128,8 @@ function CalendarWidget() {
     display: showCalendar ? "flex" : "none",
     height: determineCalendarHeight(events),
     backgroundColor: determinBackgroundColor(),
+    backdropFilter: !user && "blur(10px)",
+    boxShadow: !user && "0px 4px 4px rgba(0, 0, 0, 0.25)",
   };
 
   return (
