@@ -19,18 +19,18 @@ import Settings from "../modals/settings/Settings";
 // import GenreDropdown from "./components/genreDropdown/GenreDropdown";
 
 // Import modals
-import AboutMelofi from "../modals/aboutMelofi/AboutMelofi";
-import MixerButton from "../modals/mixer/MixerButton";
-import MixerModal from "../modals/mixer/MixerModal";
-import SceneButton from "../modals/scene/SceneButton";
-import SceneModal from "../modals/scene/SceneModal";
+const AboutMelofi = React.lazy(() => import("../modals/aboutMelofi/AboutMelofi"));
+const MixerButton = React.lazy(() => import("../modals/mixer/MixerButton"));
+const MixerModal = React.lazy(() => import("../modals/mixer/MixerModal"));
+const SceneButton = React.lazy(() => import("../modals/scene/SceneButton"));
+const SceneModal = React.lazy(() => import("../modals/scene/SceneModal"));
 
 // Import widgets
-import CalendarWidget from "../widgets/calendarWidget/CalendarWidget";
 import StickyNoteWidget from "../widgets/stickyNoteWidget/StickyNoteWidget";
-import TimerWidget from "../widgets/timerWidget/TimerWidget";
-import ToDoListWidget from "../widgets/toDoListWidget/ToDoListWidget";
-import MobileView from "./MobileView";
+const CalendarWidget = React.lazy(() => import("../widgets/calendarWidget/CalendarWidget"));
+const TimerWidget = React.lazy(() => import("../widgets/timerWidget/TimerWidget"));
+const ToDoListWidget = React.lazy(() => import("../widgets/toDoListWidget/ToDoListWidget"));
+const MobileView = React.lazy(() => import("./MobileView"));
 
 function AppHome() {
   const { allStickyNotes, usingSpotify } = useAppContext();

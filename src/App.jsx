@@ -3,13 +3,16 @@ import { Route, Routes } from "react-router-dom";
 
 import AppHome from "./pages/AppHome";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import LoadingPage from "./pages/LoadingPage";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<AppHome />} />
-      <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
-    </Routes>
+    <React.Suspense fallback={<LoadingPage />}>
+      <Routes>
+        <Route path="/" element={<AppHome />} />
+        <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
+      </Routes>
+    </React.Suspense>
   );
 }
 
