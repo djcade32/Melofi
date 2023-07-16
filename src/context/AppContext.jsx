@@ -2,6 +2,7 @@ import { createContext, useState, useContext, useEffect } from "react";
 import { scenes } from "../data/scenes";
 import { DEFAULT } from "../enums/colors";
 import logo from "../assets/logo.png";
+import { items as songs } from "../data/songs";
 
 const AppContext = createContext({});
 
@@ -30,12 +31,14 @@ const AppContextProvider = (props) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [showTimer, setShowTimer] = useState(false);
   const [usingSpotify, setUsingSpotify] = useState(false);
+  const [shuffledSongList, setShuffledSongList] = useState(null);
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setCurrentSceneIndex(JSON.parse(localStorage.getItem("currentSceneIndex")) || 0);
     setAllStickyNotes(JSON.parse(localStorage.getItem("stickyNoteList")) || []);
+    shuffleSongs();
   }, []);
 
   useEffect(() => {
@@ -67,6 +70,15 @@ const AppContextProvider = (props) => {
   function getCurrentScene() {
     return scenes[currentSceneIndex];
   }
+
+  const shuffleSongs = () => {
+    let shuffled = songs
+      .map((value) => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value);
+    setShuffledSongList(shuffled);
+    return shuffled;
+  };
 
   return (
     <AppContext.Provider
@@ -102,6 +114,8 @@ const AppContextProvider = (props) => {
         showTimer,
         setUsingSpotify,
         usingSpotify,
+        shuffledSongList,
+        setShuffledSongList,
       }}
     >
       {loading ? <></> : <>{props.children}</>}
