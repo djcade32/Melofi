@@ -107,14 +107,6 @@ const ToolsMenu = ({ isSleep }) => {
             <BsFillCalendarDateFill {...iconProps} />
             <div>
               <p>Calendar</p>
-              <p
-                style={{
-                  fontStyle: "italic",
-                  fontSize: 10,
-                }}
-              >
-                {"(Coming soon)"}
-              </p>
             </div>
           </div>
           <div
