@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./toolsMenu.css";
 import {
   AiFillTool,
@@ -28,6 +28,7 @@ const ToolsMenu = ({ isSleep }) => {
     setShowCalendar,
     setShowTimer,
   } = useAppContext();
+  const [newToolPopupVisible, setNewToolPopupVisible] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -59,6 +60,13 @@ const ToolsMenu = ({ isSleep }) => {
       setShowToolsMenu(false);
     }
   }, [isSleep]);
+
+  useEffect(() => {
+    let new_tool_popup_status = localStorage.getItem("new_tool_popup_status");
+    if (!new_tool_popup_status) {
+      setNewToolPopupVisible(true);
+    }
+  }, []);
 
   const createNewStickyNote = () => {
     const newNote = {
@@ -105,8 +113,13 @@ const ToolsMenu = ({ isSleep }) => {
             onClick={() => setShowCalendar((prev) => !prev)}
           >
             <BsFillCalendarDateFill {...iconProps} />
-            <div>
+            <div style={{ width: "100%", display: "flex" }}>
               <p>Calendar</p>
+              {newToolPopupVisible && (
+                <p className="melofi__toolsMenu_new" style={{ fontSize: 12 }}>
+                  NEW
+                </p>
+              )}
             </div>
           </div>
           <div

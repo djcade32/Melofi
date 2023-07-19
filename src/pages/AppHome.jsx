@@ -16,6 +16,7 @@ import Tooltip from "../components/tooltip/Tooltip";
 import ToolsMenu from "../components/tools/ToolsMenu";
 import Menu from "../components/menu/Menu";
 import Settings from "../modals/settings/Settings";
+import NewFeature from "../components/newFeature/newFeature";
 // import GenreDropdown from "./components/genreDropdown/GenreDropdown";
 
 // Import modals
@@ -36,7 +37,7 @@ function AppHome() {
   const { allStickyNotes, usingSpotify } = useAppContext();
   const [isSleep, setIsSleep] = useState(false);
   const [onMobileDevice, setOnMobileDevice] = useState(window.innerWidth < 750 ? true : false);
-  const [profile, setProfile] = useState(null);
+  const [newToolPopupVisible, setNewToolPopupVisible] = useState(false);
 
   const handle = useFullScreenHandle();
 
@@ -88,6 +89,14 @@ function AppHome() {
     };
   }, []);
 
+  useEffect(() => {
+    let new_tool_popup_status = localStorage.getItem("new_tool_popup_status");
+    if (!new_tool_popup_status) {
+      setNewToolPopupVisible(true);
+      localStorage.setItem("new_tool_popup_status", true);
+    }
+  }, []);
+
   return (
     <FullScreen handle={handle}>
       {!onMobileDevice ? (
@@ -114,7 +123,10 @@ function AppHome() {
                 <MixerButton />
                 {!usingSpotify && <MusicControls />}
                 <SceneButton />
-                <ToolsMenu isSleep={isSleep} />
+                <div style={{ position: "relative" }}>
+                  {newToolPopupVisible && <NewFeature />}
+                  <ToolsMenu isSleep={isSleep} />
+                </div>
                 <Tooltip text={handle.active ? "Exit full screen" : "Enter full screen"}>
                   <div
                     className="--nav-button"

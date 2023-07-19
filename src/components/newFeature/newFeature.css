@@ -1,0 +1,12 @@
+.melofi__newFeature {
+    position: absolute;
+    background-color: rgba(254, 165, 57, 0.75);
+    font-family: var(--font-primary);
+    font-weight: 500;
+    color: white;
+    padding: 0px 5px;
+    border-radius: 10px;
+    font-size: 12px;
+    top: 0;
+    right: 15px;
+}
