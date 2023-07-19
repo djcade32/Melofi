@@ -12,7 +12,6 @@ import "./musicControls.css";
 import VolumeSlider from "../volumeSlider/VolumeSlider";
 import { useAppContext } from "../../context/AppContext";
 import Tooltip from "../tooltip/Tooltip";
-import { items as songs } from "../../data/songs";
 
 const iconProps = {
   size: 20,
@@ -23,22 +22,21 @@ const iconProps = {
 const MusicControls = () => {
   const audioRef = useRef(null);
   const volumeContainerRef = useRef(null);
-  const { musicVolume, setMusicVolume, setCurrentSongInfo } = useAppContext();
+  const { musicVolume, setMusicVolume, setCurrentSongInfo, shuffledSongList } = useAppContext();
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [volumePressed, setVolumePressed] = useState(false);
-  const [currentMusicIndex, setCurrentMusicIndex] = useState(
-    Math.floor(Math.random() * songs.length)
-  );
+  const [currentMusicIndex, setCurrentMusicIndex] = useState(0);
 
   useEffect(() => {
     const songInfo = {
-      title: songs[currentMusicIndex].title,
-      artist: songs[currentMusicIndex].artist,
-      provider: songs[currentMusicIndex].provider,
-      providerUrl: songs[currentMusicIndex].providerUrl,
+      title: shuffledSongList[currentMusicIndex].title,
+      artist: shuffledSongList[currentMusicIndex].artist,
+      provider: shuffledSongList[currentMusicIndex].provider,
+      providerUrl: shuffledSongList[currentMusicIndex].providerUrl,
     };
+
     setCurrentSongInfo(songInfo);
     if (songInfo !== null && isPlaying) {
       audioRef.current.play();
@@ -72,7 +70,7 @@ const MusicControls = () => {
   };
 
   const handleSkipForward = () => {
-    if (currentMusicIndex === songs.length - 1) {
+    if (currentMusicIndex === shuffledSongList.length - 1) {
       setCurrentMusicIndex(0);
       return;
     } else {
@@ -82,7 +80,7 @@ const MusicControls = () => {
 
   const handleSkipBackward = () => {
     if (currentMusicIndex === 0) {
-      setCurrentMusicIndex(songs.length - 1);
+      setCurrentMusicIndex(shuffledSongList.length - 1);
     } else {
       setCurrentMusicIndex((prevIndex) => prevIndex - 1);
     }
@@ -113,7 +111,13 @@ const MusicControls = () => {
           : { borderRadius: "10px" }
       }
     >
-      <audio ref={audioRef} src={songs[currentMusicIndex].mp3Path} onEnded={handleSkipForward} />
+      {shuffledSongList && (
+        <audio
+          ref={audioRef}
+          src={shuffledSongList[currentMusicIndex].mp3Path}
+          onEnded={handleSkipForward}
+        />
+      )}
       <div className="melofi__musicControls-buttons">
         <BsFillSkipBackwardFill {...iconProps} onClick={handleSkipBackward} />
         {isPlaying ? (
