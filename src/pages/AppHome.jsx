@@ -28,6 +28,7 @@ const SceneModal = React.lazy(() => import("../modals/scene/SceneModal"));
 
 // Import widgets
 import StickyNoteWidget from "../widgets/stickyNoteWidget/StickyNoteWidget";
+import AuthModal from "../modals/auth/authModal/AuthModal";
 const CalendarWidget = React.lazy(() => import("../widgets/calendarWidget/CalendarWidget"));
 const TimerWidget = React.lazy(() => import("../widgets/timerWidget/TimerWidget"));
 const ToDoListWidget = React.lazy(() => import("../widgets/toDoListWidget/ToDoListWidget"));
@@ -156,6 +157,7 @@ function AppHome() {
           ))}
           <CalendarWidget />
           <TimerWidget />
+          <AuthModal />
           <Settings />
           <AboutMelofi />
 

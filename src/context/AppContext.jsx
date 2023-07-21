@@ -1,12 +1,28 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { scenes } from "../data/scenes";
-import { DEFAULT } from "../enums/colors";
-import logo from "../assets/logo.png";
 import { items as songs } from "../data/songs";
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_APP_GOOGLE_API,
+  authDomain: "melofi-389415.firebaseapp.com",
+  projectId: "melofi-389415",
+  storageBucket: "melofi-389415.appspot.com",
+  messagingSenderId: "404248652005",
+  appId: "1:404248652005:web:926c9820ee3780aa7d4c0c",
+  measurementId: "G-79SS2N9YZQ",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);
+const auth = getAuth(app);
 
 const AppContext = createContext({});
 
 const AppContextProvider = (props) => {
+  const [authUser, setAuthUser] = useState(null);
   const [musicVolume, setMusicVolume] = useState(35);
   const [currentSongInfo, setCurrentSongInfo] = useState(null);
   const [currentSceneIndex, setCurrentSceneIndex] = useState(null);
@@ -16,6 +32,7 @@ const AppContextProvider = (props) => {
   const [showToDoList, setShowToDoList] = useState(false);
   const [allStickyNotes, setAllStickyNotes] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [settingsConfig, setSettingsConfig] = useState(
     JSON.parse(localStorage.getItem("settingsConfig")) || {
@@ -34,6 +51,10 @@ const AppContextProvider = (props) => {
   const [shuffledSongList, setShuffledSongList] = useState(null);
 
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setAuthUser(auth);
+  }, [auth]);
 
   useEffect(() => {
     setCurrentSceneIndex(JSON.parse(localStorage.getItem("currentSceneIndex")) || 0);
@@ -116,6 +137,9 @@ const AppContextProvider = (props) => {
         usingSpotify,
         shuffledSongList,
         setShuffledSongList,
+        showAuthModal,
+        setShowAuthModal,
+        authUser,
       }}
     >
       {loading ? <></> : <>{props.children}</>}
