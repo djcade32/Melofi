@@ -3,9 +3,10 @@ import "./signup.css";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../../context/AppContext";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 const Signup = ({ setLoggingIn }) => {
-  const { authUser, setUser, setShowAuthModal } = useAppContext();
+  const { authUser, setUser, setShowAuthModal, db, user } = useAppContext();
   const [formInputs, setFormInputs] = useState({
     email: "",
     password: "",
@@ -21,6 +22,7 @@ const Signup = ({ setLoggingIn }) => {
         formInputs.password
       );
       console.log("userCreds: ", userCredentials.user);
+      addUser(userCredentials.user.uid, userCredentials.user.metadata.lastLoginAt);
       setUser(userCredentials.user);
       resetForm();
       setShowAuthModal(false);
@@ -45,6 +47,17 @@ const Signup = ({ setLoggingIn }) => {
 
   const resetForm = () => {
     setFormInputs({ email: "", password: "", error: "" });
+  };
+
+  const addUser = async (uid, lastLoginAt) => {
+    try {
+      const usersDoc = doc(db, `users/${uid}`);
+      const userData = { consecutiveDays: 1, lastLoginAt: lastLoginAt };
+      await setDoc(usersDoc, userData);
+    } catch (error) {
+      console.log("Error creating new user in db");
+      console.log(error);
+    }
   };
   return (
     <div className="melofi__signup">

@@ -1,0 +1,32 @@
+function isDayBeforeCurrentDate(givenDate) {
+  // Convert the givenDate to a Date object
+  const dateToCompare = new Date(givenDate);
+
+  // Get the current date
+  const currentDate = new Date();
+
+  // Set both dates to the same time of the day (to ignore time differences)
+  dateToCompare.setHours(0, 0, 0, 0);
+  currentDate.setHours(0, 0, 0, 0);
+
+  // Compare the dates
+  const differenceInMilliseconds = currentDate - dateToCompare;
+
+  // If the difference is exactly 1 day (86400000 milliseconds), then it's the day before
+  return differenceInMilliseconds === 86400000;
+}
+
+function areTimestampsInSameDay(timestamp1, timestamp2) {
+  // Convert timestamps to Date objects
+  const date1 = new Date(timestamp1);
+  const date2 = new Date(timestamp2);
+
+  // Check if the year, month, and day components are the same
+  return (
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate()
+  );
+}
+
+export { isDayBeforeCurrentDate, areTimestampsInSameDay };

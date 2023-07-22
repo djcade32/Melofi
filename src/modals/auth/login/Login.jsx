@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./login.css";
 import { useAppContext } from "../../../context/AppContext";
 import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 const Login = ({ setLoggingIn }) => {
-  const { authUser, setUser, setShowAuthModal } = useAppContext();
+  const { authUser, setUser, setShowAuthModal, db } = useAppContext();
   const [formInputs, setFormInputs] = useState({
     email: "",
     password: "",
@@ -25,6 +26,7 @@ const Login = ({ setLoggingIn }) => {
       );
       console.log("userCreds: ", userCredentials.user);
       setUser(userCredentials.user);
+      updateUserLastLoginAt(userCredentials.user);
       resetForm();
       setShowAuthModal(false);
     } catch (error) {
@@ -58,6 +60,21 @@ const Login = ({ setLoggingIn }) => {
         setResetPasswordLinkSent(false);
         setShowPasswordReset(false);
       }, 3000);
+    }
+  };
+
+  const updateUserLastLoginAt = async (user) => {
+    const docRef = doc(db, `users/${user.uid}`);
+    const userSnapshot = await getDoc(docRef);
+    if (userSnapshot.exists()) {
+      const userData = {
+        lastLoginAt: user.metadata.lastLoginAt,
+      };
+      try {
+        await updateDoc(docRef, userData);
+      } catch (error) {
+        console.log("Error updating user lastLoginAt: ", error);
+      }
     }
   };
 

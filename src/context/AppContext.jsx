@@ -3,6 +3,8 @@ import { scenes } from "../data/scenes";
 import { items as songs } from "../data/songs";
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
+import { areTimestampsInSameDay, isDayBeforeCurrentDate } from "../helpers/dateUtils";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_GOOGLE_API,
@@ -18,6 +20,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 const auth = getAuth(app);
+const db = getFirestore();
 
 const AppContext = createContext({});
 
@@ -64,7 +67,10 @@ const AppContextProvider = (props) => {
     if (auth.currentUser) {
       setUser(auth.currentUser);
     }
-  }, [auth]);
+    if (user) {
+      incrementConsecutiveDays();
+    }
+  }, [auth, user]);
 
   useEffect(() => {
     setCurrentSceneIndex(JSON.parse(localStorage.getItem("currentSceneIndex")) || 0);
@@ -111,6 +117,30 @@ const AppContextProvider = (props) => {
     return shuffled;
   };
 
+  const incrementConsecutiveDays = async () => {
+    const docRef = doc(db, `users/${auth.currentUser.uid}`);
+    const userSnapshot = await getDoc(docRef);
+    if (userSnapshot.exists()) {
+      let userData = {};
+      if (isDayBeforeCurrentDate(parseInt(userSnapshot.data().lastLoginAt))) {
+        userData = {
+          consecutiveDays: userSnapshot.data().consecutiveDays + 1,
+        };
+      } else {
+        if (areTimestampsInSameDay(parseInt(userSnapshot.data().lastLoginAt), new Date())) {
+          return;
+        } else {
+          userData = { consecutiveDays: 1 };
+        }
+      }
+      try {
+        await updateDoc(docRef, userData);
+      } catch (error) {
+        console.log("Error updating consecutive days: ", error);
+      }
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -154,6 +184,7 @@ const AppContextProvider = (props) => {
         setUser,
         setShowAccount,
         showAccount,
+        db,
       }}
     >
       {loading ? <></> : <>{props.children}</>}
