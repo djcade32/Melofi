@@ -26,8 +26,15 @@ const linkStyle = {
 
 const Menu = ({ isSleep }) => {
   const menuRef = useRef(null);
-  const { showMenu, setShowMenu, setShowSettings, setShowAboutMelofi, setShowAuthModal } =
-    useAppContext();
+  const {
+    showMenu,
+    setShowMenu,
+    setShowSettings,
+    setShowAboutMelofi,
+    setShowAuthModal,
+    user,
+    setShowAccount,
+  } = useAppContext();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -51,13 +58,23 @@ const Menu = ({ isSleep }) => {
       <MdOutlineMenu size={20} color="white" />
       {showMenu && (
         <div className="melofi__menu_modal">
-          <div
-            className="melofi__menu_modal_items"
-            onClick={() => setShowAuthModal((prev) => !prev)}
-          >
-            <FaUserAlt {...iconProps} />
-            <p>Login / Signup</p>
-          </div>
+          {user ? (
+            <div
+              className="melofi__menu_modal_items"
+              onClick={() => setShowAccount((prev) => !prev)}
+            >
+              <FaUserAlt {...iconProps} />
+              <p>Account</p>
+            </div>
+          ) : (
+            <div
+              className="melofi__menu_modal_items"
+              onClick={() => setShowAuthModal((prev) => !prev)}
+            >
+              <FaUserAlt {...iconProps} />
+              <p>Login / Signup</p>
+            </div>
+          )}
           <div
             className="melofi__menu_modal_items"
             onClick={() => setShowSettings((prev) => !prev)}

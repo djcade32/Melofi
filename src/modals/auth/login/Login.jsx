@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./login.css";
 import { useAppContext } from "../../../context/AppContext";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = ({ setLoggingIn }) => {
-  const { authUser } = useAppContext();
+  const { authUser, setUser, setShowAuthModal } = useAppContext();
   const [formInputs, setFormInputs] = useState({
     email: "",
     password: "",
     error: "",
   });
+  const [resetPasswordInput, setResetPasswordInput] = useState("");
+  const [showPasswordReset, setShowPasswordReset] = useState(false);
+  const [resetPasswordLinkSent, setResetPasswordLinkSent] = useState(false);
 
   const loginWithEmailAndPassword = async () => {
     checkValidForm();
@@ -21,7 +24,9 @@ const Login = ({ setLoggingIn }) => {
         formInputs.password
       );
       console.log("userCreds: ", userCredentials.user);
+      setUser(userCredentials.user);
       resetForm();
+      setShowAuthModal(false);
     } catch (error) {
       setFormInputs({ ...formInputs, error: "Wrong username or password. Try again." });
     }
@@ -38,6 +43,24 @@ const Login = ({ setLoggingIn }) => {
   const resetForm = () => {
     setFormInputs({ email: "", password: "", error: "" });
   };
+
+  const handleResetPassword = async () => {
+    if (resetPasswordInput.length <= 0) {
+      return;
+    }
+    try {
+      await sendPasswordResetEmail(authUser, resetPasswordInput);
+    } catch (error) {
+    } finally {
+      setResetPasswordLinkSent(true);
+      setResetPasswordInput("");
+      setTimeout(() => {
+        setResetPasswordLinkSent(false);
+        setShowPasswordReset(false);
+      }, 3000);
+    }
+  };
+
   return (
     <div className="melofi__login">
       <p>Log In to your account</p>
@@ -55,18 +78,54 @@ const Login = ({ setLoggingIn }) => {
         />
       </div>
       {formInputs.error !== "" && (
-        <p style={{ fontSize: 12, color: "#EE4B2B	" }}>{formInputs.error}</p>
+        <p style={{ fontSize: 14, color: "#EE4B2B	" }}>{formInputs.error}</p>
       )}
       <p className="melofi__login_button" onClick={loginWithEmailAndPassword}>
         Log In
       </p>
-      <p className="melofi__login_link">Forgot password?</p>
+      <p className="melofi__login_link" onClick={() => setShowPasswordReset(true)}>
+        Forgot password?
+      </p>
       <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
         <p>Don't have an account?</p>
         <p className="melofi__login_link" onClick={() => setLoggingIn((prev) => !prev)}>
           Sign Up for free
         </p>
       </div>
+
+      {showPasswordReset && (
+        <div className="--widget-container melofi__login_passwordResetModal">
+          {!resetPasswordLinkSent ? (
+            <>
+              <p>Enter email to send reset password link.</p>
+              <input
+                type="text"
+                placeholder="Email"
+                value={resetPasswordInput}
+                onChange={(e) => setResetPasswordInput(e.target.value)}
+              />
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <p
+                  style={{ cursor: "pointer", color: "var(--color-effect-opacity)" }}
+                  onClick={() => setShowPasswordReset(false)}
+                >
+                  Cancel
+                </p>
+                <p
+                  style={{ cursor: "pointer", color: "var(--color-effect-opacity)" }}
+                  onClick={handleResetPassword}
+                >
+                  Send
+                </p>
+              </div>
+            </>
+          ) : (
+            <p style={{ textAlign: "center", lineHeight: 1.75 }}>
+              If email is found, a reset password link will be sent.
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -54,3 +54,27 @@
     color: var(--color-effect-opacity);
     cursor: pointer;
 }
+
+.melofi__login_passwordResetModal {
+    width: 200px;
+    height: 150px;
+    background-color: var(--color-primary);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-around;
+}
+
+.melofi__login_passwordResetModal input {
+    border: none;
+    outline: none;
+    background-color: var(--color-secondary-opacity);
+    color: white;
+    font-size: 18px;
+    padding: 5px 15px;
+    border-radius: 10px;
+    caret-color: var(--color-effect-opacity)
+}
+.melofi__login_passwordResetModal input::placeholder {
+    color: var(--color-secondary)
+}

@@ -2,7 +2,7 @@ import { createContext, useState, useContext, useEffect } from "react";
 import { scenes } from "../data/scenes";
 import { items as songs } from "../data/songs";
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_GOOGLE_API,
@@ -23,6 +23,7 @@ const AppContext = createContext({});
 
 const AppContextProvider = (props) => {
   const [authUser, setAuthUser] = useState(null);
+  const [user, setUser] = useState(null);
   const [musicVolume, setMusicVolume] = useState(35);
   const [currentSongInfo, setCurrentSongInfo] = useState(null);
   const [currentSceneIndex, setCurrentSceneIndex] = useState(null);
@@ -33,6 +34,7 @@ const AppContextProvider = (props) => {
   const [allStickyNotes, setAllStickyNotes] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showAccount, setShowAccount] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [settingsConfig, setSettingsConfig] = useState(
     JSON.parse(localStorage.getItem("settingsConfig")) || {
@@ -54,6 +56,14 @@ const AppContextProvider = (props) => {
 
   useEffect(() => {
     setAuthUser(auth);
+    onAuthStateChanged(auth, (userObj) => {
+      if (userObj) {
+        setUser(userObj);
+      }
+    });
+    if (auth.currentUser) {
+      setUser(auth.currentUser);
+    }
   }, [auth]);
 
   useEffect(() => {
@@ -140,6 +150,10 @@ const AppContextProvider = (props) => {
         showAuthModal,
         setShowAuthModal,
         authUser,
+        user,
+        setUser,
+        setShowAccount,
+        showAccount,
       }}
     >
       {loading ? <></> : <>{props.children}</>}

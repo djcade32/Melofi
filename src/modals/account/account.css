@@ -1,0 +1,98 @@
+.melofi__account {
+    width: 550px;
+    height: 600px;
+    background-color: var(--color-primary);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    display: flex;
+    font-family: var(--font-primary);
+    color: white;
+}
+
+.melofi__account_header {
+    font-size: 32px;
+}
+
+.melofi__account_content {
+    height: 100%;
+    width: 100%;
+    padding: 0px 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.melofi__account_sectionTitle {
+    padding: 5px 15px;
+    cursor: pointer;
+
+}
+
+.melofi__account_sectionTitle_selected {
+    background-color: var(--color-effect-opacity);
+    color: var(--color-primary)
+}
+
+.melofi__account_content_subsection {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.melofi__account_subsection_button {
+   color: var(--color-effect-opacity);
+    cursor: pointer;
+    text-align: right;
+}
+
+.melofi__account_subtitle {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.melofi__account_inputContainer {
+    display: flex;
+    column-gap: 15px;
+    color: white;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.melofi__account_inputContainer p {
+    width: 40%;
+    color: var(--color-secondary)
+}
+
+.melofi__account_inputContainer input, .melofi__account_reauthenticateModal input {
+    border: none;
+    outline: none;
+    background-color: var(--color-secondary-opacity);
+    color: white;
+    font-size: 18px;
+    padding: 5px 15px;
+    border-radius: 10px;
+    caret-color: var(--color-effect-opacity)
+}
+
+.melofi__account_inputContainer input::placeholder, .melofi__account_reauthenticateModal input::placeholder {
+    color: var(--color-secondary)
+}
+
+.melofi__account_notification {
+    background-color: #4BB543;
+    color: var(--color-primary);
+    outline: 1px solid white;
+    text-align: center;
+    padding: 5px 0px;
+    margin-top: 50px;
+}
+
+.melofi__account_reauthenticateModal {
+    width: 200px;
+    height: 150px;
+    background-color: var(--color-primary);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-around;
+}
