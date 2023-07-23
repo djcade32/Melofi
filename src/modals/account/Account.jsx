@@ -15,6 +15,7 @@ const Account = () => {
       await signOut(authUser);
       setUser(null);
       setShowAccount(false);
+      setSelected("profile");
     } catch (error) {}
   };
   return (

@@ -96,3 +96,16 @@
     display: flex;
     justify-content: space-around;
 }
+
+.melofi__insights_statContainer {
+    margin-bottom: 15px;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.melofi__insights_statContainer span {
+    color: var(--color-effect-opacity);
+}
+

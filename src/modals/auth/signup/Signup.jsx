@@ -52,7 +52,12 @@ const Signup = ({ setLoggingIn }) => {
   const addUser = async (uid, lastLoginAt) => {
     try {
       const usersDoc = doc(db, `users/${uid}`);
-      const userData = { consecutiveDays: 1, lastLoginAt: lastLoginAt };
+      const userData = {
+        consecutiveDays: 1,
+        lastLoginAt: lastLoginAt,
+        focusedTime: 0,
+        numOfStickyNotes: 0,
+      };
       await setDoc(usersDoc, userData);
     } catch (error) {
       console.log("Error creating new user in db");
