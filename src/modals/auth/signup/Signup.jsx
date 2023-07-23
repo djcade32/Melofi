@@ -21,7 +21,6 @@ const Signup = ({ setLoggingIn }) => {
         formInputs.email,
         formInputs.password
       );
-      console.log("userCreds: ", userCredentials.user);
       addUser(userCredentials.user.uid, userCredentials.user.metadata.lastLoginAt);
       setUser(userCredentials.user);
       resetForm();

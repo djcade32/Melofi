@@ -11,7 +11,7 @@ import {
 
 const ProfileSection = ({ selected }) => {
   const { user, authUser, showAccount } = useAppContext();
-  const [emailInput, setEmailInput] = useState({ text: user?.email, error: "" });
+  const [emailInput, setEmailInput] = useState({ text: "", error: "" });
   const [editEmail, setEditEmail] = useState(false);
   const [passwordInputs, setPasswordInputs] = useState({
     current: "",
