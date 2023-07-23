@@ -40,6 +40,7 @@ function AppHome() {
   const [isSleep, setIsSleep] = useState(false);
   const [onMobileDevice, setOnMobileDevice] = useState(window.innerWidth < 750 ? true : false);
   const [newToolPopupVisible, setNewToolPopupVisible] = useState(false);
+  const [newMenuPopupVisible, setNewMenuPopupVisible] = useState(false);
 
   const handle = useFullScreenHandle();
 
@@ -93,9 +94,14 @@ function AppHome() {
 
   useEffect(() => {
     let new_tool_popup_status = localStorage.getItem("new_tool_popup_status");
+    let new_menu_popup_status = localStorage.getItem("new_menu_popup_status");
     if (!new_tool_popup_status) {
       setNewToolPopupVisible(true);
       localStorage.setItem("new_tool_popup_status", true);
+    }
+    if (!new_menu_popup_status) {
+      setNewMenuPopupVisible(true);
+      localStorage.setItem("new_menu_popup_status", true);
     }
   }, []);
 
@@ -127,7 +133,11 @@ function AppHome() {
                 <SceneButton />
                 <div style={{ position: "relative" }}>
                   {newToolPopupVisible && <NewFeature />}
-                  <ToolsMenu isSleep={isSleep} />
+                  <ToolsMenu
+                    isSleep={isSleep}
+                    newToolPopupVisible={newToolPopupVisible}
+                    setNewToolPopupVisible={setNewToolPopupVisible}
+                  />
                 </div>
                 <Tooltip text={handle.active ? "Exit full screen" : "Enter full screen"}>
                   <div
@@ -145,7 +155,14 @@ function AppHome() {
                   </div>
                 </Tooltip>
                 <Clock />
-                <Menu isSleep={isSleep} />
+                <div style={{ position: "relative" }}>
+                  {newMenuPopupVisible && <NewFeature />}
+                  <Menu
+                    isSleep={isSleep}
+                    setNewMenuPopupVisible={setNewMenuPopupVisible}
+                    newMenuPopupVisible={newMenuPopupVisible}
+                  />
+                </div>
               </div>
             </nav>
           </div>

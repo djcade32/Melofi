@@ -17,7 +17,7 @@ const iconProps = {
   cursor: "pointer",
 };
 
-const ToolsMenu = ({ isSleep }) => {
+const ToolsMenu = ({ isSleep, newToolPopupVisible, setNewToolPopupVisible }) => {
   const toolsMenuRef = useRef(null);
   const {
     setShowToolsMenu,
@@ -28,7 +28,6 @@ const ToolsMenu = ({ isSleep }) => {
     setShowCalendar,
     setShowTimer,
   } = useAppContext();
-  const [newToolPopupVisible, setNewToolPopupVisible] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -80,6 +79,11 @@ const ToolsMenu = ({ isSleep }) => {
     };
     setAllStickyNotes((prev) => [...prev, newNote]);
   };
+
+  const removeNewFeature = () => {
+    setNewToolPopupVisible(false);
+    localStorage.setItem("new_tool_popup_status", true);
+  };
   return (
     <div
       ref={toolsMenuRef}
@@ -110,7 +114,10 @@ const ToolsMenu = ({ isSleep }) => {
           </div>
           <div
             className="melofi__toolsMenu-container-items"
-            onClick={() => setShowCalendar((prev) => !prev)}
+            onClick={() => {
+              setShowCalendar((prev) => !prev);
+              removeNewFeature();
+            }}
           >
             <BsFillCalendarDateFill {...iconProps} />
             <div style={{ width: "100%", display: "flex" }}>

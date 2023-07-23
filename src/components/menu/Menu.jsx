@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./menu.css";
 
 import {
@@ -10,6 +10,7 @@ import {
   FaUserAlt,
 } from "../../imports/icons";
 import { useAppContext } from "../../context/AppContext";
+import NewFeature from "../newFeature/newFeature";
 
 const iconProps = {
   size: 15,
@@ -24,7 +25,7 @@ const linkStyle = {
   fontWeight: 300,
 };
 
-const Menu = ({ isSleep }) => {
+const Menu = ({ isSleep, setNewMenuPopupVisible, newMenuPopupVisible }) => {
   const menuRef = useRef(null);
   const {
     showMenu,
@@ -35,6 +36,13 @@ const Menu = ({ isSleep }) => {
     user,
     setShowAccount,
   } = useAppContext();
+
+  useEffect(() => {
+    let new_menu_popup_status = localStorage.getItem("new_menu_popup_status");
+    if (!new_menu_popup_status) {
+      setNewMenuPopupVisible(true);
+    }
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -53,6 +61,11 @@ const Menu = ({ isSleep }) => {
       setShowMenu(false);
     }
   }, [isSleep]);
+
+  const removeNewFeature = () => {
+    setNewMenuPopupVisible(false);
+    localStorage.setItem("new_menu_popup_status", true);
+  };
   return (
     <div ref={menuRef} className="--nav-button" onClick={() => setShowMenu((prev) => !prev)}>
       <MdOutlineMenu size={20} color="white" />
@@ -69,9 +82,13 @@ const Menu = ({ isSleep }) => {
           ) : (
             <div
               className="melofi__menu_modal_items"
-              onClick={() => setShowAuthModal((prev) => !prev)}
+              onClick={() => {
+                setShowAuthModal((prev) => !prev);
+                removeNewFeature();
+              }}
             >
               <FaUserAlt {...iconProps} />
+              {newMenuPopupVisible && <NewFeature />}
               <p>Login / Signup</p>
             </div>
           )}
