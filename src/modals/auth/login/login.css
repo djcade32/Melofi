@@ -1,0 +1,80 @@
+.melofi__login {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: space-around;
+}
+
+.melofi__login_inputContainer {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+}
+
+.melofi__login_inputContainer input {
+    color:white;
+    background-color: var(--color-secondary-opacity);
+    border: none;
+    outline: none;
+    caret-color: var(--color-effect-opacity);
+    padding: 5px 15px;
+    font-size: 18px;
+}
+
+.melofi__login_inputContainer input:first-of-type {
+    border-bottom: 1px solid var(--color-primary);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.melofi__login_inputContainer input:last-of-type {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.melofi__login_inputContainer input::placeholder {
+    color: var(--color-secondary);
+}
+
+.melofi__login_button {
+    background-color: var(--color-effect-opacity);
+    padding: 5px 10px;
+    border-radius:10px;
+    cursor: pointer;
+    color: var(--color-primary);
+
+}
+
+.melofi__login_button:hover {
+    background-color:  rgba(254, 165, 57, 0.65);
+}
+
+.melofi__login_link {
+    color: var(--color-effect-opacity);
+    cursor: pointer;
+}
+
+.melofi__login_passwordResetModal {
+    width: 200px;
+    height: 150px;
+    background-color: var(--color-primary);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-around;
+}
+
+.melofi__login_passwordResetModal input {
+    border: none;
+    outline: none;
+    background-color: var(--color-secondary-opacity);
+    color: white;
+    font-size: 18px;
+    padding: 5px 15px;
+    border-radius: 10px;
+    caret-color: var(--color-effect-opacity)
+}
+.melofi__login_passwordResetModal input::placeholder {
+    color: var(--color-secondary)
+}

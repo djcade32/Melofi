@@ -16,6 +16,7 @@ import Tooltip from "../components/tooltip/Tooltip";
 import ToolsMenu from "../components/tools/ToolsMenu";
 import Menu from "../components/menu/Menu";
 import Settings from "../modals/settings/Settings";
+import NewFeature from "../components/newFeature/newFeature";
 // import GenreDropdown from "./components/genreDropdown/GenreDropdown";
 
 // Import modals
@@ -27,6 +28,8 @@ const SceneModal = React.lazy(() => import("../modals/scene/SceneModal"));
 
 // Import widgets
 import StickyNoteWidget from "../widgets/stickyNoteWidget/StickyNoteWidget";
+import AuthModal from "../modals/auth/authModal/AuthModal";
+import Account from "../modals/account/Account";
 const CalendarWidget = React.lazy(() => import("../widgets/calendarWidget/CalendarWidget"));
 const TimerWidget = React.lazy(() => import("../widgets/timerWidget/TimerWidget"));
 const ToDoListWidget = React.lazy(() => import("../widgets/toDoListWidget/ToDoListWidget"));
@@ -36,7 +39,8 @@ function AppHome() {
   const { allStickyNotes, usingSpotify } = useAppContext();
   const [isSleep, setIsSleep] = useState(false);
   const [onMobileDevice, setOnMobileDevice] = useState(window.innerWidth < 750 ? true : false);
-  const [profile, setProfile] = useState(null);
+  const [newToolPopupVisible, setNewToolPopupVisible] = useState(false);
+  const [newMenuPopupVisible, setNewMenuPopupVisible] = useState(false);
 
   const handle = useFullScreenHandle();
 
@@ -88,6 +92,19 @@ function AppHome() {
     };
   }, []);
 
+  useEffect(() => {
+    let new_tool_popup_status = localStorage.getItem("new_tool_popup_status");
+    let new_menu_popup_status = localStorage.getItem("new_menu_popup_status");
+    if (!new_tool_popup_status) {
+      setNewToolPopupVisible(true);
+      localStorage.setItem("new_tool_popup_status", true);
+    }
+    if (!new_menu_popup_status) {
+      setNewMenuPopupVisible(true);
+      localStorage.setItem("new_menu_popup_status", true);
+    }
+  }, []);
+
   return (
     <FullScreen handle={handle}>
       {!onMobileDevice ? (
@@ -114,7 +131,14 @@ function AppHome() {
                 <MixerButton />
                 {!usingSpotify && <MusicControls />}
                 <SceneButton />
-                <ToolsMenu isSleep={isSleep} />
+                <div style={{ position: "relative" }}>
+                  {newToolPopupVisible && <NewFeature />}
+                  <ToolsMenu
+                    isSleep={isSleep}
+                    newToolPopupVisible={newToolPopupVisible}
+                    setNewToolPopupVisible={setNewToolPopupVisible}
+                  />
+                </div>
                 <Tooltip text={handle.active ? "Exit full screen" : "Enter full screen"}>
                   <div
                     className="--nav-button"
@@ -131,7 +155,14 @@ function AppHome() {
                   </div>
                 </Tooltip>
                 <Clock />
-                <Menu isSleep={isSleep} />
+                <div style={{ position: "relative" }}>
+                  {newMenuPopupVisible && <NewFeature />}
+                  <Menu
+                    isSleep={isSleep}
+                    setNewMenuPopupVisible={setNewMenuPopupVisible}
+                    newMenuPopupVisible={newMenuPopupVisible}
+                  />
+                </div>
               </div>
             </nav>
           </div>
@@ -144,6 +175,8 @@ function AppHome() {
           ))}
           <CalendarWidget />
           <TimerWidget />
+          <AuthModal />
+          <Account />
           <Settings />
           <AboutMelofi />
 

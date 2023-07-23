@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./toolsMenu.css";
 import {
   AiFillTool,
@@ -17,7 +17,7 @@ const iconProps = {
   cursor: "pointer",
 };
 
-const ToolsMenu = ({ isSleep }) => {
+const ToolsMenu = ({ isSleep, newToolPopupVisible, setNewToolPopupVisible }) => {
   const toolsMenuRef = useRef(null);
   const {
     setShowToolsMenu,
@@ -60,6 +60,13 @@ const ToolsMenu = ({ isSleep }) => {
     }
   }, [isSleep]);
 
+  useEffect(() => {
+    let new_tool_popup_status = localStorage.getItem("new_tool_popup_status");
+    if (!new_tool_popup_status) {
+      setNewToolPopupVisible(true);
+    }
+  }, []);
+
   const createNewStickyNote = () => {
     const newNote = {
       id: allStickyNotes.length + 1,
@@ -71,6 +78,11 @@ const ToolsMenu = ({ isSleep }) => {
       isCollapsed: false,
     };
     setAllStickyNotes((prev) => [...prev, newNote]);
+  };
+
+  const removeNewFeature = () => {
+    setNewToolPopupVisible(false);
+    localStorage.setItem("new_tool_popup_status", true);
   };
   return (
     <div
@@ -102,11 +114,19 @@ const ToolsMenu = ({ isSleep }) => {
           </div>
           <div
             className="melofi__toolsMenu-container-items"
-            onClick={() => setShowCalendar((prev) => !prev)}
+            onClick={() => {
+              setShowCalendar((prev) => !prev);
+              removeNewFeature();
+            }}
           >
             <BsFillCalendarDateFill {...iconProps} />
-            <div>
+            <div style={{ width: "100%", display: "flex" }}>
               <p>Calendar</p>
+              {newToolPopupVisible && (
+                <p className="melofi__toolsMenu_new" style={{ fontSize: 12 }}>
+                  NEW
+                </p>
+              )}
             </div>
           </div>
           <div
