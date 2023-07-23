@@ -9,4 +9,5 @@
     font-size: 12px;
     top: 0;
     right: 15px;
+    user-select: none;
 }

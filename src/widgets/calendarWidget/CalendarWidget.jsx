@@ -8,6 +8,7 @@ import Draggable from "react-draggable";
 import Tooltip from "../../components/tooltip/Tooltip";
 import { useAppContext } from "../../context/AppContext";
 import CalendarItem from "./CalendarItem";
+import { convertISOTimestamp, dateInPast } from "../../helpers/dateUtils";
 
 function CalendarWidget() {
   const nodeRef = useRef(null);
@@ -78,30 +79,6 @@ function CalendarWidget() {
     timeout = setTimeout(() => {
       logOut();
     }, expires_in * 1000);
-  };
-
-  const convertISOTimestamp = (timestamp) => {
-    const isoDate = new Date(timestamp);
-    const convertedDate = isoDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-    return convertedDate[0] === "0" ? convertedDate.slice(1) : convertedDate;
-  };
-
-  const convertISOToISOLocal = (t) => {
-    let z = t.getTimezoneOffset() * 60 * 1000;
-    let tlocal = t - z;
-    tlocal = new Date(tlocal);
-    let iso = tlocal.toISOString();
-    iso = iso.split(".")[0];
-
-    return iso + "Z";
-  };
-  const dateInPast = (time) => {
-    const currentDate = new Date();
-    const endTime = new Date(time);
-
-    // Rebuilding date for possibility of getting a date in the past
-    // because it is a recurring event
-    return convertISOToISOLocal(currentDate) > convertISOToISOLocal(endTime);
   };
 
   const determineCalendarHeight = (event) => {

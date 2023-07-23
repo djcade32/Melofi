@@ -16,6 +16,7 @@ import CircularProgress, { circularProgressClasses } from "@mui/material/Circula
 import Tooltip from "../../components/tooltip/Tooltip";
 import alarmSoundPath from "../../assets/timer_alarm.mp3";
 import TransitionsModal from "../../components/transitionsModal/TransitionsModal";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 const iconProps = {
   size: 33,
@@ -39,7 +40,7 @@ export default function TimerWidget() {
   const nodeRef = useRef(null);
   const audioRef = useRef(null);
 
-  const { setShowTimer, showTimer, settingsConfig } = useAppContext();
+  const { setShowTimer, showTimer, settingsConfig, user, db } = useAppContext();
 
   const [webWorkerTime, setWebWorkerTime] = useState(0);
   const [minutes, setMinutes] = useState(60);
@@ -47,6 +48,7 @@ export default function TimerWidget() {
   const [progress, setProgress] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [modalOpened, setModalOpened] = useState(false);
+  const [originalTime, setOriginalTime] = useState(null);
 
   useEffect(() => {
     worker.onmessage = ({ data: { time } }) => {
@@ -71,6 +73,7 @@ export default function TimerWidget() {
   const startWebWorkerTimer = () => {
     setIsRunning(true);
     worker.postMessage({ turn: "on", timeInput: webWorkerTime });
+    setOriginalTime(webWorkerTime);
   };
 
   const pauseWorkerTimer = () => {
@@ -85,6 +88,7 @@ export default function TimerWidget() {
     worker.postMessage({ turn: "off", timeInput: resetValue });
     setMinutes(60);
     setSeconds(0);
+    setOriginalTime(null);
     setWebWorkerTime(resetValue);
   };
 
@@ -103,6 +107,9 @@ export default function TimerWidget() {
       audioRef.current.play();
     }
     setModalOpened(true);
+    if (user) {
+      incrementFocusedTime(originalTime * 100);
+    }
   };
 
   const onClose = () => {
@@ -134,6 +141,19 @@ export default function TimerWidget() {
       value = value.slice(1);
     }
     setSeconds(value);
+  };
+
+  const incrementFocusedTime = async (incrementTime) => {
+    const docRef = doc(db, `users/${user.uid}`);
+    const userSnapshot = await getDoc(docRef);
+    if (userSnapshot.exists()) {
+      try {
+        const userData = { focusedTime: userSnapshot.data().focusedTime + incrementTime };
+        await updateDoc(docRef, userData);
+      } catch (error) {
+        console.log("Error incrementing focused time: ", error);
+      }
+    }
   };
 
   return (
