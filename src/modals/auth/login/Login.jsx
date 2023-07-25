@@ -69,6 +69,7 @@ const Login = ({ setLoggingIn }) => {
     if (userSnapshot.exists()) {
       const userData = {
         lastLoginAt: user.metadata.lastLoginAt,
+        lastVisitedAt: user.metadata.lastLoginAt,
       };
       try {
         await updateDoc(docRef, userData);

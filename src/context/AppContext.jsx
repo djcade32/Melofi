@@ -123,16 +123,27 @@ const AppContextProvider = (props) => {
     if (userSnapshot.exists()) {
       let userData = {};
       if (isDayBeforeCurrentDate(parseInt(userSnapshot.data().lastLoginAt))) {
-        userData = {
-          consecutiveDays: userSnapshot.data().consecutiveDays + 1,
-        };
+        if (isDayBeforeCurrentDate(parseInt(userSnapshot.data().lastVisitedAt))) {
+          console.log("here 1");
+          userData = {
+            consecutiveDays: userSnapshot.data().consecutiveDays + 1,
+            lastVisitedAt: Date.now(),
+          };
+        }
+        // userData = {
+        //   lastVisitedAt: Date.now(),
+        // };"
+        console.log("here 2");
       } else {
         if (areTimestampsInSameDay(parseInt(userSnapshot.data().lastLoginAt), new Date())) {
-          return;
+          // userData = {
+          //   lastVisitedAt: Date.now(),
+          // };
         } else {
-          userData = { consecutiveDays: 1 };
+          userData = { consecutiveDays: 1, lastVisitedAt: Date.now() };
         }
       }
+      userData.lastVisitedAt = Date.now();
       try {
         await updateDoc(docRef, userData);
       } catch (error) {

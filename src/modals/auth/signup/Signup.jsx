@@ -54,6 +54,7 @@ const Signup = ({ setLoggingIn }) => {
       const userData = {
         consecutiveDays: 1,
         lastLoginAt: lastLoginAt,
+        lastVisitedAt: lastLoginAt,
         focusedTime: 0,
         numOfStickyNotes: 0,
       };
