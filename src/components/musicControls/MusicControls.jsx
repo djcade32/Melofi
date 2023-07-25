@@ -116,6 +116,7 @@ const MusicControls = () => {
           ref={audioRef}
           src={shuffledSongList[currentMusicIndex].mp3Path}
           onEnded={handleSkipForward}
+          typeof="audio/mpeg"
         />
       )}
       <div className="melofi__musicControls-buttons">

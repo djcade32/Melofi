@@ -78,7 +78,7 @@ const MixerSlider = ({ sound, soundpath, reset, setReset }) => {
 
   return (
     <div className="melofi__mixerSlider-container">
-      <audio ref={audioRef} src={soundpath} loop />
+      <audio ref={audioRef} src={soundpath} typeof="audio/mpeg" loop />
 
       <div className="melofi__mixerSlider-container-label ">
         <p>{sound}</p>
