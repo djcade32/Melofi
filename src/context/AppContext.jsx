@@ -124,22 +124,13 @@ const AppContextProvider = (props) => {
       let userData = {};
       if (isDayBeforeCurrentDate(parseInt(userSnapshot.data().lastLoginAt))) {
         if (isDayBeforeCurrentDate(parseInt(userSnapshot.data().lastVisitedAt))) {
-          console.log("here 1");
           userData = {
             consecutiveDays: userSnapshot.data().consecutiveDays + 1,
             lastVisitedAt: Date.now(),
           };
         }
-        // userData = {
-        //   lastVisitedAt: Date.now(),
-        // };"
-        console.log("here 2");
       } else {
-        if (areTimestampsInSameDay(parseInt(userSnapshot.data().lastLoginAt), new Date())) {
-          // userData = {
-          //   lastVisitedAt: Date.now(),
-          // };
-        } else {
+        if (!areTimestampsInSameDay(parseInt(userSnapshot.data().lastLoginAt), new Date())) {
           userData = { consecutiveDays: 1, lastVisitedAt: Date.now() };
         }
       }
