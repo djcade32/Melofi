@@ -163,7 +163,7 @@ export default function TimerWidget() {
         ref={nodeRef}
         style={{ display: showTimer ? "flex" : "none" }}
       >
-        <audio ref={audioRef} src={alarmSoundPath} loop />
+        <audio ref={audioRef} src={alarmSoundPath} typeof="audio/mpeg" loop />
         <TransitionsModal onClose={onClose} isOpen={modalOpened} />
         <div id="handle" className="melofi__timer_handle">
           <Tooltip text="Reset">
