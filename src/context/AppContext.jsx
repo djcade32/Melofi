@@ -57,6 +57,7 @@ const AppContextProvider = (props) => {
 
   const [loading, setLoading] = useState(true);
   const [newAchievements, setNewAchievements] = useState([]);
+  const [showToaster, setShowToaster] = useState(false);
 
   useEffect(() => {
     setAuthUser(auth);
@@ -107,9 +108,15 @@ const AppContextProvider = (props) => {
 
   useEffect(() => {
     if (newAchievements.length > 0 && user) {
-      console.log("New Achievement gained");
+      setShowToaster(true);
+      setTimeout(() => {
+        setShowToaster(false);
+        setTimeout(() => {
+          setNewAchievements(newAchievements.slice(1));
+        }, 1000);
+      }, 3000);
     }
-  }, [newAchievements]);
+  }, [newAchievements, user]);
 
   function getCurrentScene() {
     return scenes[currentSceneIndex];
@@ -196,6 +203,8 @@ const AppContextProvider = (props) => {
         db,
         newAchievements,
         setNewAchievements,
+        showToaster,
+        setShowToaster,
       }}
     >
       {loading ? <></> : <>{props.children}</>}

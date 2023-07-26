@@ -37,7 +37,7 @@ const ToDoListWidget = React.lazy(() => import("../widgets/toDoListWidget/ToDoLi
 const MobileView = React.lazy(() => import("./MobileView"));
 
 function AppHome() {
-  const { allStickyNotes, usingSpotify } = useAppContext();
+  const { allStickyNotes, usingSpotify, newAchievements } = useAppContext();
   const [isSleep, setIsSleep] = useState(false);
   const [onMobileDevice, setOnMobileDevice] = useState(window.innerWidth < 750 ? true : false);
   const [newToolPopupVisible, setNewToolPopupVisible] = useState(false);

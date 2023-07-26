@@ -4,28 +4,8 @@ import { useAppContext } from "../../context/AppContext";
 import { doc, onSnapshot } from "firebase/firestore";
 import { BsInfoCircle } from "../../imports/icons";
 import Tooltip from "../../components/tooltip/Tooltip";
-import { consistencyChampion, newbie, taskNinja, zenMaster } from "../../imports/badges";
 import AchievementModal from "../../components/achievementModal/achievementModal";
-
-const badgesMap = {
-  consistencyChampion: {
-    title: "Consistency Champ",
-    img: consistencyChampion,
-  },
-  newbie: {
-    title: "Newbie",
-    img: newbie,
-    description: "Earned by creating your very own Melofi account!",
-  },
-  taskNinja: {
-    title: "Task Ninja",
-    img: taskNinja,
-  },
-  zenMaster: {
-    title: "Zen Master",
-    img: zenMaster,
-  },
-};
+import { badgesMap } from "../../data/badges";
 
 const InsightsSection = ({ selected }) => {
   const { db, user } = useAppContext();

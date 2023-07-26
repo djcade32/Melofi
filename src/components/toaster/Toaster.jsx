@@ -1,20 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import Slide from "@mui/material/Slide";
 import { SnackbarContent } from "@mui/material";
-import { consistencyChampion, newbie, taskNinja, zenMaster } from "../../imports/badges";
+import { badgesMap } from "../../data/badges";
+import { useAppContext } from "../../context/AppContext";
 
 function SlideTransition(props) {
   return <Slide {...props} direction="up" />;
 }
 
-const Toaster = ({ text }) => {
+const Toaster = () => {
+  const { newAchievements, showToaster } = useAppContext();
+
   const content = (
     <div style={{ display: "flex", alignItems: "center", columnGap: 10 }}>
-      <img src={newbie} alt="" style={{ width: 50 }} />
+      <img src={badgesMap[newAchievements[0]]?.img} alt="" style={{ width: 50 }} />
       <div>
         <p style={{ fontSize: 18, fontWeight: "bold" }}>Achievement Earned</p>
-        <p style={{ fontSize: 16 }}>Newbie</p>
+        <p style={{ fontSize: 16 }}>{badgesMap[newAchievements[0]]?.title}</p>
       </div>
     </div>
   );
@@ -22,7 +25,7 @@ const Toaster = ({ text }) => {
   return (
     <Snackbar
       anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      open={true}
+      open={showToaster}
       onClose={() => {}}
       TransitionComponent={SlideTransition}
       key={"top" + "center"}
