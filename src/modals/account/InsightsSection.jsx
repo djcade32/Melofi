@@ -5,6 +5,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { BsInfoCircle } from "../../imports/icons";
 import Tooltip from "../../components/tooltip/Tooltip";
 import { consistencyChampion, newbie, taskNinja, zenMaster } from "../../imports/badges";
+import AchievementModal from "../../components/achievementModal/achievementModal";
 
 const badgesMap = {
   consistencyChampion: {
@@ -14,6 +15,7 @@ const badgesMap = {
   newbie: {
     title: "Newbie",
     img: newbie,
+    description: "Earned by creating your very own Melofi account!",
   },
   taskNinja: {
     title: "Task Ninja",
@@ -28,6 +30,8 @@ const badgesMap = {
 const InsightsSection = ({ selected }) => {
   const { db, user } = useAppContext();
   const [userInsights, setUserInsights] = useState(null);
+  const [showAchievementModal, setShowAchievementModal] = useState(false);
+  const [achievementModalInfo, setAchievementModalInfo] = useState(null);
 
   useEffect(() => {
     let unsub = null;
@@ -61,6 +65,11 @@ const InsightsSection = ({ selected }) => {
     return { days, hours, minutes, remainingSeconds };
   };
 
+  const handleShowAchievement = (badge) => {
+    setAchievementModalInfo(badge);
+    setShowAchievementModal(true);
+  };
+
   return (
     <div
       className="melofi__account_content"
@@ -71,10 +80,7 @@ const InsightsSection = ({ selected }) => {
         <span>{userInsights?.lastLoginAt}</span>
       </div>
       <div className="melofi__insights_statContainer">
-        <div
-          style={{ display: "flex", alignItems: "center", columnGap: 10 }}
-          onClick={() => console.log("open achievement modal")}
-        >
+        <div style={{ display: "flex", alignItems: "center", columnGap: 10 }}>
           <p style={{ color: "var(--color-secondary" }}>Consecutive days</p>
           <Tooltip text="The amount of consecutive days you have visited Melofi">
             <BsInfoCircle size={15} color="var(--color-secondary" />
@@ -126,13 +132,24 @@ const InsightsSection = ({ selected }) => {
         </div>
         <div className="melofi__insights_badges">
           {userInsights?.achievements.map((badge) => (
-            <div className="melofi__insights_badgeContainer" key={badgesMap[badge].title}>
+            <div
+              className="melofi__insights_badgeContainer"
+              key={badgesMap[badge].title}
+              onClick={() => handleShowAchievement(badgesMap[badge])}
+            >
               <img src={badgesMap[badge].img} alt="newbie badge" style={{ width: "50%" }} />
               <p>{badgesMap[badge].title}</p>
             </div>
           ))}
         </div>
       </div>
+      {showAchievementModal && (
+        <AchievementModal
+          setShowAchievementModal={setShowAchievementModal}
+          badge={achievementModalInfo}
+          setAchievementModalInfo={setAchievementModalInfo}
+        />
+      )}
     </div>
   );
 };
