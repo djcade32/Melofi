@@ -126,7 +126,7 @@ const InsightsSection = ({ selected }) => {
       <div className="melofi__insights_statContainer">
         <div style={{ display: "flex", alignItems: "center", columnGap: 10 }}>
           <p style={{ color: "var(--color-secondary" }}>Achievements</p>
-          <Tooltip text="Badges you have collected from using Melofi">
+          <Tooltip text="Achievements you have earned while using Melofi">
             <BsInfoCircle size={15} color="var(--color-secondary" />
           </Tooltip>
         </div>
