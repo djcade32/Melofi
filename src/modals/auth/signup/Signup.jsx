@@ -6,7 +6,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
 const Signup = ({ setLoggingIn }) => {
-  const { authUser, setUser, setShowAuthModal, db, user } = useAppContext();
+  const { authUser, setUser, setShowAuthModal, db, setNewAchievements } = useAppContext();
   const [formInputs, setFormInputs] = useState({
     email: "",
     password: "",
@@ -57,8 +57,10 @@ const Signup = ({ setLoggingIn }) => {
         lastVisitedAt: lastLoginAt,
         focusedTime: 0,
         numOfStickyNotes: 0,
+        achievement: ["newbie"],
       };
       await setDoc(usersDoc, userData);
+      setNewAchievements((prev) => [...prev, "newbie"]);
     } catch (error) {
       console.log("Error creating new user in db");
       console.log(error);

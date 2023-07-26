@@ -109,3 +109,27 @@
     color: var(--color-effect-opacity);
 }
 
+.melofi__insights_badges {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 10px;
+}
+
+.melofi__insights_badgeContainer {
+    font-family: var(--font-primary);
+    color: white;
+    width: 110px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+    font-size: 16px;
+}
+
+.melofi__insights_badgeContainer p {
+    width: 100%;
+    line-height:1.25;
+}
+

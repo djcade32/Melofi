@@ -56,6 +56,7 @@ const AppContextProvider = (props) => {
   const [shuffledSongList, setShuffledSongList] = useState(null);
 
   const [loading, setLoading] = useState(true);
+  const [newAchievements, setNewAchievements] = useState([]);
 
   useEffect(() => {
     setAuthUser(auth);
@@ -103,6 +104,12 @@ const AppContextProvider = (props) => {
       );
     }
   }, []);
+
+  useEffect(() => {
+    if (newAchievements.length > 0 && user) {
+      console.log("New Achievement gained");
+    }
+  }, [newAchievements]);
 
   function getCurrentScene() {
     return scenes[currentSceneIndex];
@@ -187,6 +194,8 @@ const AppContextProvider = (props) => {
         setShowAccount,
         showAccount,
         db,
+        newAchievements,
+        setNewAchievements,
       }}
     >
       {loading ? <></> : <>{props.children}</>}

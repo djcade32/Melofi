@@ -4,6 +4,26 @@ import { useAppContext } from "../../context/AppContext";
 import { doc, onSnapshot } from "firebase/firestore";
 import { BsInfoCircle } from "../../imports/icons";
 import Tooltip from "../../components/tooltip/Tooltip";
+import { consistencyChampion, newbie, taskNinja, zenMaster } from "../../imports/badges";
+
+const badgesMap = {
+  consistencyChampion: {
+    title: "Consistency Champ",
+    img: consistencyChampion,
+  },
+  newbie: {
+    title: "Newbie",
+    img: newbie,
+  },
+  taskNinja: {
+    title: "Task Ninja",
+    img: taskNinja,
+  },
+  zenMaster: {
+    title: "Zen Master",
+    img: zenMaster,
+  },
+};
 
 const InsightsSection = ({ selected }) => {
   const { db, user } = useAppContext();
@@ -13,12 +33,14 @@ const InsightsSection = ({ selected }) => {
     let unsub = null;
     if (user) {
       unsub = onSnapshot(doc(db, `users/${user.uid}`), (doc) => {
-        const { lastLoginAt, focusedTime, numOfStickyNotes, consecutiveDays } = doc.data();
+        const { lastLoginAt, focusedTime, numOfStickyNotes, consecutiveDays, achievements } =
+          doc.data();
         setUserInsights({
           lastLoginAt: getDate(lastLoginAt),
           focusedTime: convertTime(focusedTime),
           numOfStickyNotes: numOfStickyNotes,
           consecutiveDays: consecutiveDays,
+          achievements: achievements,
         });
       });
     }
@@ -49,9 +71,12 @@ const InsightsSection = ({ selected }) => {
         <span>{userInsights?.lastLoginAt}</span>
       </div>
       <div className="melofi__insights_statContainer">
-        <div style={{ display: "flex", alignItems: "center", columnGap: 10 }}>
+        <div
+          style={{ display: "flex", alignItems: "center", columnGap: 10 }}
+          onClick={() => console.log("open achievement modal")}
+        >
           <p style={{ color: "var(--color-secondary" }}>Consecutive days</p>
-          <Tooltip text="The amount of consecutive days you have visited Melofi.">
+          <Tooltip text="The amount of consecutive days you have visited Melofi">
             <BsInfoCircle size={15} color="var(--color-secondary" />
           </Tooltip>
         </div>
@@ -64,7 +89,7 @@ const InsightsSection = ({ selected }) => {
       <div className="melofi__insights_statContainer">
         <div style={{ display: "flex", alignItems: "center", columnGap: 10 }}>
           <p style={{ color: "var(--color-secondary" }}>Focused time</p>
-          <Tooltip text="The total amount of time you have set the timer widget for.">
+          <Tooltip text="The total amount of time you have set the timer widget for">
             <BsInfoCircle size={15} color="var(--color-secondary" />
           </Tooltip>
         </div>
@@ -91,6 +116,22 @@ const InsightsSection = ({ selected }) => {
             ? "seconds"
             : "second"}
         </p>
+      </div>
+      <div className="melofi__insights_statContainer">
+        <div style={{ display: "flex", alignItems: "center", columnGap: 10 }}>
+          <p style={{ color: "var(--color-secondary" }}>Achievements</p>
+          <Tooltip text="Badges you have collected from using Melofi">
+            <BsInfoCircle size={15} color="var(--color-secondary" />
+          </Tooltip>
+        </div>
+        <div className="melofi__insights_badges">
+          {userInsights?.achievements.map((badge) => (
+            <div className="melofi__insights_badgeContainer" key={badgesMap[badge].title}>
+              <img src={badgesMap[badge].img} alt="newbie badge" style={{ width: "50%" }} />
+              <p>{badgesMap[badge].title}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
