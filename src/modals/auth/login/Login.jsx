@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./login.css";
 import { useAppContext } from "../../../context/AppContext";
 import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
@@ -6,7 +6,7 @@ import { useAuthContext } from "../../../context/AuthContext";
 
 const Login = ({ setLoggingIn }) => {
   const { auth, setUser } = useAuthContext();
-  const { setShowAuthModal, updateUserLastLoginAt } = useAppContext();
+  const { showAuthModal, setShowAuthModal, updateUserLastLoginAt } = useAppContext();
   const [formInputs, setFormInputs] = useState({
     email: "",
     password: "",
@@ -15,6 +15,10 @@ const Login = ({ setLoggingIn }) => {
   const [resetPasswordInput, setResetPasswordInput] = useState("");
   const [showPasswordReset, setShowPasswordReset] = useState(false);
   const [resetPasswordLinkSent, setResetPasswordLinkSent] = useState(false);
+
+  useEffect(() => {
+    resetForm();
+  }, [showAuthModal]);
 
   const loginWithEmailAndPassword = async () => {
     checkValidForm();

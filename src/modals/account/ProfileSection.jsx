@@ -72,7 +72,7 @@ const ProfileSection = ({ selected }) => {
     if (passwordInputs.new.length < 6) {
       setPasswordInputs({
         ...passwordInputs,
-        error: "New password should be at least 6 characters.",
+        error: "New password must be at least 6 characters.",
       });
       return;
     }
