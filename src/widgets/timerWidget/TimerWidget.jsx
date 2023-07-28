@@ -17,6 +17,7 @@ import Tooltip from "../../components/tooltip/Tooltip";
 import alarmSoundPath from "../../assets/timer_alarm.mp3";
 import TransitionsModal from "../../components/transitionsModal/TransitionsModal";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { useAuthContext } from "../../context/AuthContext";
 
 const iconProps = {
   size: 33,
@@ -42,7 +43,8 @@ export default function TimerWidget() {
   const nodeRef = useRef(null);
   const audioRef = useRef(null);
 
-  const { setShowTimer, showTimer, settingsConfig, user, db, setNewAchievements, newAchievements } =
+  const { user, db } = useAuthContext();
+  const { setShowTimer, showTimer, settingsConfig, setNewAchievements, newAchievements } =
     useAppContext();
 
   const [webWorkerTime, setWebWorkerTime] = useState(0);

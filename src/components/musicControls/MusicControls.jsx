@@ -13,6 +13,7 @@ import VolumeSlider from "../volumeSlider/VolumeSlider";
 import { useAppContext } from "../../context/AppContext";
 import Tooltip from "../tooltip/Tooltip";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { useAuthContext } from "../../context/AuthContext";
 
 const iconProps = {
   size: 20,
@@ -23,15 +24,9 @@ const iconProps = {
 const MusicControls = () => {
   const audioRef = useRef(null);
   const volumeContainerRef = useRef(null);
-  const {
-    musicVolume,
-    setMusicVolume,
-    setCurrentSongInfo,
-    shuffledSongList,
-    db,
-    user,
-    setNewAchievements,
-  } = useAppContext();
+  const { db, user } = useAuthContext();
+  const { musicVolume, setMusicVolume, setCurrentSongInfo, shuffledSongList, setNewAchievements } =
+    useAppContext();
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);

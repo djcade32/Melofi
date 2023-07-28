@@ -8,9 +8,11 @@ import {
   updateEmail,
   updatePassword,
 } from "firebase/auth";
+import { useAuthContext } from "../../context/AuthContext";
 
 const ProfileSection = ({ selected }) => {
-  const { user, auth, showAccount } = useAppContext();
+  const { user, auth } = useAuthContext();
+  const { showAccount } = useAppContext();
   const [emailInput, setEmailInput] = useState({ text: "", error: "" });
   const [editEmail, setEditEmail] = useState(false);
   const [passwordInputs, setPasswordInputs] = useState({

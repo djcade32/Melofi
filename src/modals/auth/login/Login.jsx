@@ -3,9 +3,11 @@ import "./login.css";
 import { useAppContext } from "../../../context/AppContext";
 import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { useAuthContext } from "../../../context/AuthContext";
 
 const Login = ({ setLoggingIn }) => {
-  const { auth, setUser, setShowAuthModal, db, setNewAchievements } = useAppContext();
+  const { auth, setUser, db } = useAuthContext();
+  const { setShowAuthModal, setNewAchievements } = useAppContext();
   const [formInputs, setFormInputs] = useState({
     email: "",
     password: "",

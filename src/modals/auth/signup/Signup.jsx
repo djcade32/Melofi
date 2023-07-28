@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import { useAppContext } from "../../../context/AppContext";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { useAuthContext } from "../../../context/AuthContext";
 
 const Signup = ({ setLoggingIn }) => {
-  const { auth, setUser, setShowAuthModal, db, setNewAchievements } = useAppContext();
+  const { auth, setUser, db } = useAuthContext();
+  const { setShowAuthModal, setNewAchievements } = useAppContext();
   const [formInputs, setFormInputs] = useState({
     email: "",
     password: "",

@@ -94,13 +94,6 @@ const InsightsSection = ({ selected, setShowAchievementModal, setAchievementModa
             ))}
         </div>
       </div>
-      {/* {showAchievementModal && (
-        <AchievementModal
-          setShowAchievementModal={setShowAchievementModal}
-          badge={achievementModalInfo}
-          setAchievementModalInfo={setAchievementModalInfo}
-        />
-      )} */}
     </div>
   );
 };

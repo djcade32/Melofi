@@ -6,12 +6,13 @@ import Draggable from "react-draggable";
 import ToDoListItem from "./ToDoListItem";
 import { isSafariBrowser } from "../../helpers/browser";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { useAuthContext } from "../../context/AuthContext";
 
 const ToDoListWidget = () => {
   const nodeRef = useRef(null);
   const plusRef = useRef(null);
-  const { setShowToDoList, showToDoList, settingsConfig, user, db, setNewAchievements } =
-    useAppContext();
+  const { user, db } = useAuthContext();
+  const { setShowToDoList, showToDoList, settingsConfig, setNewAchievements } = useAppContext();
   const [list, setList] = useState(JSON.parse(localStorage.getItem("toDoList")) || []);
   const [input, setInput] = useState("");
   const [position, setPosition] = useState(

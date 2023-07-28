@@ -2,7 +2,7 @@ import { createContext, useState, useContext, useEffect } from "react";
 
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc, getFirestore, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, getFirestore, onSnapshot } from "firebase/firestore";
 import { timeStampToDateString } from "../helpers/dateUtils";
 import { durationInDHMS } from "../helpers/strings";
 
@@ -27,8 +27,6 @@ const AuthContext = createContext({});
 const AuthContextProvider = (props) => {
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState(null);
-  const [unsub, setUnsub] = useState(null);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -75,7 +73,6 @@ const AuthContextProvider = (props) => {
         db,
         auth,
         userData,
-        unsub,
       }}
     >
       {loading ? <></> : <>{props.children}</>}
