@@ -3,7 +3,7 @@ import { scenes } from "../data/scenes";
 import { items as songs } from "../data/songs";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { areTimestampsInSameDay, isDayBeforeCurrentDate } from "../helpers/dateUtils";
-import { getTimerWorkerUrl } from "../widgets/timerWidget/worker-script";
+import { getTimerWorkerUrl } from "../scripts/worker-script";
 import { useAuthContext } from "./AuthContext";
 
 const AppContext = createContext({});

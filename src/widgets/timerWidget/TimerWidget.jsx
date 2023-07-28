@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { getTimerWorkerUrl } from "./worker-script";
+import { getTimerWorkerUrl } from "../../scripts/worker-script";
 import "./timerWidget.css";
 import { useAppContext } from "../../context/AppContext";
 import Draggable from "react-draggable";
