@@ -1,6 +1,6 @@
 .melofi__account {
     width: 550px;
-    height: 600px;
+    height: 450px;
     background-color: var(--color-primary);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(10px);
@@ -8,6 +8,8 @@
     display: flex;
     font-family: var(--font-primary);
     color: white;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .melofi__account_header {
@@ -112,9 +114,9 @@
 
 .melofi__insights_badges {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    row-gap: 10px;
+    row-gap: 20px;
+    column-gap: 5%;
 }
 
 .melofi__insights_badgeContainer {
@@ -133,5 +135,10 @@
 .melofi__insights_badgeContainer p {
     width: 100%;
     line-height:1.25;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
 }
 

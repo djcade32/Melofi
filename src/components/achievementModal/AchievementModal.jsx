@@ -6,8 +6,7 @@ const AchievementModal = ({ badge, setShowAchievementModal, setAchievementModalI
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setShowAchievementModal(false);
-        setAchievementModalInfo(null);
+        closeModal();
       }
     };
     document.addEventListener("click", handleClickOutside, true);
@@ -16,11 +15,23 @@ const AchievementModal = ({ badge, setShowAchievementModal, setAchievementModalI
     };
   }, []);
 
+  const closeModal = () => {
+    setShowAchievementModal(false);
+    setAchievementModalInfo(null);
+  };
+
   return (
     <div ref={modalRef} className="--widget-container melofi__achievementModal">
-      <p>{badge.title}</p>
-      <div style={{ border: "1px solid var(--color-secondary-opacity)" }} />
-      <p>{badge.description}</p>
+      <div>
+        <p>{badge.title}</p>
+        <div style={{ border: "1px solid var(--color-secondary-opacity)" }} />
+        <p>{badge.description}</p>
+      </div>
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <p className="melofi__achievementModal_closeButton" onClick={closeModal}>
+          Close
+        </p>
+      </div>
     </div>
   );
 };

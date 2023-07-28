@@ -57,7 +57,11 @@ const Signup = ({ setLoggingIn }) => {
         lastVisitedAt: lastLoginAt,
         focusedTime: 0,
         numOfStickyNotes: 0,
-        achievement: ["newbie"],
+        achievements: ["newbie"],
+        achievementsProgress: {
+          taskNinja: 0,
+          zenMaster: 0,
+        },
       };
       await setDoc(usersDoc, userData);
       setNewAchievements((prev) => [...prev, "newbie"]);

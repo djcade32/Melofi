@@ -71,8 +71,7 @@ const Login = ({ setLoggingIn }) => {
         lastVisitedAt: user.metadata.lastLoginAt,
       };
       if (!userSnapshot.data().achievements.includes("newbie")) {
-        userData.achievements = ["newbie"];
-        console.log("newbie achievement gained");
+        userData.achievements = [...userSnapshot.data().achievements, "newbie"];
         setNewAchievements((prev) => [...prev, "newbie"]);
       }
       try {

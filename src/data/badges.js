@@ -23,7 +23,7 @@ export const badgesMap = {
     title: "Task Ninja",
     img: taskNinja,
     description:
-      "Earned by having exceptional task management and completion skills. You have completed 25 to-do list items.",
+      "Earned by having exceptional task management skills. You have created 25 to-do list task.",
   },
   zenMaster: {
     title: "Zen Master",

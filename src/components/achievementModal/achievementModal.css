@@ -1,6 +1,6 @@
 .melofi__achievementModal {
     width: 300px;
-    height: 125px;
+    height: 130px;
     background-color: rgb(35,35,35);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(10px);
@@ -15,4 +15,11 @@
 .melofi__achievementModal p:last-child{
     font-size: 16px;
     margin-top: 5px;
+}
+
+.melofi__achievementModal_closeButton {
+    padding: 2px 5px;
+    cursor: pointer;
+    color: var(--color-secondary);
+    font-size: 16px;
 }
