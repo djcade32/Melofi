@@ -3,12 +3,16 @@ import "./account.css";
 import { useAppContext } from "../../context/AppContext";
 import { IoCloseOutline } from "../../imports/icons";
 import ProfileSection from "./ProfileSection";
-import InsightsSection from "./InsightsSection";
+// import InsightsSection from "./InsightsSection";
+const InsightsSection = React.lazy(() => import("./InsightsSection"));
 import { signOut } from "firebase/auth";
+import AchievementModal from "../../components/achievementModal/achievementModal";
 
 const Account = () => {
   const { showAccount, setShowAccount, authUser, setUser } = useAppContext();
   const [selected, setSelected] = useState("profile");
+  const [showAchievementModal, setShowAchievementModal] = useState(false);
+  const [achievementModalInfo, setAchievementModalInfo] = useState(null);
 
   const handleLogout = async () => {
     try {
@@ -21,7 +25,7 @@ const Account = () => {
   return (
     <div
       className="--widget-container melofi__account"
-      style={{ display: showAccount ? "flex" : "none", padding: "20px 0px" }}
+      style={{ display: showAccount ? "flex" : "none" }}
     >
       <IoCloseOutline
         size={30}
@@ -29,7 +33,7 @@ const Account = () => {
         onClick={() => setShowAccount((prev) => !prev)}
         style={{ cursor: "pointer", position: "absolute", top: 20, right: 20 }}
       />
-      <div style={{ display: "flex", marginTop: 35, height: "100%" }}>
+      <div style={{ display: "flex", height: "100%", marginTop: 35 }}>
         <div
           style={{
             borderRight: "1px solid var(--color-secondary-opacity)",
@@ -60,8 +64,21 @@ const Account = () => {
             Logout
           </p>
         </div>
-        <ProfileSection selected={selected} />
-        <InsightsSection selected={selected} />
+        <div style={{ position: "relative" }}>
+          <ProfileSection selected={selected} />
+          <InsightsSection
+            selected={selected}
+            setShowAchievementModal={setShowAchievementModal}
+            setAchievementModalInfo={setAchievementModalInfo}
+          />
+          {showAchievementModal && (
+            <AchievementModal
+              setShowAchievementModal={setShowAchievementModal}
+              badge={achievementModalInfo}
+              setAchievementModalInfo={setAchievementModalInfo}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
