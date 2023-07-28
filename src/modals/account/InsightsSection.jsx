@@ -4,21 +4,27 @@ import { useAppContext } from "../../context/AppContext";
 import { doc, onSnapshot } from "firebase/firestore";
 import { BsInfoCircle } from "../../imports/icons";
 import Tooltip from "../../components/tooltip/Tooltip";
+import AchievementModal from "../../components/achievementModal/achievementModal";
+import { badgesMap } from "../../data/badges";
 
-const InsightsSection = ({ selected }) => {
+const InsightsSection = ({ selected, setShowAchievementModal, setAchievementModalInfo }) => {
   const { db, user } = useAppContext();
   const [userInsights, setUserInsights] = useState(null);
+  // const [showAchievementModal, setShowAchievementModal] = useState(false);
+  // const [achievementModalInfo, setAchievementModalInfo] = useState(null);
 
   useEffect(() => {
     let unsub = null;
     if (user) {
       unsub = onSnapshot(doc(db, `users/${user.uid}`), (doc) => {
-        const { lastLoginAt, focusedTime, numOfStickyNotes, consecutiveDays } = doc.data();
+        const { lastLoginAt, focusedTime, numOfStickyNotes, consecutiveDays, achievements } =
+          doc.data();
         setUserInsights({
           lastLoginAt: getDate(lastLoginAt),
           focusedTime: convertTime(focusedTime),
           numOfStickyNotes: numOfStickyNotes,
           consecutiveDays: consecutiveDays,
+          achievements: achievements,
         });
       });
     }
@@ -29,8 +35,9 @@ const InsightsSection = ({ selected }) => {
     return `${date.toDateString()} ${date.toLocaleTimeString()}`;
   };
 
-  const convertTime = (seconds) => {
-    seconds = seconds / 100;
+  const convertTime = (milliseconds) => {
+    // Convert milliseconds to seconds
+    const seconds = milliseconds / 100;
     const days = Math.floor(seconds / 86400);
     const hours = Math.floor((seconds % 86400) / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -39,10 +46,15 @@ const InsightsSection = ({ selected }) => {
     return { days, hours, minutes, remainingSeconds };
   };
 
+  const handleShowAchievement = (badge) => {
+    setAchievementModalInfo(badge);
+    setShowAchievementModal(true);
+  };
+
   return (
     <div
       className="melofi__account_content"
-      style={{ display: selected === "insights" ? "flex" : "none" }}
+      style={{ display: selected === "insights" ? "flex" : "none", overflow: "scroll" }}
     >
       <div className="melofi__insights_statContainer">
         <p style={{ color: "var(--color-secondary" }}>Last login time</p>
@@ -51,7 +63,7 @@ const InsightsSection = ({ selected }) => {
       <div className="melofi__insights_statContainer">
         <div style={{ display: "flex", alignItems: "center", columnGap: 10 }}>
           <p style={{ color: "var(--color-secondary" }}>Consecutive days</p>
-          <Tooltip text="The amount of consecutive days you have visited Melofi.">
+          <Tooltip text="The amount of consecutive days you have visited Melofi">
             <BsInfoCircle size={15} color="var(--color-secondary" />
           </Tooltip>
         </div>
@@ -64,7 +76,7 @@ const InsightsSection = ({ selected }) => {
       <div className="melofi__insights_statContainer">
         <div style={{ display: "flex", alignItems: "center", columnGap: 10 }}>
           <p style={{ color: "var(--color-secondary" }}>Focused time</p>
-          <Tooltip text="The total amount of time you have set the timer widget for.">
+          <Tooltip text="The total amount of time you have set the timer widget for">
             <BsInfoCircle size={15} color="var(--color-secondary" />
           </Tooltip>
         </div>
@@ -92,6 +104,34 @@ const InsightsSection = ({ selected }) => {
             : "second"}
         </p>
       </div>
+      <div className="melofi__insights_statContainer">
+        <div style={{ display: "flex", alignItems: "center", columnGap: 10 }}>
+          <p style={{ color: "var(--color-secondary" }}>Achievements</p>
+          <Tooltip text="Achievements you have earned while using Melofi">
+            <BsInfoCircle size={15} color="var(--color-secondary" />
+          </Tooltip>
+        </div>
+        <div className="melofi__insights_badges">
+          {userInsights !== null &&
+            userInsights?.achievements?.map((badge) => (
+              <div
+                className="melofi__insights_badgeContainer"
+                key={badgesMap[badge].title}
+                onClick={() => handleShowAchievement(badgesMap[badge])}
+              >
+                <img src={badgesMap[badge].img} alt="newbie badge" style={{ width: "50%" }} />
+                <p>{badgesMap[badge].title}</p>
+              </div>
+            ))}
+        </div>
+      </div>
+      {/* {showAchievementModal && (
+        <AchievementModal
+          setShowAchievementModal={setShowAchievementModal}
+          badge={achievementModalInfo}
+          setAchievementModalInfo={setAchievementModalInfo}
+        />
+      )} */}
     </div>
   );
 };

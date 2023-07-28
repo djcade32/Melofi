@@ -5,11 +5,13 @@ import { useAppContext } from "../../context/AppContext";
 import Draggable from "react-draggable";
 import ToDoListItem from "./ToDoListItem";
 import { isSafariBrowser } from "../../helpers/browser";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 const ToDoListWidget = () => {
   const nodeRef = useRef(null);
   const plusRef = useRef(null);
-  const { setShowToDoList, showToDoList, settingsConfig } = useAppContext();
+  const { setShowToDoList, showToDoList, settingsConfig, user, db, setNewAchievements } =
+    useAppContext();
   const [list, setList] = useState(JSON.parse(localStorage.getItem("toDoList")) || []);
   const [input, setInput] = useState("");
   const [position, setPosition] = useState(
@@ -33,11 +35,16 @@ const ToDoListWidget = () => {
     const inputTrim = input.trim();
     if (inputTrim !== "") {
       const newTask = {
+        id: list.length,
         title: inputTrim,
         isDone: false,
       };
       setList((prev) => [...prev, newTask]);
       setInput("");
+      console.log("adding task");
+      if (user !== null) {
+        updateTaskNinjaAchievement();
+      }
     }
   };
 
@@ -63,6 +70,30 @@ const ToDoListWidget = () => {
     return settingsConfig.fadeAway.todoList
       ? { display: showToDoList ? "flex" : "none", height: determineHeight(list) }
       : noFadeStyle;
+  };
+
+  const updateTaskNinjaAchievement = async () => {
+    const docRef = doc(db, `users/${user.uid}`);
+    const userSnapshot = await getDoc(docRef);
+    if (userSnapshot.exists()) {
+      const newData = userSnapshot.data().achievementsProgress.taskNinja + 1;
+      let userData = {
+        achievementsProgress: {
+          ...userSnapshot.data().achievementsProgress,
+          taskNinja: newData,
+        },
+      };
+      if (!userSnapshot.data().achievements.includes("taskNinja") && newData >= 25) {
+        console.log("achieved task ninjas");
+        userData.achievements = [...userSnapshot.data().achievements, "taskNinja"];
+        setNewAchievements((prev) => [...prev, "taskNinja"]);
+      }
+      try {
+        await updateDoc(docRef, userData);
+      } catch (error) {
+        console.log("Error updating user lastLoginAt: ", error);
+      }
+    }
   };
 
   const noFadeStyle = {
@@ -122,6 +153,7 @@ const ToDoListWidget = () => {
               isDone={task.isDone}
               list={list}
               setList={setList}
+              id={task.id}
             />
           ))}
         </div>

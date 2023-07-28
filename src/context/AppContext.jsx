@@ -5,6 +5,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { areTimestampsInSameDay, isDayBeforeCurrentDate } from "../helpers/dateUtils";
+import { getTimerWorkerUrl } from "../widgets/timerWidget/worker-script";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_GOOGLE_API,
@@ -23,6 +24,8 @@ const auth = getAuth(app);
 const db = getFirestore();
 
 const AppContext = createContext({});
+
+const worker = new Worker(getTimerWorkerUrl());
 
 const AppContextProvider = (props) => {
   const [authUser, setAuthUser] = useState(null);
@@ -56,6 +59,9 @@ const AppContextProvider = (props) => {
   const [shuffledSongList, setShuffledSongList] = useState(null);
 
   const [loading, setLoading] = useState(true);
+  const [newAchievements, setNewAchievements] = useState([]);
+  const [showToaster, setShowToaster] = useState(false);
+  const [webWorkerTime, setWebWorkerTime] = useState(7200);
 
   useEffect(() => {
     setAuthUser(auth);
@@ -69,6 +75,7 @@ const AppContextProvider = (props) => {
     }
     if (user) {
       incrementConsecutiveDays();
+      checkFocusedWorkaholicAchievement();
     }
   }, [auth, user]);
 
@@ -104,9 +111,29 @@ const AppContextProvider = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    console.log("notifications: ", newAchievements);
+    if (newAchievements.length > 0 && user) {
+      setShowToaster(true);
+      setTimeout(() => {
+        setShowToaster(false);
+        setTimeout(() => {
+          setNewAchievements(newAchievements.slice(1));
+        }, 1000);
+      }, 3000);
+    }
+  }, [newAchievements, user]);
+
   function getCurrentScene() {
     return scenes[currentSceneIndex];
   }
+
+  useEffect(() => {
+    if (webWorkerTime <= 0 && user) {
+      worker.postMessage({ turn: "off", timeInput: 0 });
+      addFocusedWorkaholicAchievement();
+    }
+  }, [webWorkerTime]);
 
   const shuffleSongs = () => {
     let shuffled = songs
@@ -124,10 +151,18 @@ const AppContextProvider = (props) => {
       let userData = {};
       if (isDayBeforeCurrentDate(parseInt(userSnapshot.data().lastLoginAt))) {
         if (isDayBeforeCurrentDate(parseInt(userSnapshot.data().lastVisitedAt))) {
+          const numOfDays = userSnapshot.data().consecutiveDays + 1;
           userData = {
-            consecutiveDays: userSnapshot.data().consecutiveDays + 1,
+            consecutiveDays: numOfDays,
             lastVisitedAt: Date.now(),
           };
+          if (
+            numOfDays >= 30 &&
+            !userSnapshot.data().achievements.includes("consistencyChampion")
+          ) {
+            setNewAchievements((prev) => [...prev, "consistencyChampion"]);
+            userData.achievements = [...userSnapshot.data().achievements, "consistencyChampion"];
+          }
         }
       } else {
         if (!areTimestampsInSameDay(parseInt(userSnapshot.data().lastLoginAt), new Date())) {
@@ -139,6 +174,35 @@ const AppContextProvider = (props) => {
         await updateDoc(docRef, userData);
       } catch (error) {
         console.log("Error updating consecutive days: ", error);
+      }
+    }
+  };
+
+  const checkFocusedWorkaholicAchievement = async () => {
+    const docRef = doc(db, `users/${auth.currentUser.uid}`);
+    const userSnapshot = await getDoc(docRef);
+    if (userSnapshot.exists()) {
+      if (!userSnapshot.data().achievements.includes("focusedWorkaholic")) {
+        worker.onmessage = ({ data: { time } }) => {
+          setWebWorkerTime(time);
+        };
+        worker.postMessage({ turn: "on", timeInput: webWorkerTime });
+      }
+    }
+  };
+
+  const addFocusedWorkaholicAchievement = async () => {
+    const docRef = doc(db, `users/${auth.currentUser.uid}`);
+    const userSnapshot = await getDoc(docRef);
+    if (userSnapshot.exists()) {
+      let userData = {
+        achievements: [...userSnapshot.data().achievements, "focusedWorkaholic"],
+      };
+      setNewAchievements((prev) => [...prev, "focusedWorkaholic"]);
+      try {
+        await updateDoc(docRef, userData);
+      } catch (error) {
+        console.log("Error updating achievements with focusedWorkaholic achievement: ", error);
       }
     }
   };
@@ -187,6 +251,10 @@ const AppContextProvider = (props) => {
         setShowAccount,
         showAccount,
         db,
+        newAchievements,
+        setNewAchievements,
+        showToaster,
+        setShowToaster,
       }}
     >
       {loading ? <></> : <>{props.children}</>}

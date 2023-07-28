@@ -1,6 +1,6 @@
 .melofi__account {
     width: 550px;
-    height: 600px;
+    height: 450px;
     background-color: var(--color-primary);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(10px);
@@ -8,6 +8,8 @@
     display: flex;
     font-family: var(--font-primary);
     color: white;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .melofi__account_header {
@@ -15,6 +17,7 @@
 }
 
 .melofi__account_content {
+    position: relative;
     height: 100%;
     width: 100%;
     padding: 0px 15px;
@@ -90,7 +93,7 @@
 .melofi__account_reauthenticateModal {
     width: 200px;
     height: 150px;
-    background-color: var(--color-primary);
+    background-color: rgb(35,35,35);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(10px);
     display: flex;
@@ -107,5 +110,35 @@
 
 .melofi__insights_statContainer span {
     color: var(--color-effect-opacity);
+}
+
+.melofi__insights_badges {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    column-gap: 5%;
+}
+
+.melofi__insights_badgeContainer {
+    font-family: var(--font-primary);
+    color: white;
+    width: 110px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.melofi__insights_badgeContainer p {
+    width: 100%;
+    line-height:1.25;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
 }
 

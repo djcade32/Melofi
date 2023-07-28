@@ -5,7 +5,7 @@ import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/aut
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 const Login = ({ setLoggingIn }) => {
-  const { authUser, setUser, setShowAuthModal, db } = useAppContext();
+  const { authUser, setUser, setShowAuthModal, db, setNewAchievements } = useAppContext();
   const [formInputs, setFormInputs] = useState({
     email: "",
     password: "",
@@ -24,7 +24,6 @@ const Login = ({ setLoggingIn }) => {
         formInputs.email,
         formInputs.password
       );
-      console.log("userCreds: ", userCredentials.user);
       setUser(userCredentials.user);
       updateUserLastLoginAt(userCredentials.user);
       resetForm();
@@ -67,10 +66,14 @@ const Login = ({ setLoggingIn }) => {
     const docRef = doc(db, `users/${user.uid}`);
     const userSnapshot = await getDoc(docRef);
     if (userSnapshot.exists()) {
-      const userData = {
+      let userData = {
         lastLoginAt: user.metadata.lastLoginAt,
         lastVisitedAt: user.metadata.lastLoginAt,
       };
+      if (!userSnapshot.data().achievements.includes("newbie")) {
+        userData.achievements = [...userSnapshot.data().achievements, "newbie"];
+        setNewAchievements((prev) => [...prev, "newbie"]);
+      }
       try {
         await updateDoc(docRef, userData);
       } catch (error) {
