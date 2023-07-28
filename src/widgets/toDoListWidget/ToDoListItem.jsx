@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./toDoListItem.css";
 import { IoCloseOutline } from "../../imports/icons";
 
-const ToDoListItem = ({ isDone, title, list, setList }) => {
+const ToDoListItem = ({ isDone, title, list, setList, id }) => {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
@@ -11,13 +11,13 @@ const ToDoListItem = ({ isDone, title, list, setList }) => {
 
   const handleTaskComplete = () => {
     const newList = [];
-
     list.map((task) => {
       const newTask = {
+        id: task.id,
         title: task.title,
         isDone: task.isDone,
       };
-      if (task.title === title) {
+      if (task.id === id) {
         newTask.isDone = !done;
       }
       newList.push(newTask);
@@ -26,7 +26,7 @@ const ToDoListItem = ({ isDone, title, list, setList }) => {
   };
 
   const handleTaskDelete = () => {
-    const newList = list.filter((task) => task.title !== title);
+    const newList = list.filter((task) => task.id !== id);
     setList(newList);
   };
   return (

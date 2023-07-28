@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./appHome.css";
 
 import logo from "../assets/logo.png";
+import notificationSound from "../assets/notification_sound.mp3";
 
 import { useAppContext } from "../context/AppContext";
 import { RiFullscreenFill, RiFullscreenExitLine, GiTacos } from "../imports/icons";
@@ -25,18 +26,22 @@ const MixerButton = React.lazy(() => import("../modals/mixer/MixerButton"));
 const MixerModal = React.lazy(() => import("../modals/mixer/MixerModal"));
 const SceneButton = React.lazy(() => import("../modals/scene/SceneButton"));
 const SceneModal = React.lazy(() => import("../modals/scene/SceneModal"));
+const Account = React.lazy(() => import("../modals/account/Account"));
 
 // Import widgets
 import StickyNoteWidget from "../widgets/stickyNoteWidget/StickyNoteWidget";
 import AuthModal from "../modals/auth/authModal/AuthModal";
-import Account from "../modals/account/Account";
+import Toaster from "../components/toaster/Toaster";
 const CalendarWidget = React.lazy(() => import("../widgets/calendarWidget/CalendarWidget"));
 const TimerWidget = React.lazy(() => import("../widgets/timerWidget/TimerWidget"));
 const ToDoListWidget = React.lazy(() => import("../widgets/toDoListWidget/ToDoListWidget"));
 const MobileView = React.lazy(() => import("./MobileView"));
 
 function AppHome() {
-  const { allStickyNotes, usingSpotify } = useAppContext();
+  const { allStickyNotes, usingSpotify, newAchievements } = useAppContext();
+
+  const notificationSoundRef = useRef(null);
+
   const [isSleep, setIsSleep] = useState(false);
   const [onMobileDevice, setOnMobileDevice] = useState(window.innerWidth < 750 ? true : false);
   const [newToolPopupVisible, setNewToolPopupVisible] = useState(false);
@@ -105,11 +110,23 @@ function AppHome() {
     }
   }, []);
 
+  useEffect(() => {
+    if (newAchievements.length > 0) {
+      notificationSoundRef.current.play();
+    }
+  }, [newAchievements]);
+
   return (
     <FullScreen handle={handle}>
       {!onMobileDevice ? (
         <div className="App" id="app" style={isSleep ? { cursor: "none" } : {}}>
           <SceneBg />
+          <audio
+            ref={notificationSoundRef}
+            id="notification_sound"
+            src={notificationSound}
+            typeof="audio/mpeg"
+          />
 
           {/* Header */}
           <div
@@ -179,6 +196,7 @@ function AppHome() {
           <Account />
           <Settings />
           <AboutMelofi />
+          <Toaster />
 
           {/* Footer */}
           <div

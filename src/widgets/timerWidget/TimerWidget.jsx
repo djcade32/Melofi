@@ -36,11 +36,14 @@ const worker = new Worker(getTimerWorkerUrl());
 
 const numbersRegex = /^[0-9]+$/;
 
+const dayInSeconds = 86400;
+
 export default function TimerWidget() {
   const nodeRef = useRef(null);
   const audioRef = useRef(null);
 
-  const { setShowTimer, showTimer, settingsConfig, user, db } = useAppContext();
+  const { setShowTimer, showTimer, settingsConfig, user, db, setNewAchievements, newAchievements } =
+    useAppContext();
 
   const [webWorkerTime, setWebWorkerTime] = useState(0);
   const [minutes, setMinutes] = useState(60);
@@ -66,7 +69,13 @@ export default function TimerWidget() {
       const increment = (100 - progress) / webWorkerTime;
       setMinutes(webWorkerTime / 60);
       setSeconds(webWorkerTime % 60);
-      setProgress((prev) => (prev >= 100 ? handleTimerExpired() : prev + increment));
+      setProgress((prev) => (prev >= 100 ? 100 : prev + increment));
+    }
+  }, [webWorkerTime]);
+
+  useEffect(() => {
+    if (progress >= 100) {
+      handleTimerExpired();
     }
   }, [webWorkerTime]);
 
@@ -148,7 +157,17 @@ export default function TimerWidget() {
     const userSnapshot = await getDoc(docRef);
     if (userSnapshot.exists()) {
       try {
-        const userData = { focusedTime: userSnapshot.data().focusedTime + incrementTime };
+        const newFocusedTime = userSnapshot.data().focusedTime + incrementTime;
+        let userData = { focusedTime: newFocusedTime };
+        if (
+          !userSnapshot.data().achievements.includes("timeKeeper") &&
+          newFocusedTime / 100 >= dayInSeconds &&
+          !newAchievements.includes("timeKeeper")
+        ) {
+          setNewAchievements((prev) => [...prev, "timeKeeper"]);
+          userData.achievements = [...userSnapshot.data().achievements, "timeKeeper"];
+          console.log("time keepre achieved");
+        }
         await updateDoc(docRef, userData);
       } catch (error) {
         console.log("Error incrementing focused time: ", error);
