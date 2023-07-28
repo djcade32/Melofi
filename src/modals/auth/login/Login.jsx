@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import "./login.css";
 import { useAppContext } from "../../../context/AppContext";
 import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useAuthContext } from "../../../context/AuthContext";
 
 const Login = ({ setLoggingIn }) => {
-  const { auth, setUser, db } = useAuthContext();
-  const { setShowAuthModal, setNewAchievements } = useAppContext();
+  const { auth, setUser } = useAuthContext();
+  const { setShowAuthModal, updateUserLastLoginAt } = useAppContext();
   const [formInputs, setFormInputs] = useState({
     email: "",
     password: "",
@@ -27,7 +26,7 @@ const Login = ({ setLoggingIn }) => {
         formInputs.password
       );
       setUser(userCredentials.user);
-      updateUserLastLoginAt(userCredentials.user);
+      updateUserLastLoginAt();
       resetForm();
       setShowAuthModal(false);
     } catch (error) {
@@ -61,26 +60,6 @@ const Login = ({ setLoggingIn }) => {
         setResetPasswordLinkSent(false);
         setShowPasswordReset(false);
       }, 3000);
-    }
-  };
-
-  const updateUserLastLoginAt = async (user) => {
-    const docRef = doc(db, `users/${user.uid}`);
-    const userSnapshot = await getDoc(docRef);
-    if (userSnapshot.exists()) {
-      let userData = {
-        lastLoginAt: user.metadata.lastLoginAt,
-        lastVisitedAt: user.metadata.lastLoginAt,
-      };
-      if (!userSnapshot.data().achievements.includes("newbie")) {
-        userData.achievements = [...userSnapshot.data().achievements, "newbie"];
-        setNewAchievements((prev) => [...prev, "newbie"]);
-      }
-      try {
-        await updateDoc(docRef, userData);
-      } catch (error) {
-        console.log("Error updating user lastLoginAt: ", error);
-      }
     }
   };
 

@@ -12,7 +12,6 @@ import "./musicControls.css";
 import VolumeSlider from "../volumeSlider/VolumeSlider";
 import { useAppContext } from "../../context/AppContext";
 import Tooltip from "../tooltip/Tooltip";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useAuthContext } from "../../context/AuthContext";
 
 const iconProps = {
@@ -24,9 +23,14 @@ const iconProps = {
 const MusicControls = () => {
   const audioRef = useRef(null);
   const volumeContainerRef = useRef(null);
-  const { db, user } = useAuthContext();
-  const { musicVolume, setMusicVolume, setCurrentSongInfo, shuffledSongList, setNewAchievements } =
-    useAppContext();
+  const { user } = useAuthContext();
+  const {
+    musicVolume,
+    setMusicVolume,
+    setCurrentSongInfo,
+    shuffledSongList,
+    updateZenMasterAchievement,
+  } = useAppContext();
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -103,29 +107,6 @@ const MusicControls = () => {
       audio.muted = !isMuted;
     });
     setIsMuted(!isMuted);
-  };
-
-  const updateZenMasterAchievement = async () => {
-    const docRef = doc(db, `users/${user.uid}`);
-    const userSnapshot = await getDoc(docRef);
-    if (userSnapshot.exists()) {
-      const newData = userSnapshot.data().achievementsProgress.zenMaster + 1;
-      let userData = {
-        achievementsProgress: {
-          ...userSnapshot.data().achievementsProgress,
-          zenMaster: newData,
-        },
-      };
-      if (!userSnapshot.data().achievements.includes("zenMaster") && newData >= 50) {
-        userData.achievements = [...userSnapshot.data().achievements, "zenMaster"];
-        setNewAchievements((prev) => [...prev, "zenMaster"]);
-      }
-      try {
-        await updateDoc(docRef, userData);
-      } catch (error) {
-        console.log("Error updating user lastLoginAt: ", error);
-      }
-    }
   };
 
   return (

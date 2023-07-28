@@ -5,14 +5,14 @@ import { useAppContext } from "../../context/AppContext";
 import Draggable from "react-draggable";
 import ToDoListItem from "./ToDoListItem";
 import { isSafariBrowser } from "../../helpers/browser";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useAuthContext } from "../../context/AuthContext";
 
 const ToDoListWidget = () => {
   const nodeRef = useRef(null);
   const plusRef = useRef(null);
-  const { user, db } = useAuthContext();
-  const { setShowToDoList, showToDoList, settingsConfig, setNewAchievements } = useAppContext();
+  const { user } = useAuthContext();
+  const { setShowToDoList, showToDoList, settingsConfig, updateTaskNinjaAchievement } =
+    useAppContext();
   const [list, setList] = useState(JSON.parse(localStorage.getItem("toDoList")) || []);
   const [input, setInput] = useState("");
   const [position, setPosition] = useState(
@@ -42,7 +42,6 @@ const ToDoListWidget = () => {
       };
       setList((prev) => [...prev, newTask]);
       setInput("");
-      console.log("adding task");
       if (user !== null) {
         updateTaskNinjaAchievement();
       }
@@ -71,30 +70,6 @@ const ToDoListWidget = () => {
     return settingsConfig.fadeAway.todoList
       ? { display: showToDoList ? "flex" : "none", height: determineHeight(list) }
       : noFadeStyle;
-  };
-
-  const updateTaskNinjaAchievement = async () => {
-    const docRef = doc(db, `users/${user.uid}`);
-    const userSnapshot = await getDoc(docRef);
-    if (userSnapshot.exists()) {
-      const newData = userSnapshot.data().achievementsProgress.taskNinja + 1;
-      let userData = {
-        achievementsProgress: {
-          ...userSnapshot.data().achievementsProgress,
-          taskNinja: newData,
-        },
-      };
-      if (!userSnapshot.data().achievements.includes("taskNinja") && newData >= 25) {
-        console.log("achieved task ninjas");
-        userData.achievements = [...userSnapshot.data().achievements, "taskNinja"];
-        setNewAchievements((prev) => [...prev, "taskNinja"]);
-      }
-      try {
-        await updateDoc(docRef, userData);
-      } catch (error) {
-        console.log("Error updating user lastLoginAt: ", error);
-      }
-    }
   };
 
   const noFadeStyle = {

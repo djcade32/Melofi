@@ -16,7 +16,6 @@ import CircularProgress, { circularProgressClasses } from "@mui/material/Circula
 import Tooltip from "../../components/tooltip/Tooltip";
 import alarmSoundPath from "../../assets/timer_alarm.mp3";
 import TransitionsModal from "../../components/transitionsModal/TransitionsModal";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useAuthContext } from "../../context/AuthContext";
 
 const iconProps = {
@@ -37,15 +36,12 @@ const worker = new Worker(getTimerWorkerUrl());
 
 const numbersRegex = /^[0-9]+$/;
 
-const dayInSeconds = 86400;
-
 export default function TimerWidget() {
   const nodeRef = useRef(null);
   const audioRef = useRef(null);
 
-  const { user, db } = useAuthContext();
-  const { setShowTimer, showTimer, settingsConfig, setNewAchievements, newAchievements } =
-    useAppContext();
+  const { user } = useAuthContext();
+  const { setShowTimer, showTimer, settingsConfig, incrementFocusedTime } = useAppContext();
 
   const [webWorkerTime, setWebWorkerTime] = useState(0);
   const [minutes, setMinutes] = useState(60);
@@ -152,29 +148,6 @@ export default function TimerWidget() {
       value = value.slice(1);
     }
     setSeconds(value);
-  };
-
-  const incrementFocusedTime = async (incrementTime) => {
-    const docRef = doc(db, `users/${user.uid}`);
-    const userSnapshot = await getDoc(docRef);
-    if (userSnapshot.exists()) {
-      try {
-        const newFocusedTime = userSnapshot.data().focusedTime + incrementTime;
-        let userData = { focusedTime: newFocusedTime };
-        if (
-          !userSnapshot.data().achievements.includes("timeKeeper") &&
-          newFocusedTime / 100 >= dayInSeconds &&
-          !newAchievements.includes("timeKeeper")
-        ) {
-          setNewAchievements((prev) => [...prev, "timeKeeper"]);
-          userData.achievements = [...userSnapshot.data().achievements, "timeKeeper"];
-          console.log("time keepre achieved");
-        }
-        await updateDoc(docRef, userData);
-      } catch (error) {
-        console.log("Error incrementing focused time: ", error);
-      }
-    }
   };
 
   return (

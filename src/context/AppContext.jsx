@@ -1,37 +1,17 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { scenes } from "../data/scenes";
 import { items as songs } from "../data/songs";
-import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { areTimestampsInSameDay, isDayBeforeCurrentDate } from "../helpers/dateUtils";
 import { getTimerWorkerUrl } from "../widgets/timerWidget/worker-script";
 import { useAuthContext } from "./AuthContext";
-
-// const firebaseConfig = {
-//   apiKey: import.meta.env.VITE_APP_GOOGLE_API,
-//   authDomain: "melofi-389415.firebaseapp.com",
-//   projectId: "melofi-389415",
-//   storageBucket: "melofi-389415.appspot.com",
-//   messagingSenderId: "404248652005",
-//   appId: "1:404248652005:web:926c9820ee3780aa7d4c0c",
-//   measurementId: "G-79SS2N9YZQ",
-// };
-
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-// // const analytics = getAnalytics(app);
-// const auth = getAuth(app);
-// const db = getFirestore();
 
 const AppContext = createContext({});
 
 const worker = new Worker(getTimerWorkerUrl());
 
 const AppContextProvider = (props) => {
-  const { user, setUser, db, auth } = useAuthContext();
-  const [authUser, setAuthUser] = useState(null);
-  // const [user, setUser] = useState(null);
+  const { user, db } = useAuthContext();
   const [musicVolume, setMusicVolume] = useState(35);
   const [currentSongInfo, setCurrentSongInfo] = useState(null);
   const [currentSceneIndex, setCurrentSceneIndex] = useState(null);
@@ -60,7 +40,6 @@ const AppContextProvider = (props) => {
   const [usingSpotify, setUsingSpotify] = useState(false);
   const [shuffledSongList, setShuffledSongList] = useState(null);
 
-  const [loading, setLoading] = useState(true);
   const [newAchievements, setNewAchievements] = useState([]);
   const [showToaster, setShowToaster] = useState(false);
   const [webWorkerTime, setWebWorkerTime] = useState(7200);
@@ -76,17 +55,6 @@ const AppContextProvider = (props) => {
     setCurrentSceneIndex(JSON.parse(localStorage.getItem("currentSceneIndex")) || 0);
     setAllStickyNotes(JSON.parse(localStorage.getItem("stickyNoteList")) || []);
     shuffleSongs();
-  }, []);
-
-  useEffect(() => {
-    // Check if the page has already loaded
-    if (document.readyState === "complete") {
-      setLoading(false);
-    } else {
-      window.addEventListener("load", setLoading(false));
-      // Remove the event listener when component unmounts
-      return () => window.removeEventListener("load", setLoading(false));
-    }
   }, []);
 
   useEffect(() => {
@@ -200,6 +168,98 @@ const AppContextProvider = (props) => {
     }
   };
 
+  const updateZenMasterAchievement = async () => {
+    const docRef = doc(db, `users/${user.uid}`);
+    const userSnapshot = await getDoc(docRef);
+    if (userSnapshot.exists()) {
+      const newData = userSnapshot.data().achievementsProgress.zenMaster + 1;
+      let userData = {
+        achievementsProgress: {
+          ...userSnapshot.data().achievementsProgress,
+          zenMaster: newData,
+        },
+      };
+      if (!userSnapshot.data().achievements.includes("zenMaster") && newData >= 50) {
+        userData.achievements = [...userSnapshot.data().achievements, "zenMaster"];
+        setNewAchievements((prev) => [...prev, "zenMaster"]);
+      }
+      try {
+        await updateDoc(docRef, userData);
+      } catch (error) {
+        console.log("Error updating user lastLoginAt: ", error);
+      }
+    }
+  };
+
+  const updateUserLastLoginAt = async () => {
+    const docRef = doc(db, `users/${user.uid}`);
+    const userSnapshot = await getDoc(docRef);
+    if (userSnapshot.exists()) {
+      let userData = {
+        lastLoginAt: user.metadata.lastLoginAt,
+        lastVisitedAt: user.metadata.lastLoginAt,
+      };
+      if (!userSnapshot.data().achievements.includes("newbie")) {
+        userData.achievements = [...userSnapshot.data().achievements, "newbie"];
+        setNewAchievements((prev) => [...prev, "newbie"]);
+      }
+      try {
+        await updateDoc(docRef, userData);
+      } catch (error) {
+        console.log("Error updating user lastLoginAt: ", error);
+      }
+    }
+  };
+
+  const incrementFocusedTime = async (incrementTime) => {
+    const dayInSeconds = 86400;
+
+    const docRef = doc(db, `users/${user.uid}`);
+    const userSnapshot = await getDoc(docRef);
+    if (userSnapshot.exists()) {
+      try {
+        const newFocusedTime = userSnapshot.data().focusedTime + incrementTime;
+        let userData = { focusedTime: newFocusedTime };
+        if (
+          !userSnapshot.data().achievements.includes("timeKeeper") &&
+          newFocusedTime / 100 >= dayInSeconds &&
+          !newAchievements.includes("timeKeeper")
+        ) {
+          setNewAchievements((prev) => [...prev, "timeKeeper"]);
+          userData.achievements = [...userSnapshot.data().achievements, "timeKeeper"];
+          console.log("time keepre achieved");
+        }
+        await updateDoc(docRef, userData);
+      } catch (error) {
+        console.log("Error incrementing focused time: ", error);
+      }
+    }
+  };
+
+  const updateTaskNinjaAchievement = async () => {
+    const docRef = doc(db, `users/${user.uid}`);
+    const userSnapshot = await getDoc(docRef);
+    if (userSnapshot.exists()) {
+      const newData = userSnapshot.data().achievementsProgress.taskNinja + 1;
+      let userData = {
+        achievementsProgress: {
+          ...userSnapshot.data().achievementsProgress,
+          taskNinja: newData,
+        },
+      };
+      if (!userSnapshot.data().achievements.includes("taskNinja") && newData >= 25) {
+        console.log("achieved task ninjas");
+        userData.achievements = [...userSnapshot.data().achievements, "taskNinja"];
+        setNewAchievements((prev) => [...prev, "taskNinja"]);
+      }
+      try {
+        await updateDoc(docRef, userData);
+      } catch (error) {
+        console.log("Error updating user lastLoginAt: ", error);
+      }
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -238,19 +298,19 @@ const AppContextProvider = (props) => {
         setShuffledSongList,
         showAuthModal,
         setShowAuthModal,
-        auth,
-        user,
-        setUser,
         setShowAccount,
         showAccount,
-        db,
         newAchievements,
         setNewAchievements,
         showToaster,
         setShowToaster,
+        updateZenMasterAchievement,
+        updateUserLastLoginAt,
+        incrementFocusedTime,
+        updateTaskNinjaAchievement,
       }}
     >
-      {loading ? <></> : <>{props.children}</>}
+      {props.children}
     </AppContext.Provider>
   );
 };
