@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 
 const ProfileSection = ({ selected }) => {
-  const { user, authUser, showAccount } = useAppContext();
+  const { user, auth, showAccount } = useAppContext();
   const [emailInput, setEmailInput] = useState({ text: "", error: "" });
   const [editEmail, setEditEmail] = useState(false);
   const [passwordInputs, setPasswordInputs] = useState({
@@ -83,7 +83,7 @@ const ProfileSection = ({ selected }) => {
     }
 
     try {
-      await signInWithEmailAndPassword(authUser, user.email, passwordInputs.current);
+      await signInWithEmailAndPassword(auth, user.email, passwordInputs.current);
       try {
         await updatePassword(user, passwordInputs.new);
         showNotificationToaster("Successfully Changed Password", true);

@@ -5,7 +5,7 @@ import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/aut
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 const Login = ({ setLoggingIn }) => {
-  const { authUser, setUser, setShowAuthModal, db, setNewAchievements } = useAppContext();
+  const { auth, setUser, setShowAuthModal, db, setNewAchievements } = useAppContext();
   const [formInputs, setFormInputs] = useState({
     email: "",
     password: "",
@@ -20,7 +20,7 @@ const Login = ({ setLoggingIn }) => {
 
     try {
       const userCredentials = await signInWithEmailAndPassword(
-        authUser,
+        auth,
         formInputs.email,
         formInputs.password
       );
@@ -50,7 +50,7 @@ const Login = ({ setLoggingIn }) => {
       return;
     }
     try {
-      await sendPasswordResetEmail(authUser, resetPasswordInput);
+      await sendPasswordResetEmail(auth, resetPasswordInput);
     } catch (error) {
     } finally {
       setResetPasswordLinkSent(true);

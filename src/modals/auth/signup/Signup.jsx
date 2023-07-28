@@ -6,7 +6,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
 const Signup = ({ setLoggingIn }) => {
-  const { authUser, setUser, setShowAuthModal, db, setNewAchievements } = useAppContext();
+  const { auth, setUser, setShowAuthModal, db, setNewAchievements } = useAppContext();
   const [formInputs, setFormInputs] = useState({
     email: "",
     password: "",
@@ -17,7 +17,7 @@ const Signup = ({ setLoggingIn }) => {
     checkValidForm();
     try {
       const userCredentials = await createUserWithEmailAndPassword(
-        authUser,
+        auth,
         formInputs.email,
         formInputs.password
       );

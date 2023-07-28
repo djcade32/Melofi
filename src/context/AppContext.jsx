@@ -6,30 +6,32 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { areTimestampsInSameDay, isDayBeforeCurrentDate } from "../helpers/dateUtils";
 import { getTimerWorkerUrl } from "../widgets/timerWidget/worker-script";
+import { useAuthContext } from "./AuthContext";
 
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_APP_GOOGLE_API,
-  authDomain: "melofi-389415.firebaseapp.com",
-  projectId: "melofi-389415",
-  storageBucket: "melofi-389415.appspot.com",
-  messagingSenderId: "404248652005",
-  appId: "1:404248652005:web:926c9820ee3780aa7d4c0c",
-  measurementId: "G-79SS2N9YZQ",
-};
+// const firebaseConfig = {
+//   apiKey: import.meta.env.VITE_APP_GOOGLE_API,
+//   authDomain: "melofi-389415.firebaseapp.com",
+//   projectId: "melofi-389415",
+//   storageBucket: "melofi-389415.appspot.com",
+//   messagingSenderId: "404248652005",
+//   appId: "1:404248652005:web:926c9820ee3780aa7d4c0c",
+//   measurementId: "G-79SS2N9YZQ",
+// };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
-const auth = getAuth(app);
-const db = getFirestore();
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
+// // const analytics = getAnalytics(app);
+// const auth = getAuth(app);
+// const db = getFirestore();
 
 const AppContext = createContext({});
 
 const worker = new Worker(getTimerWorkerUrl());
 
 const AppContextProvider = (props) => {
+  const { user, setUser, db, auth } = useAuthContext();
   const [authUser, setAuthUser] = useState(null);
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
   const [musicVolume, setMusicVolume] = useState(35);
   const [currentSongInfo, setCurrentSongInfo] = useState(null);
   const [currentSceneIndex, setCurrentSceneIndex] = useState(null);
@@ -64,20 +66,11 @@ const AppContextProvider = (props) => {
   const [webWorkerTime, setWebWorkerTime] = useState(7200);
 
   useEffect(() => {
-    setAuthUser(auth);
-    onAuthStateChanged(auth, (userObj) => {
-      if (userObj) {
-        setUser(userObj);
-      }
-    });
-    if (auth.currentUser) {
-      setUser(auth.currentUser);
-    }
     if (user) {
       incrementConsecutiveDays();
       checkFocusedWorkaholicAchievement();
     }
-  }, [auth, user]);
+  }, [user]);
 
   useEffect(() => {
     setCurrentSceneIndex(JSON.parse(localStorage.getItem("currentSceneIndex")) || 0);
@@ -145,7 +138,7 @@ const AppContextProvider = (props) => {
   };
 
   const incrementConsecutiveDays = async () => {
-    const docRef = doc(db, `users/${auth.currentUser.uid}`);
+    const docRef = doc(db, `users/${user.uid}`);
     const userSnapshot = await getDoc(docRef);
     if (userSnapshot.exists()) {
       let userData = {};
@@ -179,7 +172,7 @@ const AppContextProvider = (props) => {
   };
 
   const checkFocusedWorkaholicAchievement = async () => {
-    const docRef = doc(db, `users/${auth.currentUser.uid}`);
+    const docRef = doc(db, `users/${user.uid}`);
     const userSnapshot = await getDoc(docRef);
     if (userSnapshot.exists()) {
       if (!userSnapshot.data().achievements.includes("focusedWorkaholic")) {
@@ -192,7 +185,7 @@ const AppContextProvider = (props) => {
   };
 
   const addFocusedWorkaholicAchievement = async () => {
-    const docRef = doc(db, `users/${auth.currentUser.uid}`);
+    const docRef = doc(db, `users/${user.uid}`);
     const userSnapshot = await getDoc(docRef);
     if (userSnapshot.exists()) {
       let userData = {
@@ -245,7 +238,7 @@ const AppContextProvider = (props) => {
         setShuffledSongList,
         showAuthModal,
         setShowAuthModal,
-        authUser,
+        auth,
         user,
         setUser,
         setShowAccount,

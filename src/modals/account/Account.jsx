@@ -9,14 +9,14 @@ import { signOut } from "firebase/auth";
 import AchievementModal from "../../components/achievementModal/achievementModal";
 
 const Account = () => {
-  const { showAccount, setShowAccount, authUser, setUser } = useAppContext();
+  const { showAccount, setShowAccount, auth, setUser } = useAppContext();
   const [selected, setSelected] = useState("profile");
   const [showAchievementModal, setShowAchievementModal] = useState(false);
   const [achievementModalInfo, setAchievementModalInfo] = useState(null);
 
   const handleLogout = async () => {
     try {
-      await signOut(authUser);
+      await signOut(auth);
       setUser(null);
       setShowAccount(false);
       setSelected("profile");
