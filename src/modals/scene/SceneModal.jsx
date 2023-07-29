@@ -11,7 +11,7 @@ const iconProps = {
 };
 
 function SceneModal() {
-  const { setCurrentSceneIndex, showSceneModal } = useAppContext();
+  const { setCurrentSceneIndex, showSceneModal, newScenes } = useAppContext();
 
   const handleSceneChange = (index) => {
     setCurrentSceneIndex(index);
@@ -31,9 +31,19 @@ function SceneModal() {
                 <div
                   key={scene.name}
                   className="melofi__sceneModal-thumbnail"
-                  style={{ backgroundImage: `url(${scene.image})` }}
+                  style={{
+                    backgroundImage: `url(${scene.image})`,
+                    outline: newScenes.includes(scene.name)
+                      ? "1px solid var(--color-effect-opacity)"
+                      : "",
+                  }}
                   onClick={() => handleSceneChange(index)}
                 >
+                  {newScenes.includes(scene.name) && (
+                    <div className="melofi__sceneModal-thumbnail_new_flag">
+                      <p style={{ fontSize: 18 }}>NEW</p>
+                    </div>
+                  )}
                   <p
                     className="melofi__sceneModal-thumbnail-title"
                     style={{ fontFamily: scene.fontFamily }}

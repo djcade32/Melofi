@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="/melofi-fav-icon.png">
+    <link id="favIcon" rel="icon" type="image/x-icon" href="/melofi-fav-icon-white.png">
     <link rel="canonical" href="https://melofi.app/" />
     <title>Melofi</title>
     <meta name="description" content="Chill, Focus, Create with Melofi! Immerse in Lofi tracks, captivating visuals, and productivity tools. Elevate your vibe for studying and working. Get started now!"/>
@@ -16,6 +16,12 @@
   gtag('js', new Date());
 
   gtag('config', 'G-79SS2N9YZQ');
+</script>
+<script>
+  const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  let link = document.getElementById("favIcon");
+  link.href = isDarkMode ? "/melofi-fav-icon-white.png" : "/melofi-fav-icon-black.png"
+
 </script>
   <body>
     <div id="root"></div>

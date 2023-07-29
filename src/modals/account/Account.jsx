@@ -7,16 +7,18 @@ import ProfileSection from "./ProfileSection";
 const InsightsSection = React.lazy(() => import("./InsightsSection"));
 import { signOut } from "firebase/auth";
 import AchievementModal from "../../components/achievementModal/achievementModal";
+import { useAuthContext } from "../../context/AuthContext";
 
 const Account = () => {
-  const { showAccount, setShowAccount, authUser, setUser } = useAppContext();
+  const { auth, setUser } = useAuthContext();
+  const { showAccount, setShowAccount } = useAppContext();
   const [selected, setSelected] = useState("profile");
   const [showAchievementModal, setShowAchievementModal] = useState(false);
   const [achievementModalInfo, setAchievementModalInfo] = useState(null);
 
   const handleLogout = async () => {
     try {
-      await signOut(authUser);
+      await signOut(auth);
       setUser(null);
       setShowAccount(false);
       setSelected("profile");

@@ -26,4 +26,4 @@ const getTimerWorkerUrl = () => {
   return URL.createObjectURL(blob);
 };
 
-export { timerWorker, getTimerWorkerUrl };
+export { getTimerWorkerUrl };

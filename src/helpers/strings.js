@@ -12,4 +12,15 @@ function camelCaseToNormalString(str) {
   return result;
 }
 
-export { capitalizeFirstLetter, camelCaseToNormalString };
+const durationInDHMS = (milliseconds) => {
+  // Convert milliseconds to seconds
+  const seconds = milliseconds / 100;
+  const days = Math.floor(seconds / 86400);
+  const hours = Math.floor((seconds % 86400) / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const remainingSeconds = seconds % 60;
+
+  return { days, hours, minutes, remainingSeconds };
+};
+
+export { capitalizeFirstLetter, camelCaseToNormalString, durationInDHMS };
