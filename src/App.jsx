@@ -3,8 +3,8 @@ import { Route, Routes } from "react-router-dom";
 
 // import AppHome from "./pages/AppHome";
 const AppHome = React.lazy(() => import("./pages/AppHome"));
+const PrivacyPolicy = React.lazy(() => import("./pages/PrivacyPolicy"));
 
-import PrivacyPolicy from "./pages/PrivacyPolicy";
 import LoadingPage from "./pages/LoadingPage";
 
 function App() {

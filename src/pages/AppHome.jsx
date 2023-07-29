@@ -102,7 +102,6 @@ function AppHome() {
   }, []);
 
   useEffect(() => {
-    console.log("user: ", user);
     let new_tool_popup_status = localStorage.getItem("new_tool_popup_status");
     let new_menu_popup_status = localStorage.getItem("new_menu_popup_status");
     if (!new_tool_popup_status) {
