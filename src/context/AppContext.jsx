@@ -43,6 +43,7 @@ const AppContextProvider = (props) => {
   const [newAchievements, setNewAchievements] = useState([]);
   const [showToaster, setShowToaster] = useState(false);
   const [webWorkerTime, setWebWorkerTime] = useState(7200);
+  const [newScenes, setNewScenes] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -52,6 +53,7 @@ const AppContextProvider = (props) => {
   }, [user]);
 
   useEffect(() => {
+    checkForNewScenes();
     setCurrentSceneIndex(JSON.parse(localStorage.getItem("currentSceneIndex")) || 0);
     setAllStickyNotes(JSON.parse(localStorage.getItem("stickyNoteList")) || []);
     shuffleSongs();
@@ -67,8 +69,18 @@ const AppContextProvider = (props) => {
             calendar: true,
           },
           hideInterface: true,
+          playTimerSound: true,
         })
       );
+      return;
+    }
+    // This is to update all the current Melofi user settingsConfig with playTimerSound setting
+    if (JSON.parse(localStorage.getItem("settingsConfig")).playTimerSound === undefined) {
+      const updatedSettingsConfig = {
+        ...JSON.parse(localStorage.getItem("settingsConfig")),
+        playTimerSound: true,
+      };
+      localStorage.setItem("settingsConfig", JSON.stringify(updatedSettingsConfig));
     }
   }, []);
 
@@ -103,6 +115,35 @@ const AppContextProvider = (props) => {
       .map(({ value }) => value);
     setShuffledSongList(shuffled);
     return shuffled;
+  };
+
+  const checkForNewScenes = () => {
+    if (!newScenes) {
+      const scenesConfig = JSON.parse(localStorage.getItem("scenes"));
+      // Check to see if user has the sceneConfig
+      if (!scenesConfig) {
+        const list = [];
+        scenes.map((scene) => {
+          list.push(scene.name);
+        });
+        localStorage.setItem("scenes", JSON.stringify(list));
+        setNewScenes([]);
+        return;
+      }
+
+      // A new scene was added
+      if (scenesConfig && scenesConfig.length < scenes.length) {
+        const newSceneList = [];
+        scenes.map((scene) => {
+          if (!scenesConfig.includes(scene.name)) {
+            newSceneList.push(scene.name);
+            setNewScenes(newSceneList);
+          }
+        });
+      } else {
+        setNewScenes([]);
+      }
+    }
   };
 
   const incrementConsecutiveDays = async () => {
@@ -308,6 +349,8 @@ const AppContextProvider = (props) => {
         updateUserLastLoginAt,
         incrementFocusedTime,
         updateTaskNinjaAchievement,
+        newScenes,
+        setNewScenes,
       }}
     >
       {props.children}
