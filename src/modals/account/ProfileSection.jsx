@@ -8,9 +8,11 @@ import {
   updateEmail,
   updatePassword,
 } from "firebase/auth";
+import { useAuthContext } from "../../context/AuthContext";
 
 const ProfileSection = ({ selected }) => {
-  const { user, authUser, showAccount } = useAppContext();
+  const { user, auth } = useAuthContext();
+  const { showAccount } = useAppContext();
   const [emailInput, setEmailInput] = useState({ text: "", error: "" });
   const [editEmail, setEditEmail] = useState(false);
   const [passwordInputs, setPasswordInputs] = useState({
@@ -70,7 +72,7 @@ const ProfileSection = ({ selected }) => {
     if (passwordInputs.new.length < 6) {
       setPasswordInputs({
         ...passwordInputs,
-        error: "New password should be at least 6 characters.",
+        error: "New password must be at least 6 characters.",
       });
       return;
     }
@@ -83,7 +85,7 @@ const ProfileSection = ({ selected }) => {
     }
 
     try {
-      await signInWithEmailAndPassword(authUser, user.email, passwordInputs.current);
+      await signInWithEmailAndPassword(auth, user.email, passwordInputs.current);
       try {
         await updatePassword(user, passwordInputs.new);
         showNotificationToaster("Successfully Changed Password", true);

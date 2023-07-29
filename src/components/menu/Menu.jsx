@@ -10,7 +10,8 @@ import {
   FaUserAlt,
 } from "../../imports/icons";
 import { useAppContext } from "../../context/AppContext";
-import NewFeature from "../newFeature/newFeature";
+import NewFeature from "../newFeature/NewFeature";
+import { useAuthContext } from "../../context/AuthContext";
 
 const iconProps = {
   size: 15,
@@ -27,13 +28,13 @@ const linkStyle = {
 
 const Menu = ({ isSleep, setNewMenuPopupVisible, newMenuPopupVisible }) => {
   const menuRef = useRef(null);
+  const { user } = useAuthContext();
   const {
     showMenu,
     setShowMenu,
     setShowSettings,
     setShowAboutMelofi,
     setShowAuthModal,
-    user,
     setShowAccount,
   } = useAppContext();
 

@@ -1,23 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./signup.css";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../../context/AppContext";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { useAuthContext } from "../../../context/AuthContext";
 
 const Signup = ({ setLoggingIn }) => {
-  const { authUser, setUser, setShowAuthModal, db, setNewAchievements } = useAppContext();
+  const { auth, setUser, db } = useAuthContext();
+  const { showAuthModal, setShowAuthModal, setNewAchievements } = useAppContext();
   const [formInputs, setFormInputs] = useState({
     email: "",
     password: "",
     error: "",
   });
 
+  useEffect(() => {
+    resetForm();
+  }, [showAuthModal]);
+
   const createAccount = async () => {
     checkValidForm();
     try {
       const userCredentials = await createUserWithEmailAndPassword(
-        authUser,
+        auth,
         formInputs.email,
         formInputs.password
       );
@@ -38,6 +44,9 @@ const Signup = ({ setLoggingIn }) => {
     if (formInputs.email.length <= 0 || formInputs.password.length <= 0) {
       setFormInputs({ ...formInputs, error: "Must fill in blanks." });
       return;
+    }
+    if (formInputs.password.length < 6) {
+      setFormInputs({ ...formInputs, error: "Password must be at least 6 characters." });
     }
     if (!emailRegex.test(formInputs.email)) {
       setFormInputs({ ...formInputs, error: "Must enter valid email." });

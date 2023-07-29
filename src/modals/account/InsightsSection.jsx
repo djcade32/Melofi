@@ -1,50 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./account.css";
-import { useAppContext } from "../../context/AppContext";
-import { doc, onSnapshot } from "firebase/firestore";
 import { BsInfoCircle } from "../../imports/icons";
 import Tooltip from "../../components/tooltip/Tooltip";
-import AchievementModal from "../../components/achievementModal/achievementModal";
 import { badgesMap } from "../../data/badges";
+import { useAuthContext } from "../../context/AuthContext";
 
 const InsightsSection = ({ selected, setShowAchievementModal, setAchievementModalInfo }) => {
-  const { db, user } = useAppContext();
+  const { user, userData } = useAuthContext();
   const [userInsights, setUserInsights] = useState(null);
-  // const [showAchievementModal, setShowAchievementModal] = useState(false);
-  // const [achievementModalInfo, setAchievementModalInfo] = useState(null);
 
   useEffect(() => {
-    let unsub = null;
     if (user) {
-      unsub = onSnapshot(doc(db, `users/${user.uid}`), (doc) => {
-        const { lastLoginAt, focusedTime, numOfStickyNotes, consecutiveDays, achievements } =
-          doc.data();
-        setUserInsights({
-          lastLoginAt: getDate(lastLoginAt),
-          focusedTime: convertTime(focusedTime),
-          numOfStickyNotes: numOfStickyNotes,
-          consecutiveDays: consecutiveDays,
-          achievements: achievements,
-        });
-      });
+      setUserInsights(userData);
     }
-  }, [user]);
-
-  const getDate = (timestamp) => {
-    const date = new Date(parseInt(timestamp));
-    return `${date.toDateString()} ${date.toLocaleTimeString()}`;
-  };
-
-  const convertTime = (milliseconds) => {
-    // Convert milliseconds to seconds
-    const seconds = milliseconds / 100;
-    const days = Math.floor(seconds / 86400);
-    const hours = Math.floor((seconds % 86400) / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const remainingSeconds = seconds % 60;
-
-    return { days, hours, minutes, remainingSeconds };
-  };
+  }, [userData]);
 
   const handleShowAchievement = (badge) => {
     setAchievementModalInfo(badge);
@@ -125,13 +94,6 @@ const InsightsSection = ({ selected, setShowAchievementModal, setAchievementModa
             ))}
         </div>
       </div>
-      {/* {showAchievementModal && (
-        <AchievementModal
-          setShowAchievementModal={setShowAchievementModal}
-          badge={achievementModalInfo}
-          setAchievementModalInfo={setAchievementModalInfo}
-        />
-      )} */}
     </div>
   );
 };
