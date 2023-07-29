@@ -30,6 +30,8 @@
     height: 90%;
     margin-top: 10px;
     overflow: scroll;
+    align-items: center;
+    padding: 5px 0px
 }
 
 ::-webkit-scrollbar {
@@ -40,7 +42,7 @@
 .melofi__sceneModal-thumbnail {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 95%;
     min-height: 250px;    
     background-size:cover;
     background-repeat: no-repeat;
@@ -51,6 +53,7 @@
     border: 1px solid var(--color-secondary-opacity);
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .melofi__sceneModal-thumbnail:hover {
@@ -80,6 +83,16 @@
 .melofi__sceneModal-thumbnail-sounds-container p {
     font-size: 16px;
 }
+
+.melofi__sceneModal-thumbnail_new_flag {
+    position: absolute;
+    background-color: var(--color-effect-opacity);
+    top: 10px;
+    left: 10px;
+    border-radius: 10px;
+    font-family: var(--font-primary);
+    padding: 0px 5px;
+  }
 
 @keyframes scale-up {
     0% {

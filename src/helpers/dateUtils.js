@@ -54,10 +54,16 @@ const dateInPast = (time) => {
   return convertISOToISOLocal(currentDate) > convertISOToISOLocal(endTime);
 };
 
+const timeStampToDateString = (timestamp) => {
+  const date = new Date(parseInt(timestamp));
+  return `${date.toDateString()} ${date.toLocaleTimeString()}`;
+};
+
 export {
   isDayBeforeCurrentDate,
   areTimestampsInSameDay,
   convertISOToISOLocal,
   dateInPast,
   convertISOTimestamp,
+  timeStampToDateString,
 };

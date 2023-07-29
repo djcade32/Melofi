@@ -17,6 +17,7 @@ import {
   neighborhoodCafe,
   musicRoom,
   neonCity,
+  serenityCabin,
 } from "../imports/scenes";
 
 export const scenes = [
@@ -91,5 +92,17 @@ export const scenes = [
       { sound: effects.stormyNight, soundPath: stormyNightEffect },
     ],
     fontFamily: "Bruno Ace",
+  },
+  {
+    id: 6,
+    name: "Serenity Cabin",
+    image: serenityCabin.pic,
+    video: serenityCabin.vid,
+    sounds: [
+      { sound: effects.birdsChirpping, soundPath: birdsChirppingEffect },
+      { sound: effects.nature, soundPath: natureEffect },
+      { sound: effects.ambience, soundPath: ambienceEffect },
+    ],
+    fontFamily: "var(--font-cardo)",
   },
 ];

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Cardo&family=Lobster+Two:wght@400;700&family=Patrick+Hand&family=Poppins:wght@300;400;500;700&family=Signika:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Cardo&family=Lobster+Two:wght@400;700&family=Patrick+Hand&family=Poppins:wght@300;400;500;700&family=Signika:wght@300;400;500;700&family=Yatra+One&display=swap');
   :root {
   --font-primary: "Poppins", sans-serif;
   --font-signika: "Signika", sans-serif;
@@ -6,6 +6,7 @@
   --font-lobster-two: "Lobster Two", sans-serif;
   --font-cardo: "Cardo", sans-serif;
   --font-bruno-ace: "Bruno Ace", sans-serif;
+  --font-yatra-one: "Yatra One", sans-serif;
   
   --color-primary: rgb(35,35,35,88%);
   --color-secondary: #7B777A;
