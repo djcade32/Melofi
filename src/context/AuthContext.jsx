@@ -5,6 +5,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getFirestore, onSnapshot } from "firebase/firestore";
 import { timeStampToDateString } from "../helpers/dateUtils";
 import { durationInDHMS } from "../helpers/strings";
+import LoadingPage from "../pages/LoadingPage";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_GOOGLE_API,
@@ -33,6 +34,8 @@ const AuthContextProvider = (props) => {
     onAuthStateChanged(auth, () => {
       if (auth.currentUser) {
         setUser(auth.currentUser);
+      } else {
+        setLoading(false);
       }
     });
   }, []);
@@ -51,19 +54,20 @@ const AuthContextProvider = (props) => {
           achievements: achievements,
         });
       });
+      setLoading(false);
     }
   }, [user]);
 
-  useEffect(() => {
-    // Check if the page has already loaded
-    if (document.readyState === "complete") {
-      setLoading(false);
-    } else {
-      window.addEventListener("load", setLoading(false));
-      // Remove the event listener when component unmounts
-      return () => window.removeEventListener("load", setLoading(false));
-    }
-  }, []);
+  // useEffect(() => {
+  //   // // Check if the page has already loaded
+  //   // if (document.readyState === "complete") {
+  //   //   setLoading(false);
+  //   // } else {
+  //   //   window.addEventListener("load", setLoading(false));
+  //   //   // Remove the event listener when component unmounts
+  //   //   return () => window.removeEventListener("load", setLoading(false));
+  //   // }
+  // }, []);
 
   return (
     <AuthContext.Provider
@@ -75,7 +79,7 @@ const AuthContextProvider = (props) => {
         userData,
       }}
     >
-      {loading ? <></> : <>{props.children}</>}
+      {loading ? <LoadingPage /> : <>{props.children}</>}
     </AuthContext.Provider>
   );
 };

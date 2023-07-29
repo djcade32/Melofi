@@ -3,6 +3,7 @@ import Tooltip from "../../components/tooltip/Tooltip";
 import { useAppContext } from "../../context/AppContext";
 import { MdLandscape } from "../../imports/icons";
 import NewFeature from "../../components/newFeature/NewFeature";
+import { scenes } from "../../data/scenes";
 
 const SceneButton = () => {
   const { setShowSceneModal, newScenes, showSceneModal, setNewScenes } = useAppContext();
@@ -10,7 +11,8 @@ const SceneButton = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (event.target.id === "app") {
-        handleShowingModal();
+        setShowSceneModal(false);
+        updateScenesConfig();
       }
     };
     document.addEventListener("click", handleClickOutside, true);
@@ -19,22 +21,25 @@ const SceneButton = () => {
     };
   }, []);
 
-  const handleShowingModal = () => {
-    setShowSceneModal((prev) => {
-      if (prev) {
-        const list = JSON.parse(localStorage.getItem("scenes"));
-        localStorage.setItem("scenes", JSON.stringify([...list, ...newScenes]));
-        setNewScenes([]);
-      }
-      return !prev;
-    });
+  const updateScenesConfig = () => {
+    const scenesConfig = JSON.parse(localStorage.getItem("scenes"));
+
+    if (scenes.length !== scenesConfig.length) {
+      localStorage.setItem("scenes", JSON.stringify([...scenesConfig, ...newScenes]));
+      setNewScenes([]);
+    }
   };
 
   return (
     <div>
       <div
         className="--nav-button"
-        onClick={handleShowingModal}
+        onClick={() => {
+          if (showSceneModal) {
+            updateScenesConfig();
+          }
+          setShowSceneModal((prev) => !prev);
+        }}
         style={
           showSceneModal
             ? { outline: "1px solid var(--color-effect-opacity)", position: "relative" }

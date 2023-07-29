@@ -30,7 +30,7 @@ const Login = ({ setLoggingIn }) => {
         formInputs.password
       );
       setUser(userCredentials.user);
-      updateUserLastLoginAt();
+      updateUserLastLoginAt(userCredentials.user);
       resetForm();
       setShowAuthModal(false);
     } catch (error) {

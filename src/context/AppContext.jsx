@@ -232,7 +232,7 @@ const AppContextProvider = (props) => {
     }
   };
 
-  const updateUserLastLoginAt = async () => {
+  const updateUserLastLoginAt = async (user) => {
     const docRef = doc(db, `users/${user.uid}`);
     const userSnapshot = await getDoc(docRef);
     if (userSnapshot.exists()) {

@@ -5,19 +5,23 @@ import logo from "../assets/logo.png";
 import notificationSound from "../assets/notification_sound.mp3";
 
 import { useAppContext } from "../context/AppContext";
+import { useAuthContext } from "../context/AuthContext";
+
 import { RiFullscreenFill, RiFullscreenExitLine, GiTacos } from "../imports/icons";
 
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
-import MusicControls from "../components/musicControls/MusicControls";
 import Clock from "../components/clock/Clock";
 import NowPlaying from "../components/nowPlaying/NowPlaying";
-import SceneBg from "../components/sceneBg/SceneBg";
 import Tooltip from "../components/tooltip/Tooltip";
 import ToolsMenu from "../components/tools/ToolsMenu";
 import Menu from "../components/menu/Menu";
 import Settings from "../modals/settings/Settings";
-import NewFeature from "../components/newFeature/NewFeature";
+const MusicControls = React.lazy(() => import("../components/musicControls/MusicControls"));
+const SceneBg = React.lazy(() => import("../components/sceneBg/SceneBg"));
+const Toaster = React.lazy(() => import("../components/toaster/Toaster"));
+const NewFeature = React.lazy(() => import("../components/newFeature/NewFeature"));
+
 // import GenreDropdown from "./components/genreDropdown/GenreDropdown";
 
 // Import modals
@@ -27,11 +31,10 @@ const MixerModal = React.lazy(() => import("../modals/mixer/MixerModal"));
 const SceneButton = React.lazy(() => import("../modals/scene/SceneButton"));
 const SceneModal = React.lazy(() => import("../modals/scene/SceneModal"));
 const Account = React.lazy(() => import("../modals/account/Account"));
+const AuthModal = React.lazy(() => import("../modals/auth/authModal/AuthModal"));
 
 // Import widgets
 import StickyNoteWidget from "../widgets/stickyNoteWidget/StickyNoteWidget";
-import AuthModal from "../modals/auth/authModal/AuthModal";
-import Toaster from "../components/toaster/Toaster";
 const CalendarWidget = React.lazy(() => import("../widgets/calendarWidget/CalendarWidget"));
 const TimerWidget = React.lazy(() => import("../widgets/timerWidget/TimerWidget"));
 const ToDoListWidget = React.lazy(() => import("../widgets/toDoListWidget/ToDoListWidget"));
@@ -39,6 +42,7 @@ const MobileView = React.lazy(() => import("./MobileView"));
 
 function AppHome() {
   const { allStickyNotes, usingSpotify, newAchievements } = useAppContext();
+  const { user } = useAuthContext();
 
   const notificationSoundRef = useRef(null);
 
@@ -98,13 +102,14 @@ function AppHome() {
   }, []);
 
   useEffect(() => {
+    console.log("user: ", user);
     let new_tool_popup_status = localStorage.getItem("new_tool_popup_status");
     let new_menu_popup_status = localStorage.getItem("new_menu_popup_status");
     if (!new_tool_popup_status) {
       setNewToolPopupVisible(true);
       localStorage.setItem("new_tool_popup_status", true);
     }
-    if (!new_menu_popup_status) {
+    if (!new_menu_popup_status && !user) {
       setNewMenuPopupVisible(true);
       localStorage.setItem("new_menu_popup_status", true);
     }
