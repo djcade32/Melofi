@@ -17,7 +17,7 @@ import Tooltip from "../components/tooltip/Tooltip";
 import ToolsMenu from "../components/tools/ToolsMenu";
 import Menu from "../components/menu/Menu";
 import Settings from "../modals/settings/Settings";
-import NewFeature from "../components/newFeature/newFeature";
+import NewFeature from "../components/newFeature/NewFeature";
 // import GenreDropdown from "./components/genreDropdown/GenreDropdown";
 
 // Import modals
