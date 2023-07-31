@@ -53,6 +53,7 @@ const AppContextProvider = (props) => {
   }, [user]);
 
   useEffect(() => {
+    getSettingsConfig();
     checkForNewScenes();
     setCurrentSceneIndex(JSON.parse(localStorage.getItem("currentSceneIndex")) || 0);
     setAllStickyNotes(JSON.parse(localStorage.getItem("stickyNoteList")) || []);
@@ -60,6 +61,26 @@ const AppContextProvider = (props) => {
   }, []);
 
   useEffect(() => {
+    console.log("notifications: ", newAchievements);
+    if (newAchievements.length > 0 && user) {
+      setShowToaster(true);
+      setTimeout(() => {
+        setShowToaster(false);
+        setTimeout(() => {
+          setNewAchievements(newAchievements.slice(1));
+        }, 1000);
+      }, 3000);
+    }
+  }, [newAchievements]);
+
+  useEffect(() => {
+    if (webWorkerTime <= 0 && user) {
+      worker.postMessage({ turn: "off", timeInput: 0 });
+      addFocusedWorkaholicAchievement();
+    }
+  }, [webWorkerTime]);
+
+  const getSettingsConfig = () => {
     if (!JSON.parse(localStorage.getItem("settingsConfig"))) {
       localStorage.setItem(
         "settingsConfig",
@@ -82,31 +103,11 @@ const AppContextProvider = (props) => {
       };
       localStorage.setItem("settingsConfig", JSON.stringify(updatedSettingsConfig));
     }
-  }, []);
-
-  useEffect(() => {
-    console.log("notifications: ", newAchievements);
-    if (newAchievements.length > 0 && user) {
-      setShowToaster(true);
-      setTimeout(() => {
-        setShowToaster(false);
-        setTimeout(() => {
-          setNewAchievements(newAchievements.slice(1));
-        }, 1000);
-      }, 3000);
-    }
-  }, [newAchievements, user]);
+  };
 
   function getCurrentScene() {
     return scenes[currentSceneIndex];
   }
-
-  useEffect(() => {
-    if (webWorkerTime <= 0 && user) {
-      worker.postMessage({ turn: "off", timeInput: 0 });
-      addFocusedWorkaholicAchievement();
-    }
-  }, [webWorkerTime]);
 
   const shuffleSongs = () => {
     let shuffled = songs
