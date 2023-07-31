@@ -34,6 +34,7 @@ const Account = React.lazy(() => import("../modals/account/Account"));
 const AuthModal = React.lazy(() => import("../modals/auth/authModal/AuthModal"));
 
 // Import widgets
+import StickyNoteWidget from "../widgets/stickyNoteWidget/StickyNoteWidget";
 const CalendarWidget = React.lazy(() => import("../widgets/calendarWidget/CalendarWidget"));
 const TimerWidget = React.lazy(() => import("../widgets/timerWidget/TimerWidget"));
 const ToDoListWidget = React.lazy(() => import("../widgets/toDoListWidget/ToDoListWidget"));
