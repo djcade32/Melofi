@@ -64,6 +64,18 @@ const AboutMelofi = () => {
         >
           Privacy policy
         </Link>
+        <Link
+          style={{
+            color: "var(--color-secondary)",
+            fontFamily: "var(--font-primary)",
+            alignSelf: "center",
+            marginTop: 10,
+          }}
+          to={"/termsConditions"}
+          target="_blank"
+        >
+          Terms and conditions
+        </Link>
         <p
           style={{
             color: "var(--color-secondary)",
