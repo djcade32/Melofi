@@ -50,9 +50,6 @@ const AppContextProvider = (props) => {
       incrementConsecutiveDays();
       checkFocusedWorkaholicAchievement();
     }
-  }, [user]);
-
-  useEffect(() => {
     getSettingsConfig();
     checkForNewScenes();
     setCurrentSceneIndex(JSON.parse(localStorage.getItem("currentSceneIndex")) || 0);
@@ -152,27 +149,26 @@ const AppContextProvider = (props) => {
     const userSnapshot = await getDoc(docRef);
     if (userSnapshot.exists()) {
       let userData = {};
-      if (isDayBeforeCurrentDate(parseInt(userSnapshot.data().lastLoginAt))) {
-        if (isDayBeforeCurrentDate(parseInt(userSnapshot.data().lastVisitedAt))) {
-          const numOfDays = userSnapshot.data().consecutiveDays + 1;
-          userData = {
-            consecutiveDays: numOfDays,
-            lastVisitedAt: Date.now(),
-          };
-          if (
-            numOfDays >= 30 &&
-            !userSnapshot.data().achievements.includes("consistencyChampion")
-          ) {
-            setNewAchievements((prev) => [...prev, "consistencyChampion"]);
-            userData.achievements = [...userSnapshot.data().achievements, "consistencyChampion"];
-          }
+      if (isDayBeforeCurrentDate(parseInt(userSnapshot.data().lastVisitedAt))) {
+        const numOfDays = userSnapshot.data().consecutiveDays + 1;
+        userData = {
+          consecutiveDays: numOfDays,
+          lastVisitedAt: Date.now(),
+        };
+        if (numOfDays >= 30 && !userSnapshot.data().achievements.includes("consistencyChampion")) {
+          setNewAchievements((prev) => {
+            return [...prev, "consistencyChampion"];
+          });
+          userData.achievements = [...userSnapshot.data().achievements, "consistencyChampion"];
         }
+      } else if (areTimestampsInSameDay(parseInt(userSnapshot.data().lastVisitedAt), Date.now())) {
+        userData = {
+          consecutiveDays: userSnapshot.data().consecutiveDays,
+          lastVisitedAt: Date.now(),
+        };
       } else {
-        if (!areTimestampsInSameDay(parseInt(userSnapshot.data().lastLoginAt), new Date())) {
-          userData = { consecutiveDays: 1, lastVisitedAt: Date.now() };
-        }
+        userData = { consecutiveDays: 1, lastVisitedAt: Date.now() };
       }
-      userData.lastVisitedAt = Date.now();
       try {
         await updateDoc(docRef, userData);
       } catch (error) {

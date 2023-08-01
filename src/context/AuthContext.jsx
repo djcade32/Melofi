@@ -34,29 +34,44 @@ const AuthContextProvider = (props) => {
     onAuthStateChanged(auth, () => {
       if (auth.currentUser) {
         setUser(auth.currentUser);
+        onSnapshot(doc(db, `users/${auth.currentUser.uid}`), (doc) => {
+          const { lastLoginAt, focusedTime, numOfStickyNotes, consecutiveDays, achievements } =
+            doc.data();
+
+          setUserData({
+            lastLoginAt: timeStampToDateString(lastLoginAt),
+            focusedTime: durationInDHMS(focusedTime),
+            numOfStickyNotes: numOfStickyNotes,
+            consecutiveDays: consecutiveDays,
+            achievements: achievements,
+          });
+        });
+        setLoading(false);
       } else {
         setLoading(false);
       }
     });
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      onSnapshot(doc(db, `users/${user.uid}`), (doc) => {
-        const { lastLoginAt, focusedTime, numOfStickyNotes, consecutiveDays, achievements } =
-          doc.data();
+  // useEffect(() => {
+  //   console.log("fired 2nd");
 
-        setUserData({
-          lastLoginAt: timeStampToDateString(lastLoginAt),
-          focusedTime: durationInDHMS(focusedTime),
-          numOfStickyNotes: numOfStickyNotes,
-          consecutiveDays: consecutiveDays,
-          achievements: achievements,
-        });
-      });
-      setLoading(false);
-    }
-  }, [user]);
+  //   if (user) {
+  //     onSnapshot(doc(db, `users/${user.uid}`), (doc) => {
+  //       const { lastLoginAt, focusedTime, numOfStickyNotes, consecutiveDays, achievements } =
+  //         doc.data();
+
+  //       setUserData({
+  //         lastLoginAt: timeStampToDateString(lastLoginAt),
+  //         focusedTime: durationInDHMS(focusedTime),
+  //         numOfStickyNotes: numOfStickyNotes,
+  //         consecutiveDays: consecutiveDays,
+  //         achievements: achievements,
+  //       });
+  //     });
+  //     setLoading(false);
+  //   }
+  // }, [user]);
 
   // useEffect(() => {
   //   // // Check if the page has already loaded
