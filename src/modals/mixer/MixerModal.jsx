@@ -16,6 +16,7 @@ import {
 import { isSafariBrowser } from "../../helpers/browser";
 import melofiLogo from "../../assets/logo-white.png";
 import Tooltip from "../../components/tooltip/Tooltip";
+import Playlists from "../../components/playlists/Playlists";
 
 const MixerModal = () => {
   const nodeRef = useRef(null);
@@ -127,17 +128,23 @@ const MixerModal = () => {
             </div>
           ) : (
             <div>
-              <p className="melofi__mixer_volume-title">MUSIC VOLUME</p>
-              <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
-                <IoVolumeOff size={33} color="var(--color-secondary)" />
-                <div style={{ width: "75%" }}>
-                  <VolumeSlider
-                    style={{ cursor: "pointer" }}
-                    value={musicVolume}
-                    onChange={handleVolumeChange}
-                  />
+              <div className="melofi__mixer_playlistSection">
+                <p className="melofi__mixer_volume-title">Playlists</p>
+                <div></div>
+              </div>
+              <div>
+                <p className="melofi__mixer_volume-title">MUSIC VOLUME</p>
+                <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
+                  <IoVolumeOff size={33} color="var(--color-secondary)" />
+                  <div style={{ width: "75%" }}>
+                    <VolumeSlider
+                      style={{ cursor: "pointer" }}
+                      value={musicVolume}
+                      onChange={handleVolumeChange}
+                    />
+                  </div>
+                  <IoVolumeMedium size={33} color="var(--color-secondary)" />
                 </div>
-                <IoVolumeMedium size={33} color="var(--color-secondary)" />
               </div>
             </div>
           )}

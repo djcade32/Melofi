@@ -1,0 +1,31 @@
+
+.melofi__playlists {
+    overflow-y: scroll;
+    /* height: 100%; */
+    /* overflow-x: hidden; */
+    height: 152px;
+}
+
+.melofi__playlists_item {
+    color: white;
+    font-family: var(--font-primary);
+    font-size: 14px;
+    display: flex;
+    margin-bottom: 5px;
+    align-items: center;
+    border-radius: 5px;
+    padding-left: 10px;
+    
+}
+
+.melofi__playlists_item:hover {
+    background-color: var(--color-secondary-opacity);
+    cursor: pointer;
+}
+
+.melofi__playlists_item_info {
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

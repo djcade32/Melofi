@@ -92,7 +92,13 @@
     width: 100%;
     border: 0px;
     border-radius: 10px;
-  }
+}
+
+.melofi__mixer_playlistSection {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
 
 .melofi__mixer_volume-title {
     color: var(--color-secondary-white);
