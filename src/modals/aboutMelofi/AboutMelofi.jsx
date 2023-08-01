@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./aboutMelofi.css";
-import { IoCloseOutline, AiFillInstagram } from "../../imports/icons";
+import { IoCloseOutline, AiFillInstagram, MdEmail } from "../../imports/icons";
 import { useAppContext } from "../../context/AppContext";
 
 const AboutMelofi = () => {
@@ -98,17 +98,20 @@ const AboutMelofi = () => {
             </div>
           </div>
 
-          <p
-            style={{
-              color: "var(--color-secondary)",
-              fontFamily: "var(--font-primary)",
-              alignSelf: "center",
-              marginTop: 10,
-              userSelect: "text",
-            }}
-          >
-            Contact: welcome@melofi.app
-          </p>
+          <div style={{ display: "flex", alignItems: "center", marginTop: 10, columnGap: 5 }}>
+            <MdEmail size={25} color="var(--color-secondary)" />
+            <p
+              style={{
+                color: "var(--color-secondary)",
+                fontFamily: "var(--font-primary)",
+                alignSelf: "center",
+                userSelect: "text",
+              }}
+            >
+              welcome@melofi.app
+            </p>
+          </div>
+
           <div style={{ display: "flex", justifyContent: "center", marginTop: 10 }}>
             <a
               href="https://www.instagram.com/melofi.app/"

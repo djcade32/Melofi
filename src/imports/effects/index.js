@@ -9,6 +9,7 @@ import whiteNoiseEffect from "../../assets/effects/white_noise.mp3";
 import thunderEffect from "../../assets/effects/thunder.mp3";
 import ambienceEffect from "../../assets/effects/ambience.mp3";
 import oceanEffect from "../../assets/effects/ocean.mp3";
+import waterEffect from "../../assets/effects/water.mp3";
 
 export {
   rainEffect,
@@ -22,4 +23,5 @@ export {
   thunderEffect,
   ambienceEffect,
   oceanEffect,
+  waterEffect,
 };
