@@ -1,4 +1,4 @@
-import { FaPlay, FaPause, FaStickyNote, FaUserAlt } from "react-icons/fa";
+import { FaPlay, FaPause, FaStickyNote, FaUserAlt, FaMedal } from "react-icons/fa";
 import {
   BsFillSkipBackwardFill,
   BsSkipForwardFill,
@@ -93,4 +93,5 @@ export {
   FaHandsHelping,
   BsSpotify,
   FaUserAlt,
+  FaMedal,
 };
