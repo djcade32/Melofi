@@ -10,6 +10,7 @@ const effects = {
   thunder: "Thunder",
   ambience: "Ambience",
   ocean: "Ocean",
+  water: "Water",
 };
 
 export { effects };

@@ -38,8 +38,10 @@ import {
   MdOutlineMenu,
   MdSettings,
   MdTimer,
+  MdEmail,
+  MdOutlineWaterDrop,
 } from "react-icons/md";
-import { AiFillTool, AiOutlineGoogle } from "react-icons/ai";
+import { AiFillTool, AiOutlineGoogle, AiFillInstagram } from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
 import { FaCommentDots, FaHandsHelping } from "react-icons/fa";
 import { RxCaretLeft, RxCaretRight, RxReset } from "react-icons/rx";
@@ -94,4 +96,7 @@ export {
   BsSpotify,
   FaUserAlt,
   FaMedal,
+  AiFillInstagram,
+  MdEmail,
+  MdOutlineWaterDrop,
 };
