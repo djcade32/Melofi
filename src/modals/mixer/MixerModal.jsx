@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./mixerModal.css";
 import Draggable from "react-draggable";
 import { useAppContext } from "../../context/AppContext";
@@ -16,9 +16,13 @@ import {
 import { isSafariBrowser } from "../../helpers/browser";
 import melofiLogo from "../../assets/logo-white.png";
 import Tooltip from "../../components/tooltip/Tooltip";
+import usePremiumStatus from "../../../stripe/usePremiumStatus";
+import { useAuthContext } from "../../context/AuthContext";
 
 const MixerModal = () => {
   const nodeRef = useRef(null);
+  const goRef = useRef(null);
+  const { user } = useAuthContext();
   const {
     musicVolume,
     setMusicVolume,
@@ -28,8 +32,24 @@ const MixerModal = () => {
     setUsingSpotify,
     usingSpotify,
   } = useAppContext();
+  const userIsPremium = usePremiumStatus(user);
 
   const [resetVolume, setResetVolume] = useState(false);
+  const [spotifyPlaylistInput, setSpotifyPlaylistInput] = useState("");
+  const [spotifyPlaylistId, setSpotifyPlaylistId] = useState("6JMt2yxWecgTXAzkDW0TrZ");
+
+  useEffect(() => {
+    if (usingSpotify) {
+      const handleEnter = (event) => {
+        if (event.key === "Enter") {
+          goRef.current.click();
+        }
+      };
+      document
+        .getElementById("spotifyPlaylistInput")
+        .addEventListener("keydown", handleEnter, true);
+    }
+  }, [usingSpotify]);
 
   const handleVolumeChange = (e) => {
     setMusicVolume(e.target.value);
@@ -63,6 +83,30 @@ const MixerModal = () => {
     }
 
     return allSoundsList;
+  };
+
+  const handleSpotifyPlaylistChange = () => {
+    if (spotifyPlaylistInput === "") {
+      return;
+    }
+    const id = extractSpotifyPlaylistId(spotifyPlaylistInput);
+    if (id && id !== "") {
+      setSpotifyPlaylistId(id);
+      setSpotifyPlaylistInput("");
+    }
+  };
+
+  const extractSpotifyPlaylistId = (spotifyPlaylistLink) => {
+    const url = spotifyPlaylistLink;
+    const regex = /(?:playlist\/)?([^/?]+)(?:\?.*)?$/;
+    const result = regex.exec(url);
+
+    if (result && result.length > 1 && result[0].includes("playlist")) {
+      const extractedValue = result[1];
+      return extractedValue;
+    } else {
+      return "";
+    }
   };
 
   return (
@@ -116,9 +160,27 @@ const MixerModal = () => {
             </div>
           </div>
           {usingSpotify ? (
-            <div>
+            <div style={{ display: "flex", flexDirection: "column", marginTop: 15 }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <input
+                  id="spotifyPlaylistInput"
+                  className="melofi__mixer_source_spotify_playlist_input"
+                  type="text"
+                  placeholder=" Enter Spotify playlist link"
+                  value={spotifyPlaylistInput}
+                  onChange={(e) => setSpotifyPlaylistInput(e.target.value)}
+                />
+                <p
+                  ref={goRef}
+                  className="melofi__mixer_source_spotify_playlist_input_button"
+                  onClick={handleSpotifyPlaylistChange}
+                >
+                  Go
+                </p>
+              </div>
+
               <iframe
-                src="https://open.spotify.com/embed/playlist/6JMt2yxWecgTXAzkDW0TrZ?utm_source=generator"
+                src={`https://open.spotify.com/embed/playlist/${spotifyPlaylistId}?utm_source=generator`}
                 allowFullScreen=""
                 allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture;"
                 className="melofi__mixer_source_spotify_widget"

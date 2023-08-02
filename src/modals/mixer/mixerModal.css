@@ -86,8 +86,43 @@
     opacity: 100%;
 }
 
+.melofi__mixer_source_spotify_playlist_input {
+    width: 100%;
+    background-color: var(--color-secondary-opacity);
+    border: none;
+    outline: none;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-size: 14px;
+    padding: 5px 10px;
+    caret-color: white;
+    color: white;
+}
+
+.melofi__mixer_source_spotify_playlist_input::placeholder {
+    color: var(--color-secondary);
+}
+
+.melofi__mixer_source_spotify_playlist_input_button {
+    font-family: var(--font-primary);
+    background-color: var(--color-secondary-opacity) ;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: var(--color-secondary);
+    padding: 2.5px 10px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    border-left: 1px solid var(--color-primary);
+}
+
+.melofi__mixer_source_spotify_playlist_input_button:hover {
+    background-color: var(--color-secondary);
+    color: white;
+}
+
 .melofi__mixer_source_spotify_widget {
-    margin-top: 15px;
+    margin-top: 10px;
     height: 152px;
     width: 100%;
     border: 0px;

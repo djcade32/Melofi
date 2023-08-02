@@ -97,7 +97,7 @@ const Menu = ({ isSleep, setNewMenuPopupVisible, newMenuPopupVisible }) => {
             <MdSettings {...iconProps} />
             <p>General settings</p>
           </div>
-          {userIsPremium ? (
+          {/* {userIsPremium ? (
             <div className="melofi__menu_modal_items" onClick={() => {}}>
               <MdSettings {...iconProps} />
               <p>Manage Plan</p>
@@ -110,7 +110,7 @@ const Menu = ({ isSleep, setNewMenuPopupVisible, newMenuPopupVisible }) => {
               <FaMedal {...iconProps} />
               <p>Go Premium</p>
             </div>
-          )}
+          )} */}
           <a
             href="https://forms.gle/53SKQW27bXiwdcNW8"
             target="_blank"
