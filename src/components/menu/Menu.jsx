@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import "./menu.css";
 
 import {
@@ -37,13 +37,6 @@ const Menu = ({ isSleep, setNewMenuPopupVisible, newMenuPopupVisible }) => {
     setShowAuthModal,
     setShowAccount,
   } = useAppContext();
-
-  useEffect(() => {
-    let new_menu_popup_status = localStorage.getItem("new_menu_popup_status");
-    if (!new_menu_popup_status) {
-      setNewMenuPopupVisible(true);
-    }
-  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {

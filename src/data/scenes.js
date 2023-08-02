@@ -9,6 +9,7 @@ import {
   stormyNightEffect,
   fanEffect,
   ambienceEffect,
+  waterEffect,
 } from "../imports/effects";
 import {
   cityStudio,
@@ -101,7 +102,7 @@ export const scenes = [
     sounds: [
       { sound: effects.birdsChirpping, soundPath: birdsChirppingEffect },
       { sound: effects.nature, soundPath: natureEffect },
-      { sound: effects.ambience, soundPath: ambienceEffect },
+      { sound: effects.water, soundPath: waterEffect },
     ],
     fontFamily: "var(--font-cardo)",
   },

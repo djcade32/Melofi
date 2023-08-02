@@ -11,6 +11,7 @@ import {
   thunderEffect,
   ambienceEffect,
   oceanEffect,
+  waterEffect,
 } from "../imports/effects";
 
 export const sounds = [
@@ -57,5 +58,9 @@ export const sounds = [
   {
     sound: effects.ocean,
     soundPath: oceanEffect,
+  },
+  {
+    sound: effects.water,
+    soundPath: waterEffect,
   },
 ];

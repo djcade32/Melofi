@@ -33,3 +33,18 @@
     font-weight: 300;
     line-height: 1.75rem;
 }
+
+.melofi__aboutMelofi_content_link {
+    color: var(--color-secondary);
+    font-family: var(--font-primary);
+    align-self: center;
+    font-size: 14px;
+}
+
+.melofi__aboutMelofi_content_link:hover, .melofi__aboutMelofi_content_link:hover .melofi__aboutMelofi_instaIcon {
+    color: var(--color-secondary-white);
+}
+
+.melofi__aboutMelofi_instaIcon {
+    color:var(--color-secondary);
+}

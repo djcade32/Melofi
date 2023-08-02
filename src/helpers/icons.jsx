@@ -11,6 +11,7 @@ import {
   IoThunderstormOutline,
   LuWaves,
   GiBigWave,
+  MdOutlineWaterDrop,
 } from "../imports/icons";
 
 const getIcon = (iconName, props) => {
@@ -47,6 +48,9 @@ const getIcon = (iconName, props) => {
 
     case effects.ocean:
       return <GiBigWave key={iconName} {...props} />;
+
+    case effects.water:
+      return <MdOutlineWaterDrop key={iconName} {...props} />;
 
     default:
       break;

@@ -5,6 +5,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getFirestore, onSnapshot } from "firebase/firestore";
 import { timeStampToDateString } from "../helpers/dateUtils";
 import { durationInDHMS } from "../helpers/strings";
+import LoadingPage from "../pages/LoadingPage";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_GOOGLE_API,
@@ -33,37 +34,55 @@ const AuthContextProvider = (props) => {
     onAuthStateChanged(auth, () => {
       if (auth.currentUser) {
         setUser(auth.currentUser);
+        onSnapshot(doc(db, `users/${auth.currentUser.uid}`), (doc) => {
+          const { lastLoginAt, focusedTime, numOfStickyNotes, consecutiveDays, achievements } =
+            doc.data();
+
+          setUserData({
+            lastLoginAt: timeStampToDateString(lastLoginAt),
+            focusedTime: durationInDHMS(focusedTime),
+            numOfStickyNotes: numOfStickyNotes,
+            consecutiveDays: consecutiveDays,
+            achievements: achievements,
+          });
+        });
+        setLoading(false);
+      } else {
+        setLoading(false);
       }
     });
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      onSnapshot(doc(db, `users/${user.uid}`), (doc) => {
-        const { lastLoginAt, focusedTime, numOfStickyNotes, consecutiveDays, achievements } =
-          doc.data();
+  // useEffect(() => {
+  //   console.log("fired 2nd");
 
-        setUserData({
-          lastLoginAt: timeStampToDateString(lastLoginAt),
-          focusedTime: durationInDHMS(focusedTime),
-          numOfStickyNotes: numOfStickyNotes,
-          consecutiveDays: consecutiveDays,
-          achievements: achievements,
-        });
-      });
-    }
-  }, [user]);
+  //   if (user) {
+  //     onSnapshot(doc(db, `users/${user.uid}`), (doc) => {
+  //       const { lastLoginAt, focusedTime, numOfStickyNotes, consecutiveDays, achievements } =
+  //         doc.data();
 
-  useEffect(() => {
-    // Check if the page has already loaded
-    if (document.readyState === "complete") {
-      setLoading(false);
-    } else {
-      window.addEventListener("load", setLoading(false));
-      // Remove the event listener when component unmounts
-      return () => window.removeEventListener("load", setLoading(false));
-    }
-  }, []);
+  //       setUserData({
+  //         lastLoginAt: timeStampToDateString(lastLoginAt),
+  //         focusedTime: durationInDHMS(focusedTime),
+  //         numOfStickyNotes: numOfStickyNotes,
+  //         consecutiveDays: consecutiveDays,
+  //         achievements: achievements,
+  //       });
+  //     });
+  //     setLoading(false);
+  //   }
+  // }, [user]);
+
+  // useEffect(() => {
+  //   // // Check if the page has already loaded
+  //   // if (document.readyState === "complete") {
+  //   //   setLoading(false);
+  //   // } else {
+  //   //   window.addEventListener("load", setLoading(false));
+  //   //   // Remove the event listener when component unmounts
+  //   //   return () => window.removeEventListener("load", setLoading(false));
+  //   // }
+  // }, []);
 
   return (
     <AuthContext.Provider
@@ -75,7 +94,7 @@ const AuthContextProvider = (props) => {
         userData,
       }}
     >
-      {loading ? <></> : <>{props.children}</>}
+      {loading ? <LoadingPage /> : <>{props.children}</>}
     </AuthContext.Provider>
   );
 };

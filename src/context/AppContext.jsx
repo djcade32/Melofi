@@ -50,9 +50,7 @@ const AppContextProvider = (props) => {
       incrementConsecutiveDays();
       checkFocusedWorkaholicAchievement();
     }
-  }, [user]);
-
-  useEffect(() => {
+    getSettingsConfig();
     checkForNewScenes();
     setCurrentSceneIndex(JSON.parse(localStorage.getItem("currentSceneIndex")) || 0);
     setAllStickyNotes(JSON.parse(localStorage.getItem("stickyNoteList")) || []);
@@ -60,6 +58,26 @@ const AppContextProvider = (props) => {
   }, []);
 
   useEffect(() => {
+    console.log("notifications: ", newAchievements);
+    if (newAchievements.length > 0 && user) {
+      setShowToaster(true);
+      setTimeout(() => {
+        setShowToaster(false);
+        setTimeout(() => {
+          setNewAchievements(newAchievements.slice(1));
+        }, 1000);
+      }, 3000);
+    }
+  }, [newAchievements]);
+
+  useEffect(() => {
+    if (webWorkerTime <= 0 && user) {
+      worker.postMessage({ turn: "off", timeInput: 0 });
+      addFocusedWorkaholicAchievement();
+    }
+  }, [webWorkerTime]);
+
+  const getSettingsConfig = () => {
     if (!JSON.parse(localStorage.getItem("settingsConfig"))) {
       localStorage.setItem(
         "settingsConfig",
@@ -82,31 +100,11 @@ const AppContextProvider = (props) => {
       };
       localStorage.setItem("settingsConfig", JSON.stringify(updatedSettingsConfig));
     }
-  }, []);
-
-  useEffect(() => {
-    console.log("notifications: ", newAchievements);
-    if (newAchievements.length > 0 && user) {
-      setShowToaster(true);
-      setTimeout(() => {
-        setShowToaster(false);
-        setTimeout(() => {
-          setNewAchievements(newAchievements.slice(1));
-        }, 1000);
-      }, 3000);
-    }
-  }, [newAchievements, user]);
+  };
 
   function getCurrentScene() {
     return scenes[currentSceneIndex];
   }
-
-  useEffect(() => {
-    if (webWorkerTime <= 0 && user) {
-      worker.postMessage({ turn: "off", timeInput: 0 });
-      addFocusedWorkaholicAchievement();
-    }
-  }, [webWorkerTime]);
 
   const shuffleSongs = () => {
     let shuffled = songs
@@ -151,27 +149,26 @@ const AppContextProvider = (props) => {
     const userSnapshot = await getDoc(docRef);
     if (userSnapshot.exists()) {
       let userData = {};
-      if (isDayBeforeCurrentDate(parseInt(userSnapshot.data().lastLoginAt))) {
-        if (isDayBeforeCurrentDate(parseInt(userSnapshot.data().lastVisitedAt))) {
-          const numOfDays = userSnapshot.data().consecutiveDays + 1;
-          userData = {
-            consecutiveDays: numOfDays,
-            lastVisitedAt: Date.now(),
-          };
-          if (
-            numOfDays >= 30 &&
-            !userSnapshot.data().achievements.includes("consistencyChampion")
-          ) {
-            setNewAchievements((prev) => [...prev, "consistencyChampion"]);
-            userData.achievements = [...userSnapshot.data().achievements, "consistencyChampion"];
-          }
+      if (isDayBeforeCurrentDate(parseInt(userSnapshot.data().lastVisitedAt))) {
+        const numOfDays = userSnapshot.data().consecutiveDays + 1;
+        userData = {
+          consecutiveDays: numOfDays,
+          lastVisitedAt: Date.now(),
+        };
+        if (numOfDays >= 30 && !userSnapshot.data().achievements.includes("consistencyChampion")) {
+          setNewAchievements((prev) => {
+            return [...prev, "consistencyChampion"];
+          });
+          userData.achievements = [...userSnapshot.data().achievements, "consistencyChampion"];
         }
+      } else if (areTimestampsInSameDay(parseInt(userSnapshot.data().lastVisitedAt), Date.now())) {
+        userData = {
+          consecutiveDays: userSnapshot.data().consecutiveDays,
+          lastVisitedAt: Date.now(),
+        };
       } else {
-        if (!areTimestampsInSameDay(parseInt(userSnapshot.data().lastLoginAt), new Date())) {
-          userData = { consecutiveDays: 1, lastVisitedAt: Date.now() };
-        }
+        userData = { consecutiveDays: 1, lastVisitedAt: Date.now() };
       }
-      userData.lastVisitedAt = Date.now();
       try {
         await updateDoc(docRef, userData);
       } catch (error) {
@@ -232,7 +229,7 @@ const AppContextProvider = (props) => {
     }
   };
 
-  const updateUserLastLoginAt = async () => {
+  const updateUserLastLoginAt = async (user) => {
     const docRef = doc(db, `users/${user.uid}`);
     const userSnapshot = await getDoc(docRef);
     if (userSnapshot.exists()) {

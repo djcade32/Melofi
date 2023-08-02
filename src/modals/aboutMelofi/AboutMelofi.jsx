@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./aboutMelofi.css";
-import { IoCloseOutline } from "../../imports/icons";
+import { IoCloseOutline, AiFillInstagram, MdEmail } from "../../imports/icons";
 import { useAppContext } from "../../context/AppContext";
 
 const AboutMelofi = () => {
@@ -51,30 +51,79 @@ const AboutMelofi = () => {
           lofi music, as Melofi is designed to enhance your experience and elevate your productivity
           to new heights.
         </p>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              textAlign: "center",
+              width: "100%",
+              justifyContent: "center",
+              marginTop: 20,
+            }}
+          >
+            <div style={{ width: "100%", textAlign: "center" }}>
+              <Link
+                className="melofi__aboutMelofi_content_link"
+                to={"/privacyPolicy"}
+                target="_blank"
+              >
+                Privacy Policy
+              </Link>
+            </div>
+            <div
+              style={{
+                width: 2,
+                height: 20,
+                backgroundColor: "var(--color-secondary)",
+                margin: "0px 10px",
+              }}
+            />
 
-        <Link
-          style={{
-            color: "var(--color-secondary)",
-            fontFamily: "var(--font-primary)",
-            alignSelf: "center",
-            marginTop: 10,
-          }}
-          to={"/privacyPolicy"}
-          target="_blank"
-        >
-          Privacy policy
-        </Link>
-        <p
-          style={{
-            color: "var(--color-secondary)",
-            fontFamily: "var(--font-primary)",
-            alignSelf: "center",
-            marginTop: 10,
-            userSelect: "text",
-          }}
-        >
-          Contact: welcome@melofi.app
-        </p>
+            {/* <p style={{ width: "10%" }}>|</p> */}
+            <div style={{ width: "100%", textAlign: "center" }}>
+              <Link
+                className="melofi__aboutMelofi_content_link"
+                to={"/termsConditions"}
+                target="_blank"
+              >
+                Terms & Conditions
+              </Link>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", marginTop: 10, columnGap: 5 }}>
+            <MdEmail size={25} color="var(--color-secondary)" />
+            <p
+              style={{
+                color: "var(--color-secondary)",
+                fontFamily: "var(--font-primary)",
+                alignSelf: "center",
+                userSelect: "text",
+              }}
+            >
+              welcome@melofi.app
+            </p>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "center", marginTop: 10 }}>
+            <a
+              href="https://www.instagram.com/melofi.app/"
+              target="_blank"
+              style={{ display: "flex", columnGap: 5, alignItems: "center" }}
+              className="melofi__aboutMelofi_content_link"
+            >
+              <AiFillInstagram size={25} className="melofi__aboutMelofi_instaIcon" />
+              Instagram
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
