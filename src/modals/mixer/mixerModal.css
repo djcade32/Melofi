@@ -1,7 +1,8 @@
 .melofi__mixerModal {
+    overflow: hidden;
     background-color: var(--color-primary);
     width: 380px;
-    height: 530px;
+    height: 600px;
     z-index: 10;
     backdrop-filter: blur(10px);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -35,7 +36,28 @@
     color: var(--color-secondary-white);
     font-family: var(--font-primary);
     font-size: 21px;
-    margin-bottom: 10px;
+}
+
+.melofi__mixer_playlist_container {
+    font-family: var(--font-primary);
+}
+
+.melofi__mixer_playlist_options_container {
+    display: flex;
+    padding: 10px 0px;
+    justify-content: space-around;
+}
+
+.melofi__mixer_playlist_option {
+    display: flex;
+    flex-direction: column;
+    width: 75px;
+    font-size: 14px;
+    color: var(--color-secondary);
+    align-items: center;
+    justify-content: center;
+    row-gap: 5px;
+    cursor: pointer;
 }
 
 .melofi__mixer_source_container {
@@ -46,10 +68,10 @@
 }
 
 .melofi__mixer_content {
-    overflow: scroll;
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
-    height: 85%;
+    height: 95%;
     margin-top: 10px;
     padding-right: 22px;
     padding-left: 22px;
@@ -129,11 +151,10 @@
     border-radius: 10px;
   }
 
-.melofi__mixer_volume-title {
+.melofi__mixer_section_title {
     color: var(--color-secondary-white);
     font-family: var(--font-primary);
     font-size: 18px;
-    margin-top: 15px;
 }
 
 .melofi__mixer_reset-button {
@@ -141,7 +162,7 @@
     font-family: var(--font-primary);
     font-size: 18px;
     text-align: center;
-    margin-top: 35px;
+    margin-top: 15px;
     cursor: pointer;
 }
 

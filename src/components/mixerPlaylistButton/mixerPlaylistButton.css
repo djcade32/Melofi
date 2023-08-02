@@ -1,0 +1,17 @@
+.melofi__playlistButton {
+    width: 50px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    color: var(--color-secondary);
+    row-gap: 5px;
+}
+
+.melofi__playlistButton_icon  {
+    background-color: var(--color-secondary-opacity);
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

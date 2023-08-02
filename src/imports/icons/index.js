@@ -1,4 +1,4 @@
-import { FaPlay, FaPause, FaStickyNote, FaUserAlt, FaMedal } from "react-icons/fa";
+import { FaPlay, FaPause, FaStickyNote, FaUserAlt, FaMedal, FaHeadphones } from "react-icons/fa";
 import {
   BsFillSkipBackwardFill,
   BsSkipForwardFill,
@@ -45,6 +45,7 @@ import { AiFillTool, AiOutlineGoogle, AiFillInstagram } from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
 import { FaCommentDots, FaHandsHelping } from "react-icons/fa";
 import { RxCaretLeft, RxCaretRight, RxReset } from "react-icons/rx";
+import { PiMaskHappyFill, PiMoonFill } from "react-icons/pi";
 
 export {
   FaPause,
@@ -99,4 +100,7 @@ export {
   AiFillInstagram,
   MdEmail,
   MdOutlineWaterDrop,
+  PiMaskHappyFill,
+  PiMoonFill,
+  FaHeadphones,
 };

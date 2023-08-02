@@ -12,12 +12,40 @@ import {
   IoCloseOutline,
   BsSpotify,
   BsInfoCircle,
+  PiMaskHappyFill,
+  PiMoonFill,
+  FaHeadphones,
 } from "../../imports/icons";
 import { isSafariBrowser } from "../../helpers/browser";
 import melofiLogo from "../../assets/logo-white.png";
 import Tooltip from "../../components/tooltip/Tooltip";
 import usePremiumStatus from "../../../stripe/usePremiumStatus";
 import { useAuthContext } from "../../context/AuthContext";
+import isUserPremium from "../../../stripe/isUserPremium";
+import MixerPlaylistButton from "../../components/mixerPlaylistButton/MixerPlaylistButton";
+
+const playlistIconConfig = {
+  size: 30,
+  color: "var(--color-secondary)",
+};
+
+const playlist = [
+  {
+    icon: <PiMaskHappyFill {...playlistIconConfig} />,
+    label: "Happy",
+    spotifyPlaylistId: "6JMt2yxWecgTXAzkDW0TrZ",
+  },
+  {
+    icon: <FaHeadphones {...playlistIconConfig} />,
+    label: "Relax",
+    spotifyPlaylistId: "0iepisLXvVe5RxB3owHjlj",
+  },
+  {
+    icon: <PiMoonFill {...playlistIconConfig} />,
+    label: "Sleepy",
+    spotifyPlaylistId: "0vvXsWCC9xrXsKd4FyS8kM",
+  },
+];
 
 const MixerModal = () => {
   const nodeRef = useRef(null);
@@ -37,9 +65,12 @@ const MixerModal = () => {
   const [resetVolume, setResetVolume] = useState(false);
   const [spotifyPlaylistInput, setSpotifyPlaylistInput] = useState("");
   const [spotifyPlaylistId, setSpotifyPlaylistId] = useState("6JMt2yxWecgTXAzkDW0TrZ");
+  const [melofiPlaylist, setMelofiPlaylist] = useState("Happy");
+
+  useEffect(() => {}, [melofiPlaylist]);
 
   useEffect(() => {
-    if (usingSpotify) {
+    if (usingSpotify && userIsPremium) {
       const handleEnter = (event) => {
         if (event.key === "Enter") {
           goRef.current.click();
@@ -131,6 +162,21 @@ const MixerModal = () => {
         </div>
 
         <div className="melofi__mixer_content">
+          <div className="melofi__mixer_playlist_container">
+            <div className="melofi__mixer_playlist_options_container">
+              {playlist.map((list, index) => (
+                <MixerPlaylistButton
+                  key={list.label + index}
+                  icon={list.icon}
+                  label={list.label}
+                  isSelected={list.spotifyPlaylistId === spotifyPlaylistId}
+                  // onSelect={setMelofiPlaylist}
+                  setSpotifyPlaylistId={setSpotifyPlaylistId}
+                  spotifyPlaylistId={list.spotifyPlaylistId}
+                />
+              ))}
+            </div>
+          </div>
           <div className="melofi__mixer_source_container">
             <div
               className="melofi__mixer_source"
@@ -161,23 +207,25 @@ const MixerModal = () => {
           </div>
           {usingSpotify ? (
             <div style={{ display: "flex", flexDirection: "column", marginTop: 15 }}>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <input
-                  id="spotifyPlaylistInput"
-                  className="melofi__mixer_source_spotify_playlist_input"
-                  type="text"
-                  placeholder=" Enter Spotify playlist link"
-                  value={spotifyPlaylistInput}
-                  onChange={(e) => setSpotifyPlaylistInput(e.target.value)}
-                />
-                <p
-                  ref={goRef}
-                  className="melofi__mixer_source_spotify_playlist_input_button"
-                  onClick={handleSpotifyPlaylistChange}
-                >
-                  Go
-                </p>
-              </div>
+              {userIsPremium && (
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <input
+                    id="spotifyPlaylistInput"
+                    className="melofi__mixer_source_spotify_playlist_input"
+                    type="text"
+                    placeholder=" Enter Spotify playlist link"
+                    value={spotifyPlaylistInput}
+                    onChange={(e) => setSpotifyPlaylistInput(e.target.value)}
+                  />
+                  <p
+                    ref={goRef}
+                    className="melofi__mixer_source_spotify_playlist_input_button"
+                    onClick={handleSpotifyPlaylistChange}
+                  >
+                    Go
+                  </p>
+                </div>
+              )}
 
               <iframe
                 src={`https://open.spotify.com/embed/playlist/${spotifyPlaylistId}?utm_source=generator`}
@@ -189,7 +237,9 @@ const MixerModal = () => {
             </div>
           ) : (
             <div>
-              <p className="melofi__mixer_volume-title">MUSIC VOLUME</p>
+              <p className="melofi__mixer_section_title" style={{ marginTop: 15 }}>
+                MUSIC VOLUME
+              </p>
               <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
                 <IoVolumeOff size={33} color="var(--color-secondary)" />
                 <div style={{ width: "75%" }}>
@@ -203,7 +253,7 @@ const MixerModal = () => {
               </div>
             </div>
           )}
-          <p className="melofi__mixer_volume-title" style={{ marginTop: 20 }}>
+          <p className="melofi__mixer_section_title " style={{ marginTop: 20 }}>
             SCENE SOUNDS
           </p>
           <div>
@@ -220,7 +270,7 @@ const MixerModal = () => {
               );
             })}
           </div>
-          <p className="melofi__mixer_volume-title" style={{ marginTop: 20 }}>
+          <p className="melofi__mixer_section_title " style={{ marginTop: 20 }}>
             ALL SOUNDS
           </p>
           <div>
