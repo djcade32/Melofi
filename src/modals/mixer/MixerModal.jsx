@@ -21,8 +21,8 @@ import melofiLogo from "../../assets/logo-white.png";
 import Tooltip from "../../components/tooltip/Tooltip";
 import usePremiumStatus from "../../../stripe/usePremiumStatus";
 import { useAuthContext } from "../../context/AuthContext";
-import isUserPremium from "../../../stripe/isUserPremium";
 import MixerPlaylistButton from "../../components/mixerPlaylistButton/MixerPlaylistButton";
+import { createCheckoutSession } from "../../../stripe/createCheckoutSession";
 
 const playlistIconConfig = {
   size: 30,
@@ -38,12 +38,12 @@ const playlist = [
   {
     icon: <FaHeadphones {...playlistIconConfig} />,
     label: "Relax",
-    spotifyPlaylistId: "0iepisLXvVe5RxB3owHjlj",
+    spotifyPlaylistId: "1OyBZa9DEbKT6ye47QDQgR",
   },
   {
     icon: <PiMoonFill {...playlistIconConfig} />,
     label: "Sleepy",
-    spotifyPlaylistId: "0vvXsWCC9xrXsKd4FyS8kM",
+    spotifyPlaylistId: "1rg4Z5eRMGgD6k58cNiaL6",
   },
 ];
 
@@ -65,9 +65,7 @@ const MixerModal = () => {
   const [resetVolume, setResetVolume] = useState(false);
   const [spotifyPlaylistInput, setSpotifyPlaylistInput] = useState("");
   const [spotifyPlaylistId, setSpotifyPlaylistId] = useState("6JMt2yxWecgTXAzkDW0TrZ");
-  const [melofiPlaylist, setMelofiPlaylist] = useState("Happy");
-
-  useEffect(() => {}, [melofiPlaylist]);
+  // const [melofiPlaylist, setMelofiPlaylist] = useState("Happy");
 
   useEffect(() => {
     if (usingSpotify && userIsPremium) {
@@ -162,21 +160,37 @@ const MixerModal = () => {
         </div>
 
         <div className="melofi__mixer_content">
-          <div className="melofi__mixer_playlist_container">
-            <div className="melofi__mixer_playlist_options_container">
-              {playlist.map((list, index) => (
-                <MixerPlaylistButton
-                  key={list.label + index}
-                  icon={list.icon}
-                  label={list.label}
-                  isSelected={list.spotifyPlaylistId === spotifyPlaylistId}
-                  // onSelect={setMelofiPlaylist}
-                  setSpotifyPlaylistId={setSpotifyPlaylistId}
-                  spotifyPlaylistId={list.spotifyPlaylistId}
-                />
-              ))}
+          <div id={!userIsPremium ? "melofi__hover_trigger" : ""}>
+            {!userIsPremium && (
+              <div className="melofi__mixer_premium_banner">
+                <div
+                  className="melofi__premium_button"
+                  onClick={() => createCheckoutSession(user.uid)}
+                >
+                  <p>Go Premium</p>
+                </div>
+                <p style={{ width: "65%", textAlign: "center", fontSize: 14, lineHeight: 1.75 }}>
+                  to change playlist based on your mood.
+                </p>
+              </div>
+            )}
+            <div className="melofi__mixer_playlist_container">
+              <div className="melofi__mixer_playlist_options_container">
+                {playlist.map((list, index) => (
+                  <MixerPlaylistButton
+                    key={list.label + index}
+                    icon={list.icon}
+                    label={list.label}
+                    isSelected={list.spotifyPlaylistId === spotifyPlaylistId}
+                    // onSelect={setMelofiPlaylist}
+                    setSpotifyPlaylistId={setSpotifyPlaylistId}
+                    spotifyPlaylistId={list.spotifyPlaylistId}
+                  />
+                ))}
+              </div>
             </div>
           </div>
+
           <div className="melofi__mixer_source_container">
             <div
               className="melofi__mixer_source"

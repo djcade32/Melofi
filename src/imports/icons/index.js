@@ -1,4 +1,12 @@
-import { FaPlay, FaPause, FaStickyNote, FaUserAlt, FaMedal, FaHeadphones } from "react-icons/fa";
+import {
+  FaPlay,
+  FaPause,
+  FaStickyNote,
+  FaUserAlt,
+  FaMedal,
+  FaHeadphones,
+  FaCrown,
+} from "react-icons/fa";
 import {
   BsFillSkipBackwardFill,
   BsSkipForwardFill,
@@ -103,4 +111,5 @@ export {
   PiMaskHappyFill,
   PiMoonFill,
   FaHeadphones,
+  FaCrown,
 };
