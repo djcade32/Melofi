@@ -12,9 +12,6 @@ import {
   IoCloseOutline,
   BsSpotify,
   BsInfoCircle,
-  PiMaskHappyFill,
-  PiMoonFill,
-  FaHeadphones,
 } from "../../imports/icons";
 import { isSafariBrowser } from "../../helpers/browser";
 import melofiLogo from "../../assets/logo-white.png";

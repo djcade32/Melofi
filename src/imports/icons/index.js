@@ -26,6 +26,7 @@ import {
   IoVolumeOff,
   IoCloseOutline,
   IoThunderstormOutline,
+  IoBookSharp,
 } from "react-icons/io5";
 import { RiSoundModuleFill, RiFullscreenFill, RiFullscreenExitLine } from "react-icons/ri";
 import {
@@ -53,7 +54,7 @@ import { AiFillTool, AiOutlineGoogle, AiFillInstagram } from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
 import { FaCommentDots, FaHandsHelping } from "react-icons/fa";
 import { RxCaretLeft, RxCaretRight, RxReset } from "react-icons/rx";
-import { PiMaskHappyFill, PiMoonFill } from "react-icons/pi";
+import { PiMoonFill } from "react-icons/pi";
 
 export {
   FaPause,
@@ -108,8 +109,8 @@ export {
   AiFillInstagram,
   MdEmail,
   MdOutlineWaterDrop,
-  PiMaskHappyFill,
   PiMoonFill,
   FaHeadphones,
   FaCrown,
+  IoBookSharp,
 };

@@ -32,7 +32,7 @@ import {
   moonBeams_lofty_jaackson_whilst,
 } from "../imports/songs";
 
-const Happy = [
+const Study = [
   {
     id: 0,
     mp3Path: theRidge_allemIverson,
@@ -289,4 +289,4 @@ const Sleepy = [
   },
 ];
 
-export { Happy, Relax, Sleepy };
+export { Study, Relax, Sleepy };

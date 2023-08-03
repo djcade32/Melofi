@@ -1,6 +1,5 @@
 import { getIcon } from "../helpers/icons";
-import { PiMaskHappyFill, PiMoonFill, FaHeadphones } from "../imports/icons";
-import { Happy, Relax, Sleepy } from "./songs";
+import { Study, Relax, Sleepy } from "./songs";
 
 const playlistIconConfig = {
   size: 30,
@@ -9,10 +8,10 @@ const playlistIconConfig = {
 
 const playlist = [
   {
-    icon: getIcon("Happy", playlistIconConfig),
-    label: "Happy",
+    icon: getIcon("Study", playlistIconConfig),
+    label: "Study",
     spotifyPlaylistId: "6JMt2yxWecgTXAzkDW0TrZ",
-    melofiPlaylist: Happy,
+    melofiPlaylist: Study,
   },
   {
     icon: getIcon("Relax", playlistIconConfig),
