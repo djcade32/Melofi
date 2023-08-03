@@ -214,7 +214,7 @@ const MixerModal = () => {
               <p className="melofi__mixer_source_text">Spotify</p>
               <div className="melofi__mixer_source_spotify_info">
                 <Tooltip text="Log into Spotify from your browser to listen without limits">
-                  <BsInfoCircle size={10} color="white" />
+                  <BsInfoCircle size={15} color="white" />
                 </Tooltip>
               </div>
             </div>
