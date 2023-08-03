@@ -32,7 +32,7 @@ import {
   moonBeams_lofty_jaackson_whilst,
 } from "../imports/songs";
 
-export const items = [
+const Study = [
   {
     id: 0,
     mp3Path: theRidge_allemIverson,
@@ -145,6 +145,9 @@ export const items = [
     provider: "Cloudhop Music",
     providerUrl: "https://www.youtube.com/@CloudhopMusic",
   },
+];
+
+const Relax = [
   {
     id: 14,
     mp3Path: overgrown_tenno,
@@ -217,6 +220,9 @@ export const items = [
     provider: "Lofi Records",
     providerUrl: "https://www.youtube.com/@LofiRecords",
   },
+];
+
+const Sleepy = [
   {
     id: 23,
     mp3Path: starryNight_eugenioIzzi_mondoLoops,
@@ -282,3 +288,5 @@ export const items = [
     providerUrl: "https://www.youtube.com/@LofiRecords",
   },
 ];
+
+export { Study, Relax, Sleepy };

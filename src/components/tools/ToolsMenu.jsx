@@ -6,13 +6,14 @@ import {
   HiClipboardDocumentList,
   FaStickyNote,
   MdTimer,
+  MdLibraryMusic,
 } from "../../imports/icons";
 import Tooltip from "../tooltip/Tooltip";
 import { useAppContext } from "../../context/AppContext";
 import { DEFAULT } from "../../enums/colors";
 
 const iconProps = {
-  size: 15,
+  size: 20,
   color: "white",
   cursor: "pointer",
 };
@@ -91,53 +92,46 @@ const ToolsMenu = ({ isSleep, newToolPopupVisible, setNewToolPopupVisible }) => 
       style={showToolsMenu ? { outline: "1px solid var(--color-effect-opacity)" } : {}}
       onClick={() => setShowToolsMenu((prev) => !prev)}
     >
-      <Tooltip text="Tools">
+      <Tooltip text={showToolsMenu ? "" : "Tools"}>
         <AiFillTool {...iconProps} size={20} />
       </Tooltip>
 
       {showToolsMenu && (
         <div className="melofi__toolsMenu-container">
-          <div className="melofi__toolsMenu-container-items" onClick={createNewStickyNote}>
-            <FaStickyNote {...iconProps} />
-            <div>
-              <p>Sticky note</p>
+          <Tooltip text="Sticky notes">
+            <div className="melofi__toolsMenu-container-items" onClick={createNewStickyNote}>
+              <FaStickyNote {...iconProps} />
             </div>
-          </div>
-          <div
-            className="melofi__toolsMenu-container-items"
-            onClick={() => setShowToDoList((prev) => !prev)}
-          >
-            <HiClipboardDocumentList {...iconProps} />
-            <div>
-              <p>To-Do list</p>
+          </Tooltip>
+          <Tooltip text="To-Do list">
+            <div
+              className="melofi__toolsMenu-container-items"
+              onClick={() => setShowToDoList((prev) => !prev)}
+            >
+              <HiClipboardDocumentList {...iconProps} />
             </div>
-          </div>
-          <div
-            className="melofi__toolsMenu-container-items"
-            onClick={() => {
-              setShowCalendar((prev) => !prev);
-              removeNewFeature();
-            }}
-          >
-            <BsFillCalendarDateFill {...iconProps} />
-            <div style={{ width: "100%", display: "flex" }}>
-              <p>Calendar</p>
-              {newToolPopupVisible && (
-                <p className="melofi__toolsMenu_new" style={{ fontSize: 12 }}>
-                  NEW
-                </p>
-              )}
+          </Tooltip>
+          <Tooltip text="Calendar">
+            <div
+              style={{ position: "relative" }}
+              className="melofi__toolsMenu-container-items"
+              onClick={() => {
+                setShowCalendar((prev) => !prev);
+                removeNewFeature();
+              }}
+            >
+              <BsFillCalendarDateFill {...iconProps} />
+              {newToolPopupVisible && <div className="melofi__toolsMenu_new" />}
             </div>
-          </div>
-          <div
-            className="melofi__toolsMenu-container-items"
-            onClick={() => setShowTimer((prev) => !prev)}
-          >
-            <MdTimer {...iconProps} />
-            <div>
-              <p>Timer</p>
+          </Tooltip>
+          <Tooltip text="Timer">
+            <div
+              className="melofi__toolsMenu-container-items"
+              onClick={() => setShowTimer((prev) => !prev)}
+            >
+              <MdTimer {...iconProps} />
             </div>
-          </div>
+          </Tooltip>
         </div>
       )}
     </div>

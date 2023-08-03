@@ -1,4 +1,12 @@
-import { FaPlay, FaPause, FaStickyNote, FaUserAlt } from "react-icons/fa";
+import {
+  FaPlay,
+  FaPause,
+  FaStickyNote,
+  FaUserAlt,
+  FaMedal,
+  FaHeadphones,
+  FaCrown,
+} from "react-icons/fa";
 import {
   BsFillSkipBackwardFill,
   BsSkipForwardFill,
@@ -18,6 +26,7 @@ import {
   IoVolumeOff,
   IoCloseOutline,
   IoThunderstormOutline,
+  IoBookSharp,
 } from "react-icons/io5";
 import { RiSoundModuleFill, RiFullscreenFill, RiFullscreenExitLine } from "react-icons/ri";
 import {
@@ -40,11 +49,13 @@ import {
   MdTimer,
   MdEmail,
   MdOutlineWaterDrop,
+  MdLibraryMusic,
 } from "react-icons/md";
 import { AiFillTool, AiOutlineGoogle, AiFillInstagram } from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
 import { FaCommentDots, FaHandsHelping } from "react-icons/fa";
 import { RxCaretLeft, RxCaretRight, RxReset } from "react-icons/rx";
+import { PiMoonFill } from "react-icons/pi";
 
 export {
   FaPause,
@@ -95,7 +106,13 @@ export {
   FaHandsHelping,
   BsSpotify,
   FaUserAlt,
+  FaMedal,
   AiFillInstagram,
   MdEmail,
   MdOutlineWaterDrop,
+  PiMoonFill,
+  FaHeadphones,
+  FaCrown,
+  IoBookSharp,
+  MdLibraryMusic,
 };

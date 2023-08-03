@@ -28,32 +28,15 @@ const MusicControls = () => {
     musicVolume,
     setMusicVolume,
     setCurrentSongInfo,
-    shuffledSongList,
     updateZenMasterAchievement,
+    selectedPlaylist,
   } = useAppContext();
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [volumePressed, setVolumePressed] = useState(false);
   const [currentMusicIndex, setCurrentMusicIndex] = useState(0);
-
-  useEffect(() => {
-    const songInfo = {
-      title: shuffledSongList[currentMusicIndex].title,
-      artist: shuffledSongList[currentMusicIndex].artist,
-      provider: shuffledSongList[currentMusicIndex].provider,
-      providerUrl: shuffledSongList[currentMusicIndex].providerUrl,
-    };
-
-    setCurrentSongInfo(songInfo);
-    if (songInfo !== null && isPlaying) {
-      audioRef.current.play();
-    }
-  }, [currentMusicIndex]);
-
-  useEffect(() => {
-    audioRef.current.volume = musicVolume / 100;
-  }, [musicVolume]);
+  const [shuffledSongList, setShuffledSongList] = useState(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -66,6 +49,41 @@ const MusicControls = () => {
       document.removeEventListener("click", handleClickOutside, true);
     };
   }, []);
+
+  useEffect(() => {
+    if (shuffledSongList && isPlaying) {
+      handleTogglePlay();
+    }
+    shuffleSongs();
+  }, [selectedPlaylist]);
+
+  useEffect(() => {
+    if (!shuffledSongList) {
+      return;
+    }
+
+    setSongInfo(shuffledSongList);
+    if (isPlaying) {
+      audioRef.current.play();
+    }
+  }, [currentMusicIndex]);
+
+  useEffect(() => {
+    if (!shuffledSongList) {
+      return;
+    }
+    audioRef.current.volume = musicVolume / 100;
+  }, [musicVolume, shuffledSongList]);
+
+  const shuffleSongs = () => {
+    let shuffled = selectedPlaylist.melofiPlaylist
+      .map((value) => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value);
+
+    setSongInfo(shuffled);
+    setShuffledSongList(shuffled);
+  };
 
   // Event handler for toggling play/pause
   const handleTogglePlay = () => {
@@ -107,6 +125,16 @@ const MusicControls = () => {
       audio.muted = !isMuted;
     });
     setIsMuted(!isMuted);
+  };
+
+  const setSongInfo = (list) => {
+    const songInfo = {
+      title: list[currentMusicIndex].title,
+      artist: list[currentMusicIndex].artist,
+      provider: list[currentMusicIndex].provider,
+      providerUrl: list[currentMusicIndex].providerUrl,
+    };
+    setCurrentSongInfo(songInfo);
   };
 
   return (
