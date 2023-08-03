@@ -160,7 +160,7 @@ const MixerModal = () => {
         </div>
 
         <div className="melofi__mixer_content">
-          <div id={!userIsPremium ? "melofi__hover_trigger" : ""}>
+          <div style={{ position: "relative" }}>
             {!userIsPremium && (
               <div className="melofi__mixer_premium_banner">
                 <div
@@ -190,7 +190,6 @@ const MixerModal = () => {
               </div>
             </div>
           </div>
-
           <div className="melofi__mixer_source_container">
             <div
               className="melofi__mixer_source"

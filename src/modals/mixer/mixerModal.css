@@ -44,12 +44,6 @@
     margin-bottom: 10px;
 }
 
-.melofi__mixer_playlist_container:hover {
-    opacity: 0.5;
-    filter: blur(2px);
-    transition: filter 300ms ease 0s;
-}
-
 .melofi__mixer_premium_banner{
     position: absolute;
     top:0;
@@ -67,10 +61,6 @@
     row-gap: 10px;
 }
 
-.melofi__mixer_premium_banner p {
-    opacity: 0%;
-}
-
 .melofi__premium_button {
     outline: 1px solid var(--color-secondary);
     border-radius: 10px;
@@ -82,22 +72,21 @@
     opacity: 0%;
 }
 
+.melofi__mixer_premium_banner p {
+    opacity: 0%;
+}
 
-#melofi__hover_trigger {
-    position: relative;
+.melofi__mixer_premium_banner:hover + .melofi__mixer_playlist_container {
+    opacity: 0.5;
+    filter: blur(2px);
+    transition: filter 300ms ease 0s;
 }
 
 .melofi__premium_button:hover {
     background-color: var(--color-effect-opacity);
 }
 
-#melofi__hover_trigger:hover .melofi__mixer_playlist_container {
-    opacity: 0.5;
-    filter: blur(2px);
-    transition: filter 300ms ease 0s;
-}
-
-#melofi__hover_trigger:hover .melofi__premium_button, #melofi__hover_trigger:hover .melofi__mixer_premium_banner p {
+.melofi__mixer_premium_banner:hover .melofi__premium_button, .melofi__mixer_premium_banner:hover  p {
     opacity: 100%;
     transition: opacity 500ms ease 0s;
 }
