@@ -12,6 +12,9 @@ import {
   LuWaves,
   GiBigWave,
   MdOutlineWaterDrop,
+  PiMaskHappyFill,
+  PiMoonFill,
+  FaHeadphones,
 } from "../imports/icons";
 
 const getIcon = (iconName, props) => {
@@ -51,6 +54,15 @@ const getIcon = (iconName, props) => {
 
     case effects.water:
       return <MdOutlineWaterDrop key={iconName} {...props} />;
+
+    case "Happy":
+      return <PiMaskHappyFill key={iconName} {...props} />;
+
+    case "Relax":
+      return <FaHeadphones key={iconName} {...props} />;
+
+    case "Sleepy":
+      return <PiMoonFill key={iconName} {...props} />;
 
     default:
       break;

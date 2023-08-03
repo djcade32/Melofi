@@ -23,29 +23,12 @@ import usePremiumStatus from "../../../stripe/usePremiumStatus";
 import { useAuthContext } from "../../context/AuthContext";
 import MixerPlaylistButton from "../../components/mixerPlaylistButton/MixerPlaylistButton";
 import { createCheckoutSession } from "../../../stripe/createCheckoutSession";
+import playlist from "../../data/playlist";
 
 const playlistIconConfig = {
   size: 30,
   color: "var(--color-secondary)",
 };
-
-const playlist = [
-  {
-    icon: <PiMaskHappyFill {...playlistIconConfig} />,
-    label: "Happy",
-    spotifyPlaylistId: "6JMt2yxWecgTXAzkDW0TrZ",
-  },
-  {
-    icon: <FaHeadphones {...playlistIconConfig} />,
-    label: "Relax",
-    spotifyPlaylistId: "1OyBZa9DEbKT6ye47QDQgR",
-  },
-  {
-    icon: <PiMoonFill {...playlistIconConfig} />,
-    label: "Sleepy",
-    spotifyPlaylistId: "1rg4Z5eRMGgD6k58cNiaL6",
-  },
-];
 
 const MixerModal = () => {
   const nodeRef = useRef(null);
@@ -59,13 +42,14 @@ const MixerModal = () => {
     showMixerModal,
     setUsingSpotify,
     usingSpotify,
+    setSelectedPlaylist,
+    selectedPlaylist,
   } = useAppContext();
   const userIsPremium = usePremiumStatus(user);
 
   const [resetVolume, setResetVolume] = useState(false);
   const [spotifyPlaylistInput, setSpotifyPlaylistInput] = useState("");
-  const [spotifyPlaylistId, setSpotifyPlaylistId] = useState("6JMt2yxWecgTXAzkDW0TrZ");
-  // const [melofiPlaylist, setMelofiPlaylist] = useState("Happy");
+  const [melofiPlaylist, setMelofiPlaylist] = useState(playlist[0]);
 
   useEffect(() => {
     if (usingSpotify && userIsPremium) {
@@ -138,6 +122,12 @@ const MixerModal = () => {
     }
   };
 
+  const handlePlaylistChange = (label) => {
+    const foundPlaylist = playlist.find((list) => list.label === label);
+    setMelofiPlaylist(foundPlaylist);
+    setSelectedPlaylist(foundPlaylist);
+  };
+
   return (
     <Draggable nodeRef={nodeRef} bounds={isSafariBrowser() ? "" : ".fullscreen"} handle="#handle">
       <div
@@ -181,10 +171,8 @@ const MixerModal = () => {
                     key={list.label + index}
                     icon={list.icon}
                     label={list.label}
-                    isSelected={list.spotifyPlaylistId === spotifyPlaylistId}
-                    // onSelect={setMelofiPlaylist}
-                    setSpotifyPlaylistId={setSpotifyPlaylistId}
-                    spotifyPlaylistId={list.spotifyPlaylistId}
+                    isSelected={list.label === melofiPlaylist.label}
+                    onSelect={handlePlaylistChange}
                   />
                 ))}
               </div>
@@ -241,7 +229,7 @@ const MixerModal = () => {
               )}
 
               <iframe
-                src={`https://open.spotify.com/embed/playlist/${spotifyPlaylistId}?utm_source=generator`}
+                src={`https://open.spotify.com/embed/playlist/${melofiPlaylist.spotifyPlaylistId}?utm_source=generator`}
                 allowFullScreen=""
                 allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture;"
                 className="melofi__mixer_source_spotify_widget"

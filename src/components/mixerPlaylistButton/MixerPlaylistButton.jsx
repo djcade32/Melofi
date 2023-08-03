@@ -1,17 +1,9 @@
 import React from "react";
 import "./mixerPlaylistButton.css";
 
-const MixerPlaylistButton = ({
-  icon,
-  label,
-  isSelected,
-  onSelect,
-  setSpotifyPlaylistId,
-  spotifyPlaylistId,
-}) => {
+const MixerPlaylistButton = ({ icon, label, isSelected, onSelect }) => {
   const handleSelected = () => {
-    // onSelect(label);
-    setSpotifyPlaylistId(spotifyPlaylistId);
+    onSelect(label);
   };
   return (
     <div className="melofi__playlistButton" onClick={handleSelected}>

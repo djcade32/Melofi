@@ -1,10 +1,10 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { scenes } from "../data/scenes";
-import { items as songs } from "../data/songs";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { areTimestampsInSameDay, isDayBeforeCurrentDate } from "../helpers/dateUtils";
 import { getTimerWorkerUrl } from "../scripts/worker-script";
 import { useAuthContext } from "./AuthContext";
+import playlist from "../data/playlist";
 
 const AppContext = createContext({});
 
@@ -38,12 +38,12 @@ const AppContextProvider = (props) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [showTimer, setShowTimer] = useState(false);
   const [usingSpotify, setUsingSpotify] = useState(false);
-  const [shuffledSongList, setShuffledSongList] = useState(null);
 
   const [newAchievements, setNewAchievements] = useState([]);
   const [showToaster, setShowToaster] = useState(false);
   const [webWorkerTime, setWebWorkerTime] = useState(7200);
   const [newScenes, setNewScenes] = useState(null);
+  const [selectedPlaylist, setSelectedPlaylist] = useState(playlist[0]);
 
   useEffect(() => {
     if (user) {
@@ -54,7 +54,6 @@ const AppContextProvider = (props) => {
     checkForNewScenes();
     setCurrentSceneIndex(JSON.parse(localStorage.getItem("currentSceneIndex")) || 0);
     setAllStickyNotes(JSON.parse(localStorage.getItem("stickyNoteList")) || []);
-    shuffleSongs();
   }, []);
 
   useEffect(() => {
@@ -105,15 +104,6 @@ const AppContextProvider = (props) => {
   function getCurrentScene() {
     return scenes[currentSceneIndex];
   }
-
-  const shuffleSongs = () => {
-    let shuffled = songs
-      .map((value) => ({ value, sort: Math.random() }))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({ value }) => value);
-    setShuffledSongList(shuffled);
-    return shuffled;
-  };
 
   const checkForNewScenes = () => {
     if (!newScenes) {
@@ -332,8 +322,6 @@ const AppContextProvider = (props) => {
         showTimer,
         setUsingSpotify,
         usingSpotify,
-        shuffledSongList,
-        setShuffledSongList,
         showAuthModal,
         setShowAuthModal,
         setShowAccount,
@@ -348,6 +336,8 @@ const AppContextProvider = (props) => {
         updateTaskNinjaAchievement,
         newScenes,
         setNewScenes,
+        selectedPlaylist,
+        setSelectedPlaylist,
       }}
     >
       {props.children}
