@@ -49,6 +49,7 @@ import {
   MdTimer,
   MdEmail,
   MdOutlineWaterDrop,
+  MdLibraryMusic,
 } from "react-icons/md";
 import { AiFillTool, AiOutlineGoogle, AiFillInstagram } from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
@@ -113,4 +114,5 @@ export {
   FaHeadphones,
   FaCrown,
   IoBookSharp,
+  MdLibraryMusic,
 };
