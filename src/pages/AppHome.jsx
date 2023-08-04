@@ -38,6 +38,7 @@ import StickyNoteWidget from "../widgets/stickyNoteWidget/StickyNoteWidget";
 const CalendarWidget = React.lazy(() => import("../widgets/calendarWidget/CalendarWidget"));
 const TimerWidget = React.lazy(() => import("../widgets/timerWidget/TimerWidget"));
 const ToDoListWidget = React.lazy(() => import("../widgets/toDoListWidget/ToDoListWidget"));
+const TemplateWidget = React.lazy(() => import("../widgets/templateWidget/TemplateWidget"));
 const MobileView = React.lazy(() => import("./MobileView"));
 
 function AppHome() {
@@ -196,6 +197,7 @@ function AppHome() {
           ))}
           <CalendarWidget />
           <TimerWidget />
+          <TemplateWidget />
           <AuthModal />
           <Account />
           <Settings />

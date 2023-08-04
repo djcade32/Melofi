@@ -19,7 +19,7 @@
 }
 
 .melofi__menu_modal_items:hover{
-    background-color: rgba(254, 165, 57, 0.88);
+    background-color: var(--color-secondary-opacity);
 
 }
 

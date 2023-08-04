@@ -1,11 +1,17 @@
 import React from "react";
 import { Zoom } from "@mui/material";
 import { Tooltip as TooltipMui } from "./imports";
+import { FaCrown } from "../../imports/icons";
 
 const Tooltip = (props) => {
+  const premiumTooltip = (
+    <div style={{ display: "flex", columnGap: 5 }}>
+      <p>{props.text}</p> <FaCrown size={15} color="var(--color-effect-opacity)" />
+    </div>
+  );
   return (
     <TooltipMui
-      title={props.text}
+      title={props.showPremiumIcon ? premiumTooltip : props.text}
       TransitionComponent={Zoom}
       componentsProps={{
         tooltip: {

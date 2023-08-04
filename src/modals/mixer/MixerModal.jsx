@@ -22,11 +22,6 @@ import MixerPlaylistButton from "../../components/mixerPlaylistButton/MixerPlayl
 import { createCheckoutSession } from "../../../stripe/createCheckoutSession";
 import playlist from "../../data/playlist";
 
-const playlistIconConfig = {
-  size: 30,
-  color: "var(--color-secondary)",
-};
-
 const MixerModal = () => {
   const nodeRef = useRef(null);
   const goRef = useRef(null);
@@ -60,6 +55,10 @@ const MixerModal = () => {
         .addEventListener("keydown", handleEnter, true);
     }
   }, [usingSpotify]);
+
+  useEffect(() => {
+    setMelofiPlaylist(selectedPlaylist);
+  }, [selectedPlaylist]);
 
   const handleVolumeChange = (e) => {
     setMusicVolume(e.target.value);
@@ -121,7 +120,6 @@ const MixerModal = () => {
 
   const handlePlaylistChange = (label) => {
     const foundPlaylist = playlist.find((list) => list.label === label);
-    setMelofiPlaylist(foundPlaylist);
     setSelectedPlaylist(foundPlaylist);
   };
 

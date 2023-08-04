@@ -11,6 +11,8 @@ import {
 import Tooltip from "../tooltip/Tooltip";
 import { useAppContext } from "../../context/AppContext";
 import { DEFAULT } from "../../enums/colors";
+import { useAuthContext } from "../../context/AuthContext";
+import usePremiumStatus from "../../../stripe/usePremiumStatus";
 
 const iconProps = {
   size: 20,
@@ -20,6 +22,7 @@ const iconProps = {
 
 const ToolsMenu = ({ isSleep, newToolPopupVisible, setNewToolPopupVisible }) => {
   const toolsMenuRef = useRef(null);
+  const { user } = useAuthContext();
   const {
     setShowToolsMenu,
     showToolsMenu,
@@ -28,7 +31,10 @@ const ToolsMenu = ({ isSleep, newToolPopupVisible, setNewToolPopupVisible }) => 
     allStickyNotes,
     setShowCalendar,
     setShowTimer,
+    setShowTemplateWidget,
   } = useAppContext();
+
+  const userIsPremium = usePremiumStatus(user);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -130,6 +136,14 @@ const ToolsMenu = ({ isSleep, newToolPopupVisible, setNewToolPopupVisible }) => 
               onClick={() => setShowTimer((prev) => !prev)}
             >
               <MdTimer {...iconProps} />
+            </div>
+          </Tooltip>
+          <Tooltip showPremiumIcon={!userIsPremium} text="Template">
+            <div
+              className="melofi__toolsMenu-container-items"
+              onClick={() => setShowTemplateWidget((prev) => !prev)}
+            >
+              <MdLibraryMusic {...iconProps} />
             </div>
           </Tooltip>
         </div>

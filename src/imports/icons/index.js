@@ -19,6 +19,7 @@ import {
   BsCaretDownFill,
   BsFillInfoCircleFill,
   BsSpotify,
+  BsSoundwave,
 } from "react-icons/bs";
 import {
   IoVolumeMedium,
@@ -28,7 +29,12 @@ import {
   IoThunderstormOutline,
   IoBookSharp,
 } from "react-icons/io5";
-import { RiSoundModuleFill, RiFullscreenFill, RiFullscreenExitLine } from "react-icons/ri";
+import {
+  RiSoundModuleFill,
+  RiFullscreenFill,
+  RiFullscreenExitLine,
+  RiPlayListFill,
+} from "react-icons/ri";
 import {
   HiOutlineChatBubbleLeftRight,
   HiOutlineBuildingOffice2,
@@ -115,4 +121,6 @@ export {
   FaCrown,
   IoBookSharp,
   MdLibraryMusic,
+  RiPlayListFill,
+  BsSoundwave,
 };

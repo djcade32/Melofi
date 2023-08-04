@@ -44,6 +44,7 @@ const AppContextProvider = (props) => {
   const [webWorkerTime, setWebWorkerTime] = useState(7200);
   const [newScenes, setNewScenes] = useState(null);
   const [selectedPlaylist, setSelectedPlaylist] = useState(playlist[0]);
+  const [showTemplateWidget, setShowTemplateWidget] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -338,6 +339,8 @@ const AppContextProvider = (props) => {
         setNewScenes,
         selectedPlaylist,
         setSelectedPlaylist,
+        showTemplateWidget,
+        setShowTemplateWidget,
       }}
     >
       {props.children}

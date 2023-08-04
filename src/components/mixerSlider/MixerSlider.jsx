@@ -29,11 +29,6 @@ const StyledSlider = styled(Slider)({
   },
 });
 
-const mixerSliderIconProps = {
-  size: 20,
-  color: "#232323",
-};
-
 const MixerSlider = ({ sound, soundpath, reset, setReset }) => {
   const { currentSceneIndex } = useAppContext();
   const audioRef = useRef(null);
@@ -51,6 +46,10 @@ const MixerSlider = ({ sound, soundpath, reset, setReset }) => {
 
   function IconThumb(iconThumbProps) {
     const { children, ...other } = iconThumbProps;
+    const mixerSliderIconProps = {
+      size: 20,
+      color: "#232323",
+    };
     return (
       <SliderThumb {...other}>
         {children}
@@ -85,6 +84,11 @@ const MixerSlider = ({ sound, soundpath, reset, setReset }) => {
       </div>
       <div className="melofi__mixerSlider_slider-container">
         <StyledSlider
+          sx={{
+            "& .MuiSlider-thumb": {
+              backgroundColor: "var(--color-secondary)",
+            },
+          }}
           slots={{
             thumb: IconThumb,
           }}
