@@ -1,26 +1,37 @@
 import "./templateWidget.css";
 import Draggable from "react-draggable";
 import { isSafariBrowser } from "../../helpers/browser";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppContext } from "../../context/AppContext";
-import {
-  FiPlus,
-  IoCloseOutline,
-  MdDelete,
-  RiPlayListFill,
-  MdLandscape,
-  BsSoundwave,
-  BsCloudRain,
-  BsTree,
-  SlSocialTwitter,
-} from "../../imports/icons";
+import { FiPlus, IoCloseOutline } from "../../imports/icons";
 import Tooltip from "../../components/tooltip/Tooltip";
-
-const testList = ["Happy", "Study", "Sleepy", "Relaxing"];
+import Template from "./template";
+import { useAuthContext } from "../../context/AuthContext";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function TemplateWidget() {
   const nodeRef = useRef(null);
+
+  const { db, user } = useAuthContext();
   const { showTemplateWidget, setShowTemplateWidget } = useAppContext();
+
+  const [templateList, setTemplateList] = useState([]);
+
+  useEffect(() => {
+    getTemplates();
+  }, []);
+
+  const getTemplates = async () => {
+    const docRef = doc(db, `users/${user.uid}`);
+    try {
+      const userSnapshot = await getDoc(docRef);
+      if (userSnapshot.exists()) {
+        setTemplateList(userSnapshot.data().templates);
+      }
+    } catch (error) {
+      console.log("Error fetching user templates: ", error);
+    }
+  };
 
   return (
     <Draggable nodeRef={nodeRef} bounds={isSafariBrowser() ? "" : ".fullscreen"} handle="#handle">
@@ -53,75 +64,8 @@ export default function TemplateWidget() {
           />
         </div>
         <div className="melofi__template_templatesContainer">
-          {testList.map((temp, index) => (
-            <div key={index} className="melofi__template_templatesContainer_template">
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <p style={{ fontSize: 18 }}>{temp} Vibes</p>
-                <MdDelete
-                  onMouseOver={({ target }) => (target.style.color = "white")}
-                  onMouseOut={({ target }) => (target.style.color = "var(--color-secondary")}
-                  size={22}
-                  className="melofi__template_templatesContainer_template_deleteIcon"
-                  color="var(--color-secondary"
-                />
-              </div>
-              <div style={{ display: "flex", columnGap: 20 }}>
-                <Tooltip text={temp}>
-                  <div className="melofi_template_templatesContainer_template_settingsContainer">
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <RiPlayListFill size={20} color="var(--color-effect-opacity)" />
-                    </div>
-                    <p
-                      style={{
-                        textOverflow: "ellipsis",
-                        overflow: "hidden",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      {temp}
-                    </p>
-                  </div>
-                </Tooltip>
-                <Tooltip text="Neighborhood Cafe">
-                  <div className="melofi_template_templatesContainer_template_settingsContainer">
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <MdLandscape size={20} color="var(--color-effect-opacity)" />
-                    </div>
-                    <p
-                      style={{
-                        textOverflow: "ellipsis",
-                        overflow: "hidden",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Neighborhood Cafe
-                    </p>
-                  </div>
-                </Tooltip>
-                <div
-                  className="melofi_template_templatesContainer_template_settingsContainer"
-                  style={{ columnGap: 0 }}
-                >
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <BsSoundwave size={20} color="var(--color-effect-opacity)" />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      width: "100%",
-                      paddingLeft: 5,
-                    }}
-                  >
-                    <BsCloudRain size={15} color="white" />
-                    <BsTree size={15} color="white" />
-                    <SlSocialTwitter size={15} color="white" />
-                  </div>
-                  <p>...</p>
-                </div>
-              </div>
-            </div>
+          {templateList.map(({ title, scene, playlist, sounds }, index) => (
+            <Template key={index} title={title} scene={scene} playlist={playlist} sounds={sounds} />
           ))}
         </div>
         <div className="melofi__template_addButton">

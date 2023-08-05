@@ -1,0 +1,76 @@
+.melofi__template_templatesContainer_template {
+    background-color: var(--color-secondary-opacity);
+    outline: 1px solid var(--color-secondary);
+    border-radius: 10px;
+    min-height: 100px;
+    padding: 10px 15px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.melofi__template_templatesContainer_template:hover {
+    animation: scale-up-template 0.2s forwards;
+
+}
+
+
+.melofi__template_templatesContainer_template_deleteIcon { 
+    align-self: center;
+    cursor: pointer; 
+    display: none;
+}
+
+.melofi__template_templatesContainer_template:hover  .melofi__template_templatesContainer_template_deleteIcon {
+    display: block;
+}
+
+
+.melofi_template_templatesContainer_template_settingsContainer {
+    display: flex;
+    background-color: var(--color-secondary-opacity);
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 10px;
+    padding: 5px;
+    align-items: center;
+    font-size: 14px;
+    outline: 1px solid var(--color-secondary);
+    column-gap: 5px;
+}
+
+.melofi__template_addButton {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+}
+
+.melofi__template_addButton:hover {
+    animation: scale-up-addButton 0.2s forwards;
+
+}
+
+@keyframes scale-up-template {
+    0% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+    100% {
+      -webkit-transform: scale(1.03);
+              transform: scale(1.03);
+    }
+}
+
+@keyframes scale-up-addButton {
+    0% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+    100% {
+      -webkit-transform: scale(1.15);
+              transform: scale(1.15);
+    }
+}

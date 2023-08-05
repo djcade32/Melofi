@@ -3,7 +3,7 @@ import {
   rainEffect,
   chatterEffect,
   natureEffect,
-  birdsChirppingEffect,
+  birdsChirpingEffect,
   cityTrafficEffect,
   stormyNightEffect,
   fanEffect,
@@ -28,8 +28,8 @@ export const sounds = [
     soundPath: natureEffect,
   },
   {
-    sound: effects.birdsChirpping,
-    soundPath: birdsChirppingEffect,
+    sound: effects.birdsChirping,
+    soundPath: birdsChirpingEffect,
   },
   {
     sound: effects.stormyNight,

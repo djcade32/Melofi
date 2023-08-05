@@ -1,7 +1,7 @@
 import rainEffect from "../../assets/effects/rain.mp3";
 import chatterEffect from "../../assets/effects/chatter.mp3";
 import natureEffect from "../../assets/effects/nature.mp3";
-import birdsChirppingEffect from "../../assets/effects/birds_chirpping.mp3";
+import birdsChirpingEffect from "../../assets/effects/birds_Chirping.mp3";
 import cityTrafficEffect from "../../assets/effects/city_traffic.mp3";
 import stormyNightEffect from "../../assets/effects/summer_storm.mp3";
 import fanEffect from "../../assets/effects/fan.mp3";
@@ -15,7 +15,7 @@ export {
   rainEffect,
   chatterEffect,
   natureEffect,
-  birdsChirppingEffect,
+  birdsChirpingEffect,
   cityTrafficEffect,
   stormyNightEffect,
   fanEffect,

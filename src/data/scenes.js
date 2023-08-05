@@ -3,7 +3,7 @@ import {
   rainEffect,
   chatterEffect,
   natureEffect,
-  birdsChirppingEffect,
+  birdsChirpingEffect,
   cityTrafficEffect,
   thunderEffect,
   stormyNightEffect,
@@ -52,7 +52,7 @@ export const scenes = [
     image: cozyBedroom.pic,
     video: cozyBedroom.vid,
     sounds: [
-      { sound: effects.birdsChirpping, soundPath: birdsChirppingEffect },
+      { sound: effects.birdsChirping, soundPath: birdsChirpingEffect },
       { sound: effects.cityTraffic, soundPath: cityTrafficEffect },
       { sound: effects.rain, soundPath: rainEffect },
     ],
@@ -76,7 +76,7 @@ export const scenes = [
     image: musicRoom.pic,
     video: musicRoom.vid,
     sounds: [
-      { sound: effects.birdsChirpping, soundPath: birdsChirppingEffect },
+      { sound: effects.birdsChirping, soundPath: birdsChirpingEffect },
       { sound: effects.nature, soundPath: natureEffect },
       { sound: effects.fan, soundPath: fanEffect },
     ],
@@ -100,7 +100,7 @@ export const scenes = [
     image: serenityCabin.pic,
     video: serenityCabin.vid,
     sounds: [
-      { sound: effects.birdsChirpping, soundPath: birdsChirppingEffect },
+      { sound: effects.birdsChirping, soundPath: birdsChirpingEffect },
       { sound: effects.nature, soundPath: natureEffect },
       { sound: effects.water, soundPath: waterEffect },
     ],
