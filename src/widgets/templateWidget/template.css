@@ -1,4 +1,5 @@
 .melofi__template_templatesContainer_template {
+    position: relative;
     background-color: var(--color-secondary-opacity);
     outline: 1px solid var(--color-secondary);
     border-radius: 10px;
@@ -30,7 +31,7 @@
 .melofi_template_templatesContainer_template_settingsContainer {
     display: flex;
     background-color: var(--color-secondary-opacity);
-    width: 100px;
+    width: 95px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -51,6 +52,14 @@
 .melofi__template_addButton:hover {
     animation: scale-up-addButton 0.2s forwards;
 
+}
+
+.melofi_template_templatesContainer_template_settingsContainer_soundsTooltip {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    background-color: var(--color-primary);
+    align-items: flex-end;
 }
 
 @keyframes scale-up-template {
