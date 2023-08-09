@@ -64,8 +64,8 @@ export default function TemplateWidget() {
           />
         </div>
         <div className="melofi__template_templatesContainer">
-          {templateList.map(({ title, scene, playlist, sounds }, index) => (
-            <Template key={index} title={title} scene={scene} playlist={playlist} sounds={sounds} />
+          {templateList.map((template, index) => (
+            <Template key={index} template={template} />
           ))}
         </div>
         <div className="melofi__template_addButton">

@@ -1,9 +1,14 @@
 import React from "react";
 import "./mixerPlaylistButton.css";
+import { useAppContext } from "../../context/AppContext";
 
 const MixerPlaylistButton = ({ icon, label, isSelected, onSelect }) => {
+  const { setSelectedTemplate, selectedTemplate } = useAppContext();
   const handleSelected = () => {
     onSelect(label);
+    if (selectedTemplate) {
+      setSelectedTemplate(null);
+    }
   };
   return (
     <div className="melofi__playlistButton" onClick={handleSelected}>

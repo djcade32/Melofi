@@ -1,18 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import "./template.css";
 
 import { MdDelete, RiPlayListFill, MdLandscape, BsSoundwave } from "../../imports/icons";
 import Tooltip from "../../components/tooltip/Tooltip";
 import { getIcon } from "../../helpers/icons";
+import { useAppContext } from "../../context/AppContext";
+import playlist from "../../data/playlist";
+import { scenes } from "../../data/scenes";
+import { SOUNDS } from "../../data/sounds";
 
-const Template = ({ title, scene, playlist, sounds }) => {
+const Template = ({ template }) => {
+  const { title, sceneIndex, playlistIndex, sounds } = template;
+  const { setSelectedTemplate, setSelectedPlaylist, setCurrentSceneIndex } = useAppContext();
+
   const soundsTooltip = (
     <div className="melofi_template_templatesContainer_template_settingsContainer_soundsTooltip">
       {sounds.map((sound) => getIcon(sound, { size: 15, color: "white" }))}
     </div>
   );
+
+  const handleSelectedTemplate = () => {
+    setSelectedTemplate(template);
+    setSelectedPlaylist(playlist[playlistIndex]);
+    setCurrentSceneIndex(sceneIndex);
+  };
+
   return (
-    <div className="melofi__template_templatesContainer_template">
+    <div className="melofi__template_templatesContainer_template" onClick={handleSelectedTemplate}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <p style={{ fontSize: 18 }}>{title}</p>
         <MdDelete
@@ -24,7 +38,7 @@ const Template = ({ title, scene, playlist, sounds }) => {
         />
       </div>
       <div style={{ display: "flex", columnGap: 20, justifyContent: "space-between" }}>
-        <Tooltip text={title}>
+        <Tooltip text={playlist[playlistIndex].label}>
           <div className="melofi_template_templatesContainer_template_settingsContainer">
             <div style={{ display: "flex", alignItems: "center" }}>
               <RiPlayListFill size={20} color="var(--color-effect-opacity)" />
@@ -36,11 +50,11 @@ const Template = ({ title, scene, playlist, sounds }) => {
                 whiteSpace: "nowrap",
               }}
             >
-              {playlist}
+              {playlist[playlistIndex].label}
             </p>
           </div>
         </Tooltip>
-        <Tooltip text="Neighborhood Cafe">
+        <Tooltip text={scenes[sceneIndex].name}>
           <div className="melofi_template_templatesContainer_template_settingsContainer">
             <div style={{ display: "flex", alignItems: "center" }}>
               <MdLandscape size={20} color="var(--color-effect-opacity)" />
@@ -52,7 +66,7 @@ const Template = ({ title, scene, playlist, sounds }) => {
                 whiteSpace: "nowrap",
               }}
             >
-              {scene}
+              {scenes[sceneIndex].name}
             </p>
           </div>
         </Tooltip>
@@ -68,14 +82,15 @@ const Template = ({ title, scene, playlist, sounds }) => {
               style={{
                 display: "flex",
                 alignContent: "center",
-                justifyContent: "space-around",
+                justifyContent: sounds.length < 3 ? "" : "space-around",
+                columnGap: sounds.length < 3 && 10,
                 width: "100%",
-                paddingLeft: 5,
+                paddingLeft: sounds.length < 3 ? 10 : 5,
               }}
             >
-              {sounds.map((sound, index) => {
+              {sounds.map((soundObj, index) => {
                 if (index < 3) {
-                  return getIcon(sound, { size: 15, color: "white" });
+                  return getIcon(soundObj.sound, { size: 15, color: "white" });
                 }
               })}
             </div>

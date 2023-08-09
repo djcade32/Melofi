@@ -40,6 +40,7 @@ import {
   HiOutlineBuildingOffice2,
   HiClipboardDocumentList,
 } from "react-icons/hi2";
+import { HiTemplate } from "react-icons/hi";
 import { SlSocialTwitter } from "react-icons/sl";
 import { WiNightAltStormShowers } from "react-icons/wi";
 import { LuFan, LuWaves } from "react-icons/lu";
@@ -123,4 +124,5 @@ export {
   MdLibraryMusic,
   RiPlayListFill,
   BsSoundwave,
+  HiTemplate,
 };

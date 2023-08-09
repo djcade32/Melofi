@@ -6,7 +6,7 @@ import {
   HiClipboardDocumentList,
   FaStickyNote,
   MdTimer,
-  MdLibraryMusic,
+  HiTemplate,
 } from "../../imports/icons";
 import Tooltip from "../tooltip/Tooltip";
 import { useAppContext } from "../../context/AppContext";
@@ -138,12 +138,12 @@ const ToolsMenu = ({ isSleep, newToolPopupVisible, setNewToolPopupVisible }) => 
               <MdTimer {...iconProps} />
             </div>
           </Tooltip>
-          <Tooltip showPremiumIcon={!userIsPremium} text="Template">
+          <Tooltip showPremiumIcon={!userIsPremium} text="Templates">
             <div
               className="melofi__toolsMenu-container-items"
               onClick={() => setShowTemplateWidget((prev) => !prev)}
             >
-              <MdLibraryMusic {...iconProps} />
+              <HiTemplate {...iconProps} />
             </div>
           </Tooltip>
         </div>

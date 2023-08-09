@@ -4,7 +4,7 @@ import Draggable from "react-draggable";
 import { useAppContext } from "../../context/AppContext";
 import VolumeSlider from "../../components/volumeSlider/VolumeSlider";
 import MixerSlider from "../../components/mixerSlider/MixerSlider";
-import { sounds } from "../../data/sounds";
+import { SOUNDS } from "../../data/sounds";
 
 import {
   IoVolumeOff,
@@ -36,12 +36,19 @@ const MixerModal = () => {
     usingSpotify,
     setSelectedPlaylist,
     selectedPlaylist,
+    selectedTemplate,
+    currentSceneIndex,
   } = useAppContext();
   const userIsPremium = usePremiumStatus(user);
 
   const [resetVolume, setResetVolume] = useState(false);
   const [spotifyPlaylistInput, setSpotifyPlaylistInput] = useState("");
   const [melofiPlaylist, setMelofiPlaylist] = useState(playlist[0]);
+  const [mixerSounds, setMixerSounds] = useState(null);
+
+  useEffect(() => {
+    setMixerSounds({ sceneSounds: getCurrentScene().sounds, otherSounds: getOtherSounds() });
+  }, [currentSceneIndex]);
 
   useEffect(() => {
     if (usingSpotify && userIsPremium) {
@@ -70,11 +77,11 @@ const MixerModal = () => {
 
   const getOtherSounds = () => {
     const currSceneSounds = getCurrentScene().sounds;
-    const allSounds = sounds;
-    let allSoundsList = [];
+    const allSoundsDict = Object.values(SOUNDS);
+    const allSoundsList = [];
 
-    for (let i = 0; i < allSounds.length; i++) {
-      const currAllSounds = allSounds[i];
+    for (let i = 0; i < allSoundsDict.length; i++) {
+      const currAllSounds = allSoundsDict[i];
       let found = false;
       let j = 0;
       while (j < currSceneSounds.length) {
@@ -90,7 +97,6 @@ const MixerModal = () => {
         allSoundsList.push(currAllSounds);
       }
     }
-
     return allSoundsList;
   };
 
@@ -253,15 +259,16 @@ const MixerModal = () => {
             SCENE SOUNDS
           </p>
           <div>
-            {getCurrentScene().sounds.map(({ sound, soundPath }) => {
+            {mixerSounds?.sceneSounds?.map(({ sound, soundPath, soundVolume }) => {
               return (
                 <MixerSlider
                   key={sound}
                   style={{ cursor: "pointer" }}
-                  soundpath={soundPath}
+                  soundPath={soundPath}
                   sound={sound}
                   reset={resetVolume}
                   setReset={setResetVolume}
+                  soundVolume={soundVolume}
                 />
               );
             })}
@@ -270,15 +277,16 @@ const MixerModal = () => {
             ALL SOUNDS
           </p>
           <div>
-            {getOtherSounds().map(({ sound, soundPath }) => {
+            {mixerSounds?.otherSounds?.map(({ sound, soundPath, soundVolume }) => {
               return (
                 <MixerSlider
                   key={sound}
                   style={{ cursor: "pointer" }}
-                  soundpath={soundPath}
+                  soundPath={soundPath}
                   sound={sound}
                   reset={resetVolume}
                   setReset={setResetVolume}
+                  soundVolume={soundVolume}
                 />
               );
             })}
