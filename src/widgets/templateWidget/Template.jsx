@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import "./template.css";
 
 import { MdDelete, RiPlayListFill, MdLandscape, BsSoundwave } from "../../imports/icons";
@@ -7,8 +7,6 @@ import { getIcon } from "../../helpers/icons";
 import { useAppContext } from "../../context/AppContext";
 import playlist from "../../data/playlist";
 import { scenes } from "../../data/scenes";
-import { SOUNDS } from "../../data/sounds";
-import zIndex from "@mui/material/styles/zIndex";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useAuthContext } from "../../context/AuthContext";
 

@@ -47,18 +47,6 @@ const ToolsMenu = ({ isSleep, newToolPopupVisible, setNewToolPopupVisible }) => 
       document.removeEventListener("click", handleClickOutside, true);
     };
   }, []);
-  // This keeps the menu open on all clicks except for clicking the background
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (event.target.id === "app") {
-  //       setShowToolsMenu(false);
-  //     }
-  //   };
-  //   document.addEventListener("click", handleClickOutside, true);
-  //   return () => {
-  //     document.removeEventListener("click", handleClickOutside, true);
-  //   };
-  // }, []);
 
   // Closes tool menu if UI falls asleep
   useEffect(() => {
@@ -141,7 +129,12 @@ const ToolsMenu = ({ isSleep, newToolPopupVisible, setNewToolPopupVisible }) => 
           <Tooltip showPremiumIcon={!userIsPremium} text="Templates">
             <div
               className="melofi__toolsMenu-container-items"
-              onClick={() => setShowTemplateWidget((prev) => !prev)}
+              onClick={() => {
+                if (!userIsPremium) {
+                } else {
+                  setShowTemplateWidget((prev) => !prev);
+                }
+              }}
             >
               <HiTemplate {...iconProps} />
             </div>
