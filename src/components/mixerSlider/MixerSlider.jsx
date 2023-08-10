@@ -48,10 +48,12 @@ const MixerSlider = ({ sound, soundPath, reset, setReset, soundVolume }) => {
         setVolume(found.volume);
         audioRef.current.play();
         audioRef.current.volume = found.volume / 100;
+        SOUNDS[sound].soundVolume = found.volume;
       } else {
         setVolume(0);
         audioRef.current.pause();
         audioRef.current.volume = 0;
+        SOUNDS[sound].soundVolume = 0;
       }
     }
   }, [selectedTemplate]);
@@ -98,7 +100,7 @@ const MixerSlider = ({ sound, soundPath, reset, setReset, soundVolume }) => {
       audioRef.current.pause();
     }
     audioRef.current.volume = e.target.value / 100;
-    SOUNDS[sound].soundVolume = e.target.value / 100;
+    SOUNDS[sound].soundVolume = e.target.value;
 
     setVolume(e.target.value);
     setSelectedTemplate(null);

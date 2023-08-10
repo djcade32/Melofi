@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./template.css";
 
 import { MdDelete, RiPlayListFill, MdLandscape, BsSoundwave } from "../../imports/icons";
@@ -8,16 +8,36 @@ import { useAppContext } from "../../context/AppContext";
 import playlist from "../../data/playlist";
 import { scenes } from "../../data/scenes";
 import { SOUNDS } from "../../data/sounds";
+import zIndex from "@mui/material/styles/zIndex";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { useAuthContext } from "../../context/AuthContext";
 
 const Template = ({ template }) => {
+  const tempRef = useRef(null);
+
   const { title, sceneIndex, playlistIndex, sounds } = template;
+  const { db, user } = useAuthContext();
   const { setSelectedTemplate, setSelectedPlaylist, setCurrentSceneIndex } = useAppContext();
 
   const soundsTooltip = (
     <div className="melofi_template_templatesContainer_template_settingsContainer_soundsTooltip">
-      {sounds.map((sound) => getIcon(sound, { size: 15, color: "white" }))}
+      {sounds.map(({ sound }) => getIcon(sound, { size: 15, color: "white" }))}
     </div>
   );
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (tempRef.current && tempRef.current === event.target) {
+        console.log("event: ", event.target);
+        console.log(tempRef.current);
+        handleSelectedTemplate();
+      }
+    };
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, []);
 
   const handleSelectedTemplate = () => {
     setSelectedTemplate(template);
@@ -25,8 +45,29 @@ const Template = ({ template }) => {
     setCurrentSceneIndex(sceneIndex);
   };
 
+  const handleDeleteTemplate = async () => {
+    const docRef = doc(db, `users/${user.uid}`);
+    const userSnapshot = await getDoc(docRef);
+    if (userSnapshot.exists()) {
+      let newTemplates = userSnapshot.data().templates.filter(({ id }) => id !== template.id);
+      let userData = {
+        templates: newTemplates,
+      };
+
+      try {
+        await updateDoc(docRef, userData);
+      } catch (error) {
+        console.log(`Error deleting ${template.title} template: `, error);
+      }
+    }
+  };
+
   return (
-    <div className="melofi__template_templatesContainer_template" onClick={handleSelectedTemplate}>
+    <div
+      ref={tempRef}
+      className="melofi__template_templatesContainer_template"
+      onClick={handleSelectedTemplate}
+    >
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <p style={{ fontSize: 18 }}>{title}</p>
         <MdDelete
@@ -35,6 +76,7 @@ const Template = ({ template }) => {
           size={22}
           className="melofi__template_templatesContainer_template_deleteIcon"
           color="var(--color-secondary"
+          onClick={handleDeleteTemplate}
         />
       </div>
       <div style={{ display: "flex", columnGap: 20, justifyContent: "space-between" }}>
@@ -85,7 +127,7 @@ const Template = ({ template }) => {
                 justifyContent: sounds.length < 3 ? "" : "space-around",
                 columnGap: sounds.length < 3 && 10,
                 width: "100%",
-                paddingLeft: sounds.length < 3 ? 10 : 5,
+                paddingLeft: sounds.length < 3 ? 7 : 5,
               }}
             >
               {sounds.map((soundObj, index) => {
