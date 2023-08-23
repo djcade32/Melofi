@@ -11,11 +11,15 @@ const iconProps = {
 };
 
 function SceneModal() {
-  const { setCurrentSceneIndex, showSceneModal, newScenes } = useAppContext();
+  const { setCurrentSceneIndex, showSceneModal, newScenes, setSelectedTemplate, selectedTemplate } =
+    useAppContext();
 
   const handleSceneChange = (index) => {
     setCurrentSceneIndex(index);
     localStorage.setItem("currentSceneIndex", JSON.stringify(index));
+    if (selectedTemplate) {
+      setSelectedTemplate(false);
+    }
   };
 
   return (

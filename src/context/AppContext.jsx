@@ -5,6 +5,7 @@ import { areTimestampsInSameDay, isDayBeforeCurrentDate } from "../helpers/dateU
 import { getTimerWorkerUrl } from "../scripts/worker-script";
 import { useAuthContext } from "./AuthContext";
 import playlist from "../data/playlist";
+import { SOUNDS } from "../data/sounds";
 
 const AppContext = createContext({});
 
@@ -44,6 +45,9 @@ const AppContextProvider = (props) => {
   const [webWorkerTime, setWebWorkerTime] = useState(7200);
   const [newScenes, setNewScenes] = useState(null);
   const [selectedPlaylist, setSelectedPlaylist] = useState(playlist[0]);
+  const [showTemplateWidget, setShowTemplateWidget] = useState(false);
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [selectedPomodoroTask, setSelectedPomodoroTask] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -338,6 +342,12 @@ const AppContextProvider = (props) => {
         setNewScenes,
         selectedPlaylist,
         setSelectedPlaylist,
+        showTemplateWidget,
+        setShowTemplateWidget,
+        selectedTemplate,
+        setSelectedTemplate,
+        selectedPomodoroTask,
+        setSelectedPomodoroTask,
       }}
     >
       {props.children}

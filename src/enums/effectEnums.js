@@ -2,7 +2,7 @@ const effects = {
   rain: "Rain",
   chatter: "Chatter",
   nature: "Nature",
-  birdsChirpping: "Birds chirpping",
+  birdsChirping: "Birds Chirping",
   cityTraffic: "City traffic",
   stormyNight: "Stormy night",
   fan: "Fan",

@@ -1,0 +1,37 @@
+.melofi__addTaskModal {
+    width: 200px;
+    height: 325px;
+    background-color: rgb(35,35,35);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    font-size: 18px;
+    justify-content: space-between;
+    font-family: var(--font-primary);
+    color: white;
+    padding: 10px 15px;
+}
+
+.melofi__addTaskModal input {
+    background-color: var(--color-secondary-opacity);
+    border: none;
+    outline: none;
+    caret-color: white;
+    font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    color: white;
+}
+
+.melofi__addTaskModal input::placeholder{
+    color: var(--color-secondary);
+}
+
+.melofi__addTaskModal_timeInputContainer {
+    display: flex;
+    column-gap: 3px;
+}
+
+.melofi__addTaskModal_timeInputContainer input {
+    width: 25px;
+    text-align: center;
+}

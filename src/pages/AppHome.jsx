@@ -35,14 +35,18 @@ const AuthModal = React.lazy(() => import("../modals/auth/authModal/AuthModal"))
 
 // Import widgets
 import StickyNoteWidget from "../widgets/stickyNoteWidget/StickyNoteWidget";
+import usePremiumStatus from "../../stripe/usePremiumStatus";
 const CalendarWidget = React.lazy(() => import("../widgets/calendarWidget/CalendarWidget"));
 const TimerWidget = React.lazy(() => import("../widgets/timerWidget/TimerWidget"));
 const ToDoListWidget = React.lazy(() => import("../widgets/toDoListWidget/ToDoListWidget"));
+const TemplateWidget = React.lazy(() => import("../widgets/templateWidget/TemplateWidget"));
 const MobileView = React.lazy(() => import("./MobileView"));
 
 function AppHome() {
   const { allStickyNotes, usingSpotify, newAchievements } = useAppContext();
   const { user } = useAuthContext();
+
+  const userIsPremium = usePremiumStatus(user);
 
   const notificationSoundRef = useRef(null);
 
@@ -196,6 +200,7 @@ function AppHome() {
           ))}
           <CalendarWidget />
           <TimerWidget />
+          <TemplateWidget />
           <AuthModal />
           <Account />
           <Settings />
@@ -212,14 +217,16 @@ function AppHome() {
             }
           >
             {!usingSpotify && <NowPlaying />}
-            <div className="melofi__buyMeATacoLink">
-              <div>
-                <GiTacos size={30} color="var(--color-secondary-white)" />
-                <a href="https://bmc.link/normancade" target="_blank">
-                  Support the creator
-                </a>
+            {!userIsPremium && (
+              <div className="melofi__buyMeATacoLink">
+                <div>
+                  <GiTacos size={30} color="var(--color-secondary-white)" />
+                  <a href="https://bmc.link/normancade" target="_blank">
+                    Support the creator
+                  </a>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       ) : (

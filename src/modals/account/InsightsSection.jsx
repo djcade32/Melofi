@@ -88,7 +88,11 @@ const InsightsSection = ({ selected, setShowAchievementModal, setAchievementModa
                 key={badgesMap[badge].title}
                 onClick={() => handleShowAchievement(badgesMap[badge])}
               >
-                <img src={badgesMap[badge].img} alt="newbie badge" style={{ width: "50%" }} />
+                <img
+                  src={badgesMap[badge].img}
+                  alt={`${badgesMap[badge].title} badge`}
+                  style={{ width: "50%" }}
+                />
                 <p>{badgesMap[badge].title}</p>
               </div>
             ))}

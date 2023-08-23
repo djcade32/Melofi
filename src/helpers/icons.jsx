@@ -28,7 +28,7 @@ const getIcon = (iconName, props) => {
     case effects.nature:
       return <BsTree key={iconName} {...props} />;
 
-    case effects.birdsChirpping:
+    case effects.birdsChirping:
       return <SlSocialTwitter key={iconName} {...props} />;
 
     case effects.cityTraffic:

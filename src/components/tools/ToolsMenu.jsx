@@ -6,11 +6,13 @@ import {
   HiClipboardDocumentList,
   FaStickyNote,
   MdTimer,
-  MdLibraryMusic,
+  HiTemplate,
 } from "../../imports/icons";
 import Tooltip from "../tooltip/Tooltip";
 import { useAppContext } from "../../context/AppContext";
 import { DEFAULT } from "../../enums/colors";
+import { useAuthContext } from "../../context/AuthContext";
+import usePremiumStatus from "../../../stripe/usePremiumStatus";
 
 const iconProps = {
   size: 20,
@@ -20,6 +22,7 @@ const iconProps = {
 
 const ToolsMenu = ({ isSleep, newToolPopupVisible, setNewToolPopupVisible }) => {
   const toolsMenuRef = useRef(null);
+  const { user } = useAuthContext();
   const {
     setShowToolsMenu,
     showToolsMenu,
@@ -28,7 +31,10 @@ const ToolsMenu = ({ isSleep, newToolPopupVisible, setNewToolPopupVisible }) => 
     allStickyNotes,
     setShowCalendar,
     setShowTimer,
+    setShowTemplateWidget,
   } = useAppContext();
+
+  const userIsPremium = usePremiumStatus(user);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -41,18 +47,6 @@ const ToolsMenu = ({ isSleep, newToolPopupVisible, setNewToolPopupVisible }) => 
       document.removeEventListener("click", handleClickOutside, true);
     };
   }, []);
-  // This keeps the menu open on all clicks except for clicking the background
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (event.target.id === "app") {
-  //       setShowToolsMenu(false);
-  //     }
-  //   };
-  //   document.addEventListener("click", handleClickOutside, true);
-  //   return () => {
-  //     document.removeEventListener("click", handleClickOutside, true);
-  //   };
-  // }, []);
 
   // Closes tool menu if UI falls asleep
   useEffect(() => {
@@ -130,6 +124,19 @@ const ToolsMenu = ({ isSleep, newToolPopupVisible, setNewToolPopupVisible }) => 
               onClick={() => setShowTimer((prev) => !prev)}
             >
               <MdTimer {...iconProps} />
+            </div>
+          </Tooltip>
+          <Tooltip
+            // showPremiumIcon={!userIsPremium}
+            text="Templates"
+          >
+            <div
+              className="melofi__toolsMenu-container-items"
+              onClick={() => {
+                setShowTemplateWidget((prev) => !prev);
+              }}
+            >
+              <HiTemplate {...iconProps} />
             </div>
           </Tooltip>
         </div>

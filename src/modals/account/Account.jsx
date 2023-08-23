@@ -8,10 +8,11 @@ const InsightsSection = React.lazy(() => import("./InsightsSection"));
 import { signOut } from "firebase/auth";
 import AchievementModal from "../../components/achievementModal/achievementModal";
 import { useAuthContext } from "../../context/AuthContext";
+import playlist from "../../data/playlist";
 
 const Account = () => {
   const { auth, setUser } = useAuthContext();
-  const { showAccount, setShowAccount } = useAppContext();
+  const { showAccount, setShowAccount, setSelectedPlaylist } = useAppContext();
   const [selected, setSelected] = useState("profile");
   const [showAchievementModal, setShowAchievementModal] = useState(false);
   const [achievementModalInfo, setAchievementModalInfo] = useState(null);
@@ -22,6 +23,7 @@ const Account = () => {
       setUser(null);
       setShowAccount(false);
       setSelected("profile");
+      setSelectedPlaylist(playlist[0]);
     } catch (error) {}
   };
   return (

@@ -10,8 +10,8 @@
     display: flex;
     column-gap: 10px;
     padding: 0px 10px;
-    animation: scale-up 0.4s;
-    animation: expandToolbar 0.4s;
+    animation: scale-up 0.2s;
+    animation: expandToolbar 0.2s;
     justify-content: space-around;
 }
 
@@ -25,8 +25,8 @@
 }
 
 .melofi__toolsMenu-container-items:hover{
-    background-color: var(--color-secondary-opacity)
-
+    background-color: var(--color-secondary-opacity);
+    animation: scale-up-tool-menu-items 0.2s forwards;
 }
 
  .melofi__toolsMenu_new {
@@ -56,6 +56,17 @@
     100% {
       -webkit-transform: scale(1);
               transform: scale(1);
+    }
+}
+
+@keyframes scale-up-tool-menu-items {
+    0% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+    100% {
+      -webkit-transform: scale(1.15);
+              transform: scale(1.15);
     }
 }
 

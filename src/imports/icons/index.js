@@ -19,6 +19,9 @@ import {
   BsCaretDownFill,
   BsFillInfoCircleFill,
   BsSpotify,
+  BsSoundwave,
+  BsLightningCharge,
+  BsArrowRepeat,
 } from "react-icons/bs";
 import {
   IoVolumeMedium,
@@ -28,12 +31,18 @@ import {
   IoThunderstormOutline,
   IoBookSharp,
 } from "react-icons/io5";
-import { RiSoundModuleFill, RiFullscreenFill, RiFullscreenExitLine } from "react-icons/ri";
+import {
+  RiSoundModuleFill,
+  RiFullscreenFill,
+  RiFullscreenExitLine,
+  RiPlayListFill,
+} from "react-icons/ri";
 import {
   HiOutlineChatBubbleLeftRight,
   HiOutlineBuildingOffice2,
   HiClipboardDocumentList,
 } from "react-icons/hi2";
+import { HiTemplate } from "react-icons/hi";
 import { SlSocialTwitter } from "react-icons/sl";
 import { WiNightAltStormShowers } from "react-icons/wi";
 import { LuFan, LuWaves } from "react-icons/lu";
@@ -54,8 +63,9 @@ import {
 import { AiFillTool, AiOutlineGoogle, AiFillInstagram } from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
 import { FaCommentDots, FaHandsHelping } from "react-icons/fa";
-import { RxCaretLeft, RxCaretRight, RxReset } from "react-icons/rx";
+import { RxCaretLeft, RxCaretRight, RxReset, RxTimer } from "react-icons/rx";
 import { PiMoonFill } from "react-icons/pi";
+import { VscDebugRestart } from "react-icons/vsc";
 
 export {
   FaPause,
@@ -115,4 +125,11 @@ export {
   FaCrown,
   IoBookSharp,
   MdLibraryMusic,
+  RiPlayListFill,
+  BsSoundwave,
+  HiTemplate,
+  VscDebugRestart,
+  RxTimer,
+  BsLightningCharge,
+  BsArrowRepeat,
 };
