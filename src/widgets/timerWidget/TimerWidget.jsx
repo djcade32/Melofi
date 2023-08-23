@@ -58,8 +58,14 @@ export default function TimerWidget() {
   const sessionAudioRef = useRef(null);
 
   const { user, db, userData } = useAuthContext();
-  const { setShowTimer, showTimer, settingsConfig, incrementFocusedTime, selectedPomodoroTask } =
-    useAppContext();
+  const {
+    setShowTimer,
+    showTimer,
+    settingsConfig,
+    incrementFocusedTime,
+    selectedPomodoroTask,
+    setShowAuthModal,
+  } = useAppContext();
 
   const userIsPremium = usePremiumStatus(user);
 
@@ -78,7 +84,9 @@ export default function TimerWidget() {
   const [showAddTaskModal, setShowAddTaskModal] = useState(false);
 
   useEffect(() => {
-    getPomodoroTasks();
+    if (user) {
+      getPomodoroTasks();
+    }
     worker.onmessage = ({ data: { time } }) => {
       setWebWorkerTime(time);
     };
@@ -457,13 +465,15 @@ export default function TimerWidget() {
             </div>
           </div>
           <div style={{ position: "relative", display: "flex" }}>
-            {!userIsPremium && (
+            {!user && (
               <div className="melofi__timer_premium_banner">
                 <div
                   className="melofi__premium_button"
-                  onClick={() => createCheckoutSession(user.uid)}
+                  // onClick={() => createCheckoutSession(user.uid)}
+                  onClick={() => setShowAuthModal(true)}
                 >
-                  <p>Go Premium</p>
+                  {/* <p>Go Premium</p> */}
+                  <p>Log In | Sign Up</p>
                 </div>
                 <p style={{ width: "50%", textAlign: "center", fontSize: 16, lineHeight: 1.75 }}>
                   to use the pomodoro task feature.
@@ -471,7 +481,7 @@ export default function TimerWidget() {
               </div>
             )}
             <div className="melofi__timer_content_taskSide">
-              {!userIsPremium
+              {!user
                 ? fakePomodoroTask.map((task, index) => <PomodoroTask key={index} task={task} />)
                 : pomodoroTasks.map((task, index) => <PomodoroTask key={index} task={task} />)}
               <div className="melofi__timer_addButton" onClick={() => setShowAddTaskModal(true)}>

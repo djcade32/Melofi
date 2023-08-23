@@ -126,14 +126,14 @@ const ToolsMenu = ({ isSleep, newToolPopupVisible, setNewToolPopupVisible }) => 
               <MdTimer {...iconProps} />
             </div>
           </Tooltip>
-          <Tooltip showPremiumIcon={!userIsPremium} text="Templates">
+          <Tooltip
+            // showPremiumIcon={!userIsPremium}
+            text="Templates"
+          >
             <div
               className="melofi__toolsMenu-container-items"
               onClick={() => {
-                if (!userIsPremium) {
-                } else {
-                  setShowTemplateWidget((prev) => !prev);
-                }
+                setShowTemplateWidget((prev) => !prev);
               }}
             >
               <HiTemplate {...iconProps} />

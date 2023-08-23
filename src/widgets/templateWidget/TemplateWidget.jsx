@@ -15,15 +15,22 @@ export default function TemplateWidget() {
   const nodeRef = useRef(null);
 
   const { db, user, userData } = useAuthContext();
-  const { showTemplateWidget, setShowTemplateWidget, selectedPlaylist, currentSceneIndex } =
-    useAppContext();
+  const {
+    showTemplateWidget,
+    setShowTemplateWidget,
+    selectedPlaylist,
+    currentSceneIndex,
+    setShowAuthModal,
+  } = useAppContext();
 
   const [templateList, setTemplateList] = useState([]);
   const [showAddTemplateModal, setShowAddTemplateModal] = useState(false);
   const [addTemplateInput, setAddTemplateInput] = useState("");
 
   useEffect(() => {
-    getTemplates();
+    if (user) {
+      getTemplates();
+    }
   }, [userData]);
 
   const getTemplates = async () => {
@@ -109,11 +116,31 @@ export default function TemplateWidget() {
           className="melofi__template_templatesContainer"
           style={{ opacity: showAddTemplateModal ? 0.4 : 1 }}
         >
-          {templateList.map((template, index) => (
-            <Template key={index} template={template} />
-          ))}
+          {user &&
+            templateList.map((template, index) => <Template key={index} template={template} />)}
+          {!user && (
+            <div
+              style={{
+                margin: "auto",
+                width: "50%",
+              }}
+            >
+              <div
+                className="melofi__template_premium_button"
+                onClick={() => setShowAuthModal(true)}
+              >
+                <p style={{ textAlign: "center" }}>Log In | Sign Up</p>
+              </div>
+              <p style={{ textAlign: "center", fontSize: 16, lineHeight: 1.75 }}>
+                to save current sounds, scenes, and playlist.
+              </p>
+            </div>
+          )}
         </div>
-        <div className="melofi__template_addButton" onClick={() => setShowAddTemplateModal(true)}>
+        <div
+          className="melofi__template_addButton"
+          onClick={() => (!user ? () => {} : setShowAddTemplateModal(true))}
+        >
           <Tooltip text="Add template">
             <FiPlus
               size={33}

@@ -36,8 +36,8 @@ const MixerModal = () => {
     usingSpotify,
     setSelectedPlaylist,
     selectedPlaylist,
-    selectedTemplate,
     currentSceneIndex,
+    setShowAuthModal,
   } = useAppContext();
   const userIsPremium = usePremiumStatus(user);
 
@@ -51,7 +51,8 @@ const MixerModal = () => {
   }, [currentSceneIndex]);
 
   useEffect(() => {
-    if (usingSpotify && userIsPremium) {
+    // if (usingSpotify && userIsPremium) {
+    if (usingSpotify) {
       const handleEnter = (event) => {
         if (event.key === "Enter") {
           goRef.current.click();
@@ -152,13 +153,15 @@ const MixerModal = () => {
 
         <div className="melofi__mixer_content">
           <div style={{ position: "relative" }}>
-            {!userIsPremium && (
+            {!user && (
               <div className="melofi__mixer_premium_banner">
                 <div
                   className="melofi__premium_button"
-                  onClick={() => createCheckoutSession(user.uid)}
+                  onClick={() => setShowAuthModal(true)}
+                  // onClick={() => createCheckoutSession(user.uid)}
                 >
-                  <p>Go Premium</p>
+                  {/* <p>Go Premium</p> */}
+                  <p>Log In | Sign Up</p>
                 </div>
                 <p style={{ width: "65%", textAlign: "center", fontSize: 14, lineHeight: 1.75 }}>
                   to change playlist based on your mood.
@@ -209,25 +212,25 @@ const MixerModal = () => {
           </div>
           {usingSpotify ? (
             <div style={{ display: "flex", flexDirection: "column", marginTop: 15 }}>
-              {userIsPremium && (
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <input
-                    id="spotifyPlaylistInput"
-                    className="melofi__mixer_source_spotify_playlist_input"
-                    type="text"
-                    placeholder=" Enter Spotify playlist link"
-                    value={spotifyPlaylistInput}
-                    onChange={(e) => setSpotifyPlaylistInput(e.target.value)}
-                  />
-                  <p
-                    ref={goRef}
-                    className="melofi__mixer_source_spotify_playlist_input_button"
-                    onClick={handleSpotifyPlaylistChange}
-                  >
-                    Go
-                  </p>
-                </div>
-              )}
+              {/* {userIsPremium && ( */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <input
+                  id="spotifyPlaylistInput"
+                  className="melofi__mixer_source_spotify_playlist_input"
+                  type="text"
+                  placeholder=" Enter Spotify playlist link"
+                  value={spotifyPlaylistInput}
+                  onChange={(e) => setSpotifyPlaylistInput(e.target.value)}
+                />
+                <p
+                  ref={goRef}
+                  className="melofi__mixer_source_spotify_playlist_input_button"
+                  onClick={handleSpotifyPlaylistChange}
+                >
+                  Go
+                </p>
+              </div>
+              {/* )} */}
 
               <iframe
                 src={`https://open.spotify.com/embed/playlist/${melofiPlaylist.spotifyPlaylistId}?utm_source=generator`}
