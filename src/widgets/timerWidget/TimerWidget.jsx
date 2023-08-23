@@ -464,7 +464,7 @@ export default function TimerWidget() {
               )}
             </div>
           </div>
-          <div style={{ position: "relative", display: "flex" }}>
+          <div style={{ position: "relative", display: "flex", flex: 1 }}>
             {!user && (
               <div className="melofi__timer_premium_banner">
                 <div
