@@ -20,6 +20,8 @@ import {
   BsFillInfoCircleFill,
   BsSpotify,
   BsSoundwave,
+  BsLightningCharge,
+  BsArrowRepeat,
 } from "react-icons/bs";
 import {
   IoVolumeMedium,
@@ -61,8 +63,9 @@ import {
 import { AiFillTool, AiOutlineGoogle, AiFillInstagram } from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
 import { FaCommentDots, FaHandsHelping } from "react-icons/fa";
-import { RxCaretLeft, RxCaretRight, RxReset } from "react-icons/rx";
+import { RxCaretLeft, RxCaretRight, RxReset, RxTimer } from "react-icons/rx";
 import { PiMoonFill } from "react-icons/pi";
+import { VscDebugRestart } from "react-icons/vsc";
 
 export {
   FaPause,
@@ -125,4 +128,8 @@ export {
   RiPlayListFill,
   BsSoundwave,
   HiTemplate,
+  VscDebugRestart,
+  RxTimer,
+  BsLightningCharge,
+  BsArrowRepeat,
 };

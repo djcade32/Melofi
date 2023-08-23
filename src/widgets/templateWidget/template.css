@@ -45,8 +45,8 @@
 
 .melofi__template_addButton {
     position: absolute;
-    bottom: 24px;
-    right: 24px;
+    bottom: 15px;
+    right: 15px;
 }
 
 .melofi__template_addButton:hover {

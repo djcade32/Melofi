@@ -26,8 +26,6 @@ const Template = ({ template }) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (tempRef.current && tempRef.current === event.target) {
-        console.log("event: ", event.target);
-        console.log(tempRef.current);
         handleSelectedTemplate();
       }
     };

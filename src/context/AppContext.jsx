@@ -47,6 +47,7 @@ const AppContextProvider = (props) => {
   const [selectedPlaylist, setSelectedPlaylist] = useState(playlist[0]);
   const [showTemplateWidget, setShowTemplateWidget] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [selectedPomodoroTask, setSelectedPomodoroTask] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -345,6 +346,8 @@ const AppContextProvider = (props) => {
         setShowTemplateWidget,
         selectedTemplate,
         setSelectedTemplate,
+        selectedPomodoroTask,
+        setSelectedPomodoroTask,
       }}
     >
       {props.children}

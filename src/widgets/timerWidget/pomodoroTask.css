@@ -1,0 +1,86 @@
+.melofi__pomodoroTask {
+    color: white;
+    font-family: var(--font-primary);
+    font-size: 18px;
+    background-color: var(--color-secondary-opacity);
+    min-height: 100px;
+    border-radius: 10px;
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.melofi__pomodoroTask:hover {
+    animation: scale-up-pomodoro 0.2s forwards;
+    cursor: pointer;
+}
+
+.melofi__pomodoroTask_inProgressContainer p {
+    font-size: 12px;
+    background-color: var(--color-effect-opacity);
+    border-radius: 5px;
+    padding: 0px 5px;
+    text-align: center;
+    color: var(--color-primary);
+}
+
+.melofi__pomodoroTask_deleteIcon {
+    display: none;
+    position: absolute;
+    right: 16px;
+    top: 12px;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.melofi__pomodoroTask:hover + .melofi__pomodoroTask_deleteIcon {
+    display: flex;
+    animation: scale-up-pomodoro-delete-icon 0.2s forwards;
+}
+
+.melofi__pomodoroTask_deleteIcon:hover {
+    display: flex;
+    animation: scale-up-pomodoro-delete-icon 0.2s forwards;
+}
+
+.melofi__pomodoroTask_statContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.melofi__pomodoroTask_statContainer_stat{
+    display: flex;
+    column-gap: 5px;
+    align-items: center;
+
+}
+
+.melofi__pomodoroTask_statContainer_stat:first-of-type p, .melofi__pomodoroTask_statContainer_stat:nth-of-type(2) p{
+    width: 110px;
+}
+
+.melofi__pomodoroTask_statContainer_stat:last-of-type p{
+    width: 25px;
+}
+
+@keyframes scale-up-pomodoro {
+    0% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+    100% {
+      -webkit-transform: scale(1.05);
+              transform: scale(1.05);
+    }
+}
+@keyframes scale-up-pomodoro-delete-icon {
+    0% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+    100% {
+      -webkit-transform: scale(1.15);
+              transform: scale(1.15);
+    }
+}
