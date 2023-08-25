@@ -5,15 +5,19 @@ import logo from "../../../assets/logo.png";
 import { IoCloseOutline } from "../../../imports/icons";
 import Login from "../login/Login";
 import Signup from "../signup/Signup";
+import { getWidgetDisplayPosition } from "../../../helpers/common";
 
 const AuthModal = () => {
-  const { showAuthModal, setShowAuthModal } = useAppContext();
+  const { showAuthModal, setShowAuthModal, openWidgets } = useAppContext();
 
   const [LoggingIn, setLoggingIn] = useState(true);
   return (
     <div
       className="--widget-container melofi__authModal"
-      style={{ display: showAuthModal ? "flex" : "none" }}
+      style={{
+        display: showAuthModal ? "flex" : "none",
+        zIndex: 10 + getWidgetDisplayPosition(openWidgets, "AuthModal"),
+      }}
     >
       <IoCloseOutline
         size={25}

@@ -10,6 +10,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import uuid from "react-uuid";
 import { SOUNDS } from "../../data/sounds";
+import { getWidgetDisplayPosition } from "../../helpers/common";
 
 export default function TemplateWidget() {
   const nodeRef = useRef(null);
@@ -21,6 +22,7 @@ export default function TemplateWidget() {
     selectedPlaylist,
     currentSceneIndex,
     setShowAuthModal,
+    openWidgets,
   } = useAppContext();
 
   const [templateList, setTemplateList] = useState([]);
@@ -87,6 +89,7 @@ export default function TemplateWidget() {
         ref={nodeRef}
         style={{
           display: showTemplateWidget ? "flex" : "none",
+          zIndex: 10 + getWidgetDisplayPosition(openWidgets, "TemplateWidget"),
         }}
       >
         <div

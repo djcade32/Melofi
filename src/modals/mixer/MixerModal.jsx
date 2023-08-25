@@ -21,6 +21,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import MixerPlaylistButton from "../../components/mixerPlaylistButton/MixerPlaylistButton";
 import { createCheckoutSession } from "../../../stripe/createCheckoutSession";
 import playlist from "../../data/playlist";
+import { getWidgetDisplayPosition } from "../../helpers/common";
 
 const MixerModal = () => {
   const nodeRef = useRef(null);
@@ -38,6 +39,7 @@ const MixerModal = () => {
     selectedPlaylist,
     currentSceneIndex,
     setShowAuthModal,
+    openWidgets,
   } = useAppContext();
   const userIsPremium = usePremiumStatus(user);
 
@@ -139,6 +141,7 @@ const MixerModal = () => {
         className="--widget-container melofi__mixerModal"
         style={{
           display: showMixerModal ? "block" : "none",
+          zIndex: 10 + getWidgetDisplayPosition(openWidgets, "MixerModal"),
         }}
       >
         <div id="handle" className="melofi__mixer-modal-handle" />

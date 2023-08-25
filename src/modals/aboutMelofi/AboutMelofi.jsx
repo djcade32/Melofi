@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import "./aboutMelofi.css";
 import { IoCloseOutline, AiFillInstagram, MdEmail } from "../../imports/icons";
 import { useAppContext } from "../../context/AppContext";
+import { getWidgetDisplayPosition } from "../../helpers/common";
 
 const AboutMelofi = () => {
   const aboutRef = useRef(null);
   const contentRef = useRef(null);
-  const { setShowAboutMelofi, showAboutMelofi } = useAppContext();
+  const { setShowAboutMelofi, showAboutMelofi, openWidgets } = useAppContext();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -31,7 +32,10 @@ const AboutMelofi = () => {
     <div
       ref={aboutRef}
       className="--widget-container melofi__aboutMelofi"
-      style={{ display: showAboutMelofi ? "flex" : "none" }}
+      style={{
+        display: showAboutMelofi ? "flex" : "none",
+        zIndex: 10 + getWidgetDisplayPosition(openWidgets, "AboutMelofi"),
+      }}
     >
       <div className="melofi__aboutMelofi_header">
         <p className="melofi__aboutMelofi_title">ABOUT MELOFI</p>

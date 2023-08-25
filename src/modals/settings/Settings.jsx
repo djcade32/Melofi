@@ -5,10 +5,12 @@ import { isSafariBrowser } from "../../helpers/browser";
 import { IoCloseOutline } from "../../imports/icons";
 import { useAppContext } from "../../context/AppContext";
 import Switch from "../../components/switch/Switch";
+import { getWidgetDisplayPosition } from "../../helpers/common";
 
 const Settings = () => {
   const nodeRef = useRef(null);
-  const { setShowSettings, showSettings, settingsConfig, setSettingsConfig } = useAppContext();
+  const { setShowSettings, showSettings, settingsConfig, setSettingsConfig, openWidgets } =
+    useAppContext();
 
   const handleSwitchChange = (setting) => {
     const updatedSettingsConfig = { ...settingsConfig };
@@ -33,7 +35,10 @@ const Settings = () => {
       <div
         ref={nodeRef}
         className="--widget-container melofi__settings"
-        style={{ display: showSettings ? "flex" : "none" }}
+        style={{
+          display: showSettings ? "flex" : "none",
+          zIndex: 10 + getWidgetDisplayPosition(openWidgets, "SettingsModal"),
+        }}
       >
         <div id="handle" className="melofi__settings_handle" />
         <div id="handle" className="melofi__settings_header">
