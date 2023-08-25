@@ -217,7 +217,15 @@ function AppHome() {
             }
           >
             {!usingSpotify && <NowPlaying />}
-            {!userIsPremium && (
+            <div className="melofi__buyMeATacoLink">
+              <div>
+                <GiTacos size={30} color="var(--color-secondary-white)" />
+                <a href="https://bmc.link/normancade" target="_blank">
+                  Support the creator
+                </a>
+              </div>
+            </div>
+            {/* {!userIsPremium && (
               <div className="melofi__buyMeATacoLink">
                 <div>
                   <GiTacos size={30} color="var(--color-secondary-white)" />
@@ -226,7 +234,7 @@ function AppHome() {
                   </a>
                 </div>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       ) : (

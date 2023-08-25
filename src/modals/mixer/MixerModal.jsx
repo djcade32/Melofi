@@ -45,6 +45,7 @@ const MixerModal = () => {
   const [spotifyPlaylistInput, setSpotifyPlaylistInput] = useState("");
   const [melofiPlaylist, setMelofiPlaylist] = useState(playlist[0]);
   const [mixerSounds, setMixerSounds] = useState(null);
+  const [spotifyPlaylistId, setSpotifyPlaylistId] = useState("");
 
   useEffect(() => {
     setMixerSounds({ sceneSounds: getCurrentScene().sounds, otherSounds: getOtherSounds() });
@@ -66,6 +67,7 @@ const MixerModal = () => {
 
   useEffect(() => {
     setMelofiPlaylist(selectedPlaylist);
+    setSpotifyPlaylistId(selectedPlaylist.spotifyPlaylistId);
   }, [selectedPlaylist]);
 
   const handleVolumeChange = (e) => {
@@ -233,7 +235,7 @@ const MixerModal = () => {
               {/* )} */}
 
               <iframe
-                src={`https://open.spotify.com/embed/playlist/${melofiPlaylist.spotifyPlaylistId}?utm_source=generator`}
+                src={`https://open.spotify.com/embed/playlist/${spotifyPlaylistId}?utm_source=generator`}
                 allowFullScreen=""
                 allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture;"
                 className="melofi__mixer_source_spotify_widget"
