@@ -5,7 +5,6 @@ import { areTimestampsInSameDay, isDayBeforeCurrentDate } from "../helpers/dateU
 import { getTimerWorkerUrl } from "../scripts/worker-script";
 import { useAuthContext } from "./AuthContext";
 import playlist from "../data/playlist";
-import { SOUNDS } from "../data/sounds";
 
 const AppContext = createContext({});
 
@@ -48,6 +47,7 @@ const AppContextProvider = (props) => {
   const [showTemplateWidget, setShowTemplateWidget] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [selectedPomodoroTask, setSelectedPomodoroTask] = useState(null);
+  const [openWidgets, setOpenWidgets] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -79,6 +79,72 @@ const AppContextProvider = (props) => {
       addFocusedWorkaholicAchievement();
     }
   }, [webWorkerTime]);
+
+  useEffect(() => {
+    if (!openWidgets.includes("AuthModal") && showAuthModal) {
+      setOpenWidgets((prev) => [...prev, "AuthModal"]);
+    } else if (openWidgets.includes("AuthModal") && !showAuthModal) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "AuthModal"));
+    }
+
+    if (!openWidgets.includes("AboutMelofi") && showAboutMelofi) {
+      setOpenWidgets((prev) => [...prev, "AboutMelofi"]);
+    } else if (openWidgets.includes("AboutMelofi") && !showAboutMelofi) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "AboutMelofi"));
+    }
+
+    if (!openWidgets.includes("CalendarWidget") && showCalendar) {
+      setOpenWidgets((prev) => [...prev, "CalendarWidget"]);
+    } else if (openWidgets.includes("CalendarWidget") && !showCalendar) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "CalendarWidget"));
+    }
+
+    if (!openWidgets.includes("MixerModal") && showMixerModal) {
+      setOpenWidgets((prev) => [...prev, "MixerModal"]);
+    } else if (openWidgets.includes("MixerModal") && !showMixerModal) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "MixerModal"));
+    }
+
+    if (!openWidgets.includes("TemplateWidget") && showTemplateWidget) {
+      setOpenWidgets((prev) => [...prev, "TemplateWidget"]);
+    } else if (openWidgets.includes("TemplateWidget") && !showTemplateWidget) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "TemplateWidget"));
+    }
+
+    if (!openWidgets.includes("SettingsModal") && showSettings) {
+      setOpenWidgets((prev) => [...prev, "SettingsModal"]);
+    } else if (openWidgets.includes("SettingsModal") && !showSettings) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "SettingsModal"));
+    }
+
+    if (!openWidgets.includes("TimerWidget") && showTimer) {
+      setOpenWidgets((prev) => [...prev, "TimerWidget"]);
+    } else if (openWidgets.includes("TimerWidget") && !showTimer) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "TimerWidget"));
+    }
+
+    if (!openWidgets.includes("ToDoListWidget") && showToDoList) {
+      setOpenWidgets((prev) => [...prev, "ToDoListWidget"]);
+    } else if (openWidgets.includes("ToDoListWidget") && !showToDoList) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "ToDoListWidget"));
+    }
+
+    if (!openWidgets.includes("AccountModal") && showAccount) {
+      setOpenWidgets((prev) => [...prev, "AccountModal"]);
+    } else if (openWidgets.includes("AccountModal") && !showAccount) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "AccountModal"));
+    }
+  }, [
+    showAuthModal,
+    showAboutMelofi,
+    showCalendar,
+    showMixerModal,
+    showTemplateWidget,
+    showSettings,
+    showTimer,
+    showToDoList,
+    showAccount,
+  ]);
 
   const getSettingsConfig = () => {
     if (!JSON.parse(localStorage.getItem("settingsConfig"))) {
@@ -348,6 +414,7 @@ const AppContextProvider = (props) => {
         setSelectedTemplate,
         selectedPomodoroTask,
         setSelectedPomodoroTask,
+        openWidgets,
       }}
     >
       {props.children}

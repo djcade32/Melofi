@@ -9,10 +9,11 @@ import { signOut } from "firebase/auth";
 import AchievementModal from "../../components/achievementModal/achievementModal";
 import { useAuthContext } from "../../context/AuthContext";
 import playlist from "../../data/playlist";
+import { getWidgetDisplayPosition } from "../../helpers/common";
 
 const Account = () => {
   const { auth, setUser } = useAuthContext();
-  const { showAccount, setShowAccount, setSelectedPlaylist } = useAppContext();
+  const { showAccount, setShowAccount, setSelectedPlaylist, openWidgets } = useAppContext();
   const [selected, setSelected] = useState("profile");
   const [showAchievementModal, setShowAchievementModal] = useState(false);
   const [achievementModalInfo, setAchievementModalInfo] = useState(null);
@@ -29,7 +30,10 @@ const Account = () => {
   return (
     <div
       className="--widget-container melofi__account"
-      style={{ display: showAccount ? "flex" : "none" }}
+      style={{
+        display: showAccount ? "flex" : "none",
+        zIndex: 10 + getWidgetDisplayPosition(openWidgets, "AccountModal"),
+      }}
     >
       <IoCloseOutline
         size={30}

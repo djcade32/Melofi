@@ -9,6 +9,7 @@ import Tooltip from "../../components/tooltip/Tooltip";
 import { useAppContext } from "../../context/AppContext";
 import CalendarItem from "./CalendarItem";
 import { convertISOTimestamp, dateInPast } from "../../helpers/dateUtils";
+import { getWidgetDisplayPosition } from "../../helpers/common";
 
 function CalendarWidget() {
   const nodeRef = useRef(null);
@@ -17,7 +18,7 @@ function CalendarWidget() {
   let timeout = null;
   let options = { weekday: "long", month: "long", day: "numeric", timeZone: timezone };
 
-  const { setShowCalendar, showCalendar, settingsConfig } = useAppContext();
+  const { setShowCalendar, showCalendar, settingsConfig, openWidgets } = useAppContext();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
   const [events, setEvents] = useState([]);
 
@@ -107,6 +108,7 @@ function CalendarWidget() {
     backgroundColor: determinBackgroundColor(),
     backdropFilter: !user && "blur(10px)",
     boxShadow: !user && "0px 4px 4px rgba(0, 0, 0, 0.25)",
+    zIndex: 10 + getWidgetDisplayPosition(openWidgets, "CalendarWidget"),
   };
 
   return (

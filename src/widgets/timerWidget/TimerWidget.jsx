@@ -15,6 +15,7 @@ import PomodoroTask from "./PomodoroTask";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import AddTaskModal from "./AddTaskModal";
 import usePremiumStatus from "../../../stripe/usePremiumStatus";
+import { getWidgetDisplayPosition } from "../../helpers/common";
 
 const iconProps = {
   size: 33,
@@ -65,6 +66,7 @@ export default function TimerWidget() {
     incrementFocusedTime,
     selectedPomodoroTask,
     setShowAuthModal,
+    openWidgets,
   } = useAppContext();
 
   const userIsPremium = usePremiumStatus(user);
@@ -303,7 +305,10 @@ export default function TimerWidget() {
       <div
         className="--widget-container melofi__timer"
         ref={nodeRef}
-        style={{ display: showTimer ? "flex" : "none" }}
+        style={{
+          display: showTimer ? "flex" : "none",
+          zIndex: 10 + getWidgetDisplayPosition(openWidgets, "TimerWidget"),
+        }}
       >
         <audio ref={timerAudioRef} src={alarmSoundPath} typeof="audio/mpeg" loop />
         <audio ref={sessionAudioRef} src={sessionAlarmSoundPath} typeof="audio/mpeg" />
