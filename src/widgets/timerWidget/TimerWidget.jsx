@@ -293,7 +293,7 @@ export default function TimerWidget() {
     try {
       const userSnapshot = await getDoc(docRef);
       if (userSnapshot.exists()) {
-        setPomodoroTasks(userSnapshot.data().pomodoroTasks);
+        userSnapshot.data()?.pomodoroTasks && setPomodoroTasks(userSnapshot.data()?.pomodoroTasks);
       }
     } catch (error) {
       console.log("Error fetching user pomodoroTasks: ", error);

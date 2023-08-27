@@ -77,7 +77,9 @@ const AddTaskModal = ({ setShowAddTaskModal }) => {
       };
 
       let userData = {
-        pomodoroTasks: [...userSnapshot.data().pomodoroTasks, newTask],
+        pomodoroTasks: userSnapshot.data()?.pomodoroTasks
+          ? [...userSnapshot.data().pomodoroTasks, newTask]
+          : [newTask],
       };
 
       try {

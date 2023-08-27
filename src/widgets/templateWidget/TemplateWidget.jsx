@@ -40,7 +40,7 @@ export default function TemplateWidget() {
     try {
       const userSnapshot = await getDoc(docRef);
       if (userSnapshot.exists()) {
-        setTemplateList(userSnapshot.data().templates);
+        userSnapshot.data()?.templates && setTemplateList(userSnapshot.data()?.templates);
       }
     } catch (error) {
       console.log("Error fetching user templates: ", error);
@@ -69,7 +69,7 @@ export default function TemplateWidget() {
         sounds: newActiveSoundsList,
       };
       let userData = {
-        templates: [...userSnapshot.data().templates, newTemplate],
+        templates: [...templateList, newTemplate],
       };
 
       try {
