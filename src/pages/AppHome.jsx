@@ -120,9 +120,11 @@ function AppHome() {
       setNewMenuPopupVisible(true);
       localStorage.setItem("new_menu_popup_status", true);
     }
-    if (!localStorage.getItem("premium_membership_announcement")) {
-      setShowAnnouncementModal(true);
-      localStorage.setItem("premium_membership_announcement", true);
+    if (!premium_membership_announcement) {
+      setTimeout(() => {
+        setShowAnnouncementModal(true);
+        localStorage.setItem("premium_membership_announcement", true);
+      }, 3000);
     }
   }, []);
 
