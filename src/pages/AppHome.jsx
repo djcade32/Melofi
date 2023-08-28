@@ -36,6 +36,8 @@ const AuthModal = React.lazy(() => import("../modals/auth/authModal/AuthModal"))
 // Import widgets
 import StickyNoteWidget from "../widgets/stickyNoteWidget/StickyNoteWidget";
 import usePremiumStatus from "../../stripe/usePremiumStatus";
+import AnnouncementModal from "../modals/announcementModal/AnnouncementModal";
+import ModalOverlay from "../components/modalOverlay/ModalOverlay";
 const CalendarWidget = React.lazy(() => import("../widgets/calendarWidget/CalendarWidget"));
 const TimerWidget = React.lazy(() => import("../widgets/timerWidget/TimerWidget"));
 const ToDoListWidget = React.lazy(() => import("../widgets/toDoListWidget/ToDoListWidget"));
@@ -43,7 +45,8 @@ const TemplateWidget = React.lazy(() => import("../widgets/templateWidget/Templa
 const MobileView = React.lazy(() => import("./MobileView"));
 
 function AppHome() {
-  const { allStickyNotes, usingSpotify, newAchievements } = useAppContext();
+  const { allStickyNotes, usingSpotify, newAchievements, setShowAnnouncementModal } =
+    useAppContext();
   const { user } = useAuthContext();
 
   const userIsPremium = usePremiumStatus(user);
@@ -108,6 +111,7 @@ function AppHome() {
   useEffect(() => {
     let new_tool_popup_status = localStorage.getItem("new_tool_popup_status");
     let new_menu_popup_status = localStorage.getItem("new_menu_popup_status");
+    let premium_membership_announcement = localStorage.getItem("premium_membership_announcement");
     if (!new_tool_popup_status) {
       setNewToolPopupVisible(true);
       localStorage.setItem("new_tool_popup_status", true);
@@ -115,6 +119,10 @@ function AppHome() {
     if (!new_menu_popup_status && !user) {
       setNewMenuPopupVisible(true);
       localStorage.setItem("new_menu_popup_status", true);
+    }
+    if (!localStorage.getItem("premium_membership_announcement")) {
+      setShowAnnouncementModal(true);
+      localStorage.setItem("premium_membership_announcement", true);
     }
   }, []);
 
@@ -206,6 +214,8 @@ function AppHome() {
           <Settings />
           <AboutMelofi />
           <Toaster />
+          <AnnouncementModal />
+          <ModalOverlay />
 
           {/* Footer */}
           <div

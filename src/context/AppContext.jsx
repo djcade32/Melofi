@@ -48,6 +48,8 @@ const AppContextProvider = (props) => {
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [selectedPomodoroTask, setSelectedPomodoroTask] = useState(null);
   const [openWidgets, setOpenWidgets] = useState([]);
+  const [showModalOverlay, setShowModalOverlay] = useState(false);
+  const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -134,6 +136,12 @@ const AppContextProvider = (props) => {
     } else if (openWidgets.includes("AccountModal") && !showAccount) {
       setOpenWidgets((prev) => prev.filter((widget) => widget !== "AccountModal"));
     }
+
+    if (!openWidgets.includes("AnnouncementModal") && showAnnouncementModal) {
+      setOpenWidgets((prev) => [...prev, "AnnouncementModal"]);
+    } else if (openWidgets.includes("AnnouncementModal") && !showAnnouncementModal) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "AnnouncementModal"));
+    }
   }, [
     showAuthModal,
     showAboutMelofi,
@@ -144,7 +152,16 @@ const AppContextProvider = (props) => {
     showTimer,
     showToDoList,
     showAccount,
+    showAnnouncementModal,
   ]);
+
+  useEffect(() => {
+    if (showAboutMelofi || showAccount || showAuthModal || showAnnouncementModal) {
+      setShowModalOverlay(true);
+    } else {
+      setShowModalOverlay(false);
+    }
+  }, [showAboutMelofi, showAccount, showAuthModal, showAnnouncementModal]);
 
   const getSettingsConfig = () => {
     if (!JSON.parse(localStorage.getItem("settingsConfig"))) {
@@ -415,6 +432,9 @@ const AppContextProvider = (props) => {
         selectedPomodoroTask,
         setSelectedPomodoroTask,
         openWidgets,
+        showModalOverlay,
+        showAnnouncementModal,
+        setShowAnnouncementModal,
       }}
     >
       {props.children}
