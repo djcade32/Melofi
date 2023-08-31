@@ -37,6 +37,7 @@ const AuthModal = React.lazy(() => import("../modals/auth/authModal/AuthModal"))
 import StickyNoteWidget from "../widgets/stickyNoteWidget/StickyNoteWidget";
 import usePremiumStatus from "../../stripe/usePremiumStatus";
 import AnnouncementModal from "../modals/announcementModal/AnnouncementModal";
+import PremiumModal from "../modals/premiumModal/PremiumModal";
 import ModalOverlay from "../components/modalOverlay/ModalOverlay";
 const CalendarWidget = React.lazy(() => import("../widgets/calendarWidget/CalendarWidget"));
 const TimerWidget = React.lazy(() => import("../widgets/timerWidget/TimerWidget"));
@@ -45,8 +46,13 @@ const TemplateWidget = React.lazy(() => import("../widgets/templateWidget/Templa
 const MobileView = React.lazy(() => import("./MobileView"));
 
 function AppHome() {
-  const { allStickyNotes, usingSpotify, newAchievements, setShowAnnouncementModal } =
-    useAppContext();
+  const {
+    allStickyNotes,
+    usingSpotify,
+    newAchievements,
+    setShowAnnouncementModal,
+    showPremiumModal,
+  } = useAppContext();
   const { user } = useAuthContext();
 
   const userIsPremium = usePremiumStatus(user);
@@ -120,7 +126,7 @@ function AppHome() {
       setNewMenuPopupVisible(true);
       localStorage.setItem("new_menu_popup_status", true);
     }
-    if (!localStorage.getItem("premium_membership_announcement")) {
+    if (!premium_membership_announcement) {
       setShowAnnouncementModal(true);
       localStorage.setItem("premium_membership_announcement", true);
     }
@@ -132,10 +138,14 @@ function AppHome() {
     }
   }, [newAchievements]);
 
+  const appStyle = {
+    cursor: isSleep && "none",
+  };
+
   return (
     <FullScreen handle={handle}>
       {!onMobileDevice ? (
-        <div className="App" id="app" style={isSleep ? { cursor: "none" } : {}}>
+        <div className="App" id="app" style={appStyle}>
           <SceneBg />
           <audio
             ref={notificationSoundRef}
@@ -215,6 +225,7 @@ function AppHome() {
           <AboutMelofi />
           <Toaster />
           <AnnouncementModal />
+          <PremiumModal />
           <ModalOverlay />
 
           {/* Footer */}

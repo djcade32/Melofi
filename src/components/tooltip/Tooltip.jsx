@@ -22,8 +22,8 @@ const Tooltip = (props) => {
             fontWeight: 400,
             fontSize: 12,
             userSelect: "none",
-            textAlign: "center",
-            maxWidth: "25ch",
+            textAlign: props.textAlign ? props.textAlign : "center",
+            maxWidth: props.width ? props.width : "25ch",
           },
         },
       }}

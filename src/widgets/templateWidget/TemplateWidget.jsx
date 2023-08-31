@@ -11,6 +11,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import uuid from "react-uuid";
 import { SOUNDS } from "../../data/sounds";
 import { getWidgetDisplayPosition } from "../../helpers/common";
+import usePremiumStatus from "../../../stripe/usePremiumStatus";
 
 export default function TemplateWidget() {
   const nodeRef = useRef(null);
@@ -23,7 +24,10 @@ export default function TemplateWidget() {
     currentSceneIndex,
     setShowAuthModal,
     openWidgets,
+    setShowPremiumModal,
   } = useAppContext();
+
+  const userIsPremium = usePremiumStatus(user);
 
   const [templateList, setTemplateList] = useState([]);
   const [showAddTemplateModal, setShowAddTemplateModal] = useState(false);
@@ -82,6 +86,15 @@ export default function TemplateWidget() {
     }
   };
 
+  const handleGoPremiumClick = () => {
+    if (!user) {
+      setShowAuthModal(true);
+    } else {
+      setShowPremiumModal(true);
+    }
+    setShowTemplateWidget(false);
+  };
+
   return (
     <Draggable nodeRef={nodeRef} bounds={isSafariBrowser() ? "" : ".fullscreen"} handle="#handle">
       <div
@@ -121,18 +134,15 @@ export default function TemplateWidget() {
         >
           {user &&
             templateList.map((template, index) => <Template key={index} template={template} />)}
-          {!user && (
+          {!userIsPremium && (
             <div
               style={{
                 margin: "auto",
                 width: "50%",
               }}
             >
-              <div
-                className="melofi__template_premium_button"
-                onClick={() => setShowAuthModal(true)}
-              >
-                <p style={{ textAlign: "center" }}>Log In | Sign Up</p>
+              <div className="melofi__template_premium_button" onClick={handleGoPremiumClick}>
+                <p style={{ textAlign: "center" }}>Go Premium</p>
               </div>
               <p style={{ textAlign: "center", fontSize: 16, lineHeight: 1.75 }}>
                 to save current sounds, scenes, and playlist.
@@ -142,7 +152,7 @@ export default function TemplateWidget() {
         </div>
         <div
           className="melofi__template_addButton"
-          onClick={() => (!user ? () => {} : setShowAddTemplateModal(true))}
+          onClick={() => (!userIsPremium ? () => {} : setShowAddTemplateModal(true))}
         >
           <Tooltip text="Add template">
             <FiPlus

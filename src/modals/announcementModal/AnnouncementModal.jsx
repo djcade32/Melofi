@@ -6,9 +6,7 @@ import { IoCloseOutline } from "../../imports/icons";
 
 const AnnouncementModal = () => {
   const { showAnnouncementModal, setShowAnnouncementModal, openWidgets } = useAppContext();
-  useEffect(() => {
-    console.log("Announcement Modal");
-  }, []);
+
   return (
     <div
       className="--widget-container melofi__announcementModal"

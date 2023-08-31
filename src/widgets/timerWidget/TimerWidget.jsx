@@ -67,6 +67,7 @@ export default function TimerWidget() {
     selectedPomodoroTask,
     setShowAuthModal,
     openWidgets,
+    setShowPremiumModal,
   } = useAppContext();
 
   const userIsPremium = usePremiumStatus(user);
@@ -300,6 +301,15 @@ export default function TimerWidget() {
     }
   };
 
+  const handleGoPremiumClick = () => {
+    if (!user) {
+      setShowAuthModal(true);
+    } else {
+      setShowPremiumModal(true);
+    }
+    setShowTimer(false);
+  };
+
   return (
     <Draggable nodeRef={nodeRef} bounds={isSafariBrowser() ? "" : ".fullscreen"} handle="#handle">
       <div
@@ -470,15 +480,10 @@ export default function TimerWidget() {
             </div>
           </div>
           <div style={{ position: "relative", display: "flex", flex: 1 }}>
-            {!user && (
+            {!userIsPremium && (
               <div className="melofi__timer_premium_banner">
-                <div
-                  className="melofi__premium_button"
-                  // onClick={() => createCheckoutSession(user.uid)}
-                  onClick={() => setShowAuthModal(true)}
-                >
-                  {/* <p>Go Premium</p> */}
-                  <p>Log In | Sign Up</p>
+                <div className="melofi__premium_button" onClick={handleGoPremiumClick}>
+                  <p>Go Premium</p>
                 </div>
                 <p style={{ width: "50%", textAlign: "center", fontSize: 16, lineHeight: 1.75 }}>
                   to use the pomodoro task feature.
@@ -486,7 +491,7 @@ export default function TimerWidget() {
               </div>
             )}
             <div className="melofi__timer_content_taskSide">
-              {!user
+              {!userIsPremium
                 ? fakePomodoroTask.map((task, index) => <PomodoroTask key={index} task={task} />)
                 : pomodoroTasks.map((task, index) => <PomodoroTask key={index} task={task} />)}
               <div className="melofi__timer_addButton" onClick={() => setShowAddTaskModal(true)}>

@@ -50,6 +50,7 @@ const AppContextProvider = (props) => {
   const [openWidgets, setOpenWidgets] = useState([]);
   const [showModalOverlay, setShowModalOverlay] = useState(false);
   const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -142,6 +143,12 @@ const AppContextProvider = (props) => {
     } else if (openWidgets.includes("AnnouncementModal") && !showAnnouncementModal) {
       setOpenWidgets((prev) => prev.filter((widget) => widget !== "AnnouncementModal"));
     }
+
+    if (!openWidgets.includes("PremiumModal") && showPremiumModal) {
+      setOpenWidgets((prev) => [...prev, "PremiumModal"]);
+    } else if (openWidgets.includes("PremiumModal") && !showPremiumModal) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "PremiumModal"));
+    }
   }, [
     showAuthModal,
     showAboutMelofi,
@@ -153,15 +160,22 @@ const AppContextProvider = (props) => {
     showToDoList,
     showAccount,
     showAnnouncementModal,
+    showPremiumModal,
   ]);
 
   useEffect(() => {
-    if (showAboutMelofi || showAccount || showAuthModal || showAnnouncementModal) {
+    if (
+      showAboutMelofi ||
+      showAccount ||
+      showAuthModal ||
+      showAnnouncementModal ||
+      showPremiumModal
+    ) {
       setShowModalOverlay(true);
     } else {
       setShowModalOverlay(false);
     }
-  }, [showAboutMelofi, showAccount, showAuthModal, showAnnouncementModal]);
+  }, [showAboutMelofi, showAccount, showAuthModal, showAnnouncementModal, showPremiumModal]);
 
   const getSettingsConfig = () => {
     if (!JSON.parse(localStorage.getItem("settingsConfig"))) {
@@ -435,6 +449,8 @@ const AppContextProvider = (props) => {
         showModalOverlay,
         showAnnouncementModal,
         setShowAnnouncementModal,
+        showPremiumModal,
+        setShowPremiumModal,
       }}
     >
       {props.children}

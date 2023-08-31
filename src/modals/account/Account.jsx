@@ -10,13 +10,19 @@ import AchievementModal from "../../components/achievementModal/achievementModal
 import { useAuthContext } from "../../context/AuthContext";
 import playlist from "../../data/playlist";
 import { getWidgetDisplayPosition } from "../../helpers/common";
+import usePremiumStatus from "../../../stripe/usePremiumStatus";
+import { manageSubscription } from "../../../stripe/manageSubscription";
 
 const Account = () => {
-  const { auth, setUser } = useAuthContext();
+  const { auth, setUser, user } = useAuthContext();
   const { showAccount, setShowAccount, setSelectedPlaylist, openWidgets } = useAppContext();
+
+  const userIsPremium = usePremiumStatus(user);
+
   const [selected, setSelected] = useState("profile");
   const [showAchievementModal, setShowAchievementModal] = useState(false);
   const [achievementModalInfo, setAchievementModalInfo] = useState(null);
+  const [checkoutSessionLoading, setCheckoutSessionLoading] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -33,6 +39,7 @@ const Account = () => {
       style={{
         display: showAccount ? "flex" : "none",
         zIndex: 10 + getWidgetDisplayPosition(openWidgets, "AccountModal"),
+        cursor: checkoutSessionLoading ? "progress" : "pointer",
       }}
     >
       <IoCloseOutline
@@ -41,7 +48,13 @@ const Account = () => {
         onClick={() => setShowAccount((prev) => !prev)}
         style={{ cursor: "pointer", position: "absolute", top: 20, right: 20 }}
       />
-      <div style={{ display: "flex", height: "100%", marginTop: 35 }}>
+      <div
+        style={{
+          display: "flex",
+          height: "100%",
+          marginTop: 35,
+        }}
+      >
         <div
           style={{
             borderRight: "1px solid var(--color-secondary-opacity)",
@@ -64,6 +77,18 @@ const Account = () => {
           >
             Insights
           </p>
+          {userIsPremium && (
+            <p
+              className="melofi__account_sectionTitle"
+              style={{ cursor: checkoutSessionLoading ? "progress" : "pointer" }}
+              onClick={() => {
+                setCheckoutSessionLoading(true);
+                manageSubscription();
+              }}
+            >
+              Manage plan
+            </p>
+          )}
           <p
             className="melofi__account_sectionTitle"
             style={{ marginTop: 30 }}

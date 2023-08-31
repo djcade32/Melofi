@@ -22,6 +22,7 @@ import {
   BsSoundwave,
   BsLightningCharge,
   BsArrowRepeat,
+  BsCheck2,
 } from "react-icons/bs";
 import {
   IoVolumeMedium,
@@ -132,4 +133,5 @@ export {
   RxTimer,
   BsLightningCharge,
   BsArrowRepeat,
+  BsCheck2,
 };
