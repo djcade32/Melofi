@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./sceneModal.css";
 import { useAppContext } from "../../context/AppContext";
 
@@ -7,6 +7,7 @@ import { scenes } from "../../data/scenes";
 import usePremiumStatus from "../../../stripe/usePremiumStatus";
 import { useAuthContext } from "../../context/AuthContext";
 import { FaCrown } from "../../imports/icons";
+import { lazyLoadContent } from "../../helpers/lazyLoad";
 
 const iconProps = {
   size: 30,
@@ -25,6 +26,13 @@ function SceneModal() {
   const { user } = useAuthContext();
 
   const userIsPremium = usePremiumStatus(user);
+
+  useEffect(() => {
+    // Attach the lazyLoadContent function to the scroll event
+    window.addEventListener("scroll", lazyLoadContent);
+    // Call the function initially to load the visible content on page load
+    lazyLoadContent();
+  }, []);
 
   const handleSceneChange = (scene, index) => {
     if (scene.premium && !userIsPremium) {
@@ -50,7 +58,7 @@ function SceneModal() {
               return (
                 <div
                   key={scene.name}
-                  className="melofi__sceneModal-thumbnail"
+                  className="melofi__sceneModal-thumbnail lazy-content"
                   style={{
                     backgroundImage: `url(${scene.image})`,
                     outline: newScenes.includes(scene.name)

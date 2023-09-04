@@ -19,9 +19,9 @@ import Tooltip from "../../components/tooltip/Tooltip";
 import usePremiumStatus from "../../../stripe/usePremiumStatus";
 import { useAuthContext } from "../../context/AuthContext";
 import MixerPlaylistButton from "../../components/mixerPlaylistButton/MixerPlaylistButton";
-import { createCheckoutSession } from "../../../stripe/createCheckoutSession";
 import playlist from "../../data/playlist";
 import { getWidgetDisplayPosition } from "../../helpers/common";
+import { lazyLoadContent } from "../../helpers/lazyLoad";
 
 const MixerModal = () => {
   const nodeRef = useRef(null);
@@ -49,6 +49,13 @@ const MixerModal = () => {
   const [melofiPlaylist, setMelofiPlaylist] = useState(playlist[0]);
   const [mixerSounds, setMixerSounds] = useState(null);
   const [spotifyPlaylistId, setSpotifyPlaylistId] = useState("");
+
+  useEffect(() => {
+    // Attach the lazyLoadContent function to the scroll event
+    window.addEventListener("scroll", lazyLoadContent);
+    // Call the function initially to load the visible content on page load
+    lazyLoadContent();
+  }, []);
 
   useEffect(() => {
     setMixerSounds({ sceneSounds: getCurrentScene().sounds, otherSounds: getOtherSounds() });
@@ -288,12 +295,11 @@ const MixerModal = () => {
           <p className="melofi__mixer_section_title " style={{ marginTop: 20 }}>
             ALL SOUNDS
           </p>
-          <div>
+          <div className="lazy-content">
             {mixerSounds?.otherSounds?.map(({ sound, soundPath, premium }) => {
               return (
-                <Tooltip text={premium && "Upgrade to use all sounds"} noFlex>
+                <Tooltip text={premium && "Upgrade to use all sounds"} noFlex key={sound}>
                   <MixerSlider
-                    key={sound}
                     style={{ cursor: "pointer" }}
                     soundPath={soundPath}
                     sound={sound}
