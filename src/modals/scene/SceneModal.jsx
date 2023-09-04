@@ -4,6 +4,9 @@ import { useAppContext } from "../../context/AppContext";
 
 import { getIcon } from "../../helpers/icons";
 import { scenes } from "../../data/scenes";
+import usePremiumStatus from "../../../stripe/usePremiumStatus";
+import { useAuthContext } from "../../context/AuthContext";
+import { FaCrown } from "../../imports/icons";
 
 const iconProps = {
   size: 30,
@@ -11,10 +14,23 @@ const iconProps = {
 };
 
 function SceneModal() {
-  const { setCurrentSceneIndex, showSceneModal, newScenes, setSelectedTemplate, selectedTemplate } =
-    useAppContext();
+  const {
+    setCurrentSceneIndex,
+    showSceneModal,
+    newScenes,
+    setSelectedTemplate,
+    selectedTemplate,
+    setShowPremiumModal,
+  } = useAppContext();
+  const { user } = useAuthContext();
 
-  const handleSceneChange = (index) => {
+  const userIsPremium = usePremiumStatus(user);
+
+  const handleSceneChange = (scene, index) => {
+    if (scene.premium && !userIsPremium) {
+      setShowPremiumModal(true);
+      return;
+    }
     setCurrentSceneIndex(index);
     localStorage.setItem("currentSceneIndex", JSON.stringify(index));
     if (selectedTemplate) {
@@ -41,11 +57,16 @@ function SceneModal() {
                       ? "1px solid var(--color-effect-opacity)"
                       : "",
                   }}
-                  onClick={() => handleSceneChange(index)}
+                  onClick={() => handleSceneChange(scene, index)}
                 >
                   {newScenes.includes(scene.name) && (
                     <div className="melofi__sceneModal-thumbnail_new_flag">
                       <p style={{ fontSize: 18 }}>NEW</p>
+                    </div>
+                  )}
+                  {!userIsPremium && scene.premium && (
+                    <div className="melofi__sceneModal-thumbnail_premium_icon">
+                      <FaCrown size={30} color="var(--color-effect-opacity)" />
                     </div>
                   )}
                   <p

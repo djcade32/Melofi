@@ -6,6 +6,7 @@ import {
   FaMedal,
   FaHeadphones,
   FaCrown,
+  FaLock,
 } from "react-icons/fa";
 import {
   BsFillSkipBackwardFill,
@@ -23,6 +24,9 @@ import {
   BsLightningCharge,
   BsArrowRepeat,
   BsCheck2,
+  BsKeyboard,
+  BsAirplane,
+  BsTrainFront,
 } from "react-icons/bs";
 import {
   IoVolumeMedium,
@@ -31,6 +35,7 @@ import {
   IoCloseOutline,
   IoThunderstormOutline,
   IoBookSharp,
+  IoCloudyNightOutline,
 } from "react-icons/io5";
 import {
   RiSoundModuleFill,
@@ -61,12 +66,19 @@ import {
   MdOutlineWaterDrop,
   MdLibraryMusic,
 } from "react-icons/md";
-import { AiFillTool, AiOutlineGoogle, AiFillInstagram } from "react-icons/ai";
+import {
+  AiFillTool,
+  AiOutlineGoogle,
+  AiFillInstagram,
+  AiOutlineClockCircle,
+  AiOutlineFire,
+} from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
 import { FaCommentDots, FaHandsHelping } from "react-icons/fa";
 import { RxCaretLeft, RxCaretRight, RxReset, RxTimer } from "react-icons/rx";
-import { PiMoonFill } from "react-icons/pi";
+import { PiMoonFill, PiSunHorizonLight, PiSnowflakeThin } from "react-icons/pi";
 import { VscDebugRestart } from "react-icons/vsc";
+import { TbSubmarine } from "react-icons/tb";
 
 export {
   FaPause,
@@ -134,4 +146,14 @@ export {
   BsLightningCharge,
   BsArrowRepeat,
   BsCheck2,
+  BsKeyboard,
+  BsAirplane,
+  AiOutlineClockCircle,
+  AiOutlineFire,
+  PiSunHorizonLight,
+  PiSnowflakeThin,
+  IoCloudyNightOutline,
+  BsTrainFront,
+  TbSubmarine,
+  FaLock,
 };

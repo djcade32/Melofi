@@ -5,6 +5,7 @@ import { useAppContext } from "../../context/AppContext";
 
 const SceneBg = () => {
   const { getCurrentScene, currentSceneIndex } = useAppContext();
+
   const [videoPath, setVideoPath] = useState("");
   const [imgPath, setImgPath] = useState("");
 

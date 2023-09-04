@@ -28,7 +28,9 @@ const Tooltip = (props) => {
         },
       }}
     >
-      <div style={{ display: "flex", alignItems: "center" }}>{props.children}</div>
+      <div style={props.noFlex ? {} : { display: "flex", alignItems: "center" }}>
+        {props.children}
+      </div>
     </TooltipMui>
   );
 };

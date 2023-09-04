@@ -5,6 +5,7 @@ import { areTimestampsInSameDay, isDayBeforeCurrentDate } from "../helpers/dateU
 import { getTimerWorkerUrl } from "../scripts/worker-script";
 import { useAuthContext } from "./AuthContext";
 import playlist from "../data/playlist";
+import usePremiumStatus from "../../stripe/usePremiumStatus";
 
 const AppContext = createContext({});
 
@@ -12,6 +13,9 @@ const worker = new Worker(getTimerWorkerUrl());
 
 const AppContextProvider = (props) => {
   const { user, db } = useAuthContext();
+
+  const userIsPremium = usePremiumStatus(user);
+
   const [musicVolume, setMusicVolume] = useState(35);
   const [currentSongInfo, setCurrentSongInfo] = useState(null);
   const [currentSceneIndex, setCurrentSceneIndex] = useState(null);
@@ -203,6 +207,9 @@ const AppContextProvider = (props) => {
   };
 
   function getCurrentScene() {
+    if (scenes[currentSceneIndex].premium && !userIsPremium) {
+      return scenes[0];
+    }
     return scenes[currentSceneIndex];
   }
 

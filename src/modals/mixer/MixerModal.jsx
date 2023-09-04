@@ -289,17 +289,19 @@ const MixerModal = () => {
             ALL SOUNDS
           </p>
           <div>
-            {mixerSounds?.otherSounds?.map(({ sound, soundPath, soundVolume }) => {
+            {mixerSounds?.otherSounds?.map(({ sound, soundPath, premium }) => {
               return (
-                <MixerSlider
-                  key={sound}
-                  style={{ cursor: "pointer" }}
-                  soundPath={soundPath}
-                  sound={sound}
-                  reset={resetVolume}
-                  setReset={setResetVolume}
-                  soundVolume={soundVolume}
-                />
+                <Tooltip text={premium && "Upgrade to use all sounds"} noFlex>
+                  <MixerSlider
+                    key={sound}
+                    style={{ cursor: "pointer" }}
+                    soundPath={soundPath}
+                    sound={sound}
+                    reset={resetVolume}
+                    setReset={setResetVolume}
+                    premium={premium}
+                  />
+                </Tooltip>
               );
             })}
           </div>
