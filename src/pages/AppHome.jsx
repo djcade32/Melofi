@@ -21,8 +21,7 @@ const MusicControls = React.lazy(() => import("../components/musicControls/Music
 const SceneBg = React.lazy(() => import("../components/sceneBg/SceneBg"));
 const Toaster = React.lazy(() => import("../components/toaster/Toaster"));
 const NewFeature = React.lazy(() => import("../components/newFeature/NewFeature"));
-
-// import GenreDropdown from "./components/genreDropdown/GenreDropdown";
+const MobileView = React.lazy(() => import("./MobileView"));
 
 // Import modals
 const AboutMelofi = React.lazy(() => import("../modals/aboutMelofi/AboutMelofi"));
@@ -43,16 +42,13 @@ const CalendarWidget = React.lazy(() => import("../widgets/calendarWidget/Calend
 const TimerWidget = React.lazy(() => import("../widgets/timerWidget/TimerWidget"));
 const ToDoListWidget = React.lazy(() => import("../widgets/toDoListWidget/ToDoListWidget"));
 const TemplateWidget = React.lazy(() => import("../widgets/templateWidget/TemplateWidget"));
-const MobileView = React.lazy(() => import("./MobileView"));
+
+// Constants
+const MOBILE_SCREEN_WIDTH = 750;
 
 function AppHome() {
-  const {
-    allStickyNotes,
-    usingSpotify,
-    newAchievements,
-    setShowAnnouncementModal,
-    showPremiumModal,
-  } = useAppContext();
+  const { allStickyNotes, usingSpotify, newAchievements, setShowAnnouncementModal } =
+    useAppContext();
   const { user } = useAuthContext();
 
   const userIsPremium = usePremiumStatus(user);
@@ -98,12 +94,12 @@ function AppHome() {
     };
   }, []);
 
-  // Determines when show 'Melofi is not availble on Mobile'
+  // Determines when show 'Melofi is not available on Mobile'
   useEffect(() => {
     const updateDimension = () => {
-      if (window.innerWidth < 750) {
+      if (window.innerWidth < MOBILE_SCREEN_WIDTH) {
         setOnMobileDevice(true);
-      } else if (window.innerWidth > 750) {
+      } else if (window.innerWidth > MOBILE_SCREEN_WIDTH) {
         setOnMobileDevice(false);
       }
     };
@@ -114,6 +110,7 @@ function AppHome() {
     };
   }, []);
 
+  // Check to see if popups or announcement modal needs to be shown
   useEffect(() => {
     let new_tool_popup_status = localStorage.getItem("new_tool_popup_status");
     let new_menu_popup_status = localStorage.getItem("new_menu_popup_status");
@@ -169,12 +166,11 @@ function AppHome() {
               </div>
 
               <div className="melofi__rightSide">
-                {/* GenreDropdown will be a future feature */}
-                {/* <GenreDropdown /> */}
                 <MixerButton />
                 {!usingSpotify && <MusicControls />}
                 <SceneButton />
                 <div style={{ position: "relative" }}>
+                  {/* If true show new tool indicator on tool menu button */}
                   {newToolPopupVisible && <NewFeature />}
                   <ToolsMenu
                     isSleep={isSleep}
@@ -199,6 +195,7 @@ function AppHome() {
                 </Tooltip>
                 <Clock />
                 <div style={{ position: "relative" }}>
+                  {/* If true show new menu option indicator on menu button */}
                   {newMenuPopupVisible && <NewFeature />}
                   <Menu
                     isSleep={isSleep}
