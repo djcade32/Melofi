@@ -8,10 +8,13 @@ import {
   FaCommentDots,
   FaHandsHelping,
   FaUserAlt,
+  FaMedal,
 } from "../../imports/icons";
 import { useAppContext } from "../../context/AppContext";
 import NewFeature from "../newFeature/NewFeature";
 import { useAuthContext } from "../../context/AuthContext";
+import usePremiumStatus from "../../../stripe/usePremiumStatus";
+import { createCheckoutSession } from "../../../stripe/createCheckoutSession";
 
 const iconProps = {
   size: 15,
@@ -93,6 +96,20 @@ const Menu = ({ isSleep, setNewMenuPopupVisible, newMenuPopupVisible }) => {
             <MdSettings {...iconProps} />
             <p>General settings</p>
           </div>
+          {/* {userIsPremium ? (
+            <div className="melofi__menu_modal_items" onClick={() => {}}>
+              <MdSettings {...iconProps} />
+              <p>Manage Plan</p>
+            </div>
+          ) : (
+            <div
+              className="melofi__menu_modal_items"
+              onClick={() => (user ? createCheckoutSession(user.uid) : setShowAuthModal(true))}
+            >
+              <FaMedal {...iconProps} />
+              <p>Go Premium</p>
+            </div>
+          )} */}
           <a
             href="https://forms.gle/53SKQW27bXiwdcNW8"
             target="_blank"

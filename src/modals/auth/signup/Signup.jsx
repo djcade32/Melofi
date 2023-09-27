@@ -36,6 +36,7 @@ const Signup = ({ setLoggingIn }) => {
       if (error.message.includes("email-already-in-use")) {
         setFormInputs({ ...formInputs, error: "Email already exist." });
       }
+      console.log("Error signing up: ", error);
     }
   };
 
@@ -71,6 +72,8 @@ const Signup = ({ setLoggingIn }) => {
           taskNinja: 0,
           zenMaster: 0,
         },
+        pomodoroTasks: [],
+        templates: [],
       };
       await setDoc(usersDoc, userData);
       setNewAchievements((prev) => [...prev, "newbie"]);

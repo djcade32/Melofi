@@ -1,10 +1,11 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { scenes } from "../data/scenes";
-import { items as songs } from "../data/songs";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { areTimestampsInSameDay, isDayBeforeCurrentDate } from "../helpers/dateUtils";
 import { getTimerWorkerUrl } from "../scripts/worker-script";
 import { useAuthContext } from "./AuthContext";
+import playlist from "../data/playlist";
+import usePremiumStatus from "../../stripe/usePremiumStatus";
 
 const AppContext = createContext({});
 
@@ -12,6 +13,9 @@ const worker = new Worker(getTimerWorkerUrl());
 
 const AppContextProvider = (props) => {
   const { user, db } = useAuthContext();
+
+  const userIsPremium = usePremiumStatus(user);
+
   const [musicVolume, setMusicVolume] = useState(35);
   const [currentSongInfo, setCurrentSongInfo] = useState(null);
   const [currentSceneIndex, setCurrentSceneIndex] = useState(null);
@@ -38,12 +42,19 @@ const AppContextProvider = (props) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [showTimer, setShowTimer] = useState(false);
   const [usingSpotify, setUsingSpotify] = useState(false);
-  const [shuffledSongList, setShuffledSongList] = useState(null);
 
   const [newAchievements, setNewAchievements] = useState([]);
   const [showToaster, setShowToaster] = useState(false);
   const [webWorkerTime, setWebWorkerTime] = useState(7200);
   const [newScenes, setNewScenes] = useState(null);
+  const [selectedPlaylist, setSelectedPlaylist] = useState(playlist[0]);
+  const [showTemplateWidget, setShowTemplateWidget] = useState(false);
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [selectedPomodoroTask, setSelectedPomodoroTask] = useState(null);
+  const [openWidgets, setOpenWidgets] = useState([]);
+  const [showModalOverlay, setShowModalOverlay] = useState(false);
+  const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -54,7 +65,6 @@ const AppContextProvider = (props) => {
     checkForNewScenes();
     setCurrentSceneIndex(JSON.parse(localStorage.getItem("currentSceneIndex")) || 0);
     setAllStickyNotes(JSON.parse(localStorage.getItem("stickyNoteList")) || []);
-    shuffleSongs();
   }, []);
 
   useEffect(() => {
@@ -76,6 +86,100 @@ const AppContextProvider = (props) => {
       addFocusedWorkaholicAchievement();
     }
   }, [webWorkerTime]);
+
+  useEffect(() => {
+    if (!openWidgets.includes("AuthModal") && showAuthModal) {
+      setOpenWidgets((prev) => [...prev, "AuthModal"]);
+    } else if (openWidgets.includes("AuthModal") && !showAuthModal) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "AuthModal"));
+    }
+
+    if (!openWidgets.includes("AboutMelofi") && showAboutMelofi) {
+      setOpenWidgets((prev) => [...prev, "AboutMelofi"]);
+    } else if (openWidgets.includes("AboutMelofi") && !showAboutMelofi) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "AboutMelofi"));
+    }
+
+    if (!openWidgets.includes("CalendarWidget") && showCalendar) {
+      setOpenWidgets((prev) => [...prev, "CalendarWidget"]);
+    } else if (openWidgets.includes("CalendarWidget") && !showCalendar) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "CalendarWidget"));
+    }
+
+    if (!openWidgets.includes("MixerModal") && showMixerModal) {
+      setOpenWidgets((prev) => [...prev, "MixerModal"]);
+    } else if (openWidgets.includes("MixerModal") && !showMixerModal) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "MixerModal"));
+    }
+
+    if (!openWidgets.includes("TemplateWidget") && showTemplateWidget) {
+      setOpenWidgets((prev) => [...prev, "TemplateWidget"]);
+    } else if (openWidgets.includes("TemplateWidget") && !showTemplateWidget) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "TemplateWidget"));
+    }
+
+    if (!openWidgets.includes("SettingsModal") && showSettings) {
+      setOpenWidgets((prev) => [...prev, "SettingsModal"]);
+    } else if (openWidgets.includes("SettingsModal") && !showSettings) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "SettingsModal"));
+    }
+
+    if (!openWidgets.includes("TimerWidget") && showTimer) {
+      setOpenWidgets((prev) => [...prev, "TimerWidget"]);
+    } else if (openWidgets.includes("TimerWidget") && !showTimer) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "TimerWidget"));
+    }
+
+    if (!openWidgets.includes("ToDoListWidget") && showToDoList) {
+      setOpenWidgets((prev) => [...prev, "ToDoListWidget"]);
+    } else if (openWidgets.includes("ToDoListWidget") && !showToDoList) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "ToDoListWidget"));
+    }
+
+    if (!openWidgets.includes("AccountModal") && showAccount) {
+      setOpenWidgets((prev) => [...prev, "AccountModal"]);
+    } else if (openWidgets.includes("AccountModal") && !showAccount) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "AccountModal"));
+    }
+
+    if (!openWidgets.includes("AnnouncementModal") && showAnnouncementModal) {
+      setOpenWidgets((prev) => [...prev, "AnnouncementModal"]);
+    } else if (openWidgets.includes("AnnouncementModal") && !showAnnouncementModal) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "AnnouncementModal"));
+    }
+
+    if (!openWidgets.includes("PremiumModal") && showPremiumModal) {
+      setOpenWidgets((prev) => [...prev, "PremiumModal"]);
+    } else if (openWidgets.includes("PremiumModal") && !showPremiumModal) {
+      setOpenWidgets((prev) => prev.filter((widget) => widget !== "PremiumModal"));
+    }
+  }, [
+    showAuthModal,
+    showAboutMelofi,
+    showCalendar,
+    showMixerModal,
+    showTemplateWidget,
+    showSettings,
+    showTimer,
+    showToDoList,
+    showAccount,
+    showAnnouncementModal,
+    showPremiumModal,
+  ]);
+
+  useEffect(() => {
+    if (
+      showAboutMelofi ||
+      showAccount ||
+      showAuthModal ||
+      showAnnouncementModal ||
+      showPremiumModal
+    ) {
+      setShowModalOverlay(true);
+    } else {
+      setShowModalOverlay(false);
+    }
+  }, [showAboutMelofi, showAccount, showAuthModal, showAnnouncementModal, showPremiumModal]);
 
   const getSettingsConfig = () => {
     if (!JSON.parse(localStorage.getItem("settingsConfig"))) {
@@ -103,17 +207,11 @@ const AppContextProvider = (props) => {
   };
 
   function getCurrentScene() {
+    if (scenes[currentSceneIndex].premium && !userIsPremium) {
+      return scenes[0];
+    }
     return scenes[currentSceneIndex];
   }
-
-  const shuffleSongs = () => {
-    let shuffled = songs
-      .map((value) => ({ value, sort: Math.random() }))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({ value }) => value);
-    setShuffledSongList(shuffled);
-    return shuffled;
-  };
 
   const checkForNewScenes = () => {
     if (!newScenes) {
@@ -332,8 +430,6 @@ const AppContextProvider = (props) => {
         showTimer,
         setUsingSpotify,
         usingSpotify,
-        shuffledSongList,
-        setShuffledSongList,
         showAuthModal,
         setShowAuthModal,
         setShowAccount,
@@ -348,6 +444,20 @@ const AppContextProvider = (props) => {
         updateTaskNinjaAchievement,
         newScenes,
         setNewScenes,
+        selectedPlaylist,
+        setSelectedPlaylist,
+        showTemplateWidget,
+        setShowTemplateWidget,
+        selectedTemplate,
+        setSelectedTemplate,
+        selectedPomodoroTask,
+        setSelectedPomodoroTask,
+        openWidgets,
+        showModalOverlay,
+        showAnnouncementModal,
+        setShowAnnouncementModal,
+        showPremiumModal,
+        setShowPremiumModal,
       }}
     >
       {props.children}

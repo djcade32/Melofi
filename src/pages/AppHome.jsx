@@ -21,8 +21,7 @@ const MusicControls = React.lazy(() => import("../components/musicControls/Music
 const SceneBg = React.lazy(() => import("../components/sceneBg/SceneBg"));
 const Toaster = React.lazy(() => import("../components/toaster/Toaster"));
 const NewFeature = React.lazy(() => import("../components/newFeature/NewFeature"));
-
-// import GenreDropdown from "./components/genreDropdown/GenreDropdown";
+const MobileView = React.lazy(() => import("./MobileView"));
 
 // Import modals
 const AboutMelofi = React.lazy(() => import("../modals/aboutMelofi/AboutMelofi"));
@@ -35,14 +34,24 @@ const AuthModal = React.lazy(() => import("../modals/auth/authModal/AuthModal"))
 
 // Import widgets
 import StickyNoteWidget from "../widgets/stickyNoteWidget/StickyNoteWidget";
+import usePremiumStatus from "../../stripe/usePremiumStatus";
+import AnnouncementModal from "../modals/announcementModal/AnnouncementModal";
+import PremiumModal from "../modals/premiumModal/PremiumModal";
+import ModalOverlay from "../components/modalOverlay/ModalOverlay";
 const CalendarWidget = React.lazy(() => import("../widgets/calendarWidget/CalendarWidget"));
 const TimerWidget = React.lazy(() => import("../widgets/timerWidget/TimerWidget"));
 const ToDoListWidget = React.lazy(() => import("../widgets/toDoListWidget/ToDoListWidget"));
-const MobileView = React.lazy(() => import("./MobileView"));
+const TemplateWidget = React.lazy(() => import("../widgets/templateWidget/TemplateWidget"));
+
+// Constants
+const MOBILE_SCREEN_WIDTH = 750;
 
 function AppHome() {
-  const { allStickyNotes, usingSpotify, newAchievements } = useAppContext();
+  const { allStickyNotes, usingSpotify, newAchievements, setShowAnnouncementModal } =
+    useAppContext();
   const { user } = useAuthContext();
+
+  const userIsPremium = usePremiumStatus(user);
 
   const notificationSoundRef = useRef(null);
 
@@ -85,12 +94,12 @@ function AppHome() {
     };
   }, []);
 
-  // Determines when show 'Melofi is not availble on Mobile'
+  // Determines when show 'Melofi is not available on Mobile'
   useEffect(() => {
     const updateDimension = () => {
-      if (window.innerWidth < 750) {
+      if (window.innerWidth < MOBILE_SCREEN_WIDTH) {
         setOnMobileDevice(true);
-      } else if (window.innerWidth > 750) {
+      } else if (window.innerWidth > MOBILE_SCREEN_WIDTH) {
         setOnMobileDevice(false);
       }
     };
@@ -101,9 +110,11 @@ function AppHome() {
     };
   }, []);
 
+  // Check to see if popups or announcement modal needs to be shown
   useEffect(() => {
     let new_tool_popup_status = localStorage.getItem("new_tool_popup_status");
     let new_menu_popup_status = localStorage.getItem("new_menu_popup_status");
+    let premium_membership_announcement = localStorage.getItem("premium_membership_announcement");
     if (!new_tool_popup_status) {
       setNewToolPopupVisible(true);
       localStorage.setItem("new_tool_popup_status", true);
@@ -111,6 +122,10 @@ function AppHome() {
     if (!new_menu_popup_status && !user) {
       setNewMenuPopupVisible(true);
       localStorage.setItem("new_menu_popup_status", true);
+    }
+    if (!premium_membership_announcement) {
+      setShowAnnouncementModal(true);
+      localStorage.setItem("premium_membership_announcement", true);
     }
   }, []);
 
@@ -120,10 +135,14 @@ function AppHome() {
     }
   }, [newAchievements]);
 
+  const appStyle = {
+    cursor: isSleep && "none",
+  };
+
   return (
     <FullScreen handle={handle}>
       {!onMobileDevice ? (
-        <div className="App" id="app" style={isSleep ? { cursor: "none" } : {}}>
+        <div className="App" id="app" style={appStyle}>
           <SceneBg />
           <audio
             ref={notificationSoundRef}
@@ -147,12 +166,11 @@ function AppHome() {
               </div>
 
               <div className="melofi__rightSide">
-                {/* GenreDropdown will be a future feature */}
-                {/* <GenreDropdown /> */}
                 <MixerButton />
                 {!usingSpotify && <MusicControls />}
                 <SceneButton />
                 <div style={{ position: "relative" }}>
+                  {/* If true show new tool indicator on tool menu button */}
                   {newToolPopupVisible && <NewFeature />}
                   <ToolsMenu
                     isSleep={isSleep}
@@ -177,6 +195,7 @@ function AppHome() {
                 </Tooltip>
                 <Clock />
                 <div style={{ position: "relative" }}>
+                  {/* If true show new menu option indicator on menu button */}
                   {newMenuPopupVisible && <NewFeature />}
                   <Menu
                     isSleep={isSleep}
@@ -196,11 +215,15 @@ function AppHome() {
           ))}
           <CalendarWidget />
           <TimerWidget />
+          <TemplateWidget />
           <AuthModal />
           <Account />
           <Settings />
           <AboutMelofi />
           <Toaster />
+          <AnnouncementModal />
+          <PremiumModal />
+          <ModalOverlay />
 
           {/* Footer */}
           <div
@@ -212,14 +235,16 @@ function AppHome() {
             }
           >
             {!usingSpotify && <NowPlaying />}
-            <div className="melofi__buyMeATacoLink">
-              <div>
-                <GiTacos size={30} color="var(--color-secondary-white)" />
-                <a href="https://bmc.link/normancade" target="_blank">
-                  Support the creator
-                </a>
+            {!userIsPremium && (
+              <div className="melofi__buyMeATacoLink">
+                <div>
+                  <GiTacos size={30} color="var(--color-secondary-white)" />
+                  <a href="https://bmc.link/normancade" target="_blank">
+                    Support the creator
+                  </a>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       ) : (

@@ -4,6 +4,9 @@ import { styled } from "@mui/material/styles";
 import "./mixerSlider.css";
 import { getIcon } from "../../helpers/icons";
 import { useAppContext } from "../../context/AppContext";
+import { SOUNDS } from "../../data/sounds";
+import { FaLock } from "../../imports/icons";
+import Tooltip from "../tooltip/Tooltip";
 
 const StyledSlider = styled(Slider)({
   color: "var(--color-effect)",
@@ -29,15 +32,39 @@ const StyledSlider = styled(Slider)({
   },
 });
 
-const mixerSliderIconProps = {
-  size: 20,
-  color: "#232323",
-};
-
-const MixerSlider = ({ sound, soundpath, reset, setReset }) => {
-  const { currentSceneIndex } = useAppContext();
+const MixerSlider = ({ sound, soundPath, reset, setReset, premium }) => {
+  const { selectedTemplate, setSelectedTemplate, currentSceneIndex } = useAppContext();
   const audioRef = useRef(null);
   const [volume, setVolume] = useState(0);
+  useEffect(() => {
+    if (selectedTemplate) {
+      let found = null;
+      for (let i = 0; i < selectedTemplate.sounds.length; i++) {
+        if (selectedTemplate.sounds[i].sound === sound) {
+          found = selectedTemplate.sounds[i];
+          break;
+        }
+      }
+
+      if (found) {
+        setVolume(found.volume);
+        audioRef.current.play();
+        audioRef.current.volume = found.volume / 100;
+        SOUNDS[sound].soundVolume = found.volume;
+      } else {
+        setVolume(0);
+        audioRef.current.pause();
+        audioRef.current.volume = 0;
+        SOUNDS[sound].soundVolume = 0;
+      }
+    }
+  }, [selectedTemplate]);
+
+  useEffect(() => {
+    if (!selectedTemplate) {
+      resetSlider();
+    }
+  }, [currentSceneIndex]);
 
   useEffect(() => {
     if (reset) {
@@ -45,16 +72,16 @@ const MixerSlider = ({ sound, soundpath, reset, setReset }) => {
     }
   }, [reset]);
 
-  useEffect(() => {
-    resetSlider();
-  }, [currentSceneIndex]);
-
   function IconThumb(iconThumbProps) {
     const { children, ...other } = iconThumbProps;
+    const mixerSliderIconProps = {
+      size: 20,
+      color: "#232323",
+    };
     return (
       <SliderThumb {...other}>
         {children}
-        {getIcon(sound, mixerSliderIconProps)}
+        {premium ? <FaLock {...mixerSliderIconProps} /> : getIcon(sound, mixerSliderIconProps)}
       </SliderThumb>
     );
   }
@@ -63,7 +90,9 @@ const MixerSlider = ({ sound, soundpath, reset, setReset }) => {
     setVolume(0);
     audioRef.current.pause();
     audioRef.current.currentTime = 0;
+    SOUNDS[sound].soundVolume = 0;
     setReset(false);
+    setSelectedTemplate(null);
   }
 
   const handleLevelChange = (e) => {
@@ -73,18 +102,27 @@ const MixerSlider = ({ sound, soundpath, reset, setReset }) => {
       audioRef.current.pause();
     }
     audioRef.current.volume = e.target.value / 100;
+    SOUNDS[sound].soundVolume = e.target.value;
+
     setVolume(e.target.value);
+    setSelectedTemplate(null);
   };
 
   return (
     <div className="melofi__mixerSlider-container">
-      <audio ref={audioRef} src={soundpath} typeof="audio/mpeg" loop />
+      <audio ref={audioRef} src={soundPath} typeof="audio/mpeg" loop />
 
       <div className="melofi__mixerSlider-container-label ">
         <p>{sound}</p>
       </div>
       <div className="melofi__mixerSlider_slider-container">
         <StyledSlider
+          disabled={premium}
+          sx={{
+            "& .MuiSlider-thumb": {
+              backgroundColor: "var(--color-secondary)",
+            },
+          }}
           slots={{
             thumb: IconThumb,
           }}

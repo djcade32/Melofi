@@ -1,4 +1,13 @@
-import { FaPlay, FaPause, FaStickyNote, FaUserAlt } from "react-icons/fa";
+import {
+  FaPlay,
+  FaPause,
+  FaStickyNote,
+  FaUserAlt,
+  FaMedal,
+  FaHeadphones,
+  FaCrown,
+  FaLock,
+} from "react-icons/fa";
 import {
   BsFillSkipBackwardFill,
   BsSkipForwardFill,
@@ -11,6 +20,13 @@ import {
   BsCaretDownFill,
   BsFillInfoCircleFill,
   BsSpotify,
+  BsSoundwave,
+  BsLightningCharge,
+  BsArrowRepeat,
+  BsCheck2,
+  BsKeyboard,
+  BsAirplane,
+  BsTrainFront,
 } from "react-icons/bs";
 import {
   IoVolumeMedium,
@@ -18,13 +34,21 @@ import {
   IoVolumeOff,
   IoCloseOutline,
   IoThunderstormOutline,
+  IoBookSharp,
+  IoCloudyNightOutline,
 } from "react-icons/io5";
-import { RiSoundModuleFill, RiFullscreenFill, RiFullscreenExitLine } from "react-icons/ri";
+import {
+  RiSoundModuleFill,
+  RiFullscreenFill,
+  RiFullscreenExitLine,
+  RiPlayListFill,
+} from "react-icons/ri";
 import {
   HiOutlineChatBubbleLeftRight,
   HiOutlineBuildingOffice2,
   HiClipboardDocumentList,
 } from "react-icons/hi2";
+import { HiTemplate } from "react-icons/hi";
 import { SlSocialTwitter } from "react-icons/sl";
 import { WiNightAltStormShowers } from "react-icons/wi";
 import { LuFan, LuWaves } from "react-icons/lu";
@@ -40,11 +64,21 @@ import {
   MdTimer,
   MdEmail,
   MdOutlineWaterDrop,
+  MdLibraryMusic,
 } from "react-icons/md";
-import { AiFillTool, AiOutlineGoogle, AiFillInstagram } from "react-icons/ai";
+import {
+  AiFillTool,
+  AiOutlineGoogle,
+  AiFillInstagram,
+  AiOutlineClockCircle,
+  AiOutlineFire,
+} from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
 import { FaCommentDots, FaHandsHelping } from "react-icons/fa";
-import { RxCaretLeft, RxCaretRight, RxReset } from "react-icons/rx";
+import { RxCaretLeft, RxCaretRight, RxReset, RxTimer } from "react-icons/rx";
+import { PiMoonFill, PiSunHorizonLight, PiSnowflakeThin } from "react-icons/pi";
+import { VscDebugRestart } from "react-icons/vsc";
+import { TbSubmarine } from "react-icons/tb";
 
 export {
   FaPause,
@@ -95,7 +129,31 @@ export {
   FaHandsHelping,
   BsSpotify,
   FaUserAlt,
+  FaMedal,
   AiFillInstagram,
   MdEmail,
   MdOutlineWaterDrop,
+  PiMoonFill,
+  FaHeadphones,
+  FaCrown,
+  IoBookSharp,
+  MdLibraryMusic,
+  RiPlayListFill,
+  BsSoundwave,
+  HiTemplate,
+  VscDebugRestart,
+  RxTimer,
+  BsLightningCharge,
+  BsArrowRepeat,
+  BsCheck2,
+  BsKeyboard,
+  BsAirplane,
+  AiOutlineClockCircle,
+  AiOutlineFire,
+  PiSunHorizonLight,
+  PiSnowflakeThin,
+  IoCloudyNightOutline,
+  BsTrainFront,
+  TbSubmarine,
+  FaLock,
 };

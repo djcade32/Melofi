@@ -12,6 +12,18 @@ import {
   LuWaves,
   GiBigWave,
   MdOutlineWaterDrop,
+  IoBookSharp,
+  PiMoonFill,
+  FaHeadphones,
+  BsKeyboard,
+  AiOutlineClockCircle,
+  BsAirplane,
+  AiOutlineFire,
+  PiSunHorizonLight,
+  PiSnowflakeThin,
+  IoCloudyNightOutline,
+  BsTrainFront,
+  TbSubmarine,
 } from "../imports/icons";
 
 const getIcon = (iconName, props) => {
@@ -25,7 +37,7 @@ const getIcon = (iconName, props) => {
     case effects.nature:
       return <BsTree key={iconName} {...props} />;
 
-    case effects.birdsChirpping:
+    case effects.birdsChirping:
       return <SlSocialTwitter key={iconName} {...props} />;
 
     case effects.cityTraffic:
@@ -51,6 +63,42 @@ const getIcon = (iconName, props) => {
 
     case effects.water:
       return <MdOutlineWaterDrop key={iconName} {...props} />;
+
+    case effects.airplane:
+      return <BsAirplane key={iconName} {...props} />;
+
+    case effects.clock:
+      return <AiOutlineClockCircle key={iconName} {...props} />;
+
+    case effects.fireplace:
+      return <AiOutlineFire key={iconName} {...props} />;
+
+    case effects.keyboard:
+      return <BsKeyboard key={iconName} {...props} />;
+
+    case effects.morning:
+      return <PiSunHorizonLight key={iconName} {...props} />;
+
+    case effects.snow:
+      return <PiSnowflakeThin key={iconName} {...props} />;
+
+    case effects.summerNight:
+      return <IoCloudyNightOutline key={iconName} {...props} />;
+
+    case effects.train:
+      return <BsTrainFront key={iconName} {...props} />;
+
+    case effects.underwater:
+      return <TbSubmarine key={iconName} {...props} />;
+
+    case "Study":
+      return <IoBookSharp key={iconName} {...props} />;
+
+    case "Relax":
+      return <FaHeadphones key={iconName} {...props} />;
+
+    case "Sleepy":
+      return <PiMoonFill key={iconName} {...props} />;
 
     default:
       break;

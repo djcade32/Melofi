@@ -1,10 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./mixerModal.css";
 import Draggable from "react-draggable";
 import { useAppContext } from "../../context/AppContext";
 import VolumeSlider from "../../components/volumeSlider/VolumeSlider";
 import MixerSlider from "../../components/mixerSlider/MixerSlider";
-import { sounds } from "../../data/sounds";
+import { SOUNDS } from "../../data/sounds";
 
 import {
   IoVolumeOff,
@@ -16,9 +16,17 @@ import {
 import { isSafariBrowser } from "../../helpers/browser";
 import melofiLogo from "../../assets/logo-white.png";
 import Tooltip from "../../components/tooltip/Tooltip";
+import usePremiumStatus from "../../../stripe/usePremiumStatus";
+import { useAuthContext } from "../../context/AuthContext";
+import MixerPlaylistButton from "../../components/mixerPlaylistButton/MixerPlaylistButton";
+import playlist from "../../data/playlist";
+import { getWidgetDisplayPosition } from "../../helpers/common";
+import { lazyLoadContent } from "../../helpers/lazyLoad";
 
 const MixerModal = () => {
   const nodeRef = useRef(null);
+  const goRef = useRef(null);
+  const { user } = useAuthContext();
   const {
     musicVolume,
     setMusicVolume,
@@ -27,9 +35,49 @@ const MixerModal = () => {
     showMixerModal,
     setUsingSpotify,
     usingSpotify,
+    setSelectedPlaylist,
+    selectedPlaylist,
+    currentSceneIndex,
+    setShowAuthModal,
+    openWidgets,
+    setShowPremiumModal,
   } = useAppContext();
+  const userIsPremium = usePremiumStatus(user);
 
   const [resetVolume, setResetVolume] = useState(false);
+  const [spotifyPlaylistInput, setSpotifyPlaylistInput] = useState("");
+  const [melofiPlaylist, setMelofiPlaylist] = useState(playlist[0]);
+  const [mixerSounds, setMixerSounds] = useState(null);
+  const [spotifyPlaylistId, setSpotifyPlaylistId] = useState("");
+
+  useEffect(() => {
+    // Attach the lazyLoadContent function to the scroll event
+    window.addEventListener("scroll", lazyLoadContent);
+    // Call the function initially to load the visible content on page load
+    lazyLoadContent();
+  }, []);
+
+  useEffect(() => {
+    setMixerSounds({ sceneSounds: getCurrentScene().sounds, otherSounds: getOtherSounds() });
+  }, [currentSceneIndex]);
+
+  useEffect(() => {
+    if (usingSpotify && userIsPremium) {
+      const handleEnter = (event) => {
+        if (event.key === "Enter") {
+          goRef.current.click();
+        }
+      };
+      document
+        .getElementById("spotifyPlaylistInput")
+        .addEventListener("keydown", handleEnter, true);
+    }
+  }, [usingSpotify]);
+
+  useEffect(() => {
+    setMelofiPlaylist(selectedPlaylist);
+    setSpotifyPlaylistId(selectedPlaylist.spotifyPlaylistId);
+  }, [selectedPlaylist]);
 
   const handleVolumeChange = (e) => {
     setMusicVolume(e.target.value);
@@ -41,11 +89,11 @@ const MixerModal = () => {
 
   const getOtherSounds = () => {
     const currSceneSounds = getCurrentScene().sounds;
-    const allSounds = sounds;
-    let allSoundsList = [];
+    const allSoundsDict = Object.values(SOUNDS);
+    const allSoundsList = [];
 
-    for (let i = 0; i < allSounds.length; i++) {
-      const currAllSounds = allSounds[i];
+    for (let i = 0; i < allSoundsDict.length; i++) {
+      const currAllSounds = allSoundsDict[i];
       let found = false;
       let j = 0;
       while (j < currSceneSounds.length) {
@@ -61,8 +109,45 @@ const MixerModal = () => {
         allSoundsList.push(currAllSounds);
       }
     }
-
     return allSoundsList;
+  };
+
+  const handleSpotifyPlaylistChange = () => {
+    if (spotifyPlaylistInput === "") {
+      return;
+    }
+    const id = extractSpotifyPlaylistId(spotifyPlaylistInput);
+    if (id && id !== "") {
+      setSpotifyPlaylistId(id);
+      setSpotifyPlaylistInput("");
+    }
+  };
+
+  const extractSpotifyPlaylistId = (spotifyPlaylistLink) => {
+    const url = spotifyPlaylistLink;
+    const regex = /(?:playlist\/)?([^/?]+)(?:\?.*)?$/;
+    const result = regex.exec(url);
+
+    if (result && result.length > 1 && result[0].includes("playlist")) {
+      const extractedValue = result[1];
+      return extractedValue;
+    } else {
+      return "";
+    }
+  };
+
+  const handlePlaylistChange = (label) => {
+    const foundPlaylist = playlist.find((list) => list.label === label);
+    setSelectedPlaylist(foundPlaylist);
+  };
+
+  const handleGoPremiumClick = () => {
+    if (!user) {
+      setShowAuthModal(true);
+    } else {
+      setShowPremiumModal(true);
+    }
+    setShowMixerModal(false);
   };
 
   return (
@@ -72,6 +157,7 @@ const MixerModal = () => {
         className="--widget-container melofi__mixerModal"
         style={{
           display: showMixerModal ? "block" : "none",
+          zIndex: 10 + getWidgetDisplayPosition(openWidgets, "MixerModal"),
         }}
       >
         <div id="handle" className="melofi__mixer-modal-handle" />
@@ -87,6 +173,31 @@ const MixerModal = () => {
         </div>
 
         <div className="melofi__mixer_content">
+          <div style={{ position: "relative" }}>
+            {!userIsPremium && (
+              <div className="melofi__mixer_premium_banner">
+                <div className="melofi__premium_button" onClick={handleGoPremiumClick}>
+                  <p>Go Premium</p>
+                </div>
+                <p style={{ width: "65%", textAlign: "center", fontSize: 14, lineHeight: 1.75 }}>
+                  to change playlist based on your mood.
+                </p>
+              </div>
+            )}
+            <div className="melofi__mixer_playlist_container">
+              <div className="melofi__mixer_playlist_options_container">
+                {playlist.map((list, index) => (
+                  <MixerPlaylistButton
+                    key={list.label + index}
+                    icon={list.icon}
+                    label={list.label}
+                    isSelected={list.label === melofiPlaylist.label}
+                    onSelect={handlePlaylistChange}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
           <div className="melofi__mixer_source_container">
             <div
               className="melofi__mixer_source"
@@ -110,15 +221,35 @@ const MixerModal = () => {
               <p className="melofi__mixer_source_text">Spotify</p>
               <div className="melofi__mixer_source_spotify_info">
                 <Tooltip text="Log into Spotify from your browser to listen without limits">
-                  <BsInfoCircle size={10} color="white" />
+                  <BsInfoCircle size={15} color="white" />
                 </Tooltip>
               </div>
             </div>
           </div>
           {usingSpotify ? (
-            <div>
+            <div style={{ display: "flex", flexDirection: "column", marginTop: 15 }}>
+              {userIsPremium && (
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <input
+                    id="spotifyPlaylistInput"
+                    className="melofi__mixer_source_spotify_playlist_input"
+                    type="text"
+                    placeholder=" Enter Spotify playlist link"
+                    value={spotifyPlaylistInput}
+                    onChange={(e) => setSpotifyPlaylistInput(e.target.value)}
+                  />
+                  <p
+                    ref={goRef}
+                    className="melofi__mixer_source_spotify_playlist_input_button"
+                    onClick={handleSpotifyPlaylistChange}
+                  >
+                    Go
+                  </p>
+                </div>
+              )}
+
               <iframe
-                src="https://open.spotify.com/embed/playlist/6JMt2yxWecgTXAzkDW0TrZ?utm_source=generator"
+                src={`https://open.spotify.com/embed/playlist/${spotifyPlaylistId}?utm_source=generator`}
                 allowFullScreen=""
                 allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture;"
                 className="melofi__mixer_source_spotify_widget"
@@ -127,7 +258,9 @@ const MixerModal = () => {
             </div>
           ) : (
             <div>
-              <p className="melofi__mixer_volume-title">MUSIC VOLUME</p>
+              <p className="melofi__mixer_section_title" style={{ marginTop: 15 }}>
+                MUSIC VOLUME
+              </p>
               <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
                 <IoVolumeOff size={33} color="var(--color-secondary)" />
                 <div style={{ width: "75%" }}>
@@ -141,37 +274,40 @@ const MixerModal = () => {
               </div>
             </div>
           )}
-          <p className="melofi__mixer_volume-title" style={{ marginTop: 20 }}>
+          <p className="melofi__mixer_section_title " style={{ marginTop: 20 }}>
             SCENE SOUNDS
           </p>
           <div>
-            {getCurrentScene().sounds.map(({ sound, soundPath }) => {
+            {mixerSounds?.sceneSounds?.map(({ sound, soundPath, soundVolume }) => {
               return (
                 <MixerSlider
                   key={sound}
                   style={{ cursor: "pointer" }}
-                  soundpath={soundPath}
+                  soundPath={soundPath}
                   sound={sound}
                   reset={resetVolume}
                   setReset={setResetVolume}
+                  soundVolume={soundVolume}
                 />
               );
             })}
           </div>
-          <p className="melofi__mixer_volume-title" style={{ marginTop: 20 }}>
+          <p className="melofi__mixer_section_title " style={{ marginTop: 20 }}>
             ALL SOUNDS
           </p>
-          <div>
-            {getOtherSounds().map(({ sound, soundPath }) => {
+          <div className="lazy-content">
+            {mixerSounds?.otherSounds?.map(({ sound, soundPath, premium }) => {
               return (
-                <MixerSlider
-                  key={sound}
-                  style={{ cursor: "pointer" }}
-                  soundpath={soundPath}
-                  sound={sound}
-                  reset={resetVolume}
-                  setReset={setResetVolume}
-                />
+                <Tooltip text={premium && "Upgrade to use all sounds"} noFlex key={sound}>
+                  <MixerSlider
+                    style={{ cursor: "pointer" }}
+                    soundPath={soundPath}
+                    sound={sound}
+                    reset={resetVolume}
+                    setReset={setResetVolume}
+                    premium={premium}
+                  />
+                </Tooltip>
               );
             })}
           </div>

@@ -3,7 +3,7 @@ import {
   rainEffect,
   chatterEffect,
   natureEffect,
-  birdsChirppingEffect,
+  birdsChirpingEffect,
   cityTrafficEffect,
   stormyNightEffect,
   fanEffect,
@@ -12,55 +12,142 @@ import {
   ambienceEffect,
   oceanEffect,
   waterEffect,
+  airplaneEffect,
+  clockEffect,
+  fireplaceEffect,
+  keyboardEffect,
+  morningEffect,
+  snowEffect,
+  summerNightEffect,
+  trainEffect,
+  underwaterEffect,
 } from "../imports/effects";
 
-export const sounds = [
-  {
+export const SOUNDS = {
+  [effects.rain]: {
     sound: effects.rain,
     soundPath: rainEffect,
+    soundVolume: 0,
+    premium: false,
   },
-  {
+  [effects.chatter]: {
     sound: effects.chatter,
     soundPath: chatterEffect,
+    soundVolume: 0,
+    premium: false,
   },
-  {
+  [effects.nature]: {
     sound: effects.nature,
     soundPath: natureEffect,
+    soundVolume: 0,
+    premium: false,
   },
-  {
-    sound: effects.birdsChirpping,
-    soundPath: birdsChirppingEffect,
+  [effects.birdsChirping]: {
+    sound: effects.birdsChirping,
+    soundPath: birdsChirpingEffect,
+    soundVolume: 0,
+    premium: false,
   },
-  {
+  [effects.stormyNight]: {
     sound: effects.stormyNight,
     soundPath: stormyNightEffect,
+    soundVolume: 0,
+    premium: false,
   },
-  {
+  [effects.cityTraffic]: {
     sound: effects.cityTraffic,
     soundPath: cityTrafficEffect,
+    soundVolume: 0,
+    premium: false,
   },
-  {
+  [effects.fan]: {
     sound: effects.fan,
     soundPath: fanEffect,
+    soundVolume: 0,
+    premium: false,
   },
-  {
-    sound: effects.whiteNoise,
-    soundPath: whiteNoiseEffect,
-  },
-  {
+  [effects.thunder]: {
     sound: effects.thunder,
     soundPath: thunderEffect,
+    soundVolume: 0,
+    premium: false,
   },
-  {
+  [effects.ambience]: {
     sound: effects.ambience,
     soundPath: ambienceEffect,
+    soundVolume: 0,
+    premium: false,
   },
-  {
+  [effects.ocean]: {
     sound: effects.ocean,
     soundPath: oceanEffect,
+    soundVolume: 0,
+    premium: false,
   },
-  {
+  [effects.water]: {
     sound: effects.water,
     soundPath: waterEffect,
+    soundVolume: 0,
+    premium: false,
   },
-];
+  [effects.whiteNoise]: {
+    sound: effects.whiteNoise,
+    soundPath: whiteNoiseEffect,
+    soundVolume: 0,
+    premium: true,
+  },
+  [effects.airplane]: {
+    sound: effects.airplane,
+    soundPath: airplaneEffect,
+    soundVolume: 0,
+    premium: true,
+  },
+  [effects.clock]: {
+    sound: effects.clock,
+    soundPath: clockEffect,
+    soundVolume: 0,
+    premium: true,
+  },
+  [effects.fireplace]: {
+    sound: effects.fireplace,
+    soundPath: fireplaceEffect,
+    soundVolume: 0,
+    premium: true,
+  },
+  [effects.keyboard]: {
+    sound: effects.keyboard,
+    soundPath: keyboardEffect,
+    soundVolume: 0,
+    premium: true,
+  },
+  [effects.morning]: {
+    sound: effects.morning,
+    soundPath: morningEffect,
+    soundVolume: 0,
+    premium: true,
+  },
+  [effects.snow]: {
+    sound: effects.snow,
+    soundPath: snowEffect,
+    soundVolume: 0,
+    premium: true,
+  },
+  [effects.summerNight]: {
+    sound: effects.summerNight,
+    soundPath: summerNightEffect,
+    soundVolume: 0,
+    premium: true,
+  },
+  [effects.train]: {
+    sound: effects.train,
+    soundPath: trainEffect,
+    soundVolume: 0,
+    premium: true,
+  },
+  [effects.underwater]: {
+    sound: effects.underwater,
+    soundPath: underwaterEffect,
+    soundVolume: 0,
+    premium: true,
+  },
+};

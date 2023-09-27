@@ -3,11 +3,16 @@
     background-color: var(--color-primary);
     top: 45px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    width: 190px;
+    height: 40px;
     border-radius: 10px;
     overflow: hidden;
     backdrop-filter: blur(10px);
-
+    display: flex;
+    column-gap: 10px;
+    padding: 0px 10px;
+    animation: scale-up 0.2s;
+    animation: expandToolbar 0.2s;
+    justify-content: space-around;
 }
 
 .melofi__toolsMenu-container-items{
@@ -15,27 +20,24 @@
     column-gap: 10px;
     padding: 5px 10px;
     align-items: center;
+    border-radius: 10px;
+
 }
 
 .melofi__toolsMenu-container-items:hover{
-    background-color: var(--color-effect-opacity);
-
+    background-color: var(--color-secondary-opacity);
+    animation: scale-up-tool-menu-items 0.2s forwards;
 }
 
  .melofi__toolsMenu_new {
-    text-align: center;
-    align-self: center;
+    position: absolute;
+    top: 2px;
+    right: 2px;
     background-color: var(--color-effect-opacity);
-    flex: 0.75;
-    padding: 0 5px;
-    border-radius: 10px;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
   }
-
-.melofi__toolsMenu-container-items:hover .melofi__toolsMenu_new {
-    background-color: white;
-    color: var(--color-primary);
-
-}
 
 .melofi__toolsMenu-container-items p{
     font-family: var(--font-primary);
@@ -44,4 +46,35 @@
     font-weight: 300;
     width: 100%;
 
+}
+
+@keyframes scale-up {
+    0% {
+      -webkit-transform: scale(0.5);
+              transform: scale(0.5);
+    }
+    100% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+}
+
+@keyframes scale-up-tool-menu-items {
+    0% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+    100% {
+      -webkit-transform: scale(1.15);
+              transform: scale(1.15);
+    }
+}
+
+@keyframes expandToolbar {
+    0% {
+        width: 0px;
+    }
+    100% {
+        width: 200px;
+    }
 }

@@ -6,12 +6,13 @@ import Draggable from "react-draggable";
 import ToDoListItem from "./ToDoListItem";
 import { isSafariBrowser } from "../../helpers/browser";
 import { useAuthContext } from "../../context/AuthContext";
+import { getWidgetDisplayPosition } from "../../helpers/common";
 
 const ToDoListWidget = () => {
   const nodeRef = useRef(null);
   const plusRef = useRef(null);
   const { user } = useAuthContext();
-  const { setShowToDoList, showToDoList, settingsConfig, updateTaskNinjaAchievement } =
+  const { setShowToDoList, showToDoList, settingsConfig, updateTaskNinjaAchievement, openWidgets } =
     useAppContext();
   const [list, setList] = useState(JSON.parse(localStorage.getItem("toDoList")) || []);
   const [input, setInput] = useState("");
@@ -68,7 +69,11 @@ const ToDoListWidget = () => {
 
   const getFadeStyle = () => {
     return settingsConfig.fadeAway.todoList
-      ? { display: showToDoList ? "flex" : "none", height: determineHeight(list) }
+      ? {
+          display: showToDoList ? "flex" : "none",
+          height: determineHeight(list),
+          zIndex: 10 + getWidgetDisplayPosition(openWidgets, "ToDoListWidget"),
+        }
       : noFadeStyle;
   };
 
@@ -78,6 +83,7 @@ const ToDoListWidget = () => {
     backdropFilter: "blur(10px)",
     display: showToDoList ? "flex" : "none",
     height: determineHeight(list),
+    zIndex: 10 + getWidgetDisplayPosition(openWidgets, "ToDoListWidget"),
   };
 
   return (

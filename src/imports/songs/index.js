@@ -29,6 +29,29 @@ import lunarSight_ticofaces_loafyBuilding from "../../assets/songs/lunarSight_ti
 import goldenClouds_rudyRaw_mello from "../../assets/songs/goldenClouds_rudyRaw_mello.mp3";
 import moonBeams_lofty_jaackson_whilst from "../../assets/songs/moonBeams_lofty_jaackson_whilst.mp3";
 import aLittleHelp_hmSurf from "../../assets/songs/aLittleHelp_hmSurf.mp3";
+import firstSteps_phlocalyst_myrad_hilaria from "../../assets/songs/first-steps_phlocalyst_x_myrad_x_hilaria.mp3";
+import gentleRain_softy_comodo_otisUbaka from "../../assets/songs/gentle-rain_softy_x_comodo_x_otisUbaka.mp3";
+import gamble_worldtraveller_maxMerseny_viktorMinsky from "../../assets/songs/gamble_worldtraveller_x_maxMerseny_x_viktorMinsky.mp3";
+import sentimentalMood_worldtraveller_maxMerseny from "../../assets/songs/sentimental-mood_worldtraveller_x_maxMerseny.mp3";
+import oldFriends_twoScents from "../../assets/songs/old-friends_twoScents.mp3";
+import shadesOfMySoul_phlocalyst_myriad_hilaria from "../../assets/songs/shades-of-my-soul_phlocalyst_x_myriad_x_hilaria.mp3";
+import ippo_hoko_damien_fleau from "../../assets/songs/ippo_hoko_x_damienFleau.mp3";
+import snoozeButton_purrpleCat from "../../assets/songs/snoozeButton_purrpleCat.mp3";
+import snowman_wys from "../../assets/songs/snowman_wys.mp3";
+import aloneTime_fleece_sogni_guleum from "../../assets/songs/aloneTime_fleece_x_sogni_x_guleum.mp3";
+import beforeYouGo_jhove from "../../assets/songs/beforeYouGo_jhove.mp3";
+import abandoned_dlj from "../../assets/songs/abandoned_dlj.mp3";
+import mrCatchy_sebastianKamae_Aylior from "../../assets/songs/mrCatchy_sebastianKamae_x_Aylior.mp3";
+import you_cocabona from "../../assets/songs/you_cocabona.mp3";
+import gatesOfHeaven_bluntOne from "../../assets/songs/gatesOfHeaven_bluntOne.mp3";
+import weightless_slingDilly_sleepermane from "../../assets/songs/weightless_slingDilly_sleepermane.mp3";
+import diascia_casiio from "../../assets/songs/diascia_casiio.mp3";
+import newPaths_ayzic_lennyLoops from "../../assets/songs/newPaths_ayzic_lennyLoops.mp3";
+import flyingDoodles_chauSara from "../../assets/songs/flyingDoodles_chauSara.mp3";
+import sleepermane_raindance from "../../assets/songs/sleepermane_raindance.mp3";
+import lilac_gMills from "../../assets/songs/lilac_gMills.mp3";
+import peacefulSleep_noSpirit from "../../assets/songs/peacefulSleep_noSpirit.mp3";
+import shimmersOfADream_noSpirit_kainbeats from "../../assets/songs/shimmersOfADream_noSpirit_kainbeats.mp3";
 
 export {
   theRidge_allemIverson,
@@ -62,4 +85,27 @@ export {
   goldenClouds_rudyRaw_mello,
   moonBeams_lofty_jaackson_whilst,
   aLittleHelp_hmSurf,
+  firstSteps_phlocalyst_myrad_hilaria,
+  gentleRain_softy_comodo_otisUbaka,
+  gamble_worldtraveller_maxMerseny_viktorMinsky,
+  sentimentalMood_worldtraveller_maxMerseny,
+  oldFriends_twoScents,
+  shadesOfMySoul_phlocalyst_myriad_hilaria,
+  ippo_hoko_damien_fleau,
+  snoozeButton_purrpleCat,
+  snowman_wys,
+  aloneTime_fleece_sogni_guleum,
+  beforeYouGo_jhove,
+  abandoned_dlj,
+  mrCatchy_sebastianKamae_Aylior,
+  you_cocabona,
+  gatesOfHeaven_bluntOne,
+  weightless_slingDilly_sleepermane,
+  diascia_casiio,
+  newPaths_ayzic_lennyLoops,
+  flyingDoodles_chauSara,
+  sleepermane_raindance,
+  lilac_gMills,
+  peacefulSleep_noSpirit,
+  shimmersOfADream_noSpirit_kainbeats,
 };
