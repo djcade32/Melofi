@@ -40,7 +40,6 @@ const Menu = ({ isSleep, setNewMenuPopupVisible, newMenuPopupVisible }) => {
     setShowAuthModal,
     setShowAccount,
   } = useAppContext();
-  const userIsPremium = usePremiumStatus(user);
 
   useEffect(() => {
     const handleClickOutside = (event) => {

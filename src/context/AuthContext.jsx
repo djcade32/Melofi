@@ -21,6 +21,7 @@ const AuthContextProvider = (props) => {
   useEffect(() => {
     onAuthStateChanged(auth, () => {
       if (auth.currentUser) {
+        console.log("user: ", auth.currentUser);
         setUser(auth.currentUser);
         onSnapshot(doc(db, `users/${auth.currentUser.uid}`), (doc) => {
           const { lastLoginAt, focusedTime, numOfStickyNotes, consecutiveDays, achievements } =

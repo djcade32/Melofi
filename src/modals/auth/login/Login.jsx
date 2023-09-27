@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./login.css";
 import { useAppContext } from "../../../context/AppContext";
 import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { useAuthContext } from "../../../context/AuthContext";
 
 const Login = ({ setLoggingIn }) => {
+  const loginButton = useRef(null);
   const { auth, setUser } = useAuthContext();
   const { showAuthModal, setShowAuthModal, updateUserLastLoginAt } = useAppContext();
   const [formInputs, setFormInputs] = useState({
@@ -19,6 +20,15 @@ const Login = ({ setLoggingIn }) => {
   useEffect(() => {
     resetForm();
   }, [showAuthModal]);
+
+  useEffect(() => {
+    const handleEnter = (event) => {
+      if (event.key === "Enter") {
+        loginButton.current.click();
+      }
+    };
+    document.getElementById("passwordInput").addEventListener("keydown", handleEnter, true);
+  }, []);
 
   const loginWithEmailAndPassword = async () => {
     checkValidForm();
@@ -77,6 +87,7 @@ const Login = ({ setLoggingIn }) => {
           onChange={(e) => setFormInputs({ ...formInputs, email: e.target.value })}
         />
         <input
+          id="passwordInput"
           placeholder="Password"
           type="password"
           value={formInputs.password}
@@ -86,7 +97,7 @@ const Login = ({ setLoggingIn }) => {
       {formInputs.error !== "" && (
         <p style={{ fontSize: 14, color: "#EE4B2B	" }}>{formInputs.error}</p>
       )}
-      <p className="melofi__login_button" onClick={loginWithEmailAndPassword}>
+      <p ref={loginButton} className="melofi__login_button" onClick={loginWithEmailAndPassword}>
         Log In
       </p>
       <p className="melofi__login_link" onClick={() => setShowPasswordReset(true)}>

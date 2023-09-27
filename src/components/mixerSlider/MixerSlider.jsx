@@ -5,6 +5,8 @@ import "./mixerSlider.css";
 import { getIcon } from "../../helpers/icons";
 import { useAppContext } from "../../context/AppContext";
 import { SOUNDS } from "../../data/sounds";
+import { FaLock } from "../../imports/icons";
+import Tooltip from "../tooltip/Tooltip";
 
 const StyledSlider = styled(Slider)({
   color: "var(--color-effect)",
@@ -30,7 +32,7 @@ const StyledSlider = styled(Slider)({
   },
 });
 
-const MixerSlider = ({ sound, soundPath, reset, setReset, soundVolume }) => {
+const MixerSlider = ({ sound, soundPath, reset, setReset, premium }) => {
   const { selectedTemplate, setSelectedTemplate, currentSceneIndex } = useAppContext();
   const audioRef = useRef(null);
   const [volume, setVolume] = useState(0);
@@ -79,7 +81,7 @@ const MixerSlider = ({ sound, soundPath, reset, setReset, soundVolume }) => {
     return (
       <SliderThumb {...other}>
         {children}
-        {getIcon(sound, mixerSliderIconProps)}
+        {premium ? <FaLock {...mixerSliderIconProps} /> : getIcon(sound, mixerSliderIconProps)}
       </SliderThumb>
     );
   }
@@ -115,6 +117,7 @@ const MixerSlider = ({ sound, soundPath, reset, setReset, soundVolume }) => {
       </div>
       <div className="melofi__mixerSlider_slider-container">
         <StyledSlider
+          disabled={premium}
           sx={{
             "& .MuiSlider-thumb": {
               backgroundColor: "var(--color-secondary)",

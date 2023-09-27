@@ -22,13 +22,15 @@ const Tooltip = (props) => {
             fontWeight: 400,
             fontSize: 12,
             userSelect: "none",
-            textAlign: "center",
-            maxWidth: "25ch",
+            textAlign: props.textAlign ? props.textAlign : "center",
+            maxWidth: props.width ? props.width : "25ch",
           },
         },
       }}
     >
-      <div style={{ display: "flex", alignItems: "center" }}>{props.children}</div>
+      <div style={props.noFlex ? {} : { display: "flex", alignItems: "center" }}>
+        {props.children}
+      </div>
     </TooltipMui>
   );
 };
