@@ -18,10 +18,12 @@ function SceneModal() {
   const {
     setCurrentSceneIndex,
     showSceneModal,
+    setShowSceneModal,
     newScenes,
     setSelectedTemplate,
     selectedTemplate,
     setShowPremiumModal,
+    setShowAuthModal,
   } = useAppContext();
   const { user } = useAuthContext();
 
@@ -34,9 +36,18 @@ function SceneModal() {
     lazyLoadContent();
   }, []);
 
+  const handleGoPremiumClick = () => {
+    if (!user) {
+      setShowAuthModal(true);
+    } else {
+      setShowPremiumModal(true);
+    }
+    setShowSceneModal(false);
+  };
+
   const handleSceneChange = (scene, index) => {
     if (scene.premium && !userIsPremium) {
-      setShowPremiumModal(true);
+      handleGoPremiumClick();
       return;
     }
     setCurrentSceneIndex(index);
