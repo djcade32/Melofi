@@ -112,7 +112,7 @@ function CalendarWidget() {
   };
 
   return (
-    <Draggable nodeRef={nodeRef} bounds={".fullscreen"}>
+    <Draggable nodeRef={nodeRef}>
       <div
         className={`--widget-container melofi__calendar ${
           !settingsConfig.fadeAway.calendar && "melofi__calendar_noFadeAway"

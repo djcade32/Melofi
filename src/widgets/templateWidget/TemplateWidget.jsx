@@ -96,7 +96,7 @@ export default function TemplateWidget() {
   };
 
   return (
-    <Draggable nodeRef={nodeRef} bounds={isSafariBrowser() ? "" : ".fullscreen"} handle="#handle">
+    <Draggable nodeRef={nodeRef} handle="#handle">
       <div
         className="--widget-container melofi__template"
         ref={nodeRef}

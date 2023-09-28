@@ -134,7 +134,6 @@ const StickyNoteWidget = ({ note }) => {
   return (
     <Draggable
       nodeRef={nodeRef}
-      bounds={isSafariBrowser() ? "" : ".fullscreen"}
       disabled={editMode}
       defaultPosition={position}
       onStop={(e, data) => trackPos(data)}

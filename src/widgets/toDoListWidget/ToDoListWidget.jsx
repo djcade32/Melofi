@@ -89,7 +89,6 @@ const ToDoListWidget = () => {
   return (
     <Draggable
       nodeRef={nodeRef}
-      bounds={isSafariBrowser() ? "" : ".fullscreen"}
       handle="#handle"
       defaultPosition={position}
       onStop={(e, data) => trackPos(data)}
